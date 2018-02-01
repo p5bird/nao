@@ -40,6 +40,158 @@ class User extends BaseUser
     private $city;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $level;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $birthdate;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $job;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $facebook;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $pinterest;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $instagram;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $bio;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $avatar;
+
+    /**
+     * @return mixed
+     */
+    public function getBio()
+    {
+        return $this->bio;
+    }
+
+    /**
+     * @param mixed $bio
+     */
+    public function setBio($bio)
+    {
+        $this->bio = $bio;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * @param mixed $avatar
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBirthdate()
+    {
+        return $this->birthdate;
+    }
+
+    /**
+     * @param mixed $birthdate
+     */
+    public function setBirthdate($birthdate)
+    {
+        $this->birthdate = $birthdate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFacebook()
+    {
+        return $this->facebook;
+    }
+
+    /**
+     * @param mixed $facebook
+     */
+    public function setFacebook($facebook)
+    {
+        $this->facebook = $facebook;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getJob()
+    {
+        return $this->job;
+    }
+
+    /**
+     * @param mixed $job
+     */
+    public function setJob($job)
+    {
+        $this->job = $job;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInstagram()
+    {
+        return $this->instagram;
+    }
+
+    /**
+     * @param mixed $instagram
+     */
+    public function setInstagram($instagram)
+    {
+        $this->instagram = $instagram;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPinterest()
+    {
+        return $this->pinterest;
+    }
+
+    /**
+     * @param mixed $pinterest
+     */
+    public function setPinterest($pinterest)
+    {
+        $this->pinterest = $pinterest;
+    }
+
+    /**
      * @return mixed
      */
     public function getCity()
@@ -102,11 +254,6 @@ class User extends BaseUser
     {
         $this->level = $level;
     }
-
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $level;
 
     public function __construct()
     {
