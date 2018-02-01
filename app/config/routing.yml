@@ -4,3 +4,11 @@ app:
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+nao_home:
+    path: /
+    defaults: { _controller: AppBundle:App:index }
+
+nao_dashboard:
+    path: /dashboard
+    defaults: { _controller: UserBundle:User:dashboard }
