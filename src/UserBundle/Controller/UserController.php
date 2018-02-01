@@ -30,4 +30,16 @@ class UserController extends Controller {
 
         return $this->render('UserBundle:User:dashboard.html.twig');
     }
+
+    /**
+     * Admin
+     *
+     * @Route("/", name="nao_admin")
+     * @return Response
+     */
+    public function adminAction() {
+        $em = $this->getDoctrine()->getManager();
+
+        return $this->render('UserBundle:User:admin.html.twig');
+    }
 }

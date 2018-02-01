@@ -12,3 +12,7 @@ nao_home:
 nao_dashboard:
     path: /dashboard
     defaults: { _controller: UserBundle:User:dashboard }
+
+nao_admin:
+    path: /admin
+    defaults: { _controller: UserBundle:User:admin }
