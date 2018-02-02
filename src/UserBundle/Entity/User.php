@@ -10,6 +10,7 @@ namespace UserBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -25,59 +26,96 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", nullable=true)
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Le nom doit contenir au moins {{ limit }} lettres.",
+     *      maxMessage = "Le nom ne peut pas contenir plus de {{ limit }} lettres."
+     * )
      */
     private $name;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @var string
+     *
+     * @ORM\Column(name="firstname", type="string", nullable=true)
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Le prénom doit contenir au moins {{ limit }} lettres.",
+     *      maxMessage = "Le prénom ne peut pas contenir plus de {{ limit }} lettres."
+     * )
      */
     private $firstname;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @var string
+     *
+     * @ORM\Column(name="city", type="string", nullable=true)
      */
     private $city;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @var string
+     *
+     * @ORM\Column(name="level", type="string", nullable=true)
      */
     private $level;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @var \DateTime
+     *
+     * @ORM\Column(name="birthdate", type="datetime", nullable=true)
      */
     private $birthdate;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @var string
+     *
+     * @ORM\Column(name="job", type="string", nullable=true)
      */
     private $job;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @var string
+     *
+     * @ORM\Column(name="facebook", type="string", nullable=true)
      */
     private $facebook;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @var string
+     *
+     * @ORM\Column(name="pinterest", type="string", nullable=true)
      */
     private $pinterest;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @var string
+     *
+     * @ORM\Column(name="instagram", type="string", nullable=true)
      */
     private $instagram;
 
     /**
-     * @ORM\Column(type="string")
+     * @var string
+     *
+     * @ORM\Column(name="bio", type="string", nullable=true)
      */
     private $bio;
 
     /**
-     * @ORM\Column(type="string")
+     * @var string
+     *
+     * @ORM\Column(name="avatar", type="string", nullable=true)
      */
     private $avatar;
+
+
+    // GETTERS & SETTERS
 
     /**
      * @return mixed

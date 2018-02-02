@@ -16,10 +16,18 @@
     {% endblock %}
 </head>
 <body>
-<h1>Base application</h1>
 
-    {% block body %}
+    <div class="top-bar"></div>
 
-    {% endblock %}
+
+    <div class="col-md-2">
+        <div class="left-bar"></div>
+    </div>
+
+    <div class="col-md-10">
+        <h1>Base interface user</h1>
+        {% block body %}{% endblock %}
+    </div>
+
 </body>
 </html>

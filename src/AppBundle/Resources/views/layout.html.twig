@@ -1,19 +1,6 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}NAO{% endblock %}</title>
+{% extends 'base.html.twig' %}
 
-    {% block stylesheets %}
-        <!-- CSS -->
-    {% endblock %}
-</head>
-<body>
-
-    {% block body %}
-
-    {% endblock %}
-
-</body>
-</html>
+{% block body %}
+    <h1>Layout application</h1>
+    {% block fos_user_content %}{% endblock %}
+{% endblock %}

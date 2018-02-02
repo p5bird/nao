@@ -1,0 +1,13 @@
+.top-bar {
+    height: 50px;
+    background: dimgrey;
+}
+
+.left-bar {
+    width: 100%;
+    background: dimgrey;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+}

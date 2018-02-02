@@ -102,7 +102,7 @@ class EditProfileType extends AbstractType {
                 ],
                 'error_bubbling' => true
             ))
-            ->add('avatar', FileType::class, array(
+            ->add('avatar', TextType::class, array(
                 'label' => 'Avatar',
                 'attr' => [
                     'class' => 'form-control',
