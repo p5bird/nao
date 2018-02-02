@@ -108,9 +108,7 @@ class User extends BaseUser
     private $bio;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="avatar", type="string", nullable=true)
+     * @ORM\OneToOne(targetEntity="UserBundle\Entity\Avatar", mappedBy="user", cascade={"persist"})
      */
     private $avatar;
 
@@ -133,20 +131,14 @@ class User extends BaseUser
         $this->bio = $bio;
     }
 
-    /**
-     * @return mixed
-     */
+    public function setAvatar(Avatar $avatar = null)
+    {
+        $this->avatar = $avatar;
+    }
+
     public function getAvatar()
     {
         return $this->avatar;
-    }
-
-    /**
-     * @param mixed $avatar
-     */
-    public function setAvatar($avatar)
-    {
-        $this->avatar = $avatar;
     }
 
     /**

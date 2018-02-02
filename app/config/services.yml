@@ -36,3 +36,9 @@ services:
 
     app.form.edit:
         class: UserBundle\Form\EditProfileType
+
+    app.add_image_after_edit_success:
+            class: UserBundle\EventListener\AddImageAfterEditSuccess
+            autowire: true
+            tags:
+                - { name: kernel.event_subscriber }

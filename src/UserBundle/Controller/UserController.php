@@ -22,7 +22,7 @@ class UserController extends Controller {
     /**
      * Dashboard
      *
-     * @Route("/", name="nao_dashboard")
+     * @Route("/dashboard", name="nao_dashboard")
      * @return Response
      */
     public function dashboardAction() {
@@ -34,7 +34,7 @@ class UserController extends Controller {
     /**
      * Admin
      *
-     * @Route("/", name="nao_admin")
+     * @Route("/admin", name="nao_admin")
      * @return Response
      */
     public function adminAction() {
