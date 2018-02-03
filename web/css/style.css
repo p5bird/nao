@@ -15,3 +15,12 @@
 .user-avatar {
     max-width: 150px;
 }
+
+.edit-profile-avatar-input {
+    margin-bottom: 20px;
+}
+
+.edit-profile-submit-input {
+    margin-bottom: 20px;
+    float: right;
+}

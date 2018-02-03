@@ -5,5 +5,8 @@
 {% endblock %}
 
 {% block fos_user_content %}
-    {% include "@FOSUser/Profile/edit_content.html.twig" %}
+    <div class="col-md-6">
+        {% include "@FOSUser/Profile/edit_content.html.twig" %}
+    </div>
+    <div class="col-md-6"></div>
 {% endblock fos_user_content %}
