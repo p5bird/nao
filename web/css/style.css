@@ -7,9 +7,6 @@
     width: 100%;
     background: dimgrey;
     height: 100vh;
-    position: absolute;
-    left: 0;
-    top: 0;
 }
 
 .user-avatar {
@@ -23,4 +20,9 @@
 .edit-profile-submit-input {
     margin-bottom: 20px;
     float: right;
+}
+
+.no-padding {
+    padding: 0 !important;
+    margin: 0 !important;
 }

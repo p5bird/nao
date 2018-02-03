@@ -16,18 +16,20 @@
     {% endblock %}
 </head>
 <body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="top-bar"></div>
 
-    <div class="top-bar"></div>
 
+        <div class="col-md-2 no-padding">
+            <div class="left-bar"></div>
+        </div>
 
-    <div class="col-md-2">
-        <div class="left-bar"></div>
+        <div class="col-md-10 no-padding">
+            <h1>Base interface user</h1>
+            {% block body %}{% endblock %}
+        </div>
     </div>
-
-    <div class="col-md-10">
-        <h1>Base interface user</h1>
-        {% block body %}{% endblock %}
-    </div>
-
+</div>
 </body>
 </html>
