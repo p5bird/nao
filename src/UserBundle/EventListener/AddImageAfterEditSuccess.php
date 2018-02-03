@@ -13,10 +13,7 @@ use FOS\UserBundle\FOSUserEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use UserBundle\Entity\User;
 use UserBundle\Entity\Avatar;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
 
 
 class AddImageAfterEditSuccess implements EventSubscriberInterface
@@ -29,12 +26,21 @@ class AddImageAfterEditSuccess implements EventSubscriberInterface
     }
 
     public function onEditSuccess(FormEvent $event) {
-        $user = new User();
-        $avatar = new Avatar();
+        /** @var User $user */
+        $user = $event->getForm()->getData();
 
-        $avatar->setUser($user);
-        /*$response = new Response($action);
-        $event->setResponse($response);*/
+        if($user->getAvatar()->getId()){
+            /** @var Avatar $avatar */
+            $avatar = $user->getAvatar();
+
+            if($avatar->getFile()){
+                $newAvatar = new Avatar();
+                $newAvatar->setFile($avatar->getFile());
+                $user->setAvatar($newAvatar);
+            }
+
+        }
+
     }
 
     public static function getSubscribedEvents(){

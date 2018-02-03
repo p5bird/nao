@@ -108,7 +108,8 @@ class User extends BaseUser
     private $bio;
 
     /**
-     * @ORM\OneToOne(targetEntity="UserBundle\Entity\Avatar", mappedBy="user", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="UserBundle\Entity\Avatar", inversedBy="user", cascade={"all"}, orphanRemoval= true)
+     * @ORM\JoinColumn(name="avatar_id", referencedColumnName="id")
      */
     private $avatar;
 
@@ -288,6 +289,5 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-        // your own logic
     }
 }

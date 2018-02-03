@@ -45,27 +45,9 @@ class Avatar {
     private $tempFilename;
 
     /**
-     * @ORM\OneToOne(targetEntity="User", inversedBy="avatar")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\OneToOne(targetEntity="UserBundle\Entity\User", mappedBy="avatar")
      */
     private $user;
-
-    /**
-     * @return mixed
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * @param mixed $user
-     */
-    public function setUser($user)
-    {
-        $this->user = $user;
-    }
-
 
 
     /**
@@ -73,15 +55,16 @@ class Avatar {
      * @ORM\PreUpdate()
      */
     public function preUpload() {
-        // Si jamais il n'y a pas de fichier (champ facultatif), on ne fait rien
+        // If there's not file, do nothing
         if (null === $this->file) {
             return;
         }
-        // Le nom du fichier est son id, on doit juste stocker également son extension
-        // Pour faire propre, on devrait renommer cet attribut en « extension », plutôt que « extension »
-        $this->extension = $this->file->guessExtension();
-        // Et on génère l'attribut alt de la balise <img>, à la valeur du nom du fichier sur le PC de l'internaute
+
+        // Set alt to file name
         $this->alt = $this->file->getClientOriginalName();
+
+        // Set file extension
+        $this->extension = $this->file->guessClientExtension();
     }
 
     /**
@@ -89,21 +72,28 @@ class Avatar {
      * @ORM\PostUpdate()
      */
     public function upload() {
-        // Si jamais il n'y a pas de fichier (champ facultatif), on ne fait rien
+        // If there's no file, do nothing
         if (null === $this->file) {
             return;
         }
-        // Si on avait un ancien fichier (attribut tempFilename non null), on le supprime
-        if (null !== $this->tempFilename) {
-            $oldFile = $this->getUploadRootDir().'/'.$this->id.'.'.$this->tempFilename;
+
+        // If tempFilename is null
+        if (null != $this->tempFilename) {
+
+            $extension = explode('.', $this->alt);
+
+            $oldFile = $this->getUploadRootDir().'/'.$this->id.'.' . $extension;
+
+            // Remove previous file
             if (file_exists($oldFile)) {
                 unlink($oldFile);
             }
+
         }
-        // On déplace le fichier envoyé dans le répertoire de notre choix
+        // Move the file to the chosen directory
         $this->file->move(
-            $this->getUploadRootDir(), // Le répertoire de destination
-            $this->id.'.'.$this->extension   // Le nom du fichier à créer, ici « id.extension »
+            $this->getUploadRootDir(),
+            $this->id.'.'.$this->extension
         );
     }
 
@@ -111,7 +101,7 @@ class Avatar {
      * @ORM\PreRemove()
      */
     public function preRemoveUpload() {
-        // On sauvegarde temporairement le nom du fichier, car il dépend de l'id
+        // Temporary save the file name
         $this->tempFilename = $this->getUploadRootDir().'/'.$this->id.'.'.$this->extension;
     }
 
@@ -119,20 +109,16 @@ class Avatar {
      * @ORM\PostRemove()
      */
     public function removeUpload() {
-        // En PostRemove, on n'a pas accès à l'id, on utilise notre nom sauvegardé
         if (file_exists($this->tempFilename)) {
-            // On supprime le fichier
             unlink($this->tempFilename);
         }
     }
 
     public function getUploadDir() {
-        // On retourne le chemin relatif vers l'image pour un navigateur (relatif au répertoire /web donc)
         return 'uploads/avatar';
     }
 
     protected function getUploadRootDir() {
-        // On retourne le chemin relatif vers l'image pour notre code PHP
         return __DIR__.'/../../../web/'.$this->getUploadDir();
     }
 
@@ -220,5 +206,29 @@ class Avatar {
     public function setTempFilename($tempFilename)
     {
         $this->tempFilename = $tempFilename;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \UserBundle\Entity\User $user
+     *
+     * @return Avatar
+     */
+    public function setUser(\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
