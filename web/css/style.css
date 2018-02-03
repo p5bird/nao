@@ -11,3 +11,7 @@
     left: 0;
     top: 0;
 }
+
+.user-avatar {
+    max-width: 150px;
+}
