@@ -11,7 +11,11 @@
             <div class="edit-avatar">
                 {{ form_label(form.avatar) }}
                 <div class="user-avatar">
-                    <img src="/uploads/avatar/{{ user.avatar.id }}.{{ user.avatar.extension }}" class="user-avatar-image"/>
+                    {% if user.avatar.id is not defined %}
+                        <img src="{{ asset('/img/no-image.png') }}" class="user-avatar-image"/>
+                    {% else %}
+                        <img src="{{ asset('/uploads/avatar/') }}{{ user.avatar.id }}.{{ user.avatar.extension }}" class="user-avatar-image"/>
+                    {% endif %}
                 </div>
                 {{ form_widget(form.avatar) }}
             </div>
@@ -71,6 +75,11 @@
             </div>
             <div class="edit-bio">
                 {{ form_row(form.bio) }}
+            </div>
+        </div>
+        <div class="edit-confidentiality-options">
+            <div class="edit-confidentiality-title">
+                <h2>Confidentialité</h2>
             </div>
         </div>
     </div>

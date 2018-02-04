@@ -16,3 +16,7 @@ nao_dashboard:
 nao_admin:
     path: /admin
     defaults: { _controller: UserBundle:User:admin }
+
+nao_show_user:
+    path: /user/{id}
+    defaults: { _controller: UserBundle:User:showUser }

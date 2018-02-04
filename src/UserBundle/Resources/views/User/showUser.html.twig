@@ -1,0 +1,17 @@
+{% extends "UserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block title %}{{ parent() }} - Profil de {{ user.username }}{% endblock %}
+
+{% block body %}
+    <div class="fos_user_user_show">
+        <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
+        <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+        {% if user.avatar.id is not defined %}
+            <img src="{{ asset('/img/no-image.png') }}" class="user-avatar-image"/>
+        {% else %}
+            <img src="{{ asset('/uploads/avatar/') }}{{ user.avatar.id }}.{{ user.avatar.extension }}" class="user-avatar-image"/>
+        {% endif %}
+    </div>
+{% endblock %}

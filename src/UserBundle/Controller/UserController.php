@@ -11,6 +11,7 @@ namespace UserBundle\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use UserBundle\Entity\User;
 
 /**
  * Application controller
@@ -18,6 +19,19 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  * @Route("/dashboard")
  */
 class UserController extends Controller {
+
+    /**
+     * @param User $user
+     * @return Response
+     * @throws \Twig\Error\Error
+     */
+    public function showUserAction(User $user) {
+        $content = $this->get('templating')->render('@User/User/showUser.html.twig', array(
+            'user' => $user
+        ));
+
+        return new Response($content);
+    }
 
     /**
      * Dashboard
