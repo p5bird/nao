@@ -20,3 +20,5 @@ nao_admin:
 nao_show_user:
     path: /user/{id}
     defaults: { _controller: UserBundle:User:showUser }
+    requirements:
+            id: \d+

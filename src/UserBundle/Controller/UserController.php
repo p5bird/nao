@@ -8,6 +8,7 @@
 
 namespace UserBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -20,12 +21,25 @@ use UserBundle\Entity\User;
  */
 class UserController extends Controller {
 
+
     /**
-     * @param User $user
+     * Show other users profile
+     *
+     * @param Request $request
+     * @param $id
      * @return Response
+     * @throws \Exception
      * @throws \Twig\Error\Error
+     * @Route("/user/{id}/", name="nao_show_user")
      */
-    public function showUserAction(User $user) {
+    public function showUserAction(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('UserBundle:User')->find($id);
+
+        if (null == $user){
+            return $this->render('error/404.html.twig');
+        }
+
         $content = $this->get('templating')->render('@User/User/showUser.html.twig', array(
             'user' => $user
         ));
