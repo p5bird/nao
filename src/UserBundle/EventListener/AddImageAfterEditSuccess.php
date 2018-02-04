@@ -13,18 +13,10 @@ use FOS\UserBundle\FOSUserEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use UserBundle\Entity\User;
 use UserBundle\Entity\Avatar;
-use Symfony\Component\Routing\RouterInterface;
 
 
 class AddImageAfterEditSuccess implements EventSubscriberInterface
 {
-    private $router;
-
-    public function __construct(RouterInterface $router)
-    {
-        $this->router = $router;
-    }
-
     public function onEditSuccess(FormEvent $event) {
         /** @var User $user */
         $user = $event->getForm()->getData();
@@ -38,9 +30,7 @@ class AddImageAfterEditSuccess implements EventSubscriberInterface
                 $newAvatar->setFile($avatar->getFile());
                 $user->setAvatar($newAvatar);
             }
-
         }
-
     }
 
     public static function getSubscribedEvents(){

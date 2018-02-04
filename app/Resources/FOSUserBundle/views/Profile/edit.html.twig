@@ -1,12 +1,9 @@
 {% extends "UserBundle::layout.html.twig" %}
 
 {% block content %}
-    <h2>Edition profil</h2>
+    <h2>Gestion du comptes</h2>
 {% endblock %}
 
 {% block fos_user_content %}
-    <div class="col-md-6">
         {% include "@FOSUser/Profile/edit_content.html.twig" %}
-    </div>
-    <div class="col-md-6"></div>
 {% endblock fos_user_content %}

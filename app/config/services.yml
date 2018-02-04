@@ -40,5 +40,8 @@ services:
     app.add_image_after_edit_success:
             class: UserBundle\EventListener\AddImageAfterEditSuccess
             autowire: true
-            tags:
-                - { name: kernel.event_subscriber }
+
+    app.add_user_var_after_edit_initialize:
+            class: UserBundle\EventListener\AddUserVarAfterEditInitialize
+            autowire: true
+            arguments: ['@twig']

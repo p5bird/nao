@@ -62,7 +62,7 @@ class EditProfileType extends AbstractType {
                 'required' => false,
                 'label' => 'Date de naissance',
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => '',
                     'placeholder' => 'Date de naissance',
                 ],
                 'error_bubbling' => true

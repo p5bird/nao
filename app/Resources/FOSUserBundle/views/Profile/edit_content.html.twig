@@ -1,8 +1,73 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-{{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
-    {{ form_widget(form) }}
-<div>
-    <input type="submit" value="{{ 'profile.edit.submit'|trans }}" class="edit-profile-submit-input"/>
+<div class="col-md-6">
+    {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+
+    <div class="edit-account-options">
+        <div class="edit-account-title">
+            <h2>Compte utilisateur</h2>
+        </div>
+        <div class="edit-avatar">
+            <img src="/uploads/avatar/{{ user.avatar.id }}.{{ user.avatar.extension }}" class="user-avatar"/>
+            {{ form_row(form.avatar) }}
+        </div>
+        <div class="edit-username">
+            {{ form_row(form.username) }}
+        </div>
+        <div class="edit-email">
+            {{ form_row(form.email) }}
+        </div>
+        <div class="edit-password">
+            {{ form_row(form.current_password) }}
+        </div>
+    </div>
+
+    <div class="edit-social-options">
+        <div class="edit-account-title">
+            <h2>Réseaux sociaux</h2>
+        </div>
+        <div class="edit-facebook">
+            {{ form_row(form.facebook) }}
+        </div>
+        <div class="edit-instagram">
+            {{ form_row(form.instagram) }}
+        </div>
+        <div class="edit-pinterest">
+            {{ form_row(form.pinterest) }}
+        </div>
+    </div>
 </div>
-{{ form_end(form) }}
+
+<div class="col-md-6">
+    <div class="edit-personal-options">
+        <div class="edit-account-title">
+            <h2>Informations personnelles</h2>
+        </div>
+        <div class="edit-firstname">
+            {{ form_row(form.firstname) }}
+        </div>
+        <div class="edit-name">
+            {{ form_row(form.name) }}
+        </div>
+        <div class="edit-birthdate">
+            {{ form_row(form.birthdate) }}
+        </div>
+        <div class="edit-city">
+            {{ form_row(form.city) }}
+        </div>
+        <div class="edit-job">
+            {{ form_row(form.job) }}
+        </div>
+        <div class="edit-level">
+            {{ form_row(form.level) }}
+        </div>
+        <div class="edit-bio">
+            {{ form_row(form.bio) }}
+        </div>
+    </div>
+    <div>
+        <input type="submit" value="{{ 'profile.edit.submit'|trans }}" class="edit-profile-submit-input"/>
+    </div>
+    {{ form_end(form) }}
+</div>
+
