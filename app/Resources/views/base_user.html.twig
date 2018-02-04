@@ -13,23 +13,24 @@
         <!-- Bootstrap -->
         <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet"/>
         <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
+        <!-- Select 2 -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
     {% endblock %}
 </head>
 <body>
-<div class="container-fluid">
-    <div class="row">
-        <div class="top-bar"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 no-padding">
+                <div class="sidebar">
+                </div>
+            </div>
 
-
-        <div class="col-md-2 no-padding">
-            <div class="left-bar"></div>
-        </div>
-
-        <div class="col-md-10 no-padding">
-            <h1>Base interface user</h1>
-            {% block body %}{% endblock %}
+            <div class="col-md-10 no-padding user-interface-right-part">
+                <h1>Base interface user</h1>
+                {% block body %}{% endblock %}
+            </div>
         </div>
     </div>
-</div>
 </body>
 </html>

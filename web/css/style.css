@@ -1,28 +1,79 @@
-.top-bar {
-    height: 50px;
-    background: dimgrey;
-}
-
-.left-bar {
-    width: 100%;
-    background: dimgrey;
-    height: 100vh;
-}
-
-.user-avatar {
-    max-width: 150px;
-}
-
-.edit-profile-avatar-input {
-    margin-bottom: 20px;
-}
-
-.edit-profile-submit-input {
-    margin-bottom: 20px;
-    float: right;
-}
-
 .no-padding {
     padding: 0 !important;
     margin: 0 !important;
+}
+
+/******************************
+*******************************
+*********USER INTERFACE********
+*******************************
+*******************************/
+.sidebar {
+    height: 100vh;
+    background-color: dimgrey;
+}
+
+.user-avatar-image {
+    max-height: 250px;
+    max-width: 100%;
+}
+
+.user-avatar {
+    max-width: 90%;
+    text-align: center;
+}
+
+.user-interface-right-part {
+    height: 100vh;
+    overflow: auto;
+}
+
+.edit-profile-avatar-input {
+    margin: 10px 0 20px 0;
+}
+
+.edit-profile-submit-input {
+    margin: 30px 0 0 0;
+}
+
+.edit-profile-submit {
+    margin: 0 auto;
+    max-width: 30%;
+    padding: 0 0 30px 0;
+}
+
+.edit-personal-options>div>div>label, .edit-account-options>div>label, .edit-social-options>div>div>label {
+    margin-top: 15px;
+}
+
+#fos_user_profile_form_current_password, #fos_user_profile_form_email, #fos_user_profile_form_username {
+    max-width: 90%;
+}
+
+#fos_user_profile_form_facebook, #fos_user_profile_form_instagram, #fos_user_profile_form_pinterest {
+    max-width: 90%;
+}
+
+#fos_user_profile_form_firstname, #fos_user_profile_form_name, #fos_user_profile_form_birthdate, #fos_user_profile_form_city, #fos_user_profile_form_job, #fos_user_profile_form_level {
+    max-width: 50%;
+}
+
+#fos_user_profile_form_bio {
+    max-width: 50%;
+    min-height: 70px;
+}
+
+/******************************
+*******************************
+*********MEDIA QUERIES*********
+*******************************
+*******************************/
+
+@media screen and (max-width: 992px) {
+    .sidebar {
+        display:none;
+    }
+    .user-interface-right-part {
+        overflow: initial;
+    }
 }
