@@ -84,6 +84,24 @@ class UserController extends Controller {
     }
 
     /**
+     * List all users
+     *
+     * @return Response
+     * @Route("/user/all/", name="nao_list_users")
+     * @Route("/dashboard", name="nao_dashboard")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function listUsersAction() {
+
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository('UserBundle:User')->findAll();
+
+        return $this->render('UserBundle:User:listUsers.html.twig', array(
+            'users' => $users
+        ));
+    }
+
+    /**
      * Dashboard
      *
      * @return Response
@@ -91,8 +109,6 @@ class UserController extends Controller {
      * @Security("has_role('ROLE_USER')")
      */
     public function dashboardAction() {
-        $em = $this->getDoctrine()->getManager();
-
         return $this->render('UserBundle:User:dashboard.html.twig');
     }
 
@@ -104,8 +120,6 @@ class UserController extends Controller {
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function adminAction() {
-        $em = $this->getDoctrine()->getManager();
-
         return $this->render('UserBundle:User:admin.html.twig');
     }
 }
