@@ -9,6 +9,7 @@
 namespace UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
@@ -38,7 +39,11 @@ class Avatar {
     private $alt;
 
     /**
-     * @var UploadedFile
+     * @Assert\File(
+     *     maxSize="3M",
+     *     mimeTypes={ "image/png", "image/jpg", "image/jpeg", },
+     *     mimeTypesMessage="Les formats d'image autorisés sont .jpg, .jpeg, .png"
+     *     )
      */
     private $file;
 

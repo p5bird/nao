@@ -55,6 +55,10 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="city", type="string", nullable=true)
+     * @Assert\Length(
+     *      min = 3,
+     *      minMessage = "La ville doit contenir au moins {{ limit }} lettres."
+     * )
      */
     private $city;
 
@@ -62,6 +66,10 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="level", type="string", nullable=true)
+     * @Assert\Length(
+     *      min = 3,
+     *      minMessage = "Le niveau ornithologique doit contenir au moins {{ limit }} lettres."
+     * )
      */
     private $level;
 
@@ -76,6 +84,10 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="job", type="string", nullable=true)
+     * @Assert\Length(
+     *      min = 3,
+     *      minMessage = "La profession doit contenir au moins {{ limit }} lettres."
+     * )
      */
     private $job;
 
@@ -104,12 +116,17 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="bio", type="string", nullable=true)
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Le prénom ne peut pas contenir plus de {{ limit }} lettres."
+     * )
      */
     private $bio;
 
     /**
      * @ORM\OneToOne(targetEntity="UserBundle\Entity\Avatar", inversedBy="user", cascade={"all"}, orphanRemoval= true)
      * @ORM\JoinColumn(name="avatar_id", referencedColumnName="id")
+     * @Assert\Valid
      */
     private $avatar;
 

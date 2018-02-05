@@ -12,15 +12,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use UserBundle\Entity\User;
 
 /**
  * Application controller
- *
- * @Route("/dashboard")
  */
 class UserController extends Controller {
-
 
     /**
      * Show other users profile
@@ -36,7 +32,7 @@ class UserController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('UserBundle:User')->find($id);
 
-        if (null == $user){
+        if (null == $user) {
             return $this->render('error/404.html.twig');
         }
 
