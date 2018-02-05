@@ -14,6 +14,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 
 use UserBundle\Form\EditProfileType;
 
@@ -31,6 +33,7 @@ class UserController extends Controller {
      * @throws \Exception
      * @throws \Twig\Error\Error
      * @Route("/user/{id}/", name="nao_show_user")
+     * @Security("has_role('ROLE_USER')")
      */
     public function showUserAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
@@ -60,6 +63,10 @@ class UserController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('UserBundle:User')->find($id);
 
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            return $this->render('error/404.html.twig');
+        }
+
         $form = $this->createForm(EditProfileType::class, $user);
 
         $form->handleRequest($request);
@@ -79,8 +86,9 @@ class UserController extends Controller {
     /**
      * Dashboard
      *
-     * @Route("/dashboard", name="nao_dashboard")
      * @return Response
+     * @Route("/dashboard", name="nao_dashboard")
+     * @Security("has_role('ROLE_USER')")
      */
     public function dashboardAction() {
         $em = $this->getDoctrine()->getManager();
@@ -91,8 +99,9 @@ class UserController extends Controller {
     /**
      * Admin
      *
-     * @Route("/admin", name="nao_admin")
      * @return Response
+     * @Route("/admin", name="nao_admin")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function adminAction() {
         $em = $this->getDoctrine()->getManager();
