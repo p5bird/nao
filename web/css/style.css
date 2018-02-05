@@ -28,6 +28,12 @@
     overflow: auto;
 }
 
+.user-editing-password {
+    font-weight: 700;
+    color: #de1717;
+    display: inline-block;
+}
+
 .edit-profile-avatar-input {
     margin: 10px 0 20px 0;
 }
@@ -40,6 +46,15 @@
     margin: 0 auto;
     max-width: 30%;
     padding: 0 0 30px 0;
+}
+
+.edit-user-editing-password>input {
+    max-width: 60%;
+    margin-top: 10px;
+}
+
+.edit-user-editing-password {
+    padding: 60px 0 0 0;
 }
 
 .edit-personal-options>div>div>label, .edit-account-options>div>label, .edit-social-options>div>div>label {

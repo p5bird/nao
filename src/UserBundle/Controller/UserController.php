@@ -11,7 +11,11 @@ namespace UserBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
+use UserBundle\Form\EditProfileType;
 
 /**
  * Application controller
@@ -41,6 +45,35 @@ class UserController extends Controller {
         ));
 
         return new Response($content);
+    }
+
+    /**
+     * Edit other users profile
+     *
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse|Response
+     * @Route("/user/{id}/edit/", name="nao_edit_user")
+     */
+    public function editUserAction(Request $request, $id) {
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('UserBundle:User')->find($id);
+
+        $form = $this->createForm(EditProfileType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            return $this->redirectToRoute('nao_home');
+        }
+
+        return $this->render('@User/User/editUser.html.twig', array(
+            'form' => $form->createView(),
+            'user' => $user
+        ));
     }
 
     /**
