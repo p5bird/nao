@@ -32,10 +32,10 @@ class UserRegistrationListener implements EventSubscriberInterface {
 
     public function onRegistrationSuccess(FormEvent $event)
     {
-        $this->user = $event->getForm()->getData();
+        /*$this->user = $event->getForm()->getData();
         $groupId = array('id' => '1');
         $group = $this->em->getRepository('UserBundle:Group')->findOneBy($groupId);
-        $this->user->addGroup($group);
+        $this->user->addGroup($group);*/
     }
 
 }
