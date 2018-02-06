@@ -37,11 +37,8 @@ services:
     app.form.edit:
         class: UserBundle\Form\EditProfileType
 
-    app.add_image_after_edit_success:
-            class: UserBundle\EventListener\AddImageAfterEditSuccess
-            autowire: true
-
-    app.add_user_var_after_edit_initialize:
-            class: UserBundle\EventListener\AddUserVarAfterEditInitialize
+    app.edit_user_listener:
+            class: UserBundle\EventListener\EditUserListener
             autowire: true
             arguments: ['@twig']
+
