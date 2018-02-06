@@ -79,3 +79,5 @@ fos_user:
     profile:
         form:
             type: UserBundle\Form\EditProfileType
+    group:
+        group_class: UserBundle\Entity\Group

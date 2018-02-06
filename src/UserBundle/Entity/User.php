@@ -8,6 +8,7 @@
 
 namespace UserBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -130,6 +131,22 @@ class User extends BaseUser
      */
     private $avatar;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\Group")
+     * @ORM\JoinTable(name="nao_user_groups",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
+     * )
+     */
+    protected $groups;
+
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->groups = new ArrayCollection();
+    }
 
     // GETTERS & SETTERS
 
@@ -319,8 +336,19 @@ class User extends BaseUser
         $this->id = $id;
     }
 
-    public function __construct()
+    /**
+     * @return mixed
+     */
+    public function getGroups()
     {
-        parent::__construct();
+        return $this->groups;
+    }
+
+    /**
+     * @param mixed $groups
+     */
+    public function setGroups($groups)
+    {
+        $this->groups = $groups;
     }
 }
