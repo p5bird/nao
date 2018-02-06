@@ -31,7 +31,6 @@ class UserController extends Controller {
      * @param $id
      * @return Response
      * @throws \Exception
-     * @throws \Twig\Error\Error
      * @Route("/user/{id}/", name="nao_show_user")
      * @Security("has_role('ROLE_USER')")
      */
@@ -43,11 +42,9 @@ class UserController extends Controller {
             return $this->render('error/404.html.twig');
         }
 
-        $content = $this->get('templating')->render('@User/User/showUser.html.twig', array(
+        return $this->render('UserBundle:User:showUser.html.twig', array(
             'user' => $user
         ));
-
-        return new Response($content);
     }
 
     /**
@@ -77,7 +74,7 @@ class UserController extends Controller {
             return $this->redirectToRoute('nao_home');
         }
 
-        return $this->render('@User/User/editUser.html.twig', array(
+        return $this->render('UserBundle:User:editUser.html.twig', array(
             'form' => $form->createView(),
             'user' => $user
         ));
