@@ -17,8 +17,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use UserBundle\Entity\User;
 use UserBundle\Entity\Avatar;
 
-class EditUserListener implements EventSubscriberInterface
-{
+class UserEditListener implements EventSubscriberInterface {
     protected $twig;
 
     public function __construct(\Twig_Environment $twig)

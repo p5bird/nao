@@ -37,8 +37,13 @@ services:
     app.form.edit:
         class: UserBundle\Form\EditProfileType
 
-    app.edit_user_listener:
-            class: UserBundle\EventListener\EditUserListener
+    app.user_edit_listener:
+            class: UserBundle\EventListener\UserEditListener
             autowire: true
             arguments: ['@twig']
+
+    app.user_registration_listener:
+            class: UserBundle\EventListener\UserRegistrationListener
+            autowire: true
+            arguments: []
 
