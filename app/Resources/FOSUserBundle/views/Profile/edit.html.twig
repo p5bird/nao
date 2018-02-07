@@ -1,9 +1,5 @@
 {% extends "UserBundle::layout.html.twig" %}
 
-{% block content %}
-    <h2>Gestion du comptes</h2>
-{% endblock %}
-
 {% block fos_user_content %}
-        {% include "@FOSUser/Profile/edit_content.html.twig" %}
+    {% include "@FOSUser/Profile/edit_content.html.twig" %}
 {% endblock fos_user_content %}

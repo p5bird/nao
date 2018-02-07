@@ -1,7 +1,52 @@
-{% extends 'base_user.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Layout user</h1>
-    {% block content %}{% endblock %}
-    {% block fos_user_content %}{% endblock %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 no-padding">
+                <div class="sidebar">
+                    <div class="navbar" role="navigation">
+                        <div class="navbar-brand">
+                            <div class="brand-name">
+                                Nos Amis les Oiseaux
+                            </div>
+                        </div>
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a href="{{ path('nao_dashboard') }}">
+                                    Tableau de bord
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('nao_list_users') }}">
+                                    Liste des utilisateurs
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('nao_profile') }}">
+                                    Mon profil
+                                </a>
+                            </li>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li>
+                                    <a href="{{ path('nao_admin') }}">
+                                        Panneau administrateur
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-10 no-padding user-interface-right-part">
+                <div class="top-bar">
+                    <a href="{{ path('nao_logout') }}">Se déconnecter</a>
+                </div>
+
+                {% block content %}{% endblock %}
+                {% block fos_user_content %}{% endblock %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

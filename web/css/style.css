@@ -1,3 +1,7 @@
+body {
+    font-family: "Roboto", sans-serif !important;
+}
+
 .no-padding {
     padding: 0 !important;
     margin: 0 !important;
@@ -8,18 +12,39 @@
 *********USER INTERFACE********
 *******************************
 *******************************/
+
+/* Bootstrap overwrite */
+.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    background-color: #2c3144!important;
+    color: #FFFFFF;
+}
+/***********************/
+
+/* Sidebar */
 .sidebar {
     height: 100vh;
-    background-color: dimgrey;
+    background-color: #2c3144;
 }
 
 .sidebar a {
+    color: #8398a3;
+    transition: ease-in-out 0.3s;
+    font-weight: 700;
+}
+
+.brand-name {
     color: #FFFFFF;
 }
+/***********/
 
 .top-bar {
     height: 50px;
-    background: dimgrey;
+    background: #FFFFFF;
+    border-bottom: 3px solid #eaeaea;
+    -webkit-box-shadow: 0px 6px 5px 0px rgba(238,240,241,1);
+    -moz-box-shadow: 0px 6px 5px 0px rgba(238,240,241,1);
+    box-shadow: 0px 6px 5px 0px rgba(238,240,241,1);
 }
 
 .user-avatar-image {
@@ -36,6 +61,7 @@
     height: 100vh;
     overflow: auto;
     overflow-x: hidden;
+    background: #f0f3f4;
 }
 
 .user-editing-password {
@@ -100,5 +126,24 @@
     }
     .user-interface-right-part {
         overflow: initial;
+    }
+}
+
+@media (min-width: 768px) {
+    .sidebar .navbar .navbar-collapse {
+        padding: 0;
+        max-height: none;
+    }
+    .sidebar .navbar ul {
+        float: left;
+        display: block;
+    }
+    .sidebar .navbar li {
+        float: none;
+        display: block;
+    }
+    .sidebar .navbar li a {
+        padding-top: 12px;
+        padding-bottom: 12px;
     }
 }
