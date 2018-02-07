@@ -3,8 +3,7 @@
 {% block body %}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-2 no-padding">
-                <div class="sidebar">
+            <div class="col-md-2 no-padding sidebar" id="sidebar">
                     <div class="navbar" role="navigation">
                         <div class="navbar-brand">
                             <div class="brand-name">
@@ -36,11 +35,14 @@
                             {% endif %}
                         </ul>
                     </div>
-                </div>
             </div>
 
-            <div class="col-md-10 no-padding user-interface-right-part">
+            <div class="col-md-10 no-padding user-interface-right-part" id="user-interface-page-content">
                 <div class="top-bar">
+                    <div class="toggle-sidebar" id="toggle-sidebar">
+                        <i class="fas fa-bars"></i>
+                    </div>
+
                     <a href="{{ path('nao_logout') }}">Se déconnecter</a>
                 </div>
 
@@ -49,4 +51,8 @@
             </div>
         </div>
     </div>
+
+    {% block javascripts %}
+        <script src="{{ asset('js/toggle-sidebar.js') }}" type="text/javascript"></script>
+    {% endblock %}
 {% endblock %}
