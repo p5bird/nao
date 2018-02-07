@@ -20,9 +20,8 @@ class LoadGroups extends Fixture {
             'Poussin' => array('ROLE_USER'),
             'Colibri' => array('ROLE_USER'),
             'Pivert' => array('ROLE_USER'),
-            'Faucon' => array('ROLE_ADMIN'),
-            'Condor' => array('ROLE_ADMIN'),
-
+            'Faucon' => array('ROLE_SPECIALISTE'),
+            'Condor' => array('ROLE_SPECIALISTE'),
         );
 
         foreach ($options as $key => $value) {
