@@ -13,6 +13,10 @@
     background-color: dimgrey;
 }
 
+.sidebar a {
+    color: #FFFFFF;
+}
+
 .top-bar {
     height: 50px;
     background: dimgrey;

@@ -16,10 +16,15 @@
     {% endblock %}
 </head>
 <body>
-<h1>Base application</h1>
+    <h1>Base application</h1>
+
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <a href="{{ path('nao_logout') }}">Se déconnecter</a>
+        {% else %}
+            <a href="{{ path('nao_login') }}">Se connecter</a>
+    {% endif %}
 
     {% block body %}
-
     {% endblock %}
 </body>
 </html>
