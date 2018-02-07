@@ -13,6 +13,11 @@
     background-color: dimgrey;
 }
 
+.top-bar {
+    height: 50px;
+    background: dimgrey;
+}
+
 .user-avatar-image {
     max-height: 250px;
     max-width: 100%;
@@ -26,6 +31,7 @@
 .user-interface-right-part {
     height: 100vh;
     overflow: auto;
+    overflow-x: hidden;
 }
 
 .user-editing-password {
