@@ -157,8 +157,21 @@
                     <div class="toggle-sidebar" id="toggle-sidebar">
                         <i class="fas fa-bars"></i>
                     </div>
+                    <div class="user-options-menu">
+                        <a href="{{ path('nao_profile') }}">
+                            <img src="{{ asset('/uploads/avatar/') }}{{ app.user.avatar.id }}.{{ app.user.avatar.extension }}" class="user-avatar-image-topbar"/>
+                        </a>
+                        <i class="fas fa-caret-down" id="user_options_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                        <div class="dropdown-menu user-options-menu-dropdown" aria-labelledby="user_options_dropdown">
+                            <a class="user-options-menu-dropdown-item" href="{{ path('nao_profile') }}">Mon profil</a>
+                            <a class="user-options-menu-dropdown-item" href="{{ path('nao_profile_edit') }}">Réglages</a>
+                            <a class="user-options-menu-dropdown-item" href="{{ path('nao_logout') }}">
+                                Se déconnecter
+                            </a>
+                        </div>
+                    </div>
 
-                    <a href="{{ path('nao_logout') }}">Se déconnecter</a>
+                    Se déconnecter</a>
                 </div>
 
                 {% block content %}{% endblock %}
