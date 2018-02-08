@@ -45,3 +45,37 @@ nao_edit_user:
 nao_list_users:
     path: /user/all/
     defaults: { _controller: UserBundle:User:listUsers }
+
+nao_obs_add:
+    path: /observation/add
+    defaults:
+        _controller: ObservationBundle:Observation:add
+
+nao_obs_check:
+    path: /observation/check/{id}
+    defaults:
+        _controller: ObservationBundle:Observation:check
+    requirements:
+        id: \d+
+
+nao_obs_show:
+    path: /observation/{id}
+    defaults:
+        _controller: ObservationBundle:Observation:show
+    requirements:
+        id: \d+
+
+nao_obs_search:
+    path: /observation/search
+    defaults:
+        _controller: ObservationBundle:Observation:search
+
+nao_obs_search_result:
+    path: /observation/result/{view}/{filter}
+    defaults:
+        _controller: ObservationBundle:Observation:result
+        view:   null
+        filter: null
+    requirements:
+        view:   \w*
+        filter: \w*

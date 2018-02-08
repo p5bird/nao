@@ -1,0 +1,9 @@
+{% extends "UserBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Vérifier une observation{% endblock %}
+
+{% block body %}
+    <h2>Vérifier une observation</h2>
+    <p>formulaire de vérification : permet de modifier l'oservation et la valider si utilisateur autorisé</p>
+    <p>Observation {{ obs.id }}</p>
+{% endblock %}
