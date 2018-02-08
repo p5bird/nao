@@ -237,6 +237,7 @@ span.menu-arrow {
 
     .user-interface-right-part {
         overflow: initial;
+        height: 100%;
     }
 }
 
