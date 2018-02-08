@@ -16,9 +16,13 @@ body {
 /* Bootstrap overwrite */
 .nav>li>a:focus, .nav>li>a:hover {
     text-decoration: none;
-    background-color: #2c3144!important;
+    background-color: #2c3144 !important;
     color: #FFFFFF;
 }
+.navbar-brand.side {
+    float:none !important;
+}
+
 /***********************/
 
 /* Sidebar & navbar*/
@@ -30,8 +34,86 @@ body {
 
 .sidebar a {
     color: #8398a3;
+}
+
+.side-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.side-nav a {
+    color: #8398a3;
     transition: ease-in-out 0.3s;
     font-weight: 700;
+    padding: 0 0 0 20px;
+}
+
+.side-nav a:hover, .side-nav a:focus {
+    color: #FFFFFF;
+    text-decoration: none ;
+}
+
+.side-nav i {
+    padding-right: 25px;
+    width: 15.75px;
+    height: 14px;
+}
+
+.side.navbar-user {
+    background: #78c120;
+    padding: 10px 0 10px 20px;
+    margin: 20px 0 20px 0;
+}
+
+.user-avatar-image-sidebar {
+    max-width: 60px;
+    border-radius: 50%;
+}
+
+.navbar-user-avatar {
+    display: inline-block;
+}
+
+.navbar-user-username {
+    vertical-align: super;
+    padding: 13px 0 0 10px;
+    color: #FFFFFF;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.navbar-user-group {
+    vertical-align: sub;
+    padding-left: 10px;
+    color: #FFFFFF;
+    font-size: 12px;
+    text-transform: capitalize;
+}
+
+li.menu {
+    padding: 10px 0 10px 0;
+    position: relative;
+}
+
+li.menu.menu-dropdown {
+    cursor: pointer;
+}
+
+ul.sub-menu {
+    padding: 10px 0 10px 29px;
+    margin: 10px 0 0 0;
+    background: #272b3b;
+    list-style-type: none;
+}
+
+ul.sub-menu li {
+    padding: 5px 0 5px 0;
+}
+
+span.menu-arrow {
+    position: absolute;
+    right: 0;
 }
 
 .brand-name {
@@ -148,30 +230,24 @@ body {
 *******************************
 *******************************/
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 991px) {
     .sidebar {
         display:none;
     }
+
     .user-interface-right-part {
         overflow: initial;
     }
 }
 
-@media (min-width: 768px) {
-    .sidebar .navbar .navbar-collapse {
-        padding: 0;
-        max-height: none;
+@media screen and (min-width: 991px) and (max-width: 1400px) {
+    .navbar-user-user-infos {
+        padding: 0 0 0 20px;
     }
-    .sidebar .navbar ul {
-        float: left;
-        display: block;
-    }
-    .sidebar .navbar li {
-        float: none;
-        display: block;
-    }
-    .sidebar .navbar li a {
-        padding-top: 12px;
-        padding-bottom: 12px;
+}
+
+@media screen and (max-width: 1110px) {
+    span.menu-arrow {
+        right: -10px;
     }
 }

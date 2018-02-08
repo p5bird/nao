@@ -5,35 +5,150 @@
         <div class="row">
             <div class="col-md-2 no-padding sidebar" id="sidebar">
                     <div class="navbar" role="navigation">
-                        <div class="navbar-brand">
+                        <div class="side navbar-brand">
                             <div class="brand-name">
                                 Nos Amis les Oiseaux
                             </div>
                         </div>
-                        <ul class="nav navbar-nav">
-                            <li>
-                                <a href="{{ path('nao_dashboard') }}">
-                                    Tableau de bord
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ path('nao_list_users') }}">
-                                    Liste des utilisateurs
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ path('nao_profile') }}">
-                                    Mon profil
-                                </a>
-                            </li>
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <li>
-                                    <a href="{{ path('nao_admin') }}">
-                                        Panneau administrateur
+                        <div class="side navbar-user">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="navbar-user-avatar">
+                                        <img src="{{ asset('/uploads/avatar/') }}{{ app.user.avatar.id }}.{{ app.user.avatar.extension }}" class="user-avatar-image-sidebar"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="navbar-user-user-infos">
+                                        <div class="navbar-user-username">{{ app.user.username }}</div>
+                                        <div class="navbar-user-group">{{ app.user.groupNames[0] }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="side navbar-menu">
+                            <ul class="side-nav">
+                                <li class="menu menu-dropdown" data-toggle="collapse" href="#dashboard_collapse" aria-expanded="false" aria-controls="collapseExample">
+                                    <a>
+                                        <i class="fas fa-tachometer-alt"></i>
+                                        Tableau de bord
+                                        <span class="menu-arrow"><i class="fas fa-angle-right"></i></span>
+                                    </a>
+                                    <div class="collapse" id="dashboard_collapse" onClick="event.stopPropagation();">
+                                        <ul class="sub-menu">
+                                            <li>
+                                                <a href="{{ path('nao_dashboard') }}">
+                                                    Accueil
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    Statistiques
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <li class="menu menu-dropdown" data-toggle="collapse" href="#profile_collapse" aria-expanded="false" aria-controls="collapseExample">
+                                    <a>
+                                        <i class="fas fa-address-card"></i>
+                                        Profil
+                                        <span class="menu-arrow"><i class="fas fa-angle-right"></i></span>
+                                    </a>
+                                    <div class="collapse" id="profile_collapse" onClick="event.stopPropagation();">
+                                            <ul class="sub-menu">
+                                                <li>
+                                                    <a href="{{ path('nao_profile') }}">
+                                                        Mon profil
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ path('nao_profile_edit') }}">
+                                                        Modifier
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                    </div>
+                                </li>
+
+                                <li class="menu">
+                                    <a href="#">
+                                        <i class="fas fa-comments"></i>
+                                        Messagerie
                                     </a>
                                 </li>
-                            {% endif %}
-                        </ul>
+
+                                <li class="menu">
+                                    <a href="{{ path('nao_list_users') }}">
+                                        <i class="fas fa-users"></i>
+                                        Communauté
+                                    </a>
+                                </li>
+
+                                <li class="menu menu-dropdown" data-toggle="collapse" href="#observation_collapse" aria-expanded="false" aria-controls="collapseExample">
+                                    <a>
+                                        <i class="fas fa-eye"></i>
+                                        Observations
+                                        <span class="menu-arrow"><i class="fas fa-angle-right"></i></span>
+                                    </a>
+                                    <div class="collapse" id="observation_collapse" onClick="event.stopPropagation();">
+                                        <ul class="sub-menu">
+                                            <li>
+                                                <a href="#">
+                                                    Mes observations
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    Valider observations
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <li class="menu menu-dropdown" data-toggle="collapse" href="#article_collapse" aria-expanded="false" aria-controls="collapseExample">
+                                    <a>
+                                        <i class="fas fa-pencil-alt"></i>
+                                        Articles
+                                        <span class="menu-arrow"><i class="fas fa-angle-right"></i></span>
+                                    </a>
+                                    <div class="collapse" id="article_collapse" onClick="event.stopPropagation();">
+                                        <ul class="sub-menu">
+                                            <li>
+                                                <a href="#">
+                                                    Tous les articles
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    Mes publications
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    Ajouter
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <li class="menu">
+                                    <a href="#">
+                                        <i class="fas fa-heart"></i>
+                                        Likes
+                                    </a>
+                                </li>
+
+                                <li class="menu">
+                                    <a href="#">
+                                        <i class="fas fa-question"></i>
+                                        Support
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
             </div>
 

@@ -9,15 +9,17 @@ fos_user_group:
     resource: "@FOSUserBundle/Resources/config/routing/group.xml"
     prefix: /group
 
-nao_login:
-    path: /login
-
-nao_logout:
-    path: /logout
-
 nao_home:
     path: /
     defaults: { _controller: AppBundle:App:index }
+
+nao_login:
+    path: /login
+    defaults: { _controller: FOSUserBundle:Security:login}
+
+nao_logout:
+    path: /logout
+    defaults: { _controller: FOSUserBundle:Security:logout}
 
 nao_dashboard:
     path: /dashboard/
@@ -25,6 +27,11 @@ nao_dashboard:
 
 nao_profile:
     path: /profile/
+    defaults: { _controller: FOSUserBundle:Profile:show}
+
+nao_profile_edit:
+    path: /profile/edit/
+    defaults: { _controller: FOSUserBundle:Profile:edit }
 
 nao_admin:
     path: /admin/
