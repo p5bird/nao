@@ -116,10 +116,10 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="bio", type="string", nullable=true)
+     * @ORM\Column(name="bio", type="text", nullable=true)
      * @Assert\Length(
-     *      max = 255,
-     *      maxMessage = "Le prénom ne peut pas contenir plus de {{ limit }} lettres."
+     *      max = 1000,
+     *      maxMessage = "La biographie ne peut pas contenir plus de {{ limit }} lettres."
      * )
      */
     private $bio;

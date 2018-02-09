@@ -2,25 +2,28 @@
 
 <div class="user-interface-page-header">
     <div class="page-name">
-        Editer mon profil
+        Modifier mes informations
+    </div>
+    <div class="validate-edit">
+        {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+        <input type="submit" value="Mettre à jour" class="btn btn-primary btn-lg btn-success"/>
     </div>
 </div>
 <div class="container">
     <div class="col-md-12 profile-edit">
+        {{ form_errors(form) }}
         <div class="col-md-6">
-            {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
-
             <div class="edit-account-options">
                 <div class="edit-account-title">
                     <h2>Compte utilisateur</h2>
                 </div>
                 <div class="edit-avatar">
                     {{ form_label(form.avatar) }}
-                    <div class="user-avatar">
+                    <div class="user-avatar-edit">
                         {% if user.avatar.id is not defined %}
-                            <img src="{{ asset('/img/no-image.png') }}" class="user-avatar-image"/>
+                            <img src="{{ asset('/img/no-image.png') }}" class="user-avatar-image-edit"/>
                         {% else %}
-                            <img src="{{ asset('/uploads/avatar/') }}{{ user.avatar.id }}.{{ user.avatar.extension }}" class="user-avatar-image"/>
+                            <img src="{{ asset('/uploads/avatar/') }}{{ user.avatar.id }}.{{ user.avatar.extension }}" class="user-avatar-image-edit"/>
                         {% endif %}
                     </div>
                     {{ form_widget(form.avatar) }}
@@ -95,7 +98,7 @@
             </div>
         </div>
         <div class="edit-profile-submit">
-            <input type="submit" value="{{ 'profile.edit.submit'|trans }}" class="edit-profile-submit-input btn btn-default"/>
+            <input type="submit" value="{{ 'profile.edit.submit'|trans }}" class="edit-profile-submit-input btn btn-success"/>
             {{ form_end(form) }}
         </div>
     </div>

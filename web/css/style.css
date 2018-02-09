@@ -13,7 +13,172 @@ body {
 *******************************
 *******************************/
 
-/* External overwrite */
+/******************************
+******External overwrites******
+*******************************/
+.col-xs-offset-right-12 {
+    margin-right: 100%;
+}
+.col-xs-offset-right-11 {
+    margin-right: 91.66666667%;
+}
+.col-xs-offset-right-10 {
+    margin-right: 83.33333333%;
+}
+.col-xs-offset-right-9 {
+    margin-right: 75%;
+}
+.col-xs-offset-right-8 {
+    margin-right: 66.66666667%;
+}
+.col-xs-offset-right-7 {
+    margin-right: 58.33333333%;
+}
+.col-xs-offset-right-6 {
+    margin-right: 50%;
+}
+.col-xs-offset-right-5 {
+    margin-right: 41.66666667%;
+}
+.col-xs-offset-right-4 {
+    margin-right: 33.33333333%;
+}
+.col-xs-offset-right-3 {
+    margin-right: 25%;
+}
+.col-xs-offset-right-2 {
+    margin-right: 16.66666667%;
+}
+.col-xs-offset-right-1 {
+    margin-right: 8.33333333%;
+}
+.col-xs-offset-right-0 {
+    margin-right: 0;
+}
+@media (min-width: 768px) {
+    .col-sm-offset-right-12 {
+        margin-right: 100%;
+    }
+    .col-sm-offset-right-11 {
+        margin-right: 91.66666667%;
+    }
+    .col-sm-offset-right-10 {
+        margin-right: 83.33333333%;
+    }
+    .col-sm-offset-right-9 {
+        margin-right: 75%;
+    }
+    .col-sm-offset-right-8 {
+        margin-right: 66.66666667%;
+    }
+    .col-sm-offset-right-7 {
+        margin-right: 58.33333333%;
+    }
+    .col-sm-offset-right-6 {
+        margin-right: 50%;
+    }
+    .col-sm-offset-right-5 {
+        margin-right: 41.66666667%;
+    }
+    .col-sm-offset-right-4 {
+        margin-right: 33.33333333%;
+    }
+    .col-sm-offset-right-3 {
+        margin-right: 25%;
+    }
+    .col-sm-offset-right-2 {
+        margin-right: 16.66666667%;
+    }
+    .col-sm-offset-right-1 {
+        margin-right: 8.33333333%;
+    }
+    .col-sm-offset-right-0 {
+        margin-right: 0;
+    }
+}
+@media (min-width: 992px) {
+    .col-md-offset-right-12 {
+        margin-right: 100%;
+    }
+    .col-md-offset-right-11 {
+        margin-right: 91.66666667%;
+    }
+    .col-md-offset-right-10 {
+        margin-right: 83.33333333%;
+    }
+    .col-md-offset-right-9 {
+        margin-right: 75%;
+    }
+    .col-md-offset-right-8 {
+        margin-right: 66.66666667%;
+    }
+    .col-md-offset-right-7 {
+        margin-right: 58.33333333%;
+    }
+    .col-md-offset-right-6 {
+        margin-right: 50%;
+    }
+    .col-md-offset-right-5 {
+        margin-right: 41.66666667%;
+    }
+    .col-md-offset-right-4 {
+        margin-right: 33.33333333%;
+    }
+    .col-md-offset-right-3 {
+        margin-right: 25%;
+    }
+    .col-md-offset-right-2 {
+        margin-right: 16.66666667%;
+    }
+    .col-md-offset-right-1 {
+        margin-right: 8.33333333%;
+    }
+    .col-md-offset-right-0 {
+        margin-right: 0;
+    }
+}
+@media (min-width: 1200px) {
+    .col-lg-offset-right-12 {
+        margin-right: 100%;
+    }
+    .col-lg-offset-right-11 {
+        margin-right: 91.66666667%;
+    }
+    .col-lg-offset-right-10 {
+        margin-right: 83.33333333%;
+    }
+    .col-lg-offset-right-9 {
+        margin-right: 75%;
+    }
+    .col-lg-offset-right-8 {
+        margin-right: 66.66666667%;
+    }
+    .col-lg-offset-right-7 {
+        margin-right: 58.33333333%;
+    }
+    .col-lg-offset-right-6 {
+        margin-right: 50%;
+    }
+    .col-lg-offset-right-5 {
+        margin-right: 41.66666667%;
+    }
+    .col-lg-offset-right-4 {
+        margin-right: 33.33333333%;
+    }
+    .col-lg-offset-right-3 {
+        margin-right: 25%;
+    }
+    .col-lg-offset-right-2 {
+        margin-right: 16.66666667%;
+    }
+    .col-lg-offset-right-1 {
+        margin-right: 8.33333333%;
+    }
+    .col-lg-offset-right-0 {
+        margin-right: 0;
+    }
+}
+
 .nav>li>a:focus, .nav>li>a:hover {
     text-decoration: none;
     background-color: #2c3144 !important;
@@ -23,9 +188,9 @@ body {
     float:none !important;
 }
 
-/***********************/
-
-/* Sidebar & navbar*/
+/******************************
+************Sidebar************
+*******************************/
 .sidebar {
     height: 100vh;
     background-color: #2c3144;
@@ -132,7 +297,17 @@ span.menu-arrow {
 
 .brand-name {
     color: #FFFFFF;
+    font-size: 22pt;
 }
+
+.toggle-sidebar {
+    display: inline-block;
+    padding: 15px;
+}
+
+/******************************
+************Topbar*************
+*******************************/
 
 .top-bar {
     height: 55px;
@@ -191,27 +366,31 @@ span.menu-arrow {
     width: 100%;
 }
 
-
-
 a.user-options-menu-dropdown-item {
     display: block;
     color: #4a5b65;
 }
 
-.toggle-sidebar {
-    display: inline-block;
-    padding: 15px;
-}
+/******************************
+*********Page content**********
+*******************************/
 
+/********************
+*******Common********
+********************/
 .page-name {
     padding: 20px;
     font-size: 2.5em;
     color: #515865;
+    display: inline-block;
 }
 
-/***********/
+.validate-edit, .go-edit {
+    float: right;
+    display: inline-block;
+    padding: 25px 40px 20px 20px;
+}
 
-/* Page content */
 .user-interface-page-header {
     background: #f7f9f9;
     min-height: 70px;
@@ -229,6 +408,16 @@ a.user-options-menu-dropdown-item {
     transition: ease-in-out 0.4s;
 }
 
+.user-interface-right-part {
+    height: 100vh;
+    overflow: auto;
+    overflow-x: hidden;
+    background: #f0f3f4;
+}
+
+/********************
+****Edit profile*****
+********************/
 .profile-edit {
     background: #FFFFFF;
     border-radius: 2px;
@@ -239,35 +428,6 @@ a.user-options-menu-dropdown-item {
 
 .profile-edit i {
     color: #4a5b65;
-}
-/****************/
-
-.user-avatar-image {
-    max-height: 250px;
-    max-width: 100%;
-}
-
-.user-avatar-image {
-    max-height: 250px;
-    max-width: 100%;
-}
-
-.user-avatar {
-    max-width: 90%;
-    text-align: left;
-}
-
-.user-interface-right-part {
-    height: 100vh;
-    overflow: auto;
-    overflow-x: hidden;
-    background: #f0f3f4;
-}
-
-.user-editing-password {
-    font-weight: 700;
-    color: #de1717;
-    display: inline-block;
 }
 
 .edit-profile-avatar-input {
@@ -285,15 +445,6 @@ a.user-options-menu-dropdown-item {
 
 .edit-confidentiality-title {
     padding-top: 18px;
-}
-
-.edit-user-editing-password>input {
-    max-width: 60%;
-    margin-top: 10px;
-}
-
-.edit-user-editing-password {
-    padding: 60px 0 0 0;
 }
 
 .edit-personal-options>div>div>label, .edit-account-options>div>label, .edit-social-options>div>div>label {
@@ -325,6 +476,180 @@ a.user-options-menu-dropdown-item {
     min-height: 70px;
 }
 
+.user-avatar-image-edit {
+    max-height: 250px;
+    max-width: 100%;
+}
+
+/********************
+****Show profile*****
+********************/
+
+.profile-show {
+    color: #4a5b65;
+}
+
+.show-user-info-left, .show-user-info-right {
+    background: #FFFFFF;
+    border-radius: 2px;
+    margin: 20px 0 40px 0;
+    color: #a7a7a7;
+}
+
+.show-user-info-left-container, .show-user-info-right-container {
+    padding: 20px;
+}
+
+.user-avatar-image-show {
+    max-width: 100%;
+}
+
+.user-avatar-show {
+    text-align: center;
+}
+
+.user-username-show {
+    padding: 10px 0 0 0;
+    text-transform: capitalize;
+    font-size: 16pt;
+    font-weight: 500;
+    color: #4a5b65;
+}
+
+.user-group-show {
+    padding: 5px 0 0 0;
+}
+
+.separator {
+    border-top: 1px solid #f3f3f3;
+    height: 10px;
+    width: 100%;
+    vertical-align: bottom;
+    display: inline-block;
+    margin: 0 0 0 5px;
+}
+
+.separator#about {
+    max-width: 73%;
+}
+
+.separator#social {
+    max-width: 62%;
+}
+
+.separator#observation, .separator#information {
+    max-width: 85%;
+}
+
+.separator#contact {
+    max-width: 89%;
+}
+
+.pre-separator {
+    display: inline-block;
+    padding-left: 20px;
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.pre-row {
+    margin-bottom: 25px;
+}
+
+.show-user-bio-title {
+    padding-bottom: 10px;
+    font-weight: 500;
+    color: #4a5b65;
+}
+
+.show-user-social i {
+    font-size: 30px;
+    margin-right: 20px;
+    -webkit-transition: ease-in-out 0.4s;
+    -moz-transition: ease-in-out 0.4s;
+    -ms-transition: ease-in-out 0.4s;
+    -o-transition: ease-in-out 0.4s;
+    transition: ease-in-out 0.4s;
+}
+
+.show-user-social a {
+    color: #a7a7a7;
+}
+
+.show-user-social a:hover {
+    text-decoration: none;
+}
+
+.show-user-name {
+    font-size: 30pt;
+    color: #4a5b65;
+    font-weight: 500;
+}
+
+.show-user-name-city {
+    font-size: 11pt;
+    color: #a7a7a7;
+    font-weight: 400;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.show-user-name-city i {
+    margin: 0 1px 0 8px;
+}
+
+.show-user-observation {
+
+}
+
+.show-user-observation i.fas {
+    color: #448d3e;
+}
+.show-user-observation i.fa-star {
+    font-size: 20pt;
+}
+
+.show-stars {
+    padding-bottom: 15px;
+}
+
+/*****/
+
+.user-editing-password {
+    font-weight: 700;
+    color: #de1717;
+    display: inline-block;
+}
+
+
+.edit-user-editing-password>input {
+    max-width: 60%;
+    margin-top: 10px;
+}
+
+.edit-user-editing-password {
+    padding: 60px 0 0 0;
+}
+
+.pre-col {
+    color: #4a5b65;
+    font-weight: 500;
+}
+
+.pre-col>div, .post-col>div {
+    margin: 5px 0 5px 0;
+}
+
+img.last-observation {
+    max-width: 100%;
+}
+
+.last-observation-title {
+    padding: 15px;
+    color: #4a5b65;
+    font-weight: 500;
+}
 /******************************
 *******************************
 *********MEDIA QUERIES*********
