@@ -6,93 +6,99 @@
     </div>
 </div>
 <div class="container">
-    <div class="col-md-4">
-        {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+    <div class="col-md-12 profile-edit">
+        <div class="col-md-6">
+            {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
 
-        <div class="edit-account-options">
-            <div class="edit-account-title">
-                <h2>Compte utilisateur</h2>
-            </div>
-            <div class="edit-avatar">
-                {{ form_label(form.avatar) }}
-                <div class="user-avatar">
-                    {% if user.avatar.id is not defined %}
-                        <img src="{{ asset('/img/no-image.png') }}" class="user-avatar-image"/>
-                    {% else %}
-                        <img src="{{ asset('/uploads/avatar/') }}{{ user.avatar.id }}.{{ user.avatar.extension }}" class="user-avatar-image"/>
-                    {% endif %}
+            <div class="edit-account-options">
+                <div class="edit-account-title">
+                    <h2>Compte utilisateur</h2>
                 </div>
-                {{ form_widget(form.avatar) }}
+                <div class="edit-avatar">
+                    {{ form_label(form.avatar) }}
+                    <div class="user-avatar">
+                        {% if user.avatar.id is not defined %}
+                            <img src="{{ asset('/img/no-image.png') }}" class="user-avatar-image"/>
+                        {% else %}
+                            <img src="{{ asset('/uploads/avatar/') }}{{ user.avatar.id }}.{{ user.avatar.extension }}" class="user-avatar-image"/>
+                        {% endif %}
+                    </div>
+                    {{ form_widget(form.avatar) }}
+                    <span class="custom-file-control"></span>
+                </div>
+                <div class="edit-username">
+                    {{ form_label(form.username) }} <span class="required">*</span>
+                    {{ form_widget(form.username) }}
+                </div>
+                <div class="edit-email">
+                    {{ form_label(form.email) }} <span class="required">*</span>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fas fa-at"></i></span>
+                        {{ form_widget(form.email) }}
+                    </div>
+                </div>
+
+                <div class="edit-password">
+                    {{ form_label(form.current_password) }} <span class="required">*</span>
+                    {{ form_widget(form.current_password) }}
+                </div>
             </div>
-            <div class="edit-username">
-                {{ form_label(form.username) }} <span class="required">*</span>
-                {{ form_widget(form.username) }}
-            </div>
-            <div class="edit-email">
-                {{ form_label(form.email) }} <span class="required">*</span>
-                {{ form_widget(form.email) }}
-            </div>
-            <div class="edit-password">
-                {{ form_label(form.current_password) }} <span class="required">*</span>
-                {{ form_widget(form.current_password) }}
+
+
+            <div class="edit-social-options">
+                <div class="edit-account-title">
+                    <h2>Réseaux sociaux</h2>
+                </div>
+                <div class="edit-facebook">
+                    {{ form_row(form.facebook) }}
+                </div>
+                <div class="edit-instagram">
+                    {{ form_row(form.instagram) }}
+                </div>
+                <div class="edit-pinterest">
+                    {{ form_row(form.pinterest) }}
+                </div>
             </div>
         </div>
 
-
-        <div class="edit-social-options">
-            <div class="edit-account-title">
-                <h2>Réseaux sociaux</h2>
+        <div class="col-md-6">
+            <div class="edit-personal-options">
+                <div class="edit-account-title">
+                    <h2>Informations personnelles</h2>
+                </div>
+                <div class="edit-firstname">
+                    {{ form_row(form.firstname) }}
+                </div>
+                <div class="edit-name">
+                    {{ form_row(form.name) }}
+                </div>
+                <div class="edit-birthdate">
+                    {{ form_row(form.birthdate) }}
+                </div>
+                <div class="edit-city">
+                    {{ form_row(form.city) }}
+                </div>
+                <div class="edit-job">
+                    {{ form_row(form.job) }}
+                </div>
+                <div class="edit-level">
+                    {{ form_row(form.level) }}
+                </div>
+                <div class="edit-bio">
+                    {{ form_row(form.bio) }}
+                </div>
             </div>
-            <div class="edit-facebook">
-                {{ form_row(form.facebook) }}
+            <div class="edit-confidentiality-options">
+                <div class="edit-confidentiality-title">
+                    <h2>Confidentialité</h2>
+                </div>
             </div>
-            <div class="edit-instagram">
-                {{ form_row(form.instagram) }}
-            </div>
-            <div class="edit-pinterest">
-                {{ form_row(form.pinterest) }}
-            </div>
+        </div>
+        <div class="edit-profile-submit">
+            <input type="submit" value="{{ 'profile.edit.submit'|trans }}" class="edit-profile-submit-input btn btn-default"/>
+            {{ form_end(form) }}
         </div>
     </div>
-
-    <div class="col-md-8">
-        <div class="edit-personal-options">
-            <div class="edit-account-title">
-                <h2>Informations personnelles</h2>
-            </div>
-            <div class="edit-firstname">
-                {{ form_row(form.firstname) }}
-            </div>
-            <div class="edit-name">
-                {{ form_row(form.name) }}
-            </div>
-            <div class="edit-birthdate">
-                {{ form_row(form.birthdate) }}
-            </div>
-            <div class="edit-city">
-                {{ form_row(form.city) }}
-            </div>
-            <div class="edit-job">
-                {{ form_row(form.job) }}
-            </div>
-            <div class="edit-level">
-                {{ form_row(form.level) }}
-            </div>
-            <div class="edit-bio">
-                {{ form_row(form.bio) }}
-            </div>
-        </div>
-        <div class="edit-confidentiality-options">
-            <div class="edit-confidentiality-title">
-                <h2>Confidentialité</h2>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="edit-profile-submit">
-    <input type="submit" value="{{ 'profile.edit.submit'|trans }}" class="edit-profile-submit-input btn btn-default"/>
-    {{ form_end(form) }}
 </div>
 
 <script type="text/javascript">
@@ -101,5 +107,10 @@
 
     // Add select2 id to birthDate input
     $('#fos_user_profile_form_birthdate_year, #fos_user_profile_form_birthdate_month, #fos_user_profile_form_birthdate_day').select2({width:'33%'});
+
+    // Fix birthDate input disposition
+    $('#fos_user_profile_form_birthdate_day').next('.select2-container').css('padding', '0 0 0 7px');
+    $('#fos_user_profile_form_birthdate_year').next('.select2-container').css('padding', '0 7px 0 0');
+    $('#fos_user_profile_form_birthdate_year').next('.select2-container').find('.select2-selection__arrow').css('right', '8px');
 </script>
 

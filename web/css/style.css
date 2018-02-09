@@ -13,7 +13,7 @@ body {
 *******************************
 *******************************/
 
-/* Bootstrap overwrite */
+/* External overwrite */
 .nav>li>a:focus, .nav>li>a:hover {
     text-decoration: none;
     background-color: #2c3144 !important;
@@ -69,18 +69,20 @@ body {
 }
 
 .side.navbar-user {
-    background: #78c120;
+    background: #489c3dde;
     padding: 10px 0 10px 20px;
     margin: 20px 0 20px 0;
 }
 
 .user-avatar-image-sidebar {
-    max-width: 60px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
 }
 
 .user-avatar-image-topbar {
-    max-width: 40px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
 }
 
@@ -104,7 +106,7 @@ body {
 }
 
 li.menu {
-    padding: 10px 0 10px 0;
+    padding: 15px 0 10px 0;
     position: relative;
 }
 
@@ -174,7 +176,6 @@ span.menu-arrow {
     transition: ease-in-out 0.4s;
     transform: rotateX(90deg);
     transform-origin: top;
-    opacity: 0;
     display: block;
     width: 100%;
     -webkit-box-shadow: 0px 6px 5px 0px rgba(238,240,241,1);
@@ -185,7 +186,6 @@ span.menu-arrow {
 }
 
 .open .dropdown-menu.user-options-menu-dropdown {
-    opacity: 1;
     transform: rotateX(0deg);
     transform-origin: top;
     width: 100%;
@@ -228,6 +228,18 @@ a.user-options-menu-dropdown-item {
     -o-transition: ease-in-out 0.4s;
     transition: ease-in-out 0.4s;
 }
+
+.profile-edit {
+    background: #FFFFFF;
+    border-radius: 2px;
+    margin: 20px 0 40px 0;
+    padding: 40px 0 40px 0;
+    color: #4a5b65;
+}
+
+.profile-edit i {
+    color: #4a5b65;
+}
 /****************/
 
 .user-avatar-image {
@@ -242,7 +254,7 @@ a.user-options-menu-dropdown-item {
 
 .user-avatar {
     max-width: 90%;
-    text-align: center;
+    text-align: left;
 }
 
 .user-interface-right-part {
@@ -263,13 +275,16 @@ a.user-options-menu-dropdown-item {
 }
 
 .edit-profile-submit-input {
-    margin: 30px 0 0 0;
+    margin: 50px 0 0 0;
 }
 
 .edit-profile-submit {
     margin: 0 auto;
-    max-width: 30%;
-    padding: 0 0 30px 0;
+    max-width: 10%;
+}
+
+.edit-confidentiality-title {
+    padding-top: 18px;
 }
 
 .edit-user-editing-password>input {
@@ -285,20 +300,28 @@ a.user-options-menu-dropdown-item {
     margin-top: 15px;
 }
 
-#fos_user_profile_form_current_password, #fos_user_profile_form_email, #fos_user_profile_form_username {
-    max-width: 90%;
+#fos_user_profile_form_current_password, #fos_user_profile_form_username {
+    max-width: 80%;
+}
+
+#fos_user_profile_form_email {
+    max-width: 78%;
+}
+
+.edit-account-options, .edit-social-options {
+    margin: 0 0 0 80px;
 }
 
 #fos_user_profile_form_facebook, #fos_user_profile_form_instagram, #fos_user_profile_form_pinterest {
-    max-width: 90%;
+    max-width: 80%;
 }
 
 #fos_user_profile_form_firstname, #fos_user_profile_form_name, #fos_user_profile_form_birthdate, #fos_user_profile_form_city, #fos_user_profile_form_job, #fos_user_profile_form_level {
-    max-width: 50%;
+    max-width: 68%;
 }
 
 #fos_user_profile_form_bio {
-    max-width: 50%;
+    max-width: 68%;
     min-height: 70px;
 }
 

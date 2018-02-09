@@ -19,7 +19,10 @@ class AvatarType extends AbstractType {
     {
         $builder
             ->add('file', FileType::class, array(
-                'label' => false
+                'label' => false,
+                'attr' => [
+                    'class' => 'custom-file-input',
+                ],
             ))
         ;
     }
