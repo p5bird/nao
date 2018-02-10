@@ -67,10 +67,6 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="level", type="string", nullable=true)
-     * @Assert\Length(
-     *      min = 3,
-     *      minMessage = "Le niveau ornithologique doit contenir au moins {{ limit }} lettres."
-     * )
      */
     private $level;
 

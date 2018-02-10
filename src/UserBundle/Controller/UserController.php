@@ -36,7 +36,6 @@ class UserController extends Controller {
      * @return Response
      * @throws \Exception
      * @Route("/user/{id}/", name="nao_show_user")
-     * @Security("has_role('ROLE_USER')")
      */
     public function showUserAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
@@ -58,6 +57,7 @@ class UserController extends Controller {
      * @param $id
      * @return RedirectResponse|Response
      * @Route("/user/{id}/edit/", name="nao_edit_user")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function editUserAction(Request $request, $id) {
 
