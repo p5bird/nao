@@ -478,7 +478,7 @@ a.user-options-menu-dropdown-item {
 
 #fos_user_profile_form_bio {
     max-width: 68%;
-    min-height: 70px;
+    min-height: 100px;
 }
 
 .user-avatar-image-edit {

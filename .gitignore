@@ -49,3 +49,6 @@
 
 .idea/
 .idea
+
+/tests/
+composer.lock
