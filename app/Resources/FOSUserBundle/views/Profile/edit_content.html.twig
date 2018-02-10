@@ -1,4 +1,24 @@
 {% trans_default_domain 'FOSUserBundle' %}
+<!-- Modal -->
+<div class="modal fade" id="cropp-avatar" tabindex="-1" role="dialog" aria-labelledby="cropp-avatar" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cropp-avatar-title">Redimensionnez votre avatar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="profile-pic-preview"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary save-result" data-dismiss="modal">Valider</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="user-interface-page-header">
     <div class="page-name">
@@ -18,16 +38,19 @@
                     <h2>Compte utilisateur</h2>
                 </div>
                 <div class="edit-avatar">
-                    {{ form_label(form.avatar) }}
+                    {{ 'Avatar' | trans }}
                     <div class="user-avatar-edit">
                         {% if user.avatar.id is not defined %}
                             <img src="{{ asset('/img/no-image.png') }}" class="user-avatar-image-edit"/>
                         {% else %}
-                            <img src="{{ asset('/uploads/avatar/') }}{{ user.avatar.id }}.{{ user.avatar.extension }}" class="user-avatar-image-edit"/>
+                            <img src="{{ user.avatar.base64String }}" class="user-avatar-image-edit"/>
                         {% endif %}
                     </div>
-                    {{ form_widget(form.avatar) }}
-                    <span class="custom-file-control"></span>
+                    <div id="fos_user_profile_form_avatar" class="edit-profile-avatar-input" placeholder="Avatar">
+                        <div>
+                            <input type="file" id="fos_user_profile_form_avatar_file" name="fos_user_profile_form[avatar][file]" class="custom-file-input" data-toggle="modal" data-target="#cropp-avatar">
+                        </div>
+                    </div>
                 </div>
                 <div class="edit-username">
                     {{ form_label(form.username) }} <span class="required">*</span>
@@ -103,7 +126,6 @@
         </div>
     </div>
 </div>
-
 <script type="text/javascript">
     // Add form-control id to FOSUser generated inputs
     $('#fos_user_profile_form_current_password, #fos_user_profile_form_email, #fos_user_profile_form_username').addClass("form-control");
@@ -115,5 +137,51 @@
     $('#fos_user_profile_form_birthdate_day').next('.select2-container').css('padding', '0 0 0 7px');
     $('#fos_user_profile_form_birthdate_year').next('.select2-container').css('padding', '0 7px 0 0');
     $('#fos_user_profile_form_birthdate_year').next('.select2-container').find('.select2-selection__arrow').css('right', '8px');
+</script>
+
+<script type="text/javascript">
+    // Initialize image cropper
+    var $uploadCrop = $('#profile-pic-preview').croppie({
+        viewport: {
+            width: 200,
+            height: 200,
+            type: 'square'
+        },
+        boundary: {
+            width: 600,
+            height: 600
+        },
+        enableOrientation: true,
+        enableExif: true
+    });
+
+    $('#fos_user_profile_form_avatar_file').on('change', function() {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $uploadCrop.croppie('bind', {
+                url: e.target.result
+            })
+        };
+        reader.readAsDataURL(this.files[0]);
+    });
+
+    $('.save-result').on('click', function (ev) {
+        $uploadCrop.croppie('result', {
+            type: 'canvas',
+            size: 'viewport'
+        }).then(function (resp) {
+
+            $.ajax({
+                url: "{{ path('nao_edit_user_avatar', {'id' : user.id }) }}",
+                type: "POST",
+                data: {"image":resp},
+                success: function (data) {
+                    html = '<img src="' + resp + '"/>';
+                    $('.user-avatar-edit>img').remove();
+                    $(".user-avatar-edit").append(html);
+                }
+            });
+        });
+    });
 </script>
 

@@ -21,8 +21,6 @@ $( document ).ready(function() {
 
         var arrow = $(this).find('a>span>i');
 
-        console.log(arrow.hasClass('fa-angle-right'));
-
         if (arrow.hasClass('fa-angle-right')) {
             $(this).find('.fa-angle-right').addClass('fa-angle-down').removeClass('fa-angle-right');
         } else {

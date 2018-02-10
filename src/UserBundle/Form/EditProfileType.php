@@ -111,15 +111,6 @@ class EditProfileType extends AbstractType {
                     'placeholder' => 'Biographie',
                 ],
                 'error_bubbling' => true
-            ))
-            ->add('avatar', AvatarType::class, array(
-                'required' => false,
-                'label' => 'Avatar',
-                'attr' => [
-                    'class' => 'edit-profile-avatar-input',
-                    'placeholder' => 'Avatar',
-                ],
-                'error_bubbling' => true
             ));
     }
 

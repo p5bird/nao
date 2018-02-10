@@ -17,14 +17,6 @@ class AvatarType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('file', FileType::class, array(
-                'label' => false,
-                'attr' => [
-                    'class' => 'custom-file-input',
-                ],
-            ))
-        ;
     }
     public function configureOptions(OptionsResolver $resolver)
     {

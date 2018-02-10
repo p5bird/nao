@@ -8,6 +8,8 @@
 
 namespace UserBundle\Controller;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -17,6 +19,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 
+use UserBundle\Entity\Avatar;
+use UserBundle\Entity\User;
 use UserBundle\Form\EditProfileType;
 
 /**
@@ -118,5 +122,27 @@ class UserController extends Controller {
      */
     public function adminAction() {
         return $this->render('UserBundle:User:admin.html.twig');
+    }
+
+    /**
+     * @param Request $request
+     * @param User $user
+     * @return JsonResponse
+     * @Route("/{id}/changeAvatarUser", name="nao_changeAvatarUser")
+     */
+    public function editUserAvatarAction(Request $request, User $user){
+        $em = $this->getDoctrine()->getManager();
+
+        if($data = $request->request->get('image')) {
+
+            $user->getAvatar() ? $avatar = $user->getAvatar() : $avatar = new Avatar();
+
+            $avatar->setBase64String($data);
+            $user->setAvatar($avatar);
+            $em->flush();
+
+            return new JsonResponse("Avatar changed", 200);
+        }
+        return new JsonResponse("Avatar not changed", 500);
     }
 }

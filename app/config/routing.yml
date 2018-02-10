@@ -49,6 +49,11 @@ nao_edit_user:
      requirements:
             id: \d+
 
+nao_edit_user_avatar:
+    path: /{id}/editUserAvatar
+    defaults:
+        _controller: UserBundle:User:editUserAvatar
+
 nao_list_users:
     path: /user/all/
     defaults: { _controller: UserBundle:User:listUsers }

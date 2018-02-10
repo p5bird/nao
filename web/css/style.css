@@ -188,6 +188,11 @@ body {
     float:none !important;
 }
 
+.cr-boundary {
+    width: unset !important;
+    background: rgba(0, 0, 0, 0.6);
+}
+
 /******************************
 ************Sidebar************
 *******************************/
@@ -579,6 +584,18 @@ a.user-options-menu-dropdown-item {
 
 .show-user-social a:hover {
     text-decoration: none;
+}
+
+.show-user-social i.fa-facebook:hover {
+    color: #3b5998;
+}
+
+.show-user-social i.fa-instagram:hover {
+    color: #fccc63;
+}
+
+.show-user-social i.fa-pinterest-square:hover {
+    color: #cb2027;
 }
 
 .show-user-name {
