@@ -147,12 +147,11 @@ class UserController extends Controller {
 
             file_put_contents('uploads/avatar/'.$imageName, $data);
 
-            $file = new UploadedFile('uploads/avatar/'. $imageName, $mimeType = 'image/png');
+            $file = new UploadedFile('uploads/avatar/'. $imageName, $imageName,  'image/png');
 
-
-/*            $avatar->setBase64String($data);*/
-            $avatar->setFile($file);
+            $avatar->setUser($user);
             $user->setAvatar($avatar);
+            $avatar->setFile($file);
             $em->flush();
 
             return new JsonResponse("Avatar changed", 200);
