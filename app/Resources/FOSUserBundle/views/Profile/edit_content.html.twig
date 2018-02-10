@@ -38,19 +38,15 @@
                     <h2>Compte utilisateur</h2>
                 </div>
                 <div class="edit-avatar">
-                    {{ 'Avatar' | trans }}
+                    {{ form_label(form.avatar) }}
                     <div class="user-avatar-edit">
                         {% if user.avatar.id is not defined %}
                             <img src="{{ asset('/img/no-image.png') }}" class="user-avatar-image-edit"/>
                         {% else %}
-                            <img src="{{ user.avatar.base64String }}" class="user-avatar-image-edit"/>
+                            <img src="{{ asset('/uploads/avatar/') }}user-{{ app.user.id }}.{{ user.avatar.extension }}" class="user-avatar-image-edit"/>
                         {% endif %}
                     </div>
-                    <div id="fos_user_profile_form_avatar" class="edit-profile-avatar-input" placeholder="Avatar">
-                        <div>
-                            <input type="file" id="fos_user_profile_form_avatar_file" name="fos_user_profile_form[avatar][file]" class="custom-file-input" data-toggle="modal" data-target="#cropp-avatar">
-                        </div>
-                    </div>
+                    {{ form_widget(form.avatar) }}
                 </div>
                 <div class="edit-username">
                     {{ form_label(form.username) }} <span class="required">*</span>

@@ -17,7 +17,7 @@
                                         {% if app.user.avatar.id is not defined %}
                                             <img src="{{ asset('/img/no-image.png') }}" class="user-avatar-image-sidebar"/>
                                         {% else %}
-                                            <img src="{{ app.user.avatar.base64String }}" class="user-avatar-image-sidebar"/>
+                                            <img src="{{ asset('/uploads/avatar/') }}user-{{ app.user.id }}.{{ user.avatar.extension }}" class="user-avatar-image-sidebar"/>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -166,7 +166,7 @@
                             {% if app.user.avatar.id is not defined %}
                                 <img src="{{ asset('/img/no-image.png') }}" class="user-avatar-image-topbar"/>
                             {% else %}
-                                <img src="{{ app.user.avatar.base64String }}" class="user-avatar-image-topbar"/>
+                                <img src="{{ asset('/uploads/avatar/') }}user-{{ app.user.id }}.{{ user.avatar.extension }}" class="user-avatar-image-topbar"/>
                             {% endif %}
                         </a>
                         <i class="fas fa-caret-down" id="user_options_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>

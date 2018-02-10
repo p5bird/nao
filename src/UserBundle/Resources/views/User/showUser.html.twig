@@ -12,7 +12,9 @@
         {% if user.avatar.id is not defined %}
             <img src="{{ asset('/img/no-image.png') }}" class="user-avatar-image"/>
         {% else %}
+{#
             <img src="{{ user.avatar.base64String }}" class="user-avatar-image"/>
+#}
         {% endif %}
         <p>{{ 'Groupe' }}: {{ user.groupNames[0] }}</p>
     </div>

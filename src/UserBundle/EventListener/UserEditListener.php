@@ -33,6 +33,21 @@ class UserEditListener implements EventSubscriberInterface {
     }
 
     public function onEditSuccess(FormEvent $event) {
+
+        /** @var User $user */
+        /*$user = $event->getForm()->getData();
+
+        if($user->getAvatar()->getId()) {*/
+
+            /** @var Avatar $avatar */
+            /*$avatar = $user->getAvatar();
+
+            if ($avatar->getFile()) {
+                $newAvatar = new Avatar();
+                $newAvatar->setFile($avatar->getFile());
+                $user->setAvatar($newAvatar);
+            }
+        }*/
     }
 
     public function onEditInitialize(GetResponseUserEvent $event) {

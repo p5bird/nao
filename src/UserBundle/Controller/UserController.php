@@ -128,16 +128,30 @@ class UserController extends Controller {
      * @param Request $request
      * @param User $user
      * @return JsonResponse
-     * @Route("/{id}/changeAvatarUser", name="nao_changeAvatarUser")
+     * @Route("/{id}/editUserAvatar", name="nao_edit_user_avatar")
      */
     public function editUserAvatarAction(Request $request, User $user){
         $em = $this->getDoctrine()->getManager();
 
         if($data = $request->request->get('image')) {
-
             $user->getAvatar() ? $avatar = $user->getAvatar() : $avatar = new Avatar();
 
-            $avatar->setBase64String($data);
+            list($type, $data) = explode(';', $data);
+            list(, $data)      = explode(',', $data);
+            $data = str_replace('data:image/png;base64,', '', $data);
+            $data = str_replace(' ', '+', $data);
+
+            $data = base64_decode($data);
+
+            $imageName = 'user-'.$user->getId().'.png';
+
+            file_put_contents('uploads/avatar/'.$imageName, $data);
+
+            $file = new UploadedFile('uploads/avatar/'. $imageName, $mimeType = 'image/png');
+
+
+/*            $avatar->setBase64String($data);*/
+            $avatar->setFile($file);
             $user->setAvatar($avatar);
             $em->flush();
 
