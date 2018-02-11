@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type;
+use ObservationBundle\Form\ImageType;
 
 class ObservationType extends AbstractType
 {
@@ -15,6 +16,19 @@ class ObservationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('images',             Type\CollectionType::class, [
+                'required'  => false,
+                'entry_type'    => ImageType::class,
+                'allow_add'     => true,
+                'allow_delete'  => true
+            ])
+            ->add('birdName',          Type\TextType::class, [
+                'required'  => false,
+                'label'     => "Nom de l'oiseau",
+                'attr'      => [
+                    'class'     => 'form-control'
+                ]
+            ])
             ->add('noName',         Type\CheckboxType::class, [
                 'required'  => false,
                 'label'     => "inconnu",
@@ -65,13 +79,6 @@ class ObservationType extends AbstractType
             ->add('comment',        Type\TextareaType::class, [
                 'required'  => false,
                 'label'     => "Commentaire",
-                'attr'      => [
-                    'class'     => 'form-control'
-                ]
-            ])
-            ->add('taxon',          Type\TextType::class, [
-                'required'  => false,
-                'label'     => "taxon!!",
                 'attr'      => [
                     'class'     => 'form-control'
                 ]

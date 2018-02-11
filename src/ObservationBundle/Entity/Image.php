@@ -53,6 +53,11 @@ class Image
      */
     private $observation;
 
+    /**
+     * 
+     */
+    private $file;
+
 
     /**
      * Get id
@@ -183,4 +188,29 @@ class Image
     {
         return $this->observation;
     }
+
+    /**
+     * Set file
+     *
+     * @param string $file
+     *
+     * @return Image
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    /**
+     * Get file
+     *
+     * @return string
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
 }

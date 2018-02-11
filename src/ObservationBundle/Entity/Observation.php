@@ -147,6 +147,11 @@ class Observation
      */
     private $images;
 
+    /**
+     * 
+     */
+    private $birdName;
+
 
     /**
      * Constructor
@@ -633,4 +638,30 @@ class Observation
     {
         return $this->images;
     }
+
+    /**
+     * Set birdName
+     *
+     * @param string $birdName
+     *
+     * @return Observation
+     */
+    public function setBirdName($birdName)
+    {
+        $this->birdName = $birdName;
+
+        return $this;
+    }
+
+    /**
+     * Get birdName
+     *
+     * @return string
+     */
+    public function getBirdName()
+    {
+        return $this->birdName;
+    }
+
+
 }
