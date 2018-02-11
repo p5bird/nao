@@ -5,6 +5,8 @@ namespace ObservationBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use ObservationBundle\Entity\Observation;
+use ObservationBundle\Form\ObservationType;
 
 class ObservationController extends Controller
 {
@@ -14,7 +16,13 @@ class ObservationController extends Controller
      */
     public function addAction()
     {
-        return $this->render('ObservationBundle:Observation:add.html.twig');
+
+        $observation = new Observation();
+        $formObs = $this->createForm(ObservationType::class, $observation);
+
+        return $this->render('ObservationBundle:Observation:add.html.twig', [
+            'formObs'   => $formObs->createView()
+        ]);
     }
 
     /**

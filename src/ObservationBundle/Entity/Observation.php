@@ -149,6 +149,16 @@ class Observation
 
 
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->sendingDate = new \DateTime();
+        $this->images = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+
+    /**
      * Get id
      *
      * @return int
@@ -516,13 +526,6 @@ class Observation
     public function getReports()
     {
         return $this->reports;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->images = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
