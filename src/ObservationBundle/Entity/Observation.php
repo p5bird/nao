@@ -160,6 +160,10 @@ class Observation
     {
         $this->sendingDate = new \DateTime();
         $this->images = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->validated = false;
+        $this->published = false;
+        $this->likes = 0;
+        $this->reports = 0;
     }
 
 

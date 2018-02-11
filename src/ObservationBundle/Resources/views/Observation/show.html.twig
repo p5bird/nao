@@ -3,6 +3,10 @@
 {% block title %}{{ parent() }} - Observation{% endblock %}
 
 {% block body %}
-    <h1>Observation n°{{ obs.id }}</h1>
-    <p>détails de l'observation</p>
+	{% if observation is null %}
+		<p>Désolé, cette observation n'existe pas ou plus.</p>
+	{% else %}
+		<h1>Observation n°{{ observation.id }}</h1>
+    	<p>détails de l'observation</p>
+	{% endif %}
 {% endblock %}

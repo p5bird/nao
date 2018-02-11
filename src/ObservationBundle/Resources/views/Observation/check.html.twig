@@ -3,7 +3,21 @@
 {% block title %}{{ parent() }} - Vérifier une observation{% endblock %}
 
 {% block content %}
-    <h2>Vérifier une observation</h2>
-    <p>formulaire de vérification : permet de modifier l'oservation et la valider si utilisateur autorisé</p>
-    <p>Observation {{ obs.id }}</p>
+	{% if observation is null %}
+		<p>Désolé, cette observation n'existe pas ou plus.</p>
+	{% else %}
+
+		{% for alert in app.session.flashbag.get('alert') %}
+			<p class="alert alert-{{ alert.type }}">{{ alert.content }}</p>
+		{% endfor %}
+
+		{% if observation.author.id != user.id and not is_granted('ROLE_ADMIN') %}
+			<p>Désolé, vous n'êtes pas autorisé à vérifier ou modifier cette observation.</p>
+		{% else %}
+		    <h2>Vérifier une observation</h2>
+		    <p>formulaire de vérification </p>
+		    <p>Observation {{ observation.id }}</p>		
+		{% endif %}
+
+	{% endif %}
 {% endblock %}
