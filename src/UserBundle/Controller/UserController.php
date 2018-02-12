@@ -114,14 +114,19 @@ class UserController extends Controller {
     }
 
     /**
-     * Admin
+     * Statistics
      *
      * @return Response
-     * @Route("/admin", name="nao_admin")
+     * @Route("/stats", name="nao_stats")
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function adminAction() {
-        return $this->render('UserBundle:User:admin.html.twig');
+    public function statsAction() {
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository('UserBundle:User')->countAllUsers();
+
+        return $this->render('UserBundle:User:stats.html.twig', array(
+            'users' => $users
+        ));
     }
 
     /**

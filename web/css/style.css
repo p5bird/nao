@@ -514,6 +514,36 @@ td.search {
     color: #d01818;
 }
 
+/********************
+*****Statistics******
+********************/
+.stats-show {
+    margin: 20px 0 0 0;
+}
+
+.stats-user, .stats-observation, .stats-article, .stats-comment {
+    background: #FFFFFF;
+    padding: 20px;
+}
+
+.stats-user-title, .stats-observation-title, .stats-article-title, .stats-comment-title {
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.stats-user-subtitle, .stats-observation-subtitle, .stats-article-subtitle, .stats-comment-subtitle {
+    color: #c7c7c7;
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.stats-user-content, .stats-observation-content, .stats-article-content, .stats-comment-content {
+    max-width: 150px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 50px 0 0 0;
+    font-size: 40px;
+}
 
 /*****/
 
