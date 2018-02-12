@@ -136,12 +136,25 @@ class User extends BaseUser
      */
     protected $groups;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_register", type="date")
+     * @Assert\NotBlank()
+     * @Assert\DateTime(
+     *     format="d-m-Y",
+     *     message="Incorrect date format. Expected format : '{{ format }}'."
+     * )
+     */
+    private $dateRegister;
+
 
     public function __construct()
     {
         parent::__construct();
 
         $this->groups = new ArrayCollection();
+        $this->dateRegister = new \DateTime();
     }
 
     // GETTERS & SETTERS
@@ -346,5 +359,25 @@ class User extends BaseUser
     public function setGroups($groups)
     {
         $this->groups = $groups;
+    }
+
+    /**
+     * @param \DateTime $dateRegister
+     *
+     * @return User
+     */
+    public function setDateRegister($dateRegister)
+    {
+        $this->dateRegister = $dateRegister;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateRegister()
+    {
+        return $this->dateRegister;
     }
 }

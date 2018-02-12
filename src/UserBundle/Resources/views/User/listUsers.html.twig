@@ -3,17 +3,124 @@
 {% block title %}{{ parent() }} - Liste des utilisateurs{% endblock %}
 
 {% block content %}
-    <h2>Liste des utilisateurs</h2>
+    <div class="user-interface-page-header">
+        <div class="page-name">
+            Communauté
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 col-md-offset-right-1 list-user-show">
+                <div class="show-all-users">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="input-group">
+                                <input class="form-control" id="system-search" name="q" placeholder="Rechercher" required>
+                                <span class="input-group-btn">
+                                <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                            </span>
+                            </div>
+                            <table class="table list-users-table">
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-4">
+                                            <span>Utilisateur</span>
+                                        </th>
+                                        <th class="col-md-2">
+                                            <span>Inscription</span>
+                                        </th>
+                                        <th class="col-md-2">
+                                            <span>Rôle</span>
+                                        </th>
+                                        <th class="col-md-2">
+                                            <span>Email</span>
+                                        </th>
+                                        <th class="col-md-2">
+                                            {% if is_granted('ROLE_ADMIN') %}
+                                            <span>Actions</span>
+                                            {% else %}
+                                            <span>Ville</span>
+                                            {% endif %}
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for key, user in users %}
+                                    <tr class="list-user-single">
+                                        <td class="list-user-td">
+                                            {% if user.avatar.id is not defined %}
+                                                <img src="{{ asset('/img/no-image.png') }}" class="list-user-avatar"/>
+                                            {% else %}
+                                                <img src="{{ asset('/uploads/avatar/') }}user-{{ user.id }}.{{ user.avatar.extension }}" class="list-user-avatar"/>
+                                            {% endif %}
+                                            <div class="list-user-username">
+                                                <a href="{{ path('nao_show_user', {'id' : user.id }) }}">
+                                                    {{ user.username }}
+                                                </a>
+                                            </div>
+                                            <div class="list-user-name">{{ user.groupNames[0] }}</div>
+                                        </td>
+                                        <td class="list-user-td">
+                                            <div class="list-user-inscription">
+                                                {{ user.dateRegister|date('d/m/Y') }}
+                                            </div>
+                                        </td>
+                                        <td class="list-user-td">
+                                            <div class="list-user-role">
+                                                {% if user.roles[0] == 'ROLE_ADMIN' %}
+                                                    <span>Admin</span>
+                                                {% elseif user.roles[0] == 'ROLE_NATURALISTE' %}
+                                                    <span>Naturaliste</span>
+                                                {% elseif user.roles[0] == 'ROLE_SPECIALISTE' %}
+                                                    <span>Specialiste</span>
+                                                {% elseif user.roles[0] == 'ROLE_REDACTEUR' %}
+                                                    <span>Rédacteur</span>
+                                                {% elseif user.roles[0] == 'ROLE_USER' %}
+                                                    <span>Utilisateur</span>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                        <td class="list-user-td">
+                                            <div class="list-user-email">
+                                                <a href="mailto:{{ user.email }}">
+                                                    {{ user.email }}
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td class="list-user-td">
+                                            <div class="list-user-actions">
+                                                {% if is_granted('ROLE_ADMIN') %}
+                                                    <div class="col-md-4">
+                                                        <a href="{{ path('nao_show_user', {'id' : user.id}) }}">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <a href="{{ path('nao_edit_user', {'id' : user.id}) }}">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <a href="">
+                                                            <i class="fas fa-trash"></i>
+                                                        </a>
+                                                    </div>
+                                                {% else %}
+                                                    {{ user.city }}
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
 
-    <ul>
-    {% for key, user in users %}
-        <li>
-            <a href="{{ path('nao_show_user', {'id': user.id}) }}">{{ user.username }}</a>
-            {% if is_granted('ROLE_ADMIN') %}
-                -
-                <a href="{{ path('nao_edit_user', {'id': user.id}) }}">edit</a>
-            {% endif %}
-        </li>
-    {% endfor %}
-    </ul>
+    </script>
 {% endblock %}

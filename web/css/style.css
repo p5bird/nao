@@ -14,186 +14,6 @@ body {
 *******************************/
 
 /******************************
-******External overwrites******
-*******************************/
-.col-xs-offset-right-12 {
-    margin-right: 100%;
-}
-.col-xs-offset-right-11 {
-    margin-right: 91.66666667%;
-}
-.col-xs-offset-right-10 {
-    margin-right: 83.33333333%;
-}
-.col-xs-offset-right-9 {
-    margin-right: 75%;
-}
-.col-xs-offset-right-8 {
-    margin-right: 66.66666667%;
-}
-.col-xs-offset-right-7 {
-    margin-right: 58.33333333%;
-}
-.col-xs-offset-right-6 {
-    margin-right: 50%;
-}
-.col-xs-offset-right-5 {
-    margin-right: 41.66666667%;
-}
-.col-xs-offset-right-4 {
-    margin-right: 33.33333333%;
-}
-.col-xs-offset-right-3 {
-    margin-right: 25%;
-}
-.col-xs-offset-right-2 {
-    margin-right: 16.66666667%;
-}
-.col-xs-offset-right-1 {
-    margin-right: 8.33333333%;
-}
-.col-xs-offset-right-0 {
-    margin-right: 0;
-}
-@media (min-width: 768px) {
-    .col-sm-offset-right-12 {
-        margin-right: 100%;
-    }
-    .col-sm-offset-right-11 {
-        margin-right: 91.66666667%;
-    }
-    .col-sm-offset-right-10 {
-        margin-right: 83.33333333%;
-    }
-    .col-sm-offset-right-9 {
-        margin-right: 75%;
-    }
-    .col-sm-offset-right-8 {
-        margin-right: 66.66666667%;
-    }
-    .col-sm-offset-right-7 {
-        margin-right: 58.33333333%;
-    }
-    .col-sm-offset-right-6 {
-        margin-right: 50%;
-    }
-    .col-sm-offset-right-5 {
-        margin-right: 41.66666667%;
-    }
-    .col-sm-offset-right-4 {
-        margin-right: 33.33333333%;
-    }
-    .col-sm-offset-right-3 {
-        margin-right: 25%;
-    }
-    .col-sm-offset-right-2 {
-        margin-right: 16.66666667%;
-    }
-    .col-sm-offset-right-1 {
-        margin-right: 8.33333333%;
-    }
-    .col-sm-offset-right-0 {
-        margin-right: 0;
-    }
-}
-@media (min-width: 992px) {
-    .col-md-offset-right-12 {
-        margin-right: 100%;
-    }
-    .col-md-offset-right-11 {
-        margin-right: 91.66666667%;
-    }
-    .col-md-offset-right-10 {
-        margin-right: 83.33333333%;
-    }
-    .col-md-offset-right-9 {
-        margin-right: 75%;
-    }
-    .col-md-offset-right-8 {
-        margin-right: 66.66666667%;
-    }
-    .col-md-offset-right-7 {
-        margin-right: 58.33333333%;
-    }
-    .col-md-offset-right-6 {
-        margin-right: 50%;
-    }
-    .col-md-offset-right-5 {
-        margin-right: 41.66666667%;
-    }
-    .col-md-offset-right-4 {
-        margin-right: 33.33333333%;
-    }
-    .col-md-offset-right-3 {
-        margin-right: 25%;
-    }
-    .col-md-offset-right-2 {
-        margin-right: 16.66666667%;
-    }
-    .col-md-offset-right-1 {
-        margin-right: 8.33333333%;
-    }
-    .col-md-offset-right-0 {
-        margin-right: 0;
-    }
-}
-@media (min-width: 1200px) {
-    .col-lg-offset-right-12 {
-        margin-right: 100%;
-    }
-    .col-lg-offset-right-11 {
-        margin-right: 91.66666667%;
-    }
-    .col-lg-offset-right-10 {
-        margin-right: 83.33333333%;
-    }
-    .col-lg-offset-right-9 {
-        margin-right: 75%;
-    }
-    .col-lg-offset-right-8 {
-        margin-right: 66.66666667%;
-    }
-    .col-lg-offset-right-7 {
-        margin-right: 58.33333333%;
-    }
-    .col-lg-offset-right-6 {
-        margin-right: 50%;
-    }
-    .col-lg-offset-right-5 {
-        margin-right: 41.66666667%;
-    }
-    .col-lg-offset-right-4 {
-        margin-right: 33.33333333%;
-    }
-    .col-lg-offset-right-3 {
-        margin-right: 25%;
-    }
-    .col-lg-offset-right-2 {
-        margin-right: 16.66666667%;
-    }
-    .col-lg-offset-right-1 {
-        margin-right: 8.33333333%;
-    }
-    .col-lg-offset-right-0 {
-        margin-right: 0;
-    }
-}
-
-.nav>li>a:focus, .nav>li>a:hover {
-    text-decoration: none;
-    background-color: #2c3144 !important;
-    color: #FFFFFF;
-}
-.navbar-brand.side {
-    float:none !important;
-}
-
-.cr-boundary {
-    width: unset !important;
-    background: rgba(0, 0, 0, 0.6);
-}
-
-/******************************
 ************Sidebar************
 *******************************/
 .sidebar {
@@ -626,6 +446,74 @@ a.user-options-menu-dropdown-item {
 .show-stars {
     padding-bottom: 15px;
 }
+
+/********************
+***List all users****
+********************/
+.show-all-users {
+    background: #FFFFFF;
+    border-radius: 2px;
+    margin: 20px 0 40px 0;
+    color: #4a5b65;
+    padding: 20px;
+}
+
+.list-user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    float: left;
+}
+
+table.list-users-table {
+    border-collapse: separate;
+    border-spacing: 0 1em;
+}
+
+tr.list-user-single {
+    background: #f3f3f3;
+}
+
+table.list-users-table > tbody > tr.list-user-single > td.list-user-td {
+    padding: 15px !important;
+    border-top: none !important;
+    vertical-align: middle;
+}
+
+table.list-users-table > thead > tr > th > span {
+    border-bottom: 2px solid #989898;
+    padding: 0 0 8px 0;
+}
+
+td.search {
+    border-top: none !important;
+}
+
+.list-user-username, .list-user-name {
+    margin: 0 0 0 70px;
+}
+
+.list-user-username {
+    text-transform: capitalize;
+    font-weight: 500;
+}
+
+.list-user-username a {
+    color: #4a5b65;
+}
+
+.list-user-username a:hover {
+    text-decoration: none;
+}
+
+.list-user-td a i {
+    color: #4a5b65;
+}
+
+.list-user-td i.fa-trash:hover {
+    color: #d01818;
+}
+
 
 /*****/
 
