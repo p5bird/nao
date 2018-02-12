@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
 /**
- * @ORM\Table(name="nao_avatar")
+ * @ORM\Table(name="nao_user_avatar")
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
