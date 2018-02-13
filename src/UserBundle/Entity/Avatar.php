@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
 /**
- * @ORM\Table(name="nao_avatar")
+ * @ORM\Table(name="nao_user_avatar")
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
@@ -31,7 +31,7 @@ class Avatar {
     /**
      * @ORM\Column(name="extension", type="string", length=255)
      */
-    private $extension;
+    private $extension = 'png';
 
     /**
      * @ORM\Column(name="alt", type="string", length=255)
@@ -95,11 +95,6 @@ class Avatar {
             }
 
         }
-        // Move the file to the chosen directory
-        $this->file->move(
-            $this->getUploadRootDir(),
-            $this->id.'.'.$this->extension
-        );
     }
 
     /**
@@ -220,7 +215,7 @@ class Avatar {
      *
      * @return Avatar
      */
-    public function setUser(\UserBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 

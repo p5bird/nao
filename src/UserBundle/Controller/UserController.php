@@ -8,6 +8,8 @@
 
 namespace UserBundle\Controller;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -17,6 +19,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 
+use UserBundle\Entity\Avatar;
+use UserBundle\Entity\User;
 use UserBundle\Form\EditProfileType;
 
 /**
@@ -32,7 +36,6 @@ class UserController extends Controller {
      * @return Response
      * @throws \Exception
      * @Route("/user/{id}/", name="nao_show_user")
-     * @Security("has_role('ROLE_USER')")
      */
     public function showUserAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
@@ -54,6 +57,7 @@ class UserController extends Controller {
      * @param $id
      * @return RedirectResponse|Response
      * @Route("/user/{id}/edit/", name="nao_edit_user")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function editUserAction(Request $request, $id) {
 
@@ -110,13 +114,53 @@ class UserController extends Controller {
     }
 
     /**
-     * Admin
+     * Statistics
      *
      * @return Response
-     * @Route("/admin", name="nao_admin")
+     * @Route("/stats", name="nao_stats")
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function adminAction() {
-        return $this->render('UserBundle:User:admin.html.twig');
+    public function statsAction() {
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository('UserBundle:User')->countAllUsers();
+
+        return $this->render('UserBundle:User:stats.html.twig', array(
+            'users' => $users
+        ));
+    }
+
+    /**
+     * @param Request $request
+     * @param User $user
+     * @return JsonResponse
+     * @Route("/{id}/editUserAvatar", name="nao_edit_user_avatar")
+     */
+    public function editUserAvatarAction(Request $request, User $user){
+        $em = $this->getDoctrine()->getManager();
+
+        if($data = $request->request->get('image')) {
+            $user->getAvatar() ? $avatar = $user->getAvatar() : $avatar = new Avatar();
+
+            list($type, $data) = explode(';', $data);
+            list(, $data)      = explode(',', $data);
+            $data = str_replace('data:image/png;base64,', '', $data);
+            $data = str_replace(' ', '+', $data);
+
+            $data = base64_decode($data);
+
+            $imageName = 'user-'.$user->getId().'.png';
+
+            file_put_contents('uploads/avatar/'.$imageName, $data);
+
+            $file = new UploadedFile('uploads/avatar/'. $imageName, $imageName,  'image/png');
+
+            $avatar->setUser($user);
+            $user->setAvatar($avatar);
+            $avatar->setFile($file);
+            $em->flush();
+
+            return new JsonResponse("Avatar changed", 200);
+        }
+        return new JsonResponse("Avatar not changed", 500);
     }
 }

@@ -25,6 +25,10 @@ nao_dashboard:
     path: /dashboard/
     defaults: { _controller: UserBundle:User:dashboard }
 
+nao_stat:
+    path: /stats/
+    defaults: { _controller: UserBundle:User:stats }
+
 nao_profile:
     path: /profile/
     defaults: { _controller: FOSUserBundle:Profile:show}
@@ -35,7 +39,7 @@ nao_profile_edit:
 
 nao_admin:
     path: /admin/
-    defaults: { _controller: UserBundle:User:admin }
+    defaults: { _controller: UserBundle:User:dashboard }
 
 nao_show_user:
     path: /user/{id}/
@@ -48,6 +52,11 @@ nao_edit_user:
      defaults: { _controller: UserBundle:User:editUser }
      requirements:
             id: \d+
+
+nao_edit_user_avatar:
+    path: /{id}/editUserAvatar
+    defaults:
+        _controller: UserBundle:User:editUserAvatar
 
 nao_list_users:
     path: /user/all/

@@ -13,19 +13,9 @@ body {
 *******************************
 *******************************/
 
-/* External overwrite */
-.nav>li>a:focus, .nav>li>a:hover {
-    text-decoration: none;
-    background-color: #2c3144 !important;
-    color: #FFFFFF;
-}
-.navbar-brand.side {
-    float:none !important;
-}
-
-/***********************/
-
-/* Sidebar & navbar*/
+/******************************
+************Sidebar************
+*******************************/
 .sidebar {
     height: 100vh;
     background-color: #2c3144;
@@ -132,7 +122,17 @@ span.menu-arrow {
 
 .brand-name {
     color: #FFFFFF;
+    font-size: 22pt;
 }
+
+.toggle-sidebar {
+    display: inline-block;
+    padding: 15px;
+}
+
+/******************************
+************Topbar*************
+*******************************/
 
 .top-bar {
     height: 55px;
@@ -191,27 +191,31 @@ span.menu-arrow {
     width: 100%;
 }
 
-
-
 a.user-options-menu-dropdown-item {
     display: block;
     color: #4a5b65;
 }
 
-.toggle-sidebar {
-    display: inline-block;
-    padding: 15px;
-}
+/******************************
+*********Page content**********
+*******************************/
 
+/********************
+*******Common********
+********************/
 .page-name {
     padding: 20px;
     font-size: 2.5em;
     color: #515865;
+    display: inline-block;
 }
 
-/***********/
+.validate-edit, .go-edit {
+    float: right;
+    display: inline-block;
+    padding: 25px 40px 20px 20px;
+}
 
-/* Page content */
 .user-interface-page-header {
     background: #f7f9f9;
     min-height: 70px;
@@ -229,6 +233,16 @@ a.user-options-menu-dropdown-item {
     transition: ease-in-out 0.4s;
 }
 
+.user-interface-right-part {
+    height: 100vh;
+    overflow: auto;
+    overflow-x: hidden;
+    background: #f0f3f4;
+}
+
+/********************
+****Edit profile*****
+********************/
 .profile-edit {
     background: #FFFFFF;
     border-radius: 2px;
@@ -239,35 +253,6 @@ a.user-options-menu-dropdown-item {
 
 .profile-edit i {
     color: #4a5b65;
-}
-/****************/
-
-.user-avatar-image {
-    max-height: 250px;
-    max-width: 100%;
-}
-
-.user-avatar-image {
-    max-height: 250px;
-    max-width: 100%;
-}
-
-.user-avatar {
-    max-width: 90%;
-    text-align: left;
-}
-
-.user-interface-right-part {
-    height: 100vh;
-    overflow: auto;
-    overflow-x: hidden;
-    background: #f0f3f4;
-}
-
-.user-editing-password {
-    font-weight: 700;
-    color: #de1717;
-    display: inline-block;
 }
 
 .edit-profile-avatar-input {
@@ -283,28 +268,15 @@ a.user-options-menu-dropdown-item {
     max-width: 10%;
 }
 
-.edit-confidentiality-title {
-    padding-top: 18px;
-}
-
-.edit-user-editing-password>input {
-    max-width: 60%;
-    margin-top: 10px;
-}
-
-.edit-user-editing-password {
-    padding: 60px 0 0 0;
-}
-
 .edit-personal-options>div>div>label, .edit-account-options>div>label, .edit-social-options>div>div>label {
     margin-top: 15px;
 }
 
-#fos_user_profile_form_current_password, #fos_user_profile_form_username {
+#fos_user_profile_form_current_password, #fos_user_profile_form_username, #edit_profile_username, #edit_profile_current_password {
     max-width: 80%;
 }
 
-#fos_user_profile_form_email {
+#fos_user_profile_form_email, #edit_profile_email {
     max-width: 78%;
 }
 
@@ -312,19 +284,303 @@ a.user-options-menu-dropdown-item {
     margin: 0 0 0 80px;
 }
 
-#fos_user_profile_form_facebook, #fos_user_profile_form_instagram, #fos_user_profile_form_pinterest {
+#fos_user_profile_form_facebook, #fos_user_profile_form_instagram, #fos_user_profile_form_pinterest, #edit_profile_facebook, #edit_profile_instagram, #edit_profile_pinterest {
     max-width: 80%;
 }
 
-#fos_user_profile_form_firstname, #fos_user_profile_form_name, #fos_user_profile_form_birthdate, #fos_user_profile_form_city, #fos_user_profile_form_job, #fos_user_profile_form_level {
+#fos_user_profile_form_firstname, #fos_user_profile_form_name, #fos_user_profile_form_birthdate, #fos_user_profile_form_city, #fos_user_profile_form_job, #fos_user_profile_form_level, #edit_profile_firstname, #edit_profile_name, #edit_profile_birthdate, #edit_profile_city, #edit_profile_job, #edit_profile_level {
     max-width: 68%;
 }
 
-#fos_user_profile_form_bio {
+#fos_user_profile_form_bio, #edit_profile_bio {
     max-width: 68%;
-    min-height: 70px;
+    min-height: 100px;
 }
 
+.user-avatar-image-edit {
+    max-height: 250px;
+    max-width: 100%;
+}
+
+/********************
+****Show profile*****
+********************/
+
+.profile-show {
+    color: #4a5b65;
+}
+
+.show-user-info-left, .show-user-info-right {
+    background: #FFFFFF;
+    border-radius: 2px;
+    margin: 20px 0 40px 0;
+    color: #a7a7a7;
+}
+
+.show-user-info-left-container, .show-user-info-right-container {
+    padding: 20px;
+}
+
+.user-avatar-image-show {
+    max-width: 100%;
+}
+
+.user-avatar-show {
+    text-align: center;
+}
+
+.user-username-show {
+    padding: 10px 0 0 0;
+    text-transform: capitalize;
+    font-size: 16pt;
+    font-weight: 500;
+    color: #4a5b65;
+}
+
+.user-group-show {
+    padding: 5px 0 0 0;
+}
+
+.separator {
+    border-top: 1px solid #f3f3f3;
+    height: 10px;
+    width: 100%;
+    vertical-align: bottom;
+    display: inline-block;
+    margin: 0 0 0 5px;
+}
+
+.separator#about {
+    max-width: 73%;
+}
+
+.separator#social {
+    max-width: 62%;
+}
+
+.separator#observation, .separator#information {
+    max-width: 85%;
+}
+
+.separator#contact {
+    max-width: 89%;
+}
+
+.pre-separator {
+    display: inline-block;
+    padding-left: 20px;
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.pre-row {
+    margin-bottom: 25px;
+}
+
+.show-user-bio-title {
+    padding-bottom: 10px;
+    font-weight: 500;
+    color: #4a5b65;
+}
+
+.show-user-social i {
+    font-size: 30px;
+    margin-right: 20px;
+    -webkit-transition: ease-in-out 0.4s;
+    -moz-transition: ease-in-out 0.4s;
+    -ms-transition: ease-in-out 0.4s;
+    -o-transition: ease-in-out 0.4s;
+    transition: ease-in-out 0.4s;
+}
+
+.show-user-social a {
+    color: #a7a7a7;
+}
+
+.show-user-social a:hover {
+    text-decoration: none;
+}
+
+.show-user-social i.fa-facebook:hover {
+    color: #3b5998;
+}
+
+.show-user-social i.fa-instagram:hover {
+    color: #fccc63;
+}
+
+.show-user-social i.fa-pinterest-square:hover {
+    color: #cb2027;
+}
+
+.show-user-name {
+    font-size: 30pt;
+    color: #4a5b65;
+    font-weight: 500;
+}
+
+.show-user-name-city {
+    font-size: 11pt;
+    color: #a7a7a7;
+    font-weight: 400;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.show-user-name-city i {
+    margin: 0 1px 0 8px;
+}
+
+.show-user-observation {
+
+}
+
+.show-user-observation i.fas {
+    color: #448d3e;
+}
+.show-user-observation i.fa-star {
+    font-size: 20pt;
+}
+
+.show-stars {
+    padding-bottom: 15px;
+}
+
+/********************
+***List all users****
+********************/
+.show-all-users {
+    background: #FFFFFF;
+    border-radius: 2px;
+    margin: 20px 0 40px 0;
+    color: #4a5b65;
+    padding: 20px;
+}
+
+.list-user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    float: left;
+}
+
+table.list-users-table {
+    border-collapse: separate;
+    border-spacing: 0 1em;
+}
+
+tr.list-user-single {
+    background: #f3f3f3;
+}
+
+table.list-users-table > tbody > tr.list-user-single > td.list-user-td {
+    padding: 15px !important;
+    border-top: none !important;
+    vertical-align: middle;
+}
+
+table.list-users-table > thead > tr > th > span {
+    border-bottom: 2px solid #989898;
+    padding: 0 0 8px 0;
+}
+
+td.search {
+    border-top: none !important;
+}
+
+.list-user-username, .list-user-name {
+    margin: 0 0 0 70px;
+}
+
+.list-user-username {
+    text-transform: capitalize;
+    font-weight: 500;
+}
+
+.list-user-username a {
+    color: #4a5b65;
+}
+
+.list-user-username a:hover {
+    text-decoration: none;
+}
+
+.list-user-td a i {
+    color: #4a5b65;
+}
+
+.list-user-td i.fa-trash:hover {
+    color: #d01818;
+}
+
+/********************
+*****Statistics******
+********************/
+.stats-show {
+    margin: 20px 0 0 0;
+}
+
+.stats-user, .stats-observation, .stats-article, .stats-comment {
+    background: #FFFFFF;
+    padding: 20px;
+}
+
+.stats-user-title, .stats-observation-title, .stats-article-title, .stats-comment-title {
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.stats-user-subtitle, .stats-observation-subtitle, .stats-article-subtitle, .stats-comment-subtitle {
+    color: #c7c7c7;
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.stats-user-content, .stats-observation-content, .stats-article-content, .stats-comment-content {
+    max-width: 150px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 50px 0 0 0;
+    font-size: 40px;
+}
+
+/*****/
+
+.user-editing-password {
+    font-weight: 700;
+    color: #de1717;
+    display: inline-block;
+}
+
+
+.edit-user-editing-password>input {
+    max-width: 60%;
+    margin-top: 10px;
+}
+
+.edit-user-editing-password {
+    padding: 27px 0 0 0;
+}
+
+.pre-col {
+    color: #4a5b65;
+    font-weight: 500;
+}
+
+.pre-col>div, .post-col>div {
+    margin: 5px 0 5px 0;
+}
+
+img.last-observation {
+    max-width: 100%;
+}
+
+.last-observation-title {
+    padding: 15px;
+    color: #4a5b65;
+    font-weight: 500;
+}
 /******************************
 *******************************
 *********MEDIA QUERIES*********

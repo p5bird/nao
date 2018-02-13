@@ -14,7 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 use FOS\UserBundle\Form\Type\ProfileFormType as BaseProfileFormType;
 
@@ -49,7 +49,13 @@ class EditProfileType extends AbstractType {
                 ],
                 'error_bubbling' => true
             ))
-            ->add('level', TextType::class, array(
+            ->add('level', ChoiceType::class, array(
+                'choices' => array(
+                    'Amateur' => 'Amateur',
+                    'Initié' => 'Initié',
+                    'Connaisseur' => 'Connaisseur',
+                    'Professionnel' => 'Professionnel',
+                ),
                 'required' => false,
                 'label' => 'Niveau ornithologique',
                 'attr' => [

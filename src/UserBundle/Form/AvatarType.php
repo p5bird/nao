@@ -22,6 +22,8 @@ class AvatarType extends AbstractType {
                 'label' => false,
                 'attr' => [
                     'class' => 'custom-file-input',
+                    'data-toggle' => 'modal',
+                    'data-target' => '#cropp-avatar'
                 ],
             ))
         ;

@@ -14,10 +14,10 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="navbar-user-avatar">
-                                        {% if user.avatar.id is not defined %}
+                                        {% if app.user.avatar.id is not defined %}
                                             <img src="{{ asset('/img/no-image.png') }}" class="user-avatar-image-sidebar"/>
                                         {% else %}
-                                            <img src="{{ asset('/uploads/avatar/') }}{{ app.user.avatar.id }}.{{ app.user.avatar.extension }}" class="user-avatar-image-sidebar"/>
+                                            <img src="{{ asset('/uploads/avatar/') }}user-{{ app.user.id }}.{{ app.user.avatar.extension }}" class="user-avatar-image-sidebar"/>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -168,10 +168,10 @@
                     </div>
                     <div class="user-options-menu">
                         <a href="{{ path('nao_profile') }}">
-                            {% if user.avatar.id is not defined %}
+                            {% if app.user.avatar.id is not defined %}
                                 <img src="{{ asset('/img/no-image.png') }}" class="user-avatar-image-topbar"/>
                             {% else %}
-                                <img src="{{ asset('/uploads/avatar/') }}{{ user.avatar.id }}.{{ user.avatar.extension }}" class="user-avatar-image-topbar"/>
+                                <img src="{{ asset('/uploads/avatar/') }}user-{{ app.user.id }}.{{ app.user.avatar.extension }}" class="user-avatar-image-topbar"/>
                             {% endif %}
                         </a>
                         <i class="fas fa-caret-down" id="user_options_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
@@ -191,8 +191,6 @@
 
     {% block javascripts %}
         <script src="{{ asset('js/toggle-sidebar.js') }}" type="text/javascript"></script>
-        <script type="text/javascript">
-            $('#fos_user_profile_form_avatar_file')
-        </script>
+        <script src="{{ asset('js/search-user.js') }}" type="text/javascript"></script>
     {% endblock %}
 {% endblock %}

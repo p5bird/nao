@@ -1,19 +1,214 @@
 {% extends "UserBundle::layout.html.twig" %}
 
-{% trans_default_domain 'FOSUserBundle' %}
-
 {% block title %}{{ parent() }} - Profil de {{ user.username }}{% endblock %}
 
 {% block content %}
-    <div class="fos_user_user_show">
-        <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
-        <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
-        <p>{{ 'Avatar' }}: </p>
-        {% if user.avatar.id is not defined %}
-            <img src="{{ asset('/img/no-image.png') }}" class="user-avatar-image"/>
-        {% else %}
-            <img src="{{ asset('/uploads/avatar/') }}{{ user.avatar.id }}.{{ user.avatar.extension }}" class="user-avatar-image"/>
+    <div class="user-interface-page-header">
+        <div class="page-name">
+            Profil de {{ user.username }}
+        </div>
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="go-edit">
+                <a href="{{ path('nao_edit_user', {'id' : user.id }) }}" >
+                    <button type="submit" class="btn btn-primary btn-lg btn-success">
+                        Modifier
+                    </button>
+                </a>
+            </div>
         {% endif %}
-        <p>{{ 'Groupe' }}: {{ user.groupNames[0] }}</p>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 profile-show">
+                <div class="col-md-3 col-md-offset-1">
+                    <div class="show-user-info-left">
+                        <div class="show-user-info-left-container">
+                            <div class="show-avatar">
+                                <div class="user-avatar-show">
+                                    {% if user.avatar.id is not defined %}
+                                        <img src="{{ asset('/img/no-image.png') }}" class="user-avatar-image-show"/>
+                                    {% else %}
+                                        <img src="{{ asset('/uploads/avatar/') }}user-{{ user.id }}.{{ user.avatar.extension }}" class="user-avatar-image-show"/>
+                                    {% endif %}
+                                </div>
+                                <div class="user-account-info-show">
+                                    <div class="user-username-show">
+                                        {{ user.username }}
+                                    </div>
+                                    <div class="user-group-show">
+                                        {{ user.groupNames[0] }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pre-separator">A propos</div><div class="separator" id="about"></div>
+                        <div class="show-user-info-left-container">
+                            <div class="show-user-bio">
+                                {{ user.bio|slice(0, 255) }}
+                            </div>
+                        </div>
+                        <div class="pre-separator">Réseaux sociaux</div><div class="separator" id="social"></div>
+                        <div class="show-user-info-left-container">
+                            <div class="show-user-social">
+                                <a href="{{ user.facebook }}">
+                                    <i class="fab fa-facebook"></i>
+                                </a>
+                                <a href="{{ user.instagram }}">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="{{ user.pinterest }}">
+                                    <i class="fab fa-pinterest-square"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-md-offset-right-2">
+                    <div class="show-user-info-right">
+                        <div class="container-fluid">
+                            <div class="show-user-info-right-container">
+                                <div class="show-user-name">
+                                    {{ user.firstName }} {{ user.name }}
+                                    <div class="show-user-name-city">
+                                        <i class="fas fa-map-marker-alt"></i> {{ user.city }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pre-separator">Observations</div><div class="separator" id="observation"></div>
+                            <div class="show-user-info-right-container">
+                                <div class="show-user-observation">
+                                    <div class="col-md-12">
+                                        <div class="show-stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 pre-col">
+                                                <div>Rang:</div>
+                                                <div>Observations:</div>
+                                            </div>
+                                            <div class="col-md-9 post-col">
+                                                <div>Poussin</div>
+                                                <div>147</div>
+                                            </div>
+                                        </div>
+                                        <div class="row pre-row">
+                                            <div class="show-last-observations">
+                                                <div class="col-md-12">
+                                                    <div class="row pre-row">
+                                                        <div class="last-observation-title">Dernières observations:</div>
+                                                        <div class="col-md-4">
+                                                            <a href="#">
+                                                                <img src="https://www.mieux-vivre-autrement.com/wp-content/uploads/2015/12/oiseau-froid.jpg" class="last-observation">
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <a href="#">
+                                                                <img src="http://www.detentejardin.com/sites/art-de-vivre/files/styles/large/public/dj111_oiseaux_arbre_mort_fotolia.jpg?itok=mjFyUU9A" class="last-observation">
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <a href="#">
+                                                                <img src="http://www.lantipode.com/wp-content/uploads/2016/03/Tomtit.jpg" class="last-observation">
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pre-separator">Informations</div><div class="separator" id="information"></div>
+                            <div class="show-user-info-right-container">
+                                <div class="show-user-information">
+                                    <div class="col-md-12">
+                                        <div class="row pre-row">
+                                            <div class="col-md-3 pre-col">
+                                                {% if user.name|length == 0 %}
+                                                {% else %}
+                                                    <div>Nom:</div>
+                                                {% endif %}
+                                                {% if user.firstName|length == 0 %}
+                                                {% else %}
+                                                    <div>Prénom:</div>
+                                                {% endif %}
+                                                {% if user.city|length == 0 %}
+                                                {% else %}
+                                                    <div>Lieu:</div>
+                                                {% endif %}
+                                                {% if user.birthDate|length == 0 %}
+                                                {% else %}
+                                                    <div>Date de naissance:</div>
+                                                {% endif %}
+                                                {% if user.job|length == 0 %}
+                                                {% else %}
+                                                    <div>Profession:</div>
+                                                {% endif %}
+                                                {% if user.level|length == 0 %}
+                                                {% else %}
+                                                    <div>Niveau:</div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-md-9 post-col">
+                                                {% if user.name|length == 0 %}
+                                                {% else %}
+                                                    <div>{{ user.name }}</div>
+                                                {% endif %}
+                                                {% if user.firstName|length == 0 %}
+                                                {% else %}
+                                                    <div>{{ user.firstName }}</div>
+                                                {% endif %}
+                                                {% if user.city|length == 0 %}
+                                                {% else %}
+                                                    <div>{{ user.city }}</div>
+                                                {% endif %}
+                                                {% if user.birthDate|length == 0 %}
+                                                {% else %}
+                                                    <div>{{ user.birthDate|date('d/m/Y') }}</div>
+                                                {% endif %}
+                                                {% if user.job|length == 0 %}
+                                                {% else %}
+                                                    <div>{{ user.job }}</div>
+                                                {% endif %}
+                                                {% if user.level|length == 0 %}
+                                                {% else %}
+                                                    <div>{{ user.level }}</div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pre-separator">Contact</div><div class="separator" id="contact"></div>
+                            <div class="show-user-info-right-container">
+                                <div class="show-user-contact">
+                                    <div class="col-md-12">
+                                        <div class="row pre-row">
+                                            <div class="col-md-3 pre-col">
+                                                <div>Téléphone:</div>
+                                                <div>Email:</div>
+                                                <div>Site web:</div>
+                                            </div>
+                                            <div class="col-md-9 post-col">
+                                                <div><a href="tel:0634459632">06 34 45 96 32</a></div>
+                                                <div><a href="mailto:{{ user.email }}">{{ user.email }}</a></div>
+                                                <div><a href="#">http://google.fr</a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

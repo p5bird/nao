@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity
  * @ORM\Table(name="nao_user")
+ * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
  */
 class User extends BaseUser
 {
@@ -67,10 +68,6 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="level", type="string", nullable=true)
-     * @Assert\Length(
-     *      min = 3,
-     *      minMessage = "Le niveau ornithologique doit contenir au moins {{ limit }} lettres."
-     * )
      */
     private $level;
 
@@ -116,10 +113,10 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="bio", type="string", nullable=true)
+     * @ORM\Column(name="bio", type="text", nullable=true)
      * @Assert\Length(
-     *      max = 255,
-     *      maxMessage = "Le prénom ne peut pas contenir plus de {{ limit }} lettres."
+     *      max = 1000,
+     *      maxMessage = "La biographie ne peut pas contenir plus de {{ limit }} lettres."
      * )
      */
     private $bio;
@@ -140,12 +137,25 @@ class User extends BaseUser
      */
     protected $groups;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_register", type="date")
+     * @Assert\NotBlank()
+     * @Assert\DateTime(
+     *     format="d-m-Y",
+     *     message="Incorrect date format. Expected format : '{{ format }}'."
+     * )
+     */
+    private $dateRegister;
+
 
     public function __construct()
     {
         parent::__construct();
 
         $this->groups = new ArrayCollection();
+        $this->dateRegister = new \DateTime();
     }
 
     // GETTERS & SETTERS
@@ -350,5 +360,25 @@ class User extends BaseUser
     public function setGroups($groups)
     {
         $this->groups = $groups;
+    }
+
+    /**
+     * @param \DateTime $dateRegister
+     *
+     * @return User
+     */
+    public function setDateRegister($dateRegister)
+    {
+        $this->dateRegister = $dateRegister;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateRegister()
+    {
+        return $this->dateRegister;
     }
 }
