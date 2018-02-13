@@ -55,27 +55,6 @@ class Observation
     private $place;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="town", type="string", length=255, nullable=true)
-     */
-    private $town;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="county", type="string", length=255, nullable=true)
-     */
-    private $county;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="region", type="string", length=255, nullable=true)
-     */
-    private $region;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="sendingDate", type="datetime")
@@ -271,78 +250,6 @@ class Observation
     public function getPlace()
     {
         return $this->place;
-    }
-
-    /**
-     * Set town
-     *
-     * @param string $town
-     *
-     * @return Observation
-     */
-    public function setTown($town)
-    {
-        $this->town = $town;
-
-        return $this;
-    }
-
-    /**
-     * Get town
-     *
-     * @return string
-     */
-    public function getTown()
-    {
-        return $this->town;
-    }
-
-    /**
-     * Set county
-     *
-     * @param string $county
-     *
-     * @return Observation
-     */
-    public function setCounty($county)
-    {
-        $this->county = $county;
-
-        return $this;
-    }
-
-    /**
-     * Get county
-     *
-     * @return string
-     */
-    public function getCounty()
-    {
-        return $this->county;
-    }
-
-    /**
-     * Set region
-     *
-     * @param string $region
-     *
-     * @return Observation
-     */
-    public function setRegion($region)
-    {
-        $this->region = $region;
-
-        return $this;
-    }
-
-    /**
-     * Get region
-     *
-     * @return string
-     */
-    public function getRegion()
-    {
-        return $this->region;
     }
 
     /**

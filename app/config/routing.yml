@@ -58,6 +58,14 @@ nao_obs_add:
     defaults:
         _controller: ObservationBundle:Observation:add
 
+nao_ajax_bird_name:
+    path: /observation/ajax/birdName/{birdName}
+    defaults:
+        _controller: ObservationBundle:Observation:birdNameAutoComplete
+        birdName: ''
+    requirements:
+        birdName: .*
+
 nao_obs_check:
     path: /observation/check/{id}
     defaults:

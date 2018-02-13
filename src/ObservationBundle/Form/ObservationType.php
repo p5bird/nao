@@ -55,27 +55,6 @@ class ObservationType extends AbstractType
                     'class'     => 'form-control'
                 ]
             ])
-            ->add('town',           Type\TextType::class, [
-                'required'  => false,
-                'label'     => "Ville",
-                'attr'      => [
-                    'class'     => 'form-control'
-                ]
-            ])
-            ->add('county',         Type\TextType::class, [
-                'required'  => false,
-                'label'     => "Département",
-                'attr'      => [
-                    'class'     => 'form-control'
-                ]
-            ])
-            ->add('region',         Type\TextType::class, [
-                'required'  => false,
-                'label'     => "Région",
-                'attr'      => [
-                    'class'     => 'form-control'
-                ]
-            ])
             ->add('comment',        Type\TextareaType::class, [
                 'required'  => false,
                 'label'     => "Commentaire",

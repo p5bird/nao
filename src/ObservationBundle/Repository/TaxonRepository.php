@@ -10,4 +10,14 @@ namespace ObservationBundle\Repository;
  */
 class TaxonRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function getNameVernList($slug)
+	{
+		$queryBuilder = $this->createQueryBuilder('tax');
+		$queryBuilder
+			->where($queryBuilder->expr()->like('tax.nameVern', ':slug'))
+			->setParameter('slug', $slug . '%')
+			->andWhere('tax.id = tax.ref')
+			->orderBy('tax.nameVern', 'ASC');
+		return $queryBuilder->getQuery()->getResult();
+	}
 }

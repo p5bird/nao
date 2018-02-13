@@ -9,3 +9,22 @@
     	{{ form(formObs) }}
     </div>
 {% endblock %}
+
+{% block javascript %}
+	{# Auto-completion script : finding bird name #}
+	<script>
+		var urlApp = "{{ path('nao_ajax_bird_name') }}";
+		$('#observationbundle_observation_birdName').autocomplete({
+			source: function(request, response) {
+				$.ajax({
+					url: urlApp + "/" + document.getElementById("observationbundle_observation_birdName").value,
+					dataType: 'json',
+					success: function(nameList){
+						response(nameList);
+					}
+				});
+			},
+			minLenght: 3
+		});
+	</script>	
+{% endblock %}

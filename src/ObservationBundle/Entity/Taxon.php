@@ -56,6 +56,13 @@ class Taxon
     private $id;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="CD_REF", type="integer")
+     */
+    private $ref;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="LB_NOM", type="string", length=255)
@@ -401,5 +408,29 @@ class Taxon
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set ref
+     *
+     * @param integer $ref
+     *
+     * @return Taxon
+     */
+    public function setRef($ref)
+    {
+        $this->ref = $ref;
+
+        return $this;
+    }
+
+    /**
+     * Get ref
+     *
+     * @return integer
+     */
+    public function getRef()
+    {
+        return $this->ref;
     }
 }

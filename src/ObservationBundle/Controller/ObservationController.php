@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use ObservationBundle\Entity\Observation;
 use ObservationBundle\Form\ObservationType;
 
@@ -105,5 +106,23 @@ class ObservationController extends Controller
     public function resultAction($view = null, $filter = null)
     {
         return $this->render('ObservationBundle:Observation:result.html.twig');
+    }
+
+
+    //\\//\\//\\//
+    public function birdNameAutoCompleteAction($birdName)
+    {
+        $repository = $this->getDoctrine()->getManager()->getRepository('ObservationBundle:Taxon');
+        $taxons = $repository->getNameVernList($birdName);
+
+        $taxonList = [];
+        foreach ($taxons as $taxon) {
+            array_push($taxonList, [
+                'label' => $taxon->getNameVern() . ' :: ' . $taxon->getNameValid(),
+                'value' => $taxon->getNameVern()
+            ]);
+        }
+
+        return new JsonResponse($taxonList);
     }
 }
