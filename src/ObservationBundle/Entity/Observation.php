@@ -15,6 +15,7 @@ use ObservationBundle\Validator\LongitudeOk;
  *
  * @ORM\Table(name="nao_obs_observation")
  * @ORM\Entity(repositoryClass="ObservationBundle\Repository\ObservationRepository")
+ * @BirdNameExists()
  */
 class Observation
 {
@@ -148,7 +149,7 @@ class Observation
     private $images;
 
     /**
-     * @BirdNameExists()
+     * 
      */
     private $birdName;
 

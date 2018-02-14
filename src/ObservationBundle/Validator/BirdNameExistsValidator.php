@@ -5,6 +5,7 @@ namespace ObservationBundle\Validator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Doctrine\ORM\EntityManagerInterface;
+use ObservationBundle\Entity\Observation;
 
 
 class BirdNameExistsValidator extends ConstraintValidator
@@ -16,14 +17,16 @@ class BirdNameExistsValidator extends ConstraintValidator
 		$this->entityManager = $entityManager;
 	}
 
-	public function validate($birdName, Constraint $constraint)
+	public function validate($observation, Constraint $constraint)
 	{	
-		$taxons = $this->entityManager
+		$taxon = $this->entityManager
 			->getRepository('ObservationBundle:Taxon')
-			->findByNameVern($birdName);
-		if (empty($taxons) or empty($taxons[0]))
+			->findByNameVern($observation->getBirdName());
+		if (is_null($taxon) and !$observation->getNoName())
 		{
-			$this->context->addViolation($constraint->message);
+			$this->context->buildViolation($constraint->message)
+				->atPath('birdName')
+				->addViolation();
 		}
 	}
 }

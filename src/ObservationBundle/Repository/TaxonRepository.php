@@ -10,7 +10,12 @@ namespace ObservationBundle\Repository;
  */
 class TaxonRepository extends \Doctrine\ORM\EntityRepository
 {
-	public function findByNameVern($nameVern)
+	/**
+	 * Find a list of taxons for autocomplete field
+	 * @param  string $nameVern approx birdName
+	 * @return array of taxons
+	 */
+	public function findForAutocomplete($nameVern)
 	{
 		$queryBuilder = $this->createQueryBuilder('tax');
 		$queryBuilder
@@ -19,6 +24,21 @@ class TaxonRepository extends \Doctrine\ORM\EntityRepository
 			->andWhere('tax.id = tax.ref')
 			->orderBy('tax.nameVern', 'ASC');
 		return $queryBuilder->getQuery()->getResult();
+	}
+
+	/**
+	 * Find the taxon with the bird name
+	 * @param  string $nameVern bird name vernaculaire
+	 * @return 
+	 */
+	public function findByNameVern($nameVern)
+	{
+		$queryBuilder = $this->createQueryBuilder('tax');
+		$queryBuilder
+			->where($queryBuilder->expr()->like('tax.nameVern', ':nameVern'))
+			->setParameter('nameVern', $nameVern)
+			->andWhere('tax.id = tax.ref');
+		return $queryBuilder->getQuery()->getOneOrNullResult();
 	}
 
 }

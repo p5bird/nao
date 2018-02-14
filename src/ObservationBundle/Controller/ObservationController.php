@@ -32,9 +32,11 @@ class ObservationController extends Controller
                 $user = $this->container->get('security.token_storage')->getToken()->getUser();
                 $observation->setAuthor($user);
 
-                $taxonRepository = $this->getDoctrine()->getManager()->getRepository('ObservationBundle:Taxon');
-                $taxons = $taxonRepository->findByNameVern($observation->getBirdName());
-                $observation->setTaxon($taxons[0]);
+                if (!$observation->getNoName()) {
+                    $taxonRepository = $this->getDoctrine()->getManager()->getRepository('ObservationBundle:Taxon');
+                    $taxon = $taxonRepository->findByNameVern($observation->getBirdName());
+                    $observation->setTaxon($taxon);
+                }
 
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($observation);
@@ -93,6 +95,12 @@ class ObservationController extends Controller
             ->getRepository('ObservationBundle:Observation')
             ->findOneBy(['id' => $id]);
 
+        if ($observation->getNoName())
+        {
+            $taxon = new Taxon();
+            $observation->setTaxon($taxon);
+        }
+
         return $this->render('ObservationBundle:Observation:show.html.twig', [
         	'observation'	=> $observation
         ]);
@@ -119,7 +127,7 @@ class ObservationController extends Controller
     public function birdNameAutoCompleteAction($birdName)
     {
         $repository = $this->getDoctrine()->getManager()->getRepository('ObservationBundle:Taxon');
-        $taxons = $repository->findByNameVern($birdName);
+        $taxons = $repository->findForAutocomplete($birdName);
 
         $taxonList = [];
         foreach ($taxons as $taxon) {
