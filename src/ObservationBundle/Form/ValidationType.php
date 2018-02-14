@@ -8,7 +8,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type;
 use ObservationBundle\Form\ImageType;
 
-class ObservationType extends AbstractType
+use ObservationBundle\Form\ObservationType;
+
+class ValidationType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -16,54 +18,17 @@ class ObservationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('images',             Type\CollectionType::class, [
-                'required'  => false,
-                'entry_type'    => ImageType::class,
-                'entry_options' => [
-                    'label' => 'Photos'
-                ],
-                'allow_add'     => true,
-                'allow_delete'  => true
-            ])
             ->add('birdName',          Type\TextType::class, [
                 'required'  => false,
                 'label'     => "Nom de l'oiseau *",
                 'attr'      => [
                     'class'     => 'form-control',
-                    'data-autocomplete'  => 'birdName'
+                    'data-autocomplete' => 'birdName'
                 ]
             ])
             ->add('noName',         Type\CheckboxType::class, [
                 'required'  => false,
                 'label'     => "inconnu",
-                'attr'      => [
-                    'class'     => 'form-control'
-                ]
-            ])
-            ->add('day',            Type\DateType::class, [
-                'required'  => true,
-                'label'     => "Date *",
-                'attr'      => [
-                    'class'     => 'form-control'
-                ]
-            ])
-            ->add('latitude',       Type\NumberType::class, [
-                'required'  => true,
-                'label'     => "Latitude *",
-                'attr'      => [
-                    'class'     => 'form-control'
-                ]
-            ])
-            ->add('longitude',       Type\NumberType::class, [
-                'required'  => true,
-                'label'     => "Longitude *",
-                'attr'      => [
-                    'class'     => 'form-control'
-                ]
-            ])
-            ->add('place',          Type\TextType::class, [
-                'required'  => false,
-                'label'     => "Lieu",
                 'attr'      => [
                     'class'     => 'form-control'
                 ]
@@ -75,8 +40,21 @@ class ObservationType extends AbstractType
                     'class'     => 'form-control'
                 ]
             ])
+            ->add('validationComment',        Type\TextareaType::class, [
+                'required'  => true,
+                'label'     => "Commentaire validateur",
+                'attr'      => [
+                    'class'     => 'form-control'
+                ]
+            ])
             ->add('valid',          Type\SubmitType::class, [
                 'label'     => "Envoyer"
+            ])
+            ->add('reject',          Type\SubmitType::class, [
+                'label'     => "Rejeter"
+            ])
+            ->add('cancel',          Type\SubmitType::class, [
+                'label'     => "Annuler"
             ]);
     }
 
@@ -90,11 +68,6 @@ class ObservationType extends AbstractType
         ));
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
-    {
-        return 'observationbundle_observation';
-    }
+
+
 }

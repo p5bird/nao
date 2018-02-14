@@ -16,9 +16,11 @@ class ImageType extends AbstractType
     {
         $builder
             ->add('file',   FileType::class, [
-                'label'     => "Photo de l'oiseau",
+                'label'     => "Uploader une photo",
                 'attr'      => [
-                    'class'     => 'custom-file-input'
+                    'class'     => 'custom-file-input',
+                    'data-toggle' => 'modal',
+                    'data-target' => '#cropp-image'
                 ]
             ]);
     }/**

@@ -1,0 +1,34 @@
+
+{{ form_start(formObs) }}
+
+<div class="col-xs-12">
+	{{ form_widget(formObs.images) }}
+</div>
+
+<div class="col-xs-10">
+	{{ form_row(formObs.birdName) }}
+</div>
+<div class="col-xs-2">
+	{{ form_row(formObs.noName) }}
+</div>
+
+<div class="col-xs-12">
+	{{ form_row(formObs.day) }}
+</div>
+
+<div class="col-xs-12 col-sm-6">
+	{{ form_row(formObs.latitude) }}
+</div>
+<div class="col-xs-12 col-sm-6">
+	{{ form_row(formObs.longitude) }}
+</div>
+
+<div class="col-xs-12">
+	{{ form_row(formObs.place) }}
+</div>
+
+<div class="col-xs-12">
+	{{ form_row(formObs.comment) }}
+</div>
+
+{{ form_end(formObs) }}

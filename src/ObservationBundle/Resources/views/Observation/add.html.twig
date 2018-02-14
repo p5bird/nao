@@ -4,27 +4,61 @@
 
 {% block content %}
     <h2>Ajouter une observation</h2>
-    <p>formulaire d'ajout</p>
-    <div class="well">
-    	{{ form(formObs) }}
-    </div>
+    
+    <div class="container">
+	    <div class="row">
+	    	{{ include("ObservationBundle:Form:observationAdd.html.twig") }}
+	    </div>
+	</div>
 {% endblock %}
 
 {% block javascript %}
-	{# Auto-completion script : finding bird name #}
-	<script>
-		var urlApp = "{{ path('nao_ajax_bird_name') }}";
-		$('#observationbundle_observation_birdName').autocomplete({
-			source: function(request, response) {
-				$.ajax({
-					url: urlApp + "/" + document.getElementById("observationbundle_observation_birdName").value,
-					dataType: 'json',
-					success: function(nameList){
-						response(nameList);
-					}
-				});
-			},
-			minLenght: 3
-		});
+    {{ include("ObservationBundle:Script:autocomplete.html.twig") }}
+
+	{# crope image #}
+	<script type="text/javascript">
+        // Initialize image cropper
+        var $uploadCrop = $('#profile-pic-preview').croppie({
+            viewport: {
+                width: 315,
+                height: 315,
+                type: 'square'
+            },
+            boundary: {
+                width: 600,
+                height: 600
+            },
+            enableOrientation: true,
+            enableExif: true
+        });
+
+        $('#edit_profile_image_file').on('change', function() {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $uploadCrop.croppie('bind', {
+                    url: e.target.result
+                })
+            };
+            reader.readAsDataURL(this.files[0]);
+        });
+
+        $('.save-result').on('click', function (ev) {
+            $uploadCrop.croppie('result', {
+                type: 'canvas',
+                size: 'viewport'
+            }).then(function (resp) {
+
+                $.ajax({
+                    url: "",
+                    type: "POST",
+                    data: {"image":resp},
+                    success: function (data) {
+                        html = '<img src="' + resp + '"/>';
+                        $('.user-image-edit>img').remove();
+                        $(".user-image-edit").append(html);
+                    }
+                });
+            });
+        });
 	</script>	
 {% endblock %}

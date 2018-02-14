@@ -1,0 +1,16 @@
+    {# Auto-completion script : finding bird name #}
+    <script type="text/javascript">
+        var urlApp = "{{ path('nao_ajax_bird_name') }}";
+        $("input[data-autocomplete='birdName']").autocomplete({
+            source: function(request, response) {
+                $.ajax({
+                    url: urlApp + "/" + $("input[data-autocomplete='birdName']").val(),
+                    dataType: 'json',
+                    success: function(nameList){
+                        response(nameList);
+                    }
+                });
+            },
+            minLenght: 3
+        });
+    </script>

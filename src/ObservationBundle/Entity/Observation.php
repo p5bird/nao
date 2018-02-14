@@ -144,6 +144,7 @@ class Observation
 
     /**
      * @ORM\OneToMany(targetEntity="ObservationBundle\Entity\Image", mappedBy="observation", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      * 
      */
     private $images;
@@ -160,7 +161,7 @@ class Observation
     public function __construct()
     {
         $this->sendingDate = new \DateTime();
-        $this->images = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->images = new ArrayCollection();
         $this->validated = false;
         $this->published = false;
         $this->likes = 0;
@@ -569,7 +570,11 @@ class Observation
      */
     public function getBirdName()
     {
-        return $this->birdName;
+        if (is_null($this->taxon))
+        {
+            return $this->birdName;
+        }
+        return $this->taxon->getNameVern();
     }
 
 

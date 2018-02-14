@@ -1,0 +1,41 @@
+{% extends "UserBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Mes observations{% endblock %}
+
+{% block content %}
+	{% if observations is empty %}
+		<div class="container">
+			<p>Vous n'avez pas d'observation.</p>
+		</div>
+	{% else %}
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<h1>Mes observations</h1>
+				</div>
+				<div class="col-xs-12">
+					<div class="table-responsive">
+						<table class="table table-sm table-hover">
+							<thead>
+		    					<tr>
+		    						<th scope="col">Oiseau</th>
+		    						<th scope="col">Date d'observation</th>
+		    						<th scope="col">Statut</th>
+		    					</tr>
+							</thead>
+		    				<tbody>
+								{% for observation in observations %}
+			    					<tr>
+			    						<td><a href="{{ path('nao_obs_check', {'id': observation.id}) }}">{{ observation.noName ? 'non identifié' : observation.birdName }}</a></td>
+			    						<td>{{ observation.day|date('d/m/Y') }}</td>
+			    						<td>{{ observation.validated ? 'Validée' : 'Non validée' }}</td>
+			    					</tr>
+								{% endfor %}
+		    				</tbody>
+		    			</table>
+	    			</div>
+	    		</div>
+	    	</div>
+	    </div>
+	{% endif %}
+{% endblock %}
