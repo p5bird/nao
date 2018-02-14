@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use ObservationBundle\Validator\BirdNameExists;
+use ObservationBundle\Validator\LatitudeOk;
+use ObservationBundle\Validator\LongitudeOk;
 
 /**
  * Observation
@@ -51,6 +53,7 @@ class Observation
      *
      * @ORM\Column(name="latitude", type="decimal")
      * @assert\NotBlank()
+     * @LatitudeOk()
      */
     private $latitude;
 
@@ -59,6 +62,7 @@ class Observation
      *
      * @ORM\Column(name="longitude", type="decimal")
      * @assert\NotBlank()
+     * @LongitudeOk()
      */
     private $longitude;
 

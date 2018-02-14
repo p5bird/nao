@@ -54,8 +54,10 @@
 			    					</tr>
 			    					<tr>
 			    						<td>Fiches externes :</td>
-			    						<td class="" role="group"><a href="{{ observation.urlInpn }}" target="_blank" alt="fiche inpn de l'oiseau nommé {{ observation.taxon.nameVern }}" type="button" class="btn btn-default">INPN</a>
-			    							<a href="{{ observation.urlWiki }}" target="_blank" alt="fiche wikipedia de l'oiseau nommé {{ observation.taxon.nameVern }}" type="button" class="btn btn-default">Wiki</a></td>
+			    						<td class="" role="group">
+			    							<a href="{{ observation.urlInpn }}" target="_blank" rel="nofollow" type="button" class="btn btn-default">INPN</a>
+			    							<a href="{{ observation.urlWiki }}" target="_blank" rel="nofollow" type="button" class="btn btn-default">Wiki</a>
+			    						</td>
 			    					</tr>
 			    				</tbody>
 			    			</table>
