@@ -24,7 +24,7 @@ class ObservationType extends AbstractType
             ])
             ->add('birdName',          Type\TextType::class, [
                 'required'  => false,
-                'label'     => "Nom de l'oiseau",
+                'label'     => "Nom de l'oiseau *",
                 'attr'      => [
                     'class'     => 'form-control'
                 ]
@@ -37,13 +37,22 @@ class ObservationType extends AbstractType
                 ]
             ])
             ->add('day',            Type\DateType::class, [
-                'label'     => "Date",
+                'required'  => true,
+                'label'     => "Date *",
                 'attr'      => [
                     'class'     => 'form-control'
                 ]
             ])
-            ->add('gpsCoord',       Type\TextType::class, [
-                'label'     => "Coordonnées GPS",
+            ->add('latitude',       Type\NumberType::class, [
+                'required'  => true,
+                'label'     => "Latitude *",
+                'attr'      => [
+                    'class'     => 'form-control'
+                ]
+            ])
+            ->add('longitude',       Type\NumberType::class, [
+                'required'  => true,
+                'label'     => "Longitude *",
                 'attr'      => [
                     'class'     => 'form-control'
                 ]
@@ -56,8 +65,8 @@ class ObservationType extends AbstractType
                 ]
             ])
             ->add('comment',        Type\TextareaType::class, [
-                'required'  => false,
-                'label'     => "Commentaire",
+                'required'  => true,
+                'label'     => "Observation *",
                 'attr'      => [
                     'class'     => 'form-control'
                 ]

@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use ObservationBundle\Entity\Observation;
 use ObservationBundle\Form\ObservationType;
+use ObservationBundle\Entity\Taxon;
+use ObservationBundle\Entity\Image;
 
 class ObservationController extends Controller
 {
@@ -29,6 +31,10 @@ class ObservationController extends Controller
             {
                 $user = $this->container->get('security.token_storage')->getToken()->getUser();
                 $observation->setAuthor($user);
+
+                $taxonRepository = $this->getDoctrine()->getManager()->getRepository('ObservationBundle:Taxon');
+                $taxons = $taxonRepository->findByNameVern($observation->getBirdName());
+                $observation->setTaxon($taxons[0]);
 
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($observation);
@@ -113,7 +119,7 @@ class ObservationController extends Controller
     public function birdNameAutoCompleteAction($birdName)
     {
         $repository = $this->getDoctrine()->getManager()->getRepository('ObservationBundle:Taxon');
-        $taxons = $repository->getNameVernList($birdName);
+        $taxons = $repository->findByNameVern($birdName);
 
         $taxonList = [];
         foreach ($taxons as $taxon) {
