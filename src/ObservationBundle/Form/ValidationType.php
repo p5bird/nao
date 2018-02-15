@@ -48,7 +48,7 @@ class ValidationType extends AbstractType
                 ]
             ])
             ->add('valid',          Type\SubmitType::class, [
-                'label'     => "Envoyer"
+                'label'     => "Valider"
             ])
             ->add('reject',          Type\SubmitType::class, [
                 'label'     => "Rejeter"
@@ -68,6 +68,11 @@ class ValidationType extends AbstractType
         ));
     }
 
-
-
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix()
+    {
+        return 'observationbundle_observation';
+    }
 }

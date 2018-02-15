@@ -33,7 +33,7 @@ class ObservationController extends Controller
             $user = $this->container->get('security.token_storage')->getToken()->getUser();
             $observation->setAuthor($user);
 
-            if (!$observation->getNoName()) {
+            if (!$observation->hasNoName()) {
                 $taxonRepository = $this->getDoctrine()->getManager()->getRepository('ObservationBundle:Taxon');
                 $taxon = $taxonRepository->findByNameVern($observation->getBirdName());
                 $observation->setTaxon($taxon);
@@ -49,11 +49,62 @@ class ObservationController extends Controller
                 'content'   => 'Votre observation est enregistrée :)'
             ]);
 
-            return $this->redirectToRoute('nao_obs_check', ['id' => $observation->getId()]);
+            return $this->redirectToRoute('nao_obs_user_list', ['id' => $observation->getId()]);
         }
 
         return $this->render('ObservationBundle:Observation:add.html.twig', [
             'formObs'   => $formObs->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/observation/edit/{id}", name="nao_obs_edit")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function editAction($id, Request $request)
+    {
+        $observation = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('ObservationBundle:Observation')
+            ->findOneBy(['id' => $id]);
+
+        if (is_null($observation))
+        {
+            return $this->render('ObservationBundle:Observation:edit.html.twig', [
+                'observation'   => $observation
+            ]);            
+        }
+
+        $formObs = $this->createForm(ObservationType::class, $observation);
+        $formObs->handleRequest($request);
+
+        if ($formObs->isSubmitted() and $formObs->isValid())
+        {
+            $taxonRepository = $this->getDoctrine()->getManager()->getRepository('ObservationBundle:Taxon');
+            $taxon = $taxonRepository->findByNameVern($observation->getBirdName());
+
+            if (!is_null($taxon)) {              
+                $observation->setTaxon($taxon);
+            }
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($observation);
+            $entityManager->flush();
+
+            $session = $request->getSession();
+            $session->getFlashBag()->add('alert', [
+                'type'      => 'success',
+                'content'   => 'Vos modifications ont été prises en compte :)'
+            ]);
+
+            return $this->redirectToRoute('nao_obs_user_list', ['id' => $observation->getId()]);
+        }
+
+        return $this->render('ObservationBundle:Observation:edit.html.twig', [
+            'observation'   => $observation,
+            'user'          => $this->container->get('security.token_storage')->getToken()->getUser(),
+            'formObs'       => $formObs->createView()
         ]);
     }
 
@@ -76,21 +127,12 @@ class ObservationController extends Controller
             ]);            
         }
 
-
-        if ($observation->getNoName())
-        {
-            $taxon = new Taxon();
-            $observation->setTaxon($taxon);
-        }
-
         $formObs = $this->createForm(ObservationType::class, $observation);
         $formObs->handleRequest($request);
 
-        $user = $this->container->get('security.token_storage')->getToken()->getUser();
-
     	return $this->render('ObservationBundle:Observation:check.html.twig', [
         	'observation'	=> $observation,
-            'user'          => $user,
+            'user'          => $this->container->get('security.token_storage')->getToken()->getUser(),
             'formObs'       => $formObs->createView()
         ]);
     }
@@ -106,12 +148,6 @@ class ObservationController extends Controller
             ->getManager()
             ->getRepository('ObservationBundle:Observation')
             ->findOneBy(['id' => $id]);
-
-        if (!is_null($observation) and $observation->getNoName())
-        {
-            $taxon = new Taxon();
-            $observation->setTaxon($taxon);
-        }
 
         return $this->render('ObservationBundle:Observation:show.html.twig', [
         	'observation'	=> $observation

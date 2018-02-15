@@ -9,12 +9,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 use ObservationBundle\Validator\BirdNameExists;
 use ObservationBundle\Validator\LatitudeOk;
 use ObservationBundle\Validator\LongitudeOk;
+use ObservationBundle\Entity\Taxon;
 
 /**
  * Observation
  *
  * @ORM\Table(name="nao_obs_observation")
  * @ORM\Entity(repositoryClass="ObservationBundle\Repository\ObservationRepository")
+ * @ORM\HasLifecycleCallbacks()
  * @BirdNameExists()
  */
 class Observation
@@ -52,7 +54,7 @@ class Observation
     /**
      * @var string
      *
-     * @ORM\Column(name="latitude", type="decimal")
+     * @ORM\Column(name="latitude", type="string")
      * @assert\NotBlank()
      * @LatitudeOk()
      */
@@ -61,7 +63,7 @@ class Observation
     /**
      * @var string
      *
-     * @ORM\Column(name="longitude", type="decimal")
+     * @ORM\Column(name="longitude", type="string")
      * @assert\NotBlank()
      * @LongitudeOk()
      */
@@ -105,9 +107,9 @@ class Observation
     /**
      * @var bool
      *
-     * @ORM\Column(name="published", type="boolean")
+     * @ORM\Column(name="publish", type="boolean")
      */
-    private $published;
+    private $publish;
 
     /**
      * @var \DateTime
@@ -163,7 +165,7 @@ class Observation
         $this->sendingDate = new \DateTime();
         $this->images = new ArrayCollection();
         $this->validated = false;
-        $this->published = false;
+        $this->publish = false;
         $this->likes = 0;
         $this->reports = 0;
     }
@@ -186,7 +188,7 @@ class Observation
      *
      * @return Observation
      */
-    public function setnoName($noName)
+    public function setNoName($noName)
     {
         $this->noName = $noName;
 
@@ -198,7 +200,17 @@ class Observation
      *
      * @return bool
      */
-    public function getnoName()
+    public function getNoName()
+    {
+        return $this->noName;
+    }
+
+    /**
+     * Get noName
+     *
+     * @return bool
+     */
+    public function hasNoName()
     {
         return $this->noName;
     }
@@ -324,27 +336,27 @@ class Observation
     }
 
     /**
-     * Set published
+     * Set publish
      *
-     * @param boolean $published
+     * @param boolean $publish
      *
      * @return Observation
      */
-    public function setPublished($published)
+    public function setPublish($publish)
     {
-        $this->published = $published;
+        $this->publish = $publish;
 
         return $this;
     }
 
     /**
-     * Get published
+     * Get publish
      *
      * @return bool
      */
-    public function getPublished()
+    public function getPublish()
     {
-        return $this->published;
+        return $this->publish;
     }
 
     /**
@@ -453,7 +465,7 @@ class Observation
     public function setTaxon(\ObservationBundle\Entity\Taxon $taxon = null)
     {
         $this->taxon = $taxon;
-
+        
         return $this;
     }
 
@@ -464,6 +476,10 @@ class Observation
      */
     public function getTaxon()
     {
+        if (is_null($this->taxon))
+        {
+            return new Taxon();
+        }
         return $this->taxon;
     }
 
@@ -632,7 +648,7 @@ class Observation
 
     /**
      * create url to display INPN bird card 
-     * @return url
+     * @return string url to INPN
      */
     public function getUrlInpn()
     {
@@ -641,11 +657,22 @@ class Observation
 
     /**
      * create url to display wikipedia bird card 
-     * @return url
+     * @return string url to wikipedia
      */
     public function getUrlWiki()
     {
         $url = "https://fr.wikipedia.org/wiki/" . $this->getTaxon()->getName();
         return $url;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function checkNoName() {
+        if (!is_null($this->taxon))
+        {
+            $this->noName = false;
+        }
     }
 }

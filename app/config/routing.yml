@@ -89,6 +89,13 @@ nao_obs_show:
     requirements:
         id: \d+
 
+nao_obs_edit:
+    path: /observation/edit/{id}
+    defaults:
+        _controller: ObservationBundle:Observation:edit
+    requirements:
+        id: \d+
+
 nao_obs_user_list:
     path: /observation/userList
     defaults:

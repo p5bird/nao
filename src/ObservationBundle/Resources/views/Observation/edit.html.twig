@@ -1,0 +1,36 @@
+{% extends "UserBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Modifier une observation{% endblock %}
+
+{% block content %}
+    
+    
+
+    {% if observation is null %}
+        <div class="container">
+            <p>Désolé, cette observation n'existe pas ou plus.</p>
+        </div>
+    {% else %}
+
+        {% for alert in app.session.flashbag.get('alert') %}
+            <p class="alert alert-{{ alert.type }}">{{ alert.content }}</p>
+        {% endfor %}
+
+        {% if observation.author.id != user.id %}
+            <div class="container">         
+                <p>Désolé, vous n'êtes pas autorisé à modifier cette observation.</p>
+            </div>
+        {% else %}
+            <div class="container">
+                <div class="row">
+                    <h1>Modifier l'observation n°{{ observation.id }}</h1>
+                    {{ include("ObservationBundle:Form:observationAdd.html.twig") }}
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block javascript %}
+    {{ include("ObservationBundle:Script:autocomplete.html.twig") }}
+{% endblock %}
