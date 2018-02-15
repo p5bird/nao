@@ -48,7 +48,7 @@ class Image
     private $author;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ObservationBundle\Entity\Observation", inversedBy="images", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="ObservationBundle\Entity\Observation", mappedBy="image")
      * @ORM\JoinColumn(nullable=false)
      */
     private $observation;

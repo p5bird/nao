@@ -6,9 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type;
-use ObservationBundle\Form\ImageType;
-
-use ObservationBundle\Form\ObservationType;
 
 class ValidationType extends AbstractType
 {
@@ -18,31 +15,9 @@ class ValidationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('birdName',          Type\TextType::class, [
-                'required'  => false,
-                'label'     => "Nom de l'oiseau *",
-                'attr'      => [
-                    'class'     => 'form-control',
-                    'data-autocomplete' => 'birdName'
-                ]
-            ])
-            ->add('noName',         Type\CheckboxType::class, [
-                'required'  => false,
-                'label'     => "inconnu",
-                'attr'      => [
-                    'class'     => 'form-control'
-                ]
-            ])
             ->add('comment',        Type\TextareaType::class, [
                 'required'  => true,
-                'label'     => "Observation *",
-                'attr'      => [
-                    'class'     => 'form-control'
-                ]
-            ])
-            ->add('validationComment',        Type\TextareaType::class, [
-                'required'  => true,
-                'label'     => "Commentaire validateur",
+                'label'     => "Commentaire de validation",
                 'attr'      => [
                     'class'     => 'form-control'
                 ]
@@ -54,7 +29,7 @@ class ValidationType extends AbstractType
                 'label'     => "Rejeter"
             ])
             ->add('cancel',          Type\SubmitType::class, [
-                'label'     => "Annuler"
+                'label'     => "Laisser en attente"
             ]);
     }
 
@@ -64,7 +39,7 @@ class ValidationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'ObservationBundle\Entity\Observation'
+            'data_class' => 'ObservationBundle\Entity\Validation'
         ));
     }
 
@@ -73,6 +48,6 @@ class ValidationType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'observationbundle_observation';
+        return 'observationbundle_validation';
     }
 }

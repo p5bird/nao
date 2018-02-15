@@ -12,6 +12,7 @@ use ObservationBundle\Entity\Observation;
 use ObservationBundle\Form\ObservationType;
 use ObservationBundle\Entity\Taxon;
 use ObservationBundle\Entity\Image;
+use ObservationBundle\Entity\Validation;
 use ObservationBundle\Form\ValidationType;
 
 class ObservationController extends Controller
@@ -127,13 +128,16 @@ class ObservationController extends Controller
             ]);            
         }
 
+        $validation = new Validation();
+        $formValid = $this->createForm(ValidationType::class, $validation);
+
         $formObs = $this->createForm(ObservationType::class, $observation);
         $formObs->handleRequest($request);
 
     	return $this->render('ObservationBundle:Observation:check.html.twig', [
         	'observation'	=> $observation,
             'user'          => $this->container->get('security.token_storage')->getToken()->getUser(),
-            'formObs'       => $formObs->createView()
+            'formValid'     => $formValid->createView()
         ]);
     }
 

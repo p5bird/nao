@@ -10,6 +10,8 @@ use ObservationBundle\Validator\BirdNameExists;
 use ObservationBundle\Validator\LatitudeOk;
 use ObservationBundle\Validator\LongitudeOk;
 use ObservationBundle\Entity\Taxon;
+use ObservationBundle\Entity\Image;
+use ObservationBundle\Entity\Validation;
 
 /**
  * Observation
@@ -145,25 +147,29 @@ class Observation
     private $reports;
 
     /**
-     * @ORM\OneToMany(targetEntity="ObservationBundle\Entity\Image", mappedBy="observation", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\OneToOne(targetEntity="ObservationBundle\Entity\Image", inversedBy="observation", cascade={"persist"})
      * 
      */
-    private $images;
+    private $image;
 
     /**
      * 
      */
     private $birdName;
 
+    /**
+     * @ORM\OneToOne(targetEntity="ObservationBundle\Entity\Validation", cascade={"persist"})
+     */
+    private $validation;
+
 
     /**
+     * ---------------------------------------
      * Constructor
      */
     public function __construct()
     {
         $this->sendingDate = new \DateTime();
-        $this->images = new ArrayCollection();
         $this->validated = false;
         $this->publish = false;
         $this->likes = 0;
@@ -171,6 +177,57 @@ class Observation
     }
 
 
+    /**
+     * ---------------------------------------
+     * EVENTS methods
+     * ---------------------------------------
+     */
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function checkNoName()
+    {
+        if (!is_null($this->taxon))
+        {
+            $this->noName = false;
+        }
+    }
+
+
+    /**
+     * ---------------------------------------
+     * Other methods
+     * ---------------------------------------
+     */
+
+    /**
+     * create url to display INPN bird card 
+     * @return string url to INPN
+     */
+    public function getUrlInpn()
+    {
+        return "https://inpn.mnhn.fr/espece/cd_nom/" . $this->getTaxon()->getId();
+    }
+
+    /**
+     * create url to display wikipedia bird card 
+     * @return string url to wikipedia
+     */
+    public function getUrlWiki()
+    {
+        $url = "https://fr.wikipedia.org/wiki/" . $this->getTaxon()->getName();
+        return $url;
+    }
+
+
+    /**
+     * ---------------------------------------
+     * Getters / Setters
+     * ---------------------------------------
+     */
+     
     /**
      * Get id
      *
@@ -532,40 +589,6 @@ class Observation
     }
 
     /**
-     * Add image
-     *
-     * @param \ObservationBundle\Entity\Image $image
-     *
-     * @return Observation
-     */
-    public function addImage(\ObservationBundle\Entity\Image $image)
-    {
-        $this->images[] = $image;
-
-        return $this;
-    }
-
-    /**
-     * Remove image
-     *
-     * @param \ObservationBundle\Entity\Image $image
-     */
-    public function removeImage(\ObservationBundle\Entity\Image $image)
-    {
-        $this->images->removeElement($image);
-    }
-
-    /**
-     * Get images
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getImages()
-    {
-        return $this->images;
-    }
-
-    /**
      * Set birdName
      *
      * @param string $birdName
@@ -592,8 +615,6 @@ class Observation
         }
         return $this->taxon->getNameVern();
     }
-
-
 
     /**
      * Set latitude
@@ -643,36 +664,51 @@ class Observation
         return $this->longitude;
     }
 
-
-    //\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\
-
     /**
-     * create url to display INPN bird card 
-     * @return string url to INPN
+     * Set image
+     *
+     * @param \ObservationBundle\Entity\Image $image
+     *
+     * @return Observation
      */
-    public function getUrlInpn()
+    public function setImage(\ObservationBundle\Entity\Image $image = null)
     {
-        return "https://inpn.mnhn.fr/espece/cd_nom/" . $this->getTaxon()->getId();
+        $this->image = $image;
+
+        return $this;
     }
 
     /**
-     * create url to display wikipedia bird card 
-     * @return string url to wikipedia
+     * Get image
+     *
+     * @return \ObservationBundle\Entity\Image
      */
-    public function getUrlWiki()
+    public function getImage()
     {
-        $url = "https://fr.wikipedia.org/wiki/" . $this->getTaxon()->getName();
-        return $url;
+        return $this->image;
     }
 
     /**
-     * @ORM\PrePersist()
-     * @ORM\PreUpdate()
+     * Set validation
+     *
+     * @param \ObservationBundle\Entity\Validation $validation
+     *
+     * @return Observation
      */
-    public function checkNoName() {
-        if (!is_null($this->taxon))
-        {
-            $this->noName = false;
-        }
+    public function setValidation(\ObservationBundle\Entity\Validation $validation = null)
+    {
+        $this->validation = $validation;
+
+        return $this;
+    }
+
+    /**
+     * Get validation
+     *
+     * @return \ObservationBundle\Entity\Validation
+     */
+    public function getValidation()
+    {
+        return $this->validation;
     }
 }
