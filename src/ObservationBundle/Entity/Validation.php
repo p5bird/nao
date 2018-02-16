@@ -3,11 +3,12 @@
 namespace ObservationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use UserBundle\Entity\User;
 
 /**
  * Validation
  *
- * @ORM\Table(name="validation")
+ * @ORM\Table(name="nao_obs_validation")
  * @ORM\Entity(repositoryClass="ObservationBundle\Repository\ValidationRepository")
  */
 class Validation
@@ -45,9 +46,19 @@ class Validation
     /**
      * @var bool
      *
-     * @ORM\Column(name="delete", type="boolean")
+     * @ORM\Column(name="rejected", type="boolean")
      */
-    private $delete = false;
+    private $rejected = false;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
+     */
+    private $author;
+
+    /**
+     * @var string
+     */
+    private $birdName;
 
 
     /**
@@ -57,8 +68,22 @@ class Validation
      */
     public function __construct()
     {
-        $this->date = new \DateTime();
+        //
     }
+
+
+    /**
+     * ---------------------------------------
+     * EVENTS methods
+     * ---------------------------------------
+     */
+
+
+    /**
+     * ---------------------------------------
+     * Other methods
+     * ---------------------------------------
+     */
 
 
     /**
@@ -152,13 +177,13 @@ class Validation
     /**
      * Set delete
      *
-     * @param boolean $delete
+     * @param boolean $rejected
      *
      * @return Validation
      */
-    public function setDelete($delete)
+    public function setDelete($rejected)
     {
-        $this->delete = $delete;
+        $this->delete = $rejected;
 
         return $this;
     }
@@ -171,5 +196,53 @@ class Validation
     public function getDelete()
     {
         return $this->delete;
+    }
+
+    /**
+     * Set author
+     *
+     * @param \UserBundle\Entity\User $author
+     *
+     * @return Validation
+     */
+    public function setAuthor(\UserBundle\Entity\User $author = null)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return \UserBundle\Entity\User
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Get birdName
+     *
+     * @return string
+     */
+    public function getBirdName()
+    {
+        return $this->birdName;
+    }
+
+    /**
+     * Set birdName
+     *
+     * @param string $birdName
+     *
+     * @return Validation
+     */
+    public function setBirdName($birdName)
+    {
+        $this->birdName = $birdName;
+
+        return $this;
     }
 }

@@ -12,6 +12,7 @@ use ObservationBundle\Validator\LongitudeOk;
 use ObservationBundle\Entity\Taxon;
 use ObservationBundle\Entity\Image;
 use ObservationBundle\Entity\Validation;
+use UserBundle\Entity\User;
 
 /**
  * Observation
@@ -95,16 +96,9 @@ class Observation
 
     /**
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
-     */
-    private $author;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="validated", type="boolean")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $validated;
+    private $author;
 
     /**
      * @var bool
@@ -112,25 +106,6 @@ class Observation
      * @ORM\Column(name="publish", type="boolean")
      */
     private $publish;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="validationDate", type="datetime", nullable=true)
-     */
-    private $validationDate;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="validationComment", type="text", nullable=true)
-     */
-    private $validationComment;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
-     */
-    private $validationAuthor;
 
     /**
      * @var int
@@ -170,7 +145,6 @@ class Observation
     public function __construct()
     {
         $this->sendingDate = new \DateTime();
-        $this->validated = false;
         $this->publish = false;
         $this->likes = 0;
         $this->reports = 0;
@@ -195,6 +169,15 @@ class Observation
         }
     }
 
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function checkEntities()
+    {
+        //author + validation
+    }
+
 
     /**
      * ---------------------------------------
@@ -208,7 +191,7 @@ class Observation
      */
     public function getUrlInpn()
     {
-        return "https://inpn.mnhn.fr/espece/cd_nom/" . $this->getTaxon()->getId();
+        return $this->getTaxon()->getUrlInpn();
     }
 
     /**
@@ -217,8 +200,54 @@ class Observation
      */
     public function getUrlWiki()
     {
-        $url = "https://fr.wikipedia.org/wiki/" . $this->getTaxon()->getName();
-        return $url;
+        return $this->getTaxon()->getUrlWiki();
+    }
+
+    /**
+     * Get noName
+     *
+     * @return bool
+     */
+    public function hasNoName()
+    {
+        return $this->noName;
+    }
+
+    /**
+     * Check if validation exists
+     *
+     * @return bool
+     */
+    public function hasValidation()
+    {
+        if (is_null($this->validation))
+        {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Check if validation exists
+     *
+     * @return bool
+     */
+    public function isValidated()
+    {
+        if (!is_null($this->validation) and $this->validation->getGranted())
+        {
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * 
+     */
+    public function removeValidation()
+    {
+        $this->setValidation(null);
     }
 
 
@@ -258,16 +287,6 @@ class Observation
      * @return bool
      */
     public function getNoName()
-    {
-        return $this->noName;
-    }
-
-    /**
-     * Get noName
-     *
-     * @return bool
-     */
-    public function hasNoName()
     {
         return $this->noName;
     }
@@ -369,30 +388,6 @@ class Observation
     }
 
     /**
-     * Set validated
-     *
-     * @param boolean $validated
-     *
-     * @return Observation
-     */
-    public function setValidated($validated)
-    {
-        $this->validated = $validated;
-
-        return $this;
-    }
-
-    /**
-     * Get validated
-     *
-     * @return bool
-     */
-    public function getValidated()
-    {
-        return $this->validated;
-    }
-
-    /**
      * Set publish
      *
      * @param boolean $publish
@@ -414,54 +409,6 @@ class Observation
     public function getPublish()
     {
         return $this->publish;
-    }
-
-    /**
-     * Set validationDate
-     *
-     * @param \DateTime $validationDate
-     *
-     * @return Observation
-     */
-    public function setValidationDate($validationDate)
-    {
-        $this->validationDate = $validationDate;
-
-        return $this;
-    }
-
-    /**
-     * Get validationDate
-     *
-     * @return \DateTime
-     */
-    public function getValidationDate()
-    {
-        return $this->validationDate;
-    }
-
-    /**
-     * Set validationComment
-     *
-     * @param string $validationComment
-     *
-     * @return Observation
-     */
-    public function setValidationComment($validationComment)
-    {
-        $this->validationComment = $validationComment;
-
-        return $this;
-    }
-
-    /**
-     * Get validationComment
-     *
-     * @return string
-     */
-    public function getValidationComment()
-    {
-        return $this->validationComment;
     }
 
     /**
@@ -562,30 +509,6 @@ class Observation
     public function getAuthor()
     {
         return $this->author;
-    }
-
-    /**
-     * Set validationAuthor
-     *
-     * @param \UserBundle\Entity\User $validationAuthor
-     *
-     * @return Observation
-     */
-    public function setValidationAuthor(\UserBundle\Entity\User $validationAuthor = null)
-    {
-        $this->validationAuthor = $validationAuthor;
-
-        return $this;
-    }
-
-    /**
-     * Get validationAuthor
-     *
-     * @return \UserBundle\Entity\User
-     */
-    public function getValidationAuthor()
-    {
-        return $this->validationAuthor;
     }
 
     /**

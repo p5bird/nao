@@ -99,6 +99,37 @@ class Taxon
 
 
     /**
+     * ---------------------------------------
+     * Other methods
+     * ---------------------------------------
+     */
+
+    /**
+     * create url to display INPN bird card 
+     * @return string url to INPN
+     */
+    public function getUrlInpn()
+    {
+        return "https://inpn.mnhn.fr/espece/cd_nom/" . $this->getId();
+    }
+
+    /**
+     * create url to display wikipedia bird card 
+     * @return string url to wikipedia
+     */
+    public function getUrlWiki()
+    {
+        return "https://fr.wikipedia.org/wiki/" . $this->getName();
+    }
+
+
+    /**
+     * ---------------------------------------
+     * Getters / Setters
+     * ---------------------------------------
+     */
+
+    /**
      * Set phylum
      *
      * @param string $phylum

@@ -15,13 +15,13 @@ class ValidationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('comment',        Type\TextareaType::class, [
-                'required'  => true,
-                'label'     => "Commentaire de validation",
-                'attr'      => [
-                    'class'     => 'form-control'
-                ]
-            ])
+            // ->add('comment',        Type\TextareaType::class, [
+            //     'required'  => true,
+            //     'label'     => "Commentaire de validation",
+            //     'attr'      => [
+            //         'class'     => 'form-control'
+            //     ]
+            // ])
             ->add('valid',          Type\SubmitType::class, [
                 'label'     => "Valider"
             ])

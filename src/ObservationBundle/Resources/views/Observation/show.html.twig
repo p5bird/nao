@@ -94,7 +94,11 @@
 			    					</tr>
 			    					<tr>
 			    						<td>Validé par :</td>
-			    						<td>{{ observation.validationAuthor }}</td>
+			    						<td>
+			    							{% if observation.validated %}
+			    								<a href="{{ path('nao_show_user',{'id': observation.validation.author.id}) }}">{{ observation.validation.author.username }}</a>
+			    							{% endif %}
+			    						</td>
 			    					</tr>
 			    					<tr>
 			    						<td>Validé :</td>

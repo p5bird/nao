@@ -102,18 +102,6 @@
 			    						<td>Auteur :</td>
 			    						<td><a href="{{ path('nao_show_user',{'id': observation.author.id}) }}">{{ observation.author.username }}</a></td>
 			    					</tr>
-			    					<tr>
-			    						<td>Validé par :</td>
-			    						<td>{{ observation.validationAuthor }}</td>
-			    					</tr>
-			    					<tr>
-			    						<td>Validé :</td>
-			    						<td>{{ observation.validated ? 'Oui' : 'Non' }}</td>
-			    					</tr>
-			    					<tr>
-			    						<td>Publié :</td>
-			    						<td>{{ observation.publish ? 'Oui' : 'Non' }}</td>
-			    					</tr>
 			    				</tbody>
 			    			</table>
 			    		</div>

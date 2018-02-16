@@ -90,6 +90,13 @@ class ObservationController extends Controller
             }
 
             $entityManager = $this->getDoctrine()->getManager();
+
+            if ($observation->isValidated())
+            {
+                $entityManager->remove($observation->getValidation());
+                $observation->removeValidation();
+            }
+
             $entityManager->persist($observation);
             $entityManager->flush();
 
@@ -99,7 +106,7 @@ class ObservationController extends Controller
                 'content'   => 'Vos modifications ont été prises en compte :)'
             ]);
 
-            return $this->redirectToRoute('nao_obs_user_list', ['id' => $observation->getId()]);
+            return $this->redirectToRoute('nao_obs_user_list');
         }
 
         return $this->render('ObservationBundle:Observation:edit.html.twig', [
@@ -128,15 +135,33 @@ class ObservationController extends Controller
             ]);            
         }
 
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+
         $validation = new Validation();
         $formValid = $this->createForm(ValidationType::class, $validation);
+        $formValid->handleRequest($request);
 
-        $formObs = $this->createForm(ObservationType::class, $observation);
-        $formObs->handleRequest($request);
+        if ($formValid->isSubmitted() and $formValid->isValid())
+        {
+            $validation->setAuthor($user);
+            $validation->setDate(new \DateTime());
+            if ($formValid->get('valid')->isClicked())
+            {
+                $validation->setGranted(true);
+            }
+
+            $observation->setValidation($validation);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($observation);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('nao_obs_user_list');
+        }
 
     	return $this->render('ObservationBundle:Observation:check.html.twig', [
         	'observation'	=> $observation,
-            'user'          => $this->container->get('security.token_storage')->getToken()->getUser(),
+            'user'          => $user,
             'formValid'     => $formValid->createView()
         ]);
     }
@@ -190,7 +215,7 @@ class ObservationController extends Controller
             ->getManager()
             ->getRepository('ObservationBundle:Observation')
             ->findBy(
-                ['validated' => false],
+                ['validation' => null],
                 ['sendingDate' => 'desc']
             );
 
