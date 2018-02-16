@@ -2,7 +2,12 @@
 	{{ form_start(formObs) }}
 </div>
 
-<div class="col-xs-12">
+<div class="col-xs-12" class="image-edit">
+    {% if observation.image is not defined %}
+        <img src="{{ asset('/img/no-image.png') }}" class="user-avatar-image-edit"/>
+    {% else %}
+        <img src="{{ asset('/uploads/obsImages/') }}obs-{{ observation.id }}.{{ observation.image.extension }}" class="user-avatar-image-edit"/>
+    {% endif %}
 	{{ form_widget(formObs.image) }}
 </div>
 

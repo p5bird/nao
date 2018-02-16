@@ -3,6 +3,8 @@
 namespace ObservationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Image
@@ -57,6 +59,33 @@ class Image
      * 
      */
     private $file;
+
+
+    /**
+     * ---------------------------------------
+     * EVENTS methods
+     * ---------------------------------------
+     */
+
+
+
+    /**
+     * ---------------------------------------
+     * Other methods
+     * ---------------------------------------
+     */
+
+    public function getName()
+    {
+        
+    }
+
+
+    /**
+     * ---------------------------------------
+     * Getters / Setters
+     * ---------------------------------------
+     */
 
 
     /**

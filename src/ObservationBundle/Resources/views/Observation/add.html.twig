@@ -14,51 +14,5 @@
 
 {% block javascript %}
     {{ include("ObservationBundle:Script:autocomplete.html.twig") }}
-
-	{# crope image #}
-	<script type="text/javascript">
-        // Initialize image cropper
-        var $uploadCrop = $('#profile-pic-preview').croppie({
-            viewport: {
-                width: 315,
-                height: 315,
-                type: 'square'
-            },
-            boundary: {
-                width: 600,
-                height: 600
-            },
-            enableOrientation: true,
-            enableExif: true
-        });
-
-        $('#edit_profile_image_file').on('change', function() {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $uploadCrop.croppie('bind', {
-                    url: e.target.result
-                })
-            };
-            reader.readAsDataURL(this.files[0]);
-        });
-
-        $('.save-result').on('click', function (ev) {
-            $uploadCrop.croppie('result', {
-                type: 'canvas',
-                size: 'viewport'
-            }).then(function (resp) {
-
-                $.ajax({
-                    url: "",
-                    type: "POST",
-                    data: {"image":resp},
-                    success: function (data) {
-                        html = '<img src="' + resp + '"/>';
-                        $('.user-image-edit>img').remove();
-                        $(".user-image-edit").append(html);
-                    }
-                });
-            });
-        });
-	</script>	
+    {{ include("ObservationBundle:Script:imagecropper.html.twig") }}
 {% endblock %}

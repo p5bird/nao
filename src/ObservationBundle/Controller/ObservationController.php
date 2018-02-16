@@ -58,6 +58,8 @@ class ObservationController extends Controller
         ]);
     }
 
+
+
     /**
      * @Route("/observation/edit/{id}", name="nao_obs_edit")
      * @Security("has_role('ROLE_USER')")
@@ -91,6 +93,7 @@ class ObservationController extends Controller
 
             $entityManager = $this->getDoctrine()->getManager();
 
+            // remove validation is observation already validated
             if ($observation->isValidated())
             {
                 $entityManager->remove($observation->getValidation());
@@ -115,6 +118,8 @@ class ObservationController extends Controller
             'formObs'       => $formObs->createView()
         ]);
     }
+
+
 
     /**
      * @Route("/observation/check/{id}", name="nao_obs_check")
@@ -166,6 +171,8 @@ class ObservationController extends Controller
         ]);
     }
 
+
+
     /**
      * @Route("/observation/show/{id}", name="nao_obs_show")
      */
@@ -182,6 +189,8 @@ class ObservationController extends Controller
         	'observation'	=> $observation
         ]);
     }
+
+
 
     /**
      * @Route("/observation/showUserList", name="nao_obs_user_list")
@@ -204,6 +213,8 @@ class ObservationController extends Controller
         ]);
     }
 
+
+
     /**
      * @Route("/observation/showCheckList", name="nao_obs_check_list")
      * @Security("is_granted('ROLE_SPECIALISTE')")
@@ -224,6 +235,8 @@ class ObservationController extends Controller
         ]);
     }
 
+
+
     /**
      * @Route("/observation/search", name="nao_obs_search")
      */
@@ -231,6 +244,8 @@ class ObservationController extends Controller
     {
         return $this->render('ObservationBundle:Observation:search.html.twig');
     }
+
+
 
     /**
      * @Route("/observation/result/{view}/{filter}", name="nao_obs_result")
@@ -241,7 +256,20 @@ class ObservationController extends Controller
     }
 
 
-    //\\//\\//\\//
+
+
+
+    /**
+     * -------------------------------------------
+     * AJAX Call methods
+     * -------------------------------------------
+     */
+
+
+    /**
+     * @param  string $birdName Partial bird name
+     * @return JsonResponse     List of proposed names
+     */
     public function birdNameAutoCompleteAction($birdName)
     {
         $repository = $this->getDoctrine()->getManager()->getRepository('ObservationBundle:Taxon');
@@ -256,5 +284,41 @@ class ObservationController extends Controller
         }
 
         return new JsonResponse($taxonList);
+    }
+
+
+    /**
+     * @param Request $request
+     * @param User $user
+     * @return JsonResponse
+     * @Route("/{id}/editUserAvatar", name="nao_edit_user_avatar")
+     */
+    public function imageCropperAction(Request $request, Observation $observation){
+        $em = $this->getDoctrine()->getManager();
+
+        if($data = $request->request->get('image')) {
+            $user->getAvatar() ? $avatar = $user->getAvatar() : $avatar = new Avatar();
+
+            list($type, $data) = explode(';', $data);
+            list(, $data)      = explode(',', $data);
+            $data = str_replace('data:image/png;base64,', '', $data);
+            $data = str_replace(' ', '+', $data);
+
+            $data = base64_decode($data);
+
+            $imageName = 'user-'.$user->getId().'.png';
+
+            file_put_contents('uploads/avatar/'.$imageName, $data);
+
+            $file = new UploadedFile('uploads/avatar/'. $imageName, $imageName,  'image/png');
+
+            $avatar->setUser($user);
+            $user->setAvatar($avatar);
+            $avatar->setFile($file);
+            $em->flush();
+
+            return new JsonResponse("Avatar changed", 200);
+        }
+        return new JsonResponse("Avatar not changed", 500);
     }
 }

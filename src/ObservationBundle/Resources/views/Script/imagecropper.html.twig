@@ -1,0 +1,51 @@
+    {# Image Crope #}
+    <script type="text/javascript" title="Image Cropper">
+        // Initialize image cropper
+        var $uploadCrop = $('#image-preview').croppie({
+            viewport: {
+                width: 315,
+                height: 315,
+                type: 'rectangle'
+            },
+            boundary: {
+                width: 600,
+                height: 600
+            },
+            enableOrientation: true,
+            enableExif: true
+        });
+
+        // $('#edit_profile_image_file').on('change', function() {
+        //     var reader = new FileReader();
+        //     reader.onload = function (e) {
+        //         $uploadCrop.croppie('bind', {
+        //             url: e.target.result
+        //         })
+        //     };
+        //     reader.readAsDataURL(this.files[0]);
+        // });
+
+        $('.save-result').on('click', function (ev) {
+            $uploadCrop.croppie('result', {
+                type: 'canvas',
+                size: 'viewport'
+            }).then(function (resp) {
+
+                $.ajax({
+                    url: "{{ path('nao_obs_image_cropper', {'id' : observation.id }) }}",
+                    type: "POST",
+                    data: {"image":resp},
+                    success: function (data) {
+                        html = '<img src="' + resp + '"/>';
+                        $('.image-edit>img').remove();
+                        $(".image-edit").append(html);
+                    }
+                });
+            });
+        });
+
+$('#item').croppie(opts);
+// call a method via jquery
+$('#item').croppie(method, args);
+
+    </script>   
