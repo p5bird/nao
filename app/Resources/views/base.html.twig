@@ -25,16 +25,20 @@
         <!-- Croppie -->
         <link href="{{ asset('css/croppie.css') }}" rel="stylesheet" />
         <script src="{{ asset('js/croppie.min.js') }}"></script>
+        {# Google Map #}
+        <link href="{{ asset('css/googlemap.css') }}" rel="stylesheet" />
     {% endblock %}
 </head>
 <body>
+    {% block body %}{% endblock %}
     {# JQuery UI #}
     <script 
         src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" 
         integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" 
         crossorigin="anonymous">
     </script>
-    {% block body %}{% endblock %}
+    {# Google MAP API #}
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ google_map_api }}&callback=initMap" async defer></script>
     {% block javascript %}{% endblock %}
 </body>
 </html>
