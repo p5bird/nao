@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="nao_blog_article_image")
+ * @ORM\Table(name="nao_blog_image")
  * @ORM\HasLifecycleCallbacks
  */
 class Image {

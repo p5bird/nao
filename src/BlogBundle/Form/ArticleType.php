@@ -35,15 +35,7 @@ class ArticleType extends AbstractType {
                 ],
                 'error_bubbling' => true
             ))
-            ->add('image', ImageType::class, array(
-                'required' => true,
-                'label' => 'Avatar',
-                'attr' => [
-                    'class' => 'edit-profile-avatar-input',
-                    'placeholder' => 'Avatar',
-                ],
-                'error_bubbling' => true
-            ));
+        ;
     }
 
     /**

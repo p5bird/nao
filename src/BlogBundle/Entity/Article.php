@@ -10,7 +10,7 @@ namespace BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Ramsey\Uuid\Uuid;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -19,14 +19,18 @@ use Ramsey\Uuid\Uuid;
 class Article {
 
     /**
-     * @var \Ramsey\Uuid\Uuid
-     *
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $uuid;
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="uniqueId", type="string")
+     */
+    private $uniqueId;
 
     /**
      * @var string
@@ -49,28 +53,58 @@ class Article {
      */
     private $image;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     */
     private $author;
 
-    private $comment;
+    /**
+     * @ORM\OneToMany(targetEntity="BlogBundle\Entity\Comment", mappedBy="article")
+     */
+    private $comments;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string")
+     */
+    private $slug;
 
     public function __construct() {
-        $this->uuid = Uuid::uuid4();
+        $this->comments = new ArrayCollection();
     }
 
     /**
      * @return mixed
      */
-    public function getUuid()
+    public function getId()
     {
-        return $this->uuid;
+        return $this->id;
     }
 
     /**
-     * @param mixed $uuid
+     * @param mixed $id
      */
-    public function setUuid($uuid)
+    public function setId($id)
     {
-        $this->uuid = $uuid;
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUniqueId()
+    {
+        return $this->uniqueId;
+    }
+
+    /**
+     * @param mixed $uniqueId
+     */
+    public function setUniqueId($uniqueId)
+    {
+        $this->uniqueId = $uniqueId;
     }
 
     /**
@@ -86,6 +120,7 @@ class Article {
      */
     public function setTitle($title)
     {
+        $this->slug = str_replace(" ", "-", $title);
         $this->title = $title;
     }
 
@@ -119,6 +154,54 @@ class Article {
     public function setImage(Image $image = null)
     {
         $this->image = $image;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param mixed $author
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @param mixed $comments
+     */
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
     }
 }
 

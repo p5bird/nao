@@ -10,6 +10,7 @@ namespace BlogBundle\Controller;
 
 use BlogBundle\Entity\Image;
 use BlogBundle\Form\ArticleType;
+use BlogBundle\Form\CommentType;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,6 +20,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 use BlogBundle\Entity\Article;
+use BlogBundle\Entity\Comment;
 
 class BlogController extends Controller {
 
@@ -41,30 +43,41 @@ class BlogController extends Controller {
 
         $form = $this->createForm(ArticleType::class, $article);
 
-        if ($data = $request->request->get('image')) {
-            $article->getImage() ? $image = $article->getImage() : $image = new Image();
-
-            list($type, $data) = explode(';', $data);
-            list(, $data) = explode(',', $data);
-            $data = str_replace('data:image/png;base64,', '', $data);
-            $data = str_replace(' ', '+', $data);
-
-            $data = base64_decode($data);
-
-            $imageName = 'article-' . $article->getUuid() . '.png';
-
-            file_put_contents('uploads/blog/' . $imageName, $data);
-
-            $file = new UploadedFile('uploads/blog/' . $imageName, $imageName, 'image/png');
-
-            $image->setArticle($article);
-            $article->setImage($image);
-            $image->setFile($file);
-        }
+        // TODO call service to replace accented char
+        /*$article->setSlug(str_replace(" ", "-", $this->container->get('app.replace_accented_char')->replace_accented_char($article->getTitle())));*/
+        //
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $article->setAuthor($this->getUser());
+
+            $uniqueId = substr(md5(mt_rand()), 0, 7);
+            $article->setUniqueId($uniqueId);
+
+            if ($data = $request->request->get('base64File')['image']) {
+
+                $article->getImage() ? $image = $article->getImage() : $image = new Image();
+
+                list($type, $data) = explode(';', $data);
+                list(, $data) = explode(',', $data);
+                $data = str_replace('data:image/png;base64,', '', $data);
+                $data = str_replace(' ', '+', $data);
+
+                $data = base64_decode($data);
+
+                $imageName = 'article-' . $article->getUniqueId() . '.png';
+
+                file_put_contents('uploads/blog/' . $imageName, $data);
+
+                $file = new UploadedFile('uploads/blog/' . $imageName, $imageName, 'image/png');
+
+                $image->setArticle($article);
+                $article->setImage($image);
+                $image->setFile($file);
+            }
+
             $em->persist($article);
             $em->flush();
 
@@ -72,6 +85,35 @@ class BlogController extends Controller {
         }
 
         return $this->render('BlogBundle:Blog:addArticle.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * @param Request $request
+     * @param Article $article
+     * @return RedirectResponse|Response
+     */
+    public function showArticleAction(Request $request, Article $article) {
+        $em = $this->getDoctrine()->getManager();
+
+        $comment = new Comment();
+
+        $form = $this->createForm(CommentType::class, $comment);
+
+        $comment->setArticle($article);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($comment);
+            $em->flush();
+
+            return $this->redirectToRoute('nao_home');
+        }
+
+        return $this->render('BlogBundle:Blog:showArticle.html.twig', array(
+            'article' => $article,
             'form' => $form->createView()
         ));
     }
