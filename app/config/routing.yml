@@ -62,6 +62,18 @@ nao_list_users:
     path: /user/all/
     defaults: { _controller: UserBundle:User:listUsers }
 
+nao_blog_index:
+    path: /blog/
+    defaults: { _controller: BlogBundle:Blog:index }
+
+nao_blog_add_article:
+    path: /blog/add/
+    defaults: { _controller: BlogBundle:Blog:addArticle }
+
+nao_blog_show_article:
+    path: /blog/{slug}/
+    defaults: { _controller: BlogBundle:Blog:showArticle }
+
 nao_obs_add:
     path: /observation/add
     defaults:

@@ -1,0 +1,75 @@
+{% extends "BlogBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Blog{% endblock %}
+
+{% block content %}
+    <h1>Ajout article</h1>
+
+    <!-- Modal -->
+    <div class="modal fade" id="cropp-avatar" tabindex="-1" role="dialog" aria-labelledby="cropp-avatar" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cropp-avatar-title">Redimensionnez votre avatar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="profile-pic-preview"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-primary save-result" data-dismiss="modal">Valider</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ form_start(form) }}
+    <input type="hidden" name="base64File[image]" id="base64File_image"/>
+    <input type="file" data-toggle="modal" data-target="#cropp-avatar" id="article_image_file">
+    <img id="image"/>
+    <input type="submit" value="Mettre à jour" class="btn btn-primary btn-lg btn-success"/>
+    {{ form_end(form) }}
+
+
+    <script type="text/javascript">
+        // Initialize image cropper
+        var $uploadCrop = $('#profile-pic-preview').croppie({
+            viewport: {
+                width: 315,
+                height: 315,
+                type: 'square'
+            },
+            boundary: {
+                width: 600,
+                height: 600
+            },
+            enableOrientation: true,
+            enableExif: true
+        });
+
+        $('#article_image_file').on('change', function() {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $uploadCrop.croppie('bind', {
+                    url: e.target.result
+                })
+            };
+            reader.readAsDataURL(this.files[0]);
+        });
+
+        $('.save-result').on('click', function (ev) {
+            $uploadCrop.croppie('result', {
+                type: 'canvas',
+                size: 'viewport'
+            }).then(function (resp) {
+                $("#image").attr('src', resp);
+                var temp = resp;
+
+                document.getElementById('base64File_image').value = temp;
+            });
+        });
+    </script>
+{% endblock %}
