@@ -84,3 +84,11 @@ fos_user:
             type: UserBundle\Form\EditProfileType
     group:
         group_class: UserBundle\Entity\Group
+    registration:
+            confirmation:
+                enabled: true
+
+fos_message:
+    db_driver: orm
+    thread_class: UserBundle\Entity\Thread
+    message_class: UserBundle\Entity\Message
