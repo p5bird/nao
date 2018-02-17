@@ -57,7 +57,7 @@ class ObservationType extends AbstractType
             ])
             ->add('place',          Type\TextType::class, [
                 'required'  => false,
-                'label'     => "Lieu",
+                'label'     => "Chercher un lieu",
                 'attr'      => [
                     'class'     => 'form-control'
                 ]

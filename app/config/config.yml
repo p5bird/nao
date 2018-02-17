@@ -9,7 +9,7 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: fr
-    obsImages_directory: '%kernel.project_dir%/web/uploads/obsImages'
+    file_image_default: '/img/no-image.png'
 
 framework:
     #esi: ~
@@ -42,6 +42,7 @@ twig:
     strict_variables: '%kernel.debug%'
     globals:
         google_map_api: '%google_map_api%'
+        file_image_default: '%file_image_default%'
 
 # Doctrine Configuration
 doctrine:

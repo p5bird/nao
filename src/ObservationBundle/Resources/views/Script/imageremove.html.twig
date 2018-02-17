@@ -1,0 +1,22 @@
+{# Image Remover #}
+<script type="text/javascript" title="Image Remover">
+	// hide remover button onload if no image
+	document.addEventListener('DOMContentLoaded', function (event) {
+	    if(document.getElementById("image-remover-tracker-on"))
+	    {
+	    	document.getElementById("image-remover").classList.remove("hide");
+	    }
+	});
+
+	// remove image and button on click
+	document.getElementById("image-remover").addEventListener('click', function(event){
+		document.querySelector("input[id*='_imageFile']").value = null;
+		document.querySelector("[id^='image-remover-tracker']").src = "{{ asset(file_image_default) }}";
+		this.classList.add("hide");
+	});
+
+	// show button if image added
+	document.querySelector("input[id*='_imageFile']").addEventListener('change', function(event){
+		document.getElementById("image-remover").classList.remove("hide");
+	});
+</script>
