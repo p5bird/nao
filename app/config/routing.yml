@@ -9,6 +9,10 @@ fos_user_group:
     resource: "@FOSUserBundle/Resources/config/routing/group.xml"
     prefix: /group
 
+fos_message:
+    resource: "@FOSMessageBundle/Resources/config/routing.xml"
+    prefix: /profile/message
+
 nao_home:
     path: /
     defaults: { _controller: AppBundle:App:index }

@@ -1,0 +1,19 @@
+{% extends 'UserBundle::layout.html.twig' %}
+
+{% block fos_message_content %}
+
+    <div class="user-interface-page-header">
+        <div class="page-name">
+            Messages envoyés
+        </div>
+        <div class="new-message">
+            <a href="{{ path('fos_message_thread_new') }}" >
+                <button type="submit" class="btn btn-primary btn-success">
+                    Nouveau message
+                </button>
+            </a>
+        </div>
+    </div>
+    {% include 'FOSMessageBundle:Message:threads_list.html.twig' with {'threads': threads} %}
+
+{% endblock %}

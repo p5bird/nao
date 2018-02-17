@@ -1,0 +1,106 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 col-md-offset-right-1 list-message-show">
+            <div class="show-all-messages">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <input class="form-control" id="system-search" name="q" placeholder="Rechercher" required>
+                            <span class="input-group-btn">
+                            <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                        </span>
+                        </div>
+                        <table class="table list-messages-table list-table">
+                            <thead>
+                            <tr>
+                                <th class="col-md-3">
+                                    <span>Utilisateur</span>
+                                </th>
+                                <th class="col-md-4">
+                                    <span>Objet</span>
+                                </th>
+                                <th class="col-md-2">
+                                    <span>Date</span>
+                                </th>
+                                <th class="col-md-2">
+                                    <span>Messages</span>
+                                </th>
+                                <th class="col-md-1">
+                                    <span>Actions</span>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% if threads %}
+                                {% for thread in threads %}
+                                <tr class="list-message-single">
+                                    <td class="list-message-td">
+                                        {% if thread.createdBy.avatar.id is not defined %}
+                                            <img src="{{ asset('/img/no-image.png') }}" class="list-message-avatar"/>
+                                        {% else %}
+                                            <img src="{{ asset('/uploads/avatar/') }}user-{{ thread.createdBy.id }}.png" class="list-message-avatar"/>
+                                        {% endif %}
+                                        <div class="list-message-username">
+                                            {{ thread.createdBy }}
+                                        </div>
+                                    </td>
+                                    <td class="list-message-td">
+                                        <a href="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}">
+                                            {{ thread.subject }}
+                                        </a>
+
+                                        {% if not fos_message_is_read(thread) %}
+                                            <i class="fas fa-circle"></i>
+                                        {% endif %}
+                                    </td>
+                                    <td class="list-message-td">
+                                        <div class="list-message-inscription">
+                                            {{ thread.createdAt|date('m/d/Y') }}
+                                        </div>
+                                    </td>
+                                    <td class="list-message-td">
+                                        <div class="list-message-role">
+                                            {{ thread.messages|length }}
+                                        </div>
+                                    </td>
+                                    <td class="list-message-td">
+                                        <div class="list-message-actions">
+                                            <div class="col-md-6">
+                                                {% if thread.lastMessage %}
+                                                    <a href="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}#message_{{ thread.lastMessage.id }}" title="Dernier message">
+                                                        <i class="fas fa-arrow-right"></i>
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-md-6">
+                                                {% if fos_message_can_delete_thread(thread) %}
+                                                    {% if fos_message_deleted_by_participant(thread) %}
+                                                        <form action="{{ url('fos_message_thread_undelete', {'threadId': thread.id}) }}" method="post">
+                                                                <i class="fas fa-eraser" onclick="$(this).closest('form').submit()" title="Restaurer"></i>
+                                                        </form>
+                                                    {% else %}
+                                                        <form action="{{ url('fos_message_thread_delete', {'threadId': thread.id}) }}" method="post">
+                                                            <i class="fas fa-trash" onclick="$(this).closest('form').submit()" title="Archiver"></i>
+                                                        </form>
+                                                    {% endif %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="6">
+                                        Aucun message.
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

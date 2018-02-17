@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container-fluid">
+    <div class="container-fluid user-interface">
         <div class="row">
             <div class="col-md-2 no-padding sidebar" id="sidebar">
-                    <div class="navbar" role="navigation">
+                    <div class="navbar navbar-side" role="navigation">
                         <div class="side navbar-brand">
                             <div class="brand-name">
                                 Nos Amis les Oiseaux
@@ -31,7 +31,7 @@
                         </div>
                         <div class="side navbar-menu">
                             <ul class="side-nav">
-                                <li class="menu menu-dropdown" data-toggle="collapse" href="#dashboard_collapse" aria-expanded="false" aria-controls="collapseExample">
+                                <li class="menu menu-dropdown" data-toggle="collapse" href="#dashboard_collapse" aria-expanded="false" aria-controls="collapse-control">
                                     <a>
                                         <i class="fas fa-tachometer-alt"></i>
                                         Tableau de bord
@@ -53,7 +53,7 @@
                                     </div>
                                 </li>
 
-                                <li class="menu menu-dropdown" data-toggle="collapse" href="#profile_collapse" aria-expanded="false" aria-controls="collapseExample">
+                                <li class="menu menu-dropdown" data-toggle="collapse" href="#profile_collapse" aria-expanded="false" aria-controls="collapse-control">
                                     <a>
                                         <i class="fas fa-address-card"></i>
                                         Profil
@@ -75,11 +75,36 @@
                                     </div>
                                 </li>
 
-                                <li class="menu">
-                                    <a href="#">
+                                <li class="menu menu-dropdown" data-toggle="collapse" href="#message_collapse" aria-expanded="false" aria-controls="collapse-control">
+                                    <a>
                                         <i class="fas fa-comments"></i>
                                         Messagerie
+                                        <span class="menu-arrow"><i class="fas fa-angle-right"></i></span>
                                     </a>
+                                    <div class="collapse" id="message_collapse" onClick="event.stopPropagation();">
+                                        <ul class="sub-menu">
+                                            <li>
+                                                <a href="{{ path('fos_message_inbox') }}">
+                                                    Boite de réception
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('fos_message_thread_new') }}">
+                                                    Nouveau message
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('fos_message_sent') }}">
+                                                    Message envoyés
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('fos_message_deleted') }}">
+                                                    Message archivés
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </li>
 
                                 <li class="menu">
@@ -89,7 +114,7 @@
                                     </a>
                                 </li>
 
-                                <li class="menu menu-dropdown" data-toggle="collapse" href="#observation_collapse" aria-expanded="false" aria-controls="collapseExample">
+                                <li class="menu menu-dropdown" data-toggle="collapse" href="#observation_collapse" aria-expanded="false" aria-controls="collapse-control">
                                     <a>
                                         <i class="fas fa-eye"></i>
                                         Observations
@@ -111,7 +136,7 @@
                                     </div>
                                 </li>
 
-                                <li class="menu menu-dropdown" data-toggle="collapse" href="#article_collapse" aria-expanded="false" aria-controls="collapseExample">
+                                <li class="menu menu-dropdown" data-toggle="collapse" href="#article_collapse" aria-expanded="false" aria-controls="collapse-control">
                                     <a>
                                         <i class="fas fa-pencil-alt"></i>
                                         Articles
@@ -180,6 +205,7 @@
 
                 {% block content %}{% endblock %}
                 {% block fos_user_content %}{% endblock %}
+                {% block fos_message_content %}{% endblock %}
             </div>
         </div>
     </div>

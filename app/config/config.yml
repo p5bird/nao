@@ -85,3 +85,8 @@ fos_user:
     registration:
             confirmation:
                 enabled: true
+
+fos_message:
+    db_driver: orm
+    thread_class: UserBundle\Entity\Thread
+    message_class: UserBundle\Entity\Message

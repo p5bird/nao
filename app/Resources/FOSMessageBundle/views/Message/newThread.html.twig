@@ -1,0 +1,44 @@
+{% extends 'UserBundle::layout.html.twig' %}
+
+{% block fos_message_content %}
+
+<div class="user-interface-page-header">
+    <div class="page-name">
+        Nouveau message
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 col-md-offset-right-1 list-message-show">
+            <div class="show-all-messages">
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ form_start(form, { 'action': path('fos_message_thread_new'), 'attr': { 'class': 'fos_message_thread_new' } }) }}
+                            {{ form_errors(form) }}
+                            <div class="send-message-row">
+                                <div>Destinataire</div>
+                                {{ form_widget(form.recipient) }}
+                            </div>
+                            <div class="send-message-row">
+                                <div>Objet</div>
+                                {{ form_widget(form.subject) }}
+                            </div>
+                            <div class="send-message-row">
+                                <div>Contenu</div>
+                                {{ form_widget(form.body) }}
+                            </div>
+
+                            <input type="submit" value="Envoyer" class="send-message-submit-input btn btn-success"/>
+
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#message_body').prop('required', false);
+</script>
+{% endblock %}
