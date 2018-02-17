@@ -82,3 +82,6 @@ fos_user:
             type: UserBundle\Form\EditProfileType
     group:
         group_class: UserBundle\Entity\Group
+    registration:
+            confirmation:
+                enabled: true
