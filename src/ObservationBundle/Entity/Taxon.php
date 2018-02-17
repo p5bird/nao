@@ -12,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Taxon
 {
+    const URL_INPN = "https://inpn.mnhn.fr/espece/cd_nom/";
+    const URL_WIKI = "https://fr.wikipedia.org/wiki/";
+
     /**
      * @var string
      *
@@ -110,7 +113,7 @@ class Taxon
      */
     public function getUrlInpn()
     {
-        return "https://inpn.mnhn.fr/espece/cd_nom/" . $this->getId();
+        return self::URL_INPN . $this->getId();
     }
 
     /**
@@ -119,7 +122,7 @@ class Taxon
      */
     public function getUrlWiki()
     {
-        return "https://fr.wikipedia.org/wiki/" . $this->getName();
+        return self::URL_WIKI . $this->getName();
     }
 
 

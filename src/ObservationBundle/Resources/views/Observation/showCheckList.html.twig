@@ -3,6 +3,11 @@
 {% block title %}{{ parent() }} - Observations à valider{% endblock %}
 
 {% block content %}
+
+	{% for alert in app.session.flashbag.get('alert') %}
+		<p class="alert alert-{{ alert.type }}">{{ alert.content }}</p>
+	{% endfor %}
+
 	{% if observations is empty %}
 		<div class="container">
 			<p>Aucune observation en attente</p>

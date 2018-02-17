@@ -9,7 +9,7 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: fr
-    brochures_directory: '%kernel.project_dir%/web/uploads/obsImages'
+    obsImages_directory: '%kernel.project_dir%/web/uploads/obsImages'
 
 framework:
     #esi: ~
@@ -71,6 +71,7 @@ swiftmailer:
     password: '%mailer_password%'
     spool: { type: memory }
 
+# FosUser Configuration
 fos_user:
     db_driver: orm
     firewall_name: main
@@ -83,3 +84,15 @@ fos_user:
             type: UserBundle\Form\EditProfileType
     group:
         group_class: UserBundle\Entity\Group
+
+# VichUploader Configuration
+vich_uploader:
+    db_driver: orm
+    mappings:
+        obs_image:
+            uri_prefix: uploads/images/obs
+            upload_destination: '%kernel.project_dir%/web/uploads/images/obs'
+            
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true

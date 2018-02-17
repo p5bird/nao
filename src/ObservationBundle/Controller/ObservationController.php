@@ -40,6 +40,13 @@ class ObservationController extends Controller
                 $observation->setTaxon($taxon);
             }
 
+            if ($observation->hasImage())
+            {
+                $image = $observation->getImage();
+                $image->setObservation($observation);
+                $observation->setImage($image);
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($observation);
             $entityManager->flush();
@@ -54,7 +61,8 @@ class ObservationController extends Controller
         }
 
         return $this->render('ObservationBundle:Observation:add.html.twig', [
-            'formObs'   => $formObs->createView()
+            'formObs'       => $formObs->createView(),
+            'observation'   => $observation
         ]);
     }
 
@@ -87,8 +95,16 @@ class ObservationController extends Controller
             $taxonRepository = $this->getDoctrine()->getManager()->getRepository('ObservationBundle:Taxon');
             $taxon = $taxonRepository->findByNameVern($observation->getBirdName());
 
-            if (!is_null($taxon)) {              
+            if (!is_null($taxon)) 
+            {              
                 $observation->setTaxon($taxon);
+            }
+
+            if ($observation->hasImage())
+            {
+                $image = $observation->getImage();
+                $image->setObservation($observation);
+                $observation->setImage($image);
             }
 
             $entityManager = $this->getDoctrine()->getManager();
@@ -161,7 +177,7 @@ class ObservationController extends Controller
             $entityManager->persist($observation);
             $entityManager->flush();
 
-            return $this->redirectToRoute('nao_obs_user_list');
+            return $this->redirectToRoute('nao_obs_check_list');
         }
 
     	return $this->render('ObservationBundle:Observation:check.html.twig', [

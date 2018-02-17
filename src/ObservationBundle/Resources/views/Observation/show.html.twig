@@ -12,7 +12,11 @@
 			<div class="row">
 				<h1>Observation n°{{ observation.id }}</h1>
 				<div class="col-xs-12">
-					bloc photo
+					{% if observation.image %}
+						<img src="{{ asset(vich_uploader_asset(observation.image, 'imageFile')) }}" alt="{{ observation.birdName }}" class="img-fluid rounded" />
+					{% else %}
+						<p>Aucune photo</p>
+					{% endif %}		
 				</div>
 			</div>
 			<div class="row">

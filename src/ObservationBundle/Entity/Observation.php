@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use ObservationBundle\Validator\BirdNameExists;
 use ObservationBundle\Validator\LatitudeOk;
 use ObservationBundle\Validator\LongitudeOk;
@@ -20,6 +22,7 @@ use UserBundle\Entity\User;
  * @ORM\Table(name="nao_obs_observation")
  * @ORM\Entity(repositoryClass="ObservationBundle\Repository\ObservationRepository")
  * @ORM\HasLifecycleCallbacks()
+ * @Vich\Uploadable
  * @BirdNameExists()
  */
 class Observation
@@ -123,12 +126,11 @@ class Observation
 
     /**
      * @ORM\OneToOne(targetEntity="ObservationBundle\Entity\Image", inversedBy="observation", cascade={"persist"})
-     * 
      */
     private $image;
 
     /**
-     * 
+     * @var string
      */
     private $birdName;
 
@@ -136,6 +138,13 @@ class Observation
      * @ORM\OneToOne(targetEntity="ObservationBundle\Entity\Validation", cascade={"persist"})
      */
     private $validation;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * 
+     * @var \DateTime
+     */
+    private $updatedAt;
 
 
     /**
@@ -163,6 +172,11 @@ class Observation
      */
     public function checkNoName()
     {
+        if (empty($this->birdName))
+        {
+            $this->taxon = null;
+        }
+
         if (!is_null($this->taxon))
         {
             $this->noName = false;
@@ -173,9 +187,29 @@ class Observation
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
      */
+    public function changeUpdatedAt()
+    {
+        $this->setUpdatedAt(new \DateTime('now'));
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
     public function checkEntities()
     {
-        //author + validation
+        //
+    }
+
+    /**
+     * @ORM\PostLoad()
+     */
+    public function initBirdName()
+    {
+        if (!is_null($this->taxon))
+        {
+            $this->birdName = $this->taxon->getNameVern();
+        }
     }
 
 
@@ -204,7 +238,7 @@ class Observation
     }
 
     /**
-     * Get noName
+     * Has noName
      *
      * @return bool
      */
@@ -239,6 +273,15 @@ class Observation
             return true;
         }
         return false;
+    }
+
+    public function hasImage()
+    {
+        if (is_null($this->getImage()))
+        {
+            return false;
+        }
+        return true;
     }
 
 
@@ -532,7 +575,7 @@ class Observation
      */
     public function getBirdName()
     {
-        if (is_null($this->taxon))
+        if (is_null($this->taxon) or $this->birdName != $this->taxon->getNameVern())
         {
             return $this->birdName;
         }
@@ -588,30 +631,6 @@ class Observation
     }
 
     /**
-     * Set image
-     *
-     * @param \ObservationBundle\Entity\Image $image
-     *
-     * @return Observation
-     */
-    public function setImage(\ObservationBundle\Entity\Image $image = null)
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    /**
-     * Get image
-     *
-     * @return \ObservationBundle\Entity\Image
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
      * Set validation
      *
      * @param \ObservationBundle\Entity\Validation $validation
@@ -633,5 +652,53 @@ class Observation
     public function getValidation()
     {
         return $this->validation;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Observation
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \ObservationBundle\Entity\Image $image
+     *
+     * @return Observation
+     */
+    public function setImage(\ObservationBundle\Entity\Image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \ObservationBundle\Entity\Image
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }
