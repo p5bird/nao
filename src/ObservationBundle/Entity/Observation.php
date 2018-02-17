@@ -78,7 +78,6 @@ class Observation
     /**
      * @var string
      *
-     * @ORM\Column(name="place", type="string", length=255, nullable=true)
      */
     private $place;
 

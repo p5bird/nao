@@ -15,43 +15,5 @@
 {% block javascript %}
     {{ include("ObservationBundle:Script:autocomplete.html.twig") }}
     {# {{ include("ObservationBundle:Script:imagecropper.html.twig") }} #}
-    <script type="text/javascript" title="Google Map">
-      function initMap() {
-        //var uluru = {lat: -25.363, lng: 131.044};
-        // map.setCenter(new GLatLng(46.52863469527167,2.43896484375), 5);
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 5,
-          center: {lat: 46.52863469527167, lng: 2.43896484375}
-        });
-        var obsPosition = {lat: 46,lng: 1}
-        var obsMarker = new google.maps.Marker({
-          position: obsPosition,
-          map: map,
-          title: 'votre observation',
-          draggable: true,
-          animation: google.maps.Animation.DROP
-        });
-
-	    // option to add marker on the map
-	    obsMarker.setMap(map);
-
-	    // marker animation
-		function toggleBounce() {
-		  if (obsMarker.getAnimation() !== null) {
-		    obsMarker.setAnimation(null);
-		  } else {
-		    obsMarker.setAnimation(google.maps.Animation.BOUNCE);
-		  }
-		}
-
-		// listener to change lat and lng input values 
-		// following obsMarker dragging
-		obsMarker.addListener('drag', function(event){
-			console.log(obsMarker.getPosition().lat());
-			console.log(obsMarker.getPosition().lng());
-			$("input[id*='latitude']").val(obsMarker.getPosition().lat());
-			$("input[id*='longitude']").val(obsMarker.getPosition().lng());
-		});
-      }
-    </script>
+    {{ include("ObservationBundle:Script:googlemap.html.twig") }}
 {% endblock %}
