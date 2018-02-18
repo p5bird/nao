@@ -40,7 +40,7 @@ services:
     #         $someArgument: 'some_value'
 
     app.form.edit:
-        class: UserBundle\Form\EditProfileType
+        class: UserBundle\Form\ProfileType
 
     app.user_edit_listener:
             class: UserBundle\EventListener\UserEditListener
@@ -51,6 +51,9 @@ services:
             class: UserBundle\EventListener\UserRegistrationListener
             autowire: true
             arguments: []
+
+    app.blog_article:
+            class: BlogBundle\Entity\Article
 
     app.replace_accented_char:
             class: AppBundle\Utils\ReplaceAccentedChar

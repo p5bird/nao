@@ -15,6 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @ORM\Entity
  * @ORM\Table(name="nao_blog_article")
+ * @ORM\Entity(repositoryClass="BlogBundle\Repository\BlogRepository")
  */
 class Article {
 

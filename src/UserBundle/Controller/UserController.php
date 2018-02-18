@@ -21,7 +21,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 use UserBundle\Entity\Avatar;
 use UserBundle\Entity\User;
-use UserBundle\Form\EditProfileType;
+use UserBundle\Form\ProfileType;
 
 /**
  * Application controller
@@ -68,7 +68,7 @@ class UserController extends Controller {
             return $this->render('error/404.html.twig');
         }
 
-        $form = $this->createForm(EditProfileType::class, $user);
+        $form = $this->createForm(ProfileType::class, $user);
 
         $form->handleRequest($request);
 
@@ -123,9 +123,13 @@ class UserController extends Controller {
     public function statsAction() {
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository('UserBundle:User')->countAllUsers();
+        $articles = $em->getRepository('BlogBundle:Article')->countAllArticles();
+        $comments = $em->getRepository('BlogBundle:Comment')->countAllComments();
 
         return $this->render('UserBundle:User:stats.html.twig', array(
-            'users' => $users
+            'users' => $users,
+            'articles' => $articles,
+            'comments' => $comments
         ));
     }
 

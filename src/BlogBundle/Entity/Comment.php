@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity
  * @ORM\Table(name="nao_blog_comment")
+ * @ORM\Entity(repositoryClass="BlogBundle\Repository\BlogRepository")
  */
 class Comment {
 

@@ -150,6 +150,13 @@ class User extends BaseUser implements ParticipantInterface {
      */
     private $dateRegister;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="receiveNewsletter", type="boolean")
+     */
+    private $receiveNewsletter;
+
 
     public function __construct()
     {
@@ -381,5 +388,21 @@ class User extends BaseUser implements ParticipantInterface {
     public function getDateRegister()
     {
         return $this->dateRegister;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isReceiveNewsletter()
+    {
+        return $this->receiveNewsletter;
+    }
+
+    /**
+     * @param bool $receiveNewsletter
+     */
+    public function setReceiveNewsletter($receiveNewsletter)
+    {
+        $this->receiveNewsletter = $receiveNewsletter;
     }
 }

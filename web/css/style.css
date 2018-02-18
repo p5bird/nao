@@ -509,7 +509,7 @@ table.list-users-table {
 }
 
 tr.list-user-single {
-    background: #f3f3f3;
+    background: #f7f7f7;
 }
 
 table.list-users-table > tbody > tr.list-user-single > td.list-user-td {
@@ -584,7 +584,7 @@ table.list-messages-table {
 }
 
 tr.list-message-single {
-    background: #f3f3f3;
+    background: #f7f7f7;
 }
 
 table.list-messages-table > tbody > tr.list-message-single > td.list-message-td {
