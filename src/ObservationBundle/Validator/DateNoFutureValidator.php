@@ -6,11 +6,11 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 
-class LatitudeOkValidator extends ConstraintValidator
+class DateNoFutureValidator extends ConstraintValidator
 {
-	public function validate($latitude, Constraint $constraint)
+	public function validate($date, Constraint $constraint)
 	{	
-		if (!preg_match("/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/", $latitude))
+		if ($date > new \DateTime('now'))
 		{
 			$this->context
 				->buildViolation($constraint->message)

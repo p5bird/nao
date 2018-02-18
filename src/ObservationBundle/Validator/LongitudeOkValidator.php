@@ -12,7 +12,10 @@ class LongitudeOkValidator extends ConstraintValidator
 	{	
 		if (!preg_match("/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/", $longitude))
 		{
-			$this->context->addViolation($constraint->message);
+			$this->context
+				->buildViolation($constraint->message)
+				->addViolation();
+			return;
 		}
 	}
 }

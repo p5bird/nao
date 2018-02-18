@@ -11,6 +11,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use ObservationBundle\Validator\BirdNameExists;
 use ObservationBundle\Validator\LatitudeOk;
 use ObservationBundle\Validator\LongitudeOk;
+use ObservationBundle\Validator\DateNoFuture;
 use ObservationBundle\Entity\Taxon;
 use ObservationBundle\Entity\Image;
 use ObservationBundle\Entity\Validation;
@@ -54,6 +55,7 @@ class Observation
      * @ORM\Column(name="day", type="date")
      * @assert\NotBlank()
      * @assert\Date()
+     * @DateNoFuture()
      */
     private $day;
 
