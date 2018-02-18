@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use ObservationBundle\Entity\Observation;
 use ObservationBundle\Form\ObservationType;
@@ -266,7 +267,27 @@ class ObservationController extends Controller
      */
     public function searchAction()
     {
-        return $this->render('ObservationBundle:Observation:search.html.twig');
+        $observations = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('ObservationBundle:Observation')
+            ->findAll();
+
+        $obsJson = [];
+        foreach ($observations as $obs) {
+            array_push($obsJson, [
+                'id'        => $obs->getId(),
+                'birdName'  => $obs->getBirdName(),
+                'latitude'  => $obs->getLatitude(),
+                'longitude' => $obs->getLongitude(),
+                'url'       => "http://monUrl/" . $obs->getId()
+            ]);
+        }
+
+        return $this->render('ObservationBundle:Observation:search.html.twig', [
+            'observations'  => $observations,
+            'obsJson'       => $obsJson
+        ]);
     }
 
 
@@ -344,5 +365,26 @@ class ObservationController extends Controller
             return new JsonResponse("Avatar changed", 200);
         }
         return new JsonResponse("Avatar not changed", 500);
+    }
+
+    public function obsMarkerAction()
+    {
+       $observations = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('ObservationBundle:Observation')
+            ->findAll();
+
+        $obsJson = [];
+        foreach ($observations as $obs) {
+            array_push($obsJson, [
+                'id'        => $obs->getId(),
+                'birdName'  => $obs->getBirdName(),
+                'latitude'  => $obs->getLatitude(),
+                'longitude' => $obs->getLongitude(),
+                'url'       => $this->generateUrl('nao_obs_show', ['id' => $obs->getId()], UrlGeneratorInterface::ABSOLUTE_URL)
+            ]);
+        }
+        return new JsonResponse($obsJson);
     }
 }

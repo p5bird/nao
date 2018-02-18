@@ -111,6 +111,11 @@ nao_obs_search:
     defaults:
         _controller: ObservationBundle:Observation:search
 
+nao_ajax_obs_list:
+    path: /observation/ajax/obsList
+    defaults:
+        _controller: ObservationBundle:Observation:obsMarker
+
 nao_obs_search_result:
     path: /observation/result/{view}/{filter}
     defaults:
