@@ -168,10 +168,14 @@ span.menu-arrow {
 }
 
 .user-options-menu {
-    padding: 5px 0 5px 5px;
+    padding: 5px 15px 5px 5px;
     position: absolute;
     right: 0;
     top: 0;
+}
+
+.user-options-menu:hover {
+    cursor: pointer;
 }
 
 .user-options-menu a:hover {
@@ -200,7 +204,7 @@ span.menu-arrow {
     transform: rotateX(90deg);
     transform-origin: top;
     display: block;
-    width: 100%;
+    width: 11%;
     -webkit-box-shadow: 0px 6px 5px 0px rgba(238,240,241,1);
     -moz-box-shadow: 0px 6px 5px 0px rgba(238,240,241,1);
     box-shadow: 0px 6px 5px 0px rgba(238,240,241,1);
@@ -211,7 +215,7 @@ span.menu-arrow {
 .open .dropdown-menu.user-options-menu-dropdown {
     transform: rotateX(0deg);
     transform-origin: top;
-    width: 100%;
+    width: 11%;
 }
 
 a.user-options-menu-dropdown-item {
@@ -227,7 +231,7 @@ a.user-options-menu-dropdown-item {
 *******Common********
 ********************/
 .page-name {
-    padding: 20px;
+    padding: 20px 20px 20px 40px;
     font-size: 2.5em;
     color: #515865;
     display: inline-block;
@@ -477,12 +481,10 @@ a.user-options-menu-dropdown-item {
 .show-user-observation i.fas {
     color: #448d3e;
 }
-.show-user-observation i.fa-star {
-    font-size: 20pt;
-}
 
-.show-stars {
-    padding-bottom: 15px;
+.show-user-observation i.fa-star {
+    font-size: 17pt;
+    padding-bottom: 10px;
 }
 
 /********************
@@ -510,6 +512,14 @@ table.list-users-table {
 
 tr.list-user-single {
     background: #f7f7f7;
+}
+
+.list-table i.fa-trash {
+    -webkit-transition: ease-in-out 0.4s;
+    -moz-transition: ease-in-out 0.4s;
+    -ms-transition: ease-in-out 0.4s;
+    -o-transition: ease-in-out 0.4s;
+    transition: ease-in-out 0.4s;
 }
 
 table.list-users-table > tbody > tr.list-user-single > td.list-user-td {
@@ -635,7 +645,7 @@ td.search {
 }
 
 .messenger_thread_message {
-    margin: 20px 0 20px 20px;
+    margin: 20px;
     padding: 20px 0 20px 0;
     border-bottom: 1px solid #eaeaea;
 }
@@ -672,6 +682,14 @@ td.search {
 
 .send-message-row {
     padding: 10px 0 10px 0;
+}
+
+.message-header {
+    padding: 20px;
+}
+
+.reply-title {
+    padding: 0 0 0 20px;
 }
 
 /********************
@@ -767,5 +785,16 @@ img.last-observation {
 @media screen and (max-width: 1110px) {
     span.menu-arrow {
         right: -10px;
+    }
+}
+
+@media screen and (min-width: 990px) {
+    .messenger_thread_message_body {
+        max-width: 70%;
+    }
+
+    form.fos_message_thread_new {
+        max-width: 70%;
+        padding: 20px;
     }
 }

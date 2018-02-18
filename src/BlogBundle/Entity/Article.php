@@ -121,7 +121,6 @@ class Article {
      */
     public function setTitle($title)
     {
-        $this->slug = str_replace(" ", "-", $title);
         $this->title = $title;
     }
 

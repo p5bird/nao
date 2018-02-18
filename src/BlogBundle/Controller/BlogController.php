@@ -43,10 +43,6 @@ class BlogController extends Controller {
 
         $form = $this->createForm(ArticleType::class, $article);
 
-        // TODO call service to replace accented char
-        /*$article->setSlug(str_replace(" ", "-", $this->container->get('app.replace_accented_char')->replace_accented_char($article->getTitle())));*/
-        //
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -55,6 +51,7 @@ class BlogController extends Controller {
 
             $uniqueId = substr(md5(mt_rand()), 0, 7);
             $article->setUniqueId($uniqueId);
+            $article->setSlug(str_replace(" ", "-", $this->container->get('app.replace_accented_char')->replace_accented_char($article->getTitle())));
 
             if ($data = $request->request->get('base64File')['image']) {
 
