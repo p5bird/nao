@@ -9,8 +9,9 @@
 namespace UserBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User as BaseUser;
+use FOS\MessageBundle\Model\ParticipantInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -18,8 +19,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="nao_user")
  * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
  */
-class User extends BaseUser
-{
+class User extends BaseUser implements ParticipantInterface {
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -148,6 +149,13 @@ class User extends BaseUser
      * )
      */
     private $dateRegister;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="receiveNewsletter", type="boolean")
+     */
+    private $receiveNewsletter = false;
 
 
     public function __construct()
@@ -380,5 +388,21 @@ class User extends BaseUser
     public function getDateRegister()
     {
         return $this->dateRegister;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isReceiveNewsletter()
+    {
+        return $this->receiveNewsletter;
+    }
+
+    /**
+     * @param bool $receiveNewsletter
+     */
+    public function setReceiveNewsletter($receiveNewsletter)
+    {
+        $this->receiveNewsletter = $receiveNewsletter;
     }
 }

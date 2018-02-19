@@ -12,7 +12,7 @@ services:
         autoconfigure: true
         # this means you cannot fetch services directly from the container via $container->get()
         # if you need to do this, you can override this setting on individual services
-        public: false
+        public: true
 
     # makes classes in src/AppBundle available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -43,7 +43,7 @@ services:
         tags: ['doctrine.fixture.orm']
 
     app.form.edit:
-        class: UserBundle\Form\EditProfileType
+        class: UserBundle\Form\ProfileType
 
     app.user_edit_listener:
             class: UserBundle\EventListener\UserEditListener
@@ -55,3 +55,10 @@ services:
             autowire: true
             arguments: []
 
+    app.blog_article:
+            class: BlogBundle\Entity\Article
+
+    app.replace_accented_char:
+            class: AppBundle\Utils\ReplaceAccentedChar
+            autowire: true
+            arguments: []

@@ -9,6 +9,7 @@
 namespace UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -18,7 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 use FOS\UserBundle\Form\Type\ProfileFormType as BaseProfileFormType;
 
-class EditProfileType extends AbstractType {
+class ProfileType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
@@ -125,6 +126,11 @@ class EditProfileType extends AbstractType {
                     'class' => 'edit-profile-avatar-input',
                     'placeholder' => 'Avatar',
                 ],
+                'error_bubbling' => true
+            ))
+            ->add('receiveNewsletter', CheckboxType::class, array(
+                'required' => false,
+                'label' => 'Recevoir la newsletter',
                 'error_bubbling' => true
             ));
     }

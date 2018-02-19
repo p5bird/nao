@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container-fluid">
+    <div class="container-fluid user-interface">
         <div class="row">
             <div class="col-md-2 no-padding sidebar" id="sidebar">
-                    <div class="navbar" role="navigation">
+                    <div class="navbar navbar-side" role="navigation">
                         <div class="side navbar-brand">
                             <div class="brand-name">
                                 Nos Amis les Oiseaux
@@ -31,7 +31,7 @@
                         </div>
                         <div class="side navbar-menu">
                             <ul class="side-nav">
-                                <li class="menu menu-dropdown" data-toggle="collapse" href="#dashboard_collapse" aria-expanded="false" aria-controls="collapseExample">
+                                <li class="menu menu-dropdown" data-toggle="collapse" href="#dashboard_collapse" aria-expanded="false" aria-controls="collapse-control">
                                     <a>
                                         <i class="fas fa-tachometer-alt"></i>
                                         Tableau de bord
@@ -45,7 +45,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#">
+                                                <a href="{{ path('nao_stats') }}">
                                                     Statistiques
                                                 </a>
                                             </li>
@@ -53,7 +53,7 @@
                                     </div>
                                 </li>
 
-                                <li class="menu menu-dropdown" data-toggle="collapse" href="#profile_collapse" aria-expanded="false" aria-controls="collapseExample">
+                                <li class="menu menu-dropdown" data-toggle="collapse" href="#profile_collapse" aria-expanded="false" aria-controls="collapse-control">
                                     <a>
                                         <i class="fas fa-address-card"></i>
                                         Profil
@@ -75,11 +75,36 @@
                                     </div>
                                 </li>
 
-                                <li class="menu">
-                                    <a href="#">
+                                <li class="menu menu-dropdown" data-toggle="collapse" href="#message_collapse" aria-expanded="false" aria-controls="collapse-control">
+                                    <a>
                                         <i class="fas fa-comments"></i>
                                         Messagerie
+                                        <span class="menu-arrow"><i class="fas fa-angle-right"></i></span>
                                     </a>
+                                    <div class="collapse" id="message_collapse" onClick="event.stopPropagation();">
+                                        <ul class="sub-menu">
+                                            <li>
+                                                <a href="{{ path('fos_message_inbox') }}">
+                                                    Boite de réception
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('fos_message_thread_new') }}">
+                                                    Nouveau message
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('fos_message_sent') }}">
+                                                    Message envoyés
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('fos_message_deleted') }}">
+                                                    Message archivés
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </li>
 
                                 <li class="menu">
@@ -89,7 +114,7 @@
                                     </a>
                                 </li>
 
-                                <li class="menu menu-dropdown" data-toggle="collapse" href="#observation_collapse" aria-expanded="false" aria-controls="collapseExample">
+                                <li class="menu menu-dropdown" data-toggle="collapse" href="#observation_collapse" aria-expanded="false" aria-controls="collapse-control">
                                     <a>
                                         <i class="fas fa-eye"></i>
                                         Observations
@@ -116,7 +141,7 @@
                                     </div>
                                 </li>
 
-                                <li class="menu menu-dropdown" data-toggle="collapse" href="#article_collapse" aria-expanded="false" aria-controls="collapseExample">
+                                <li class="menu menu-dropdown" data-toggle="collapse" href="#article_collapse" aria-expanded="false" aria-controls="collapse-control">
                                     <a>
                                         <i class="fas fa-pencil-alt"></i>
                                         Articles
@@ -166,7 +191,7 @@
                     <div class="toggle-sidebar" id="toggle-sidebar">
                         <i class="fas fa-bars"></i>
                     </div>
-                    <div class="user-options-menu">
+                    <div class="user-options-menu" id="user_options_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <a href="{{ path('nao_profile') }}">
                             {% if app.user.avatar.id is not defined %}
                                 <img src="{{ asset('/img/no-image.png') }}" class="user-avatar-image-topbar"/>
@@ -174,17 +199,19 @@
                                 <img src="{{ asset('/uploads/avatar/') }}user-{{ app.user.id }}.{{ app.user.avatar.extension }}" class="user-avatar-image-topbar"/>
                             {% endif %}
                         </a>
-                        <i class="fas fa-caret-down" id="user_options_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                        <div class="dropdown-menu user-options-menu-dropdown" aria-labelledby="user_options_dropdown">
-                            <a class="user-options-menu-dropdown-item" href="{{ path('nao_profile') }}">Mon profil</a>
-                            <a class="user-options-menu-dropdown-item" href="{{ path('nao_profile_edit') }}">Réglages</a>
-                            <a class="user-options-menu-dropdown-item" href="{{ path('nao_logout') }}">Se déconnecter</a>
-                        </div>
+
+                        <i class="fas fa-caret-down"></i>
+                    </div>
+                    <div class="dropdown-menu user-options-menu-dropdown" aria-labelledby="user_options_dropdown">
+                        <a class="user-options-menu-dropdown-item" href="{{ path('nao_profile') }}"><i class="fas fa-user"></i> Mon profil</a>
+                        <a class="user-options-menu-dropdown-item" href="{{ path('nao_profile_edit') }}"><i class="fas fa-cogs"></i> Réglages</a>
+                        <a class="user-options-menu-dropdown-item" href="{{ path('nao_logout') }}"><i class="fas fa-sign-out-alt"></i> Déconnection</a>
                     </div>
                 </div>
 
                 {% block content %}{% endblock %}
                 {% block fos_user_content %}{% endblock %}
+                {% block fos_message_content %}{% endblock %}
             </div>
         </div>
     </div>

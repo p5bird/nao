@@ -2,8 +2,8 @@ $(document).ready(function() {
     // When something is typed in search
     $('#system-search').keyup( function() {
         var that = this;
-        var tableBody = $('.list-users-table tbody');
-        var tableRow = $('.list-users-table tbody tr');
+        var tableBody = $('.list-table tbody');
+        var tableRow = $('.list-table tbody tr');
         $('.search-nothing').remove();
 
         tableRow.each(function(i, val) {

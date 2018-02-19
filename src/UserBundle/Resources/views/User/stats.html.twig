@@ -29,14 +29,14 @@
                     <div class="stats-article">
                         <div class="stats-article-title">Articles</div>
                         <div class="stats-article-subtitle">Nombre total d'articles</div>
-                        <div class="stats-article-content">12</div>
+                        <div class="stats-article-content">{{ articles }}</div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="stats-comment">
                         <div class="stats-comment-title">Commentaires</div>
                         <div class="stats-comment-subtitle">Nombre total de commentaires</div>
-                        <div class="stats-comment-content">72</div>
+                        <div class="stats-comment-content">{{ comments }}</div>
                     </div>
                 </div>
             </div>
@@ -62,11 +62,11 @@
 
             var data = google.visualization.arrayToDataTable([
                 ['Month', 'Utilisateurs', 'Observations', 'Articles', 'Commentaires'],
-                ['2004/05',  {{ users }},      4,         5,             6],
-                ['2005/06',  2,      4,        5,             6],
-                ['2006/07',  2,      4,        5,             6],
-                ['2007/08',  2,      4,        5,             6],
-                ['2008/09',  2,      4,         5,             6]
+                ["{{ graphData.4.date }}",  {{ graphData.4.users }},      4,         {{ graphData.4.articles }},             {{ graphData.4.comments }}],
+                ["{{ graphData.3.date }}",  {{ graphData.3.users }},      4,        {{ graphData.3.articles }},             {{ graphData.3.comments }}],
+                ["{{ graphData.2.date }}",  {{ graphData.2.users }},      4,        {{ graphData.2.articles }},             {{ graphData.2.comments }}],
+                ["{{ graphData.1.date }}",  {{ graphData.1.users }},      4,        {{ graphData.1.articles }},             {{ graphData.1.comments }}],
+                ["{{ graphData.0.date }}",  {{ graphData.0.users }},      4,         {{ graphData.0.articles }},             {{ graphData.0.comments }}]
             ]);
 
             var options = {

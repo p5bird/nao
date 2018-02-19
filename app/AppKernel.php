@@ -18,9 +18,11 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new AppBundle\AppBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new FOS\MessageBundle\FOSMessageBundle(),
             new UserBundle\UserBundle(),
             new ObservationBundle\ObservationBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
+            new BlogBundle\BlogBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

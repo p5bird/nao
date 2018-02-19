@@ -30,7 +30,7 @@
         </div>
         <div class="validate-edit">
             {{ form_start(form) }}
-            <input type="submit" value="Mettre à jour" class="btn btn-primary btn-lg btn-success"/>
+            <input type="submit" value="Mettre à jour" class="btn btn-primary btn-success"/>
         </div>
     </div>
     <div class="container">
@@ -118,10 +118,13 @@
                     <div class="edit-confidentiality-title">
                         <h2>Confidentialité</h2>
                     </div>
+                    <div class="edit-newsletter">
+                        {{ form_row(form.receiveNewsletter) }}
+                    </div>
                 </div>
             </div>
             <div class="edit-profile-submit">
-                <input type="submit" value="{{ 'profile.edit.submit'|trans }}" class="edit-profile-submit-input btn btn-success"/>
+                <input type="submit" value="Mettre à jour" class="edit-profile-submit-input btn btn-success"/>
                 {{ form_end(form) }}
             </div>
         </div>

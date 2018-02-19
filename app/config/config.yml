@@ -84,9 +84,17 @@ fos_user:
         sender_name: "%mailer_user%"
     profile:
         form:
-            type: UserBundle\Form\EditProfileType
+            type: UserBundle\Form\ProfileType
     group:
         group_class: UserBundle\Entity\Group
+    registration:
+            confirmation:
+                enabled: true
+
+fos_message:
+    db_driver: orm
+    thread_class: UserBundle\Entity\Thread
+    message_class: UserBundle\Entity\Message
 
 # VichUploader Configuration
 vich_uploader:

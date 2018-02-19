@@ -21,7 +21,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 use UserBundle\Entity\Avatar;
 use UserBundle\Entity\User;
-use UserBundle\Form\EditProfileType;
+use UserBundle\Form\ProfileType;
 
 /**
  * Application controller
@@ -68,7 +68,7 @@ class UserController extends Controller {
             return $this->render('error/404.html.twig');
         }
 
-        $form = $this->createForm(EditProfileType::class, $user);
+        $form = $this->createForm(ProfileType::class, $user);
 
         $form->handleRequest($request);
 
@@ -122,10 +122,28 @@ class UserController extends Controller {
      */
     public function statsAction() {
         $em = $this->getDoctrine()->getManager();
-        $users = $em->getRepository('UserBundle:User')->countAllUsers();
+
+        $users = count($em->getRepository('UserBundle:User')->findAll());
+        $articles = count($em->getRepository('BlogBundle:Article')->findAll());
+        $comments = count($em->getRepository('BlogBundle:Comment')->findAll());
+
+        $dateNow = new \DateTime('+1 month');
+        $list = [];
+
+        for ($i = 0; $i < 5; $i++) {
+            $list[$i]['users'] = $em->getRepository('UserBundle:User')->getUsersFromDate($dateNow);
+            $list[$i]['articles'] = $em->getRepository('BlogBundle:Article')->getArticlesFromDate($dateNow);
+            $list[$i]['comments'] = $em->getRepository('BlogBundle:Comment')->getCommentsFromDate($dateNow);
+
+            $dateNow->modify('-1 month');
+            $list[$i]['date'] = $dateNow->format('Y/m');
+        }
 
         return $this->render('UserBundle:User:stats.html.twig', array(
-            'users' => $users
+            'users' => $users,
+            'graphData' => $list,
+            'articles' => $articles,
+            'comments' => $comments
         ));
     }
 

@@ -26,7 +26,7 @@
     </div>
     <div class="validate-edit">
         {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
-        <input type="submit" value="Mettre à jour" class="btn btn-primary btn-lg btn-success"/>
+        <input type="submit" value="Mettre à jour" class="btn btn-primary btn-success"/>
     </div>
 </div>
 <div class="container">
@@ -113,6 +113,9 @@
             <div class="edit-confidentiality-options">
                 <div class="edit-confidentiality-title">
                     <h2>Confidentialité</h2>
+                </div>
+                <div class="edit-newsletter">
+                    {{ form_row(form.receiveNewsletter) }}
                 </div>
             </div>
         </div>
