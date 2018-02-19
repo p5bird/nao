@@ -155,7 +155,7 @@ class User extends BaseUser implements ParticipantInterface {
      *
      * @ORM\Column(name="receiveNewsletter", type="boolean")
      */
-    private $receiveNewsletter;
+    private $receiveNewsletter = false;
 
 
     public function __construct()

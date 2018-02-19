@@ -38,7 +38,15 @@ class Comment {
      */
     private $article;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="createdAt", type="datetime")
+     */
+    private $createdAt;
+
     public function __construct() {
+        $this->createdAt = new \DateTime("now");
     }
 
     /**
@@ -87,5 +95,29 @@ class Comment {
     public function setArticle($article)
     {
         $this->article = $article;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Comment
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
     }
 }

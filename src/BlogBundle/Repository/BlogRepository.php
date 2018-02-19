@@ -12,20 +12,26 @@ use Doctrine\ORM\EntityRepository;
 
 class BlogRepository extends EntityRepository {
 
-    public function countAllArticles(){
+    public function getArticlesFromDate(\DateTime $date) {
         $qb = $this->_em->createQueryBuilder();
+        $date->modify('first day of this month');
 
         $qb->select('count(a.id)')
-            ->from('BlogBundle:Article', 'a');
+            ->from('BlogBundle:Article', 'a')
+            ->where('a.createdAt < :date')
+            ->setParameter('date', $date);
 
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    public function countAllComments(){
+    public function getCommentsFromDate(\DateTime $date) {
         $qb = $this->_em->createQueryBuilder();
+        $date->modify('first day of this month');
 
         $qb->select('count(c.id)')
-            ->from('BlogBundle:Comment', 'c');
+            ->from('BlogBundle:Comment', 'c')
+            ->where('c.createdAt < :date')
+            ->setParameter('date', $date);
 
         return $qb->getQuery()->getSingleScalarResult();
     }

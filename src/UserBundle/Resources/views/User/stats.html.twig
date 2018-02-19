@@ -62,11 +62,11 @@
 
             var data = google.visualization.arrayToDataTable([
                 ['Month', 'Utilisateurs', 'Observations', 'Articles', 'Commentaires'],
-                ['2004/05',  {{ users }},      4,         5,             6],
-                ['2005/06',  2,      4,        5,             6],
-                ['2006/07',  2,      4,        5,             6],
-                ['2007/08',  2,      4,        5,             6],
-                ['2008/09',  2,      4,         5,             6]
+                ["{{ graphData.4.date }}",  {{ graphData.4.users }},      4,         {{ graphData.4.articles }},             {{ graphData.4.comments }}],
+                ["{{ graphData.3.date }}",  {{ graphData.3.users }},      4,        {{ graphData.3.articles }},             {{ graphData.3.comments }}],
+                ["{{ graphData.2.date }}",  {{ graphData.2.users }},      4,        {{ graphData.2.articles }},             {{ graphData.2.comments }}],
+                ["{{ graphData.1.date }}",  {{ graphData.1.users }},      4,        {{ graphData.1.articles }},             {{ graphData.1.comments }}],
+                ["{{ graphData.0.date }}",  {{ graphData.0.users }},      4,         {{ graphData.0.articles }},             {{ graphData.0.comments }}]
             ]);
 
             var options = {

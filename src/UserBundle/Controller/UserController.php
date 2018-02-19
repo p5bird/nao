@@ -122,12 +122,26 @@ class UserController extends Controller {
      */
     public function statsAction() {
         $em = $this->getDoctrine()->getManager();
-        $users = $em->getRepository('UserBundle:User')->countAllUsers();
-        $articles = $em->getRepository('BlogBundle:Article')->countAllArticles();
-        $comments = $em->getRepository('BlogBundle:Comment')->countAllComments();
+
+        $users = count($em->getRepository('UserBundle:User')->findAll());
+        $articles = count($em->getRepository('BlogBundle:Article')->findAll());
+        $comments = count($em->getRepository('BlogBundle:Comment')->findAll());
+
+        $dateNow = new \DateTime('+1 month');
+        $list = [];
+
+        for ($i = 0; $i < 5; $i++) {
+            $list[$i]['users'] = $em->getRepository('UserBundle:User')->getUsersFromDate($dateNow);
+            $list[$i]['articles'] = $em->getRepository('BlogBundle:Article')->getArticlesFromDate($dateNow);
+            $list[$i]['comments'] = $em->getRepository('BlogBundle:Comment')->getCommentsFromDate($dateNow);
+
+            $dateNow->modify('-1 month');
+            $list[$i]['date'] = $dateNow->format('Y/m');
+        }
 
         return $this->render('UserBundle:User:stats.html.twig', array(
             'users' => $users,
+            'graphData' => $list,
             'articles' => $articles,
             'comments' => $comments
         ));
