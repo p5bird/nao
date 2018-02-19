@@ -240,7 +240,8 @@ class LoadFixtures extends AbstractFixture {
         $manager->flush();
     }
 
-    private function loadTaxons(ObjectManager $manager){
+    private function loadTaxons(ObjectManager $manager) {
+
         $csv = 'web/taxref/taxref.csv';
 
         $taxons = array_map('str_getcsv', file($csv));
@@ -265,8 +266,7 @@ class LoadFixtures extends AbstractFixture {
                 ->setPhylum($taxons[$i]['PHYLUM'])
                 ->setReign($taxons[$i]['REGNE'])
                 ->setRef($taxons[$i]['CD_REF'])
-                ->setNameFr($taxons[$i]['FR'])
-                ->setNameEn($taxons[$i]['GF']);
+                ->setCdNom($taxons[$i]['CD_NOM']);
 
             $manager->persist($taxon);
         }
@@ -290,7 +290,7 @@ class LoadFixtures extends AbstractFixture {
                 $observation->setComment('observation importée par Fixtures');
                 $observation->setAuthor($user);
                 $observation->setNoName(false);
-                $observation->setBirdName($taxon->getNameFr());
+                $observation->setBirdName($taxon->getNameVern());
                 $observation->setTaxon($taxon);
 
                 $timestamp = mt_rand(strtotime("Jan 01 2000"), strtotime("Jan 01 2018"));

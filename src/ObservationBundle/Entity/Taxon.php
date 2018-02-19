@@ -75,20 +75,6 @@ class Taxon {
     /**
      * @var string
      *
-     * @ORM\Column(name="FR", type="string", length=255)
-     */
-    private $nameFr;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="GF", type="string", length=255)
-     */
-    private $nameEn;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="LB_AUTEUR", type="string", length=255)
      */
     private $author;
@@ -113,6 +99,13 @@ class Taxon {
      * @ORM\Column(name="NOM_VERN_ENG", type="string", length=255)
      */
     private $nameVernEN;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="CD_NOM", type="string", length=255)
+     */
+    private $cdNom;
 
 
     /**
@@ -421,50 +414,26 @@ class Taxon {
     }
 
     /**
-     * Set nameFr
+     * Set cdNom
      *
-     * @param string $nameFr
+     * @param string $cdNom
      *
      * @return Taxon
      */
-    public function setNameFr($nameFr)
+    public function setCdNom($cdNom)
     {
-        $this->nameFr = $nameFr;
+        $this->cdNom = $cdNom;
 
         return $this;
     }
 
     /**
-     * Get nameFr
+     * Get cdNom
      *
      * @return string
      */
-    public function getNameFr()
+    public function getCdNom()
     {
-        return $this->nameFr;
-    }
-
-    /**
-     * Set nameEn
-     *
-     * @param string $nameEn
-     *
-     * @return Taxon
-     */
-    public function setNameEn($nameEn)
-    {
-        $this->nameEn = $nameEn;
-
-        return $this;
-    }
-
-    /**
-     * Get nameEn
-     *
-     * @return string
-     */
-    public function getNameEn()
-    {
-        return $this->nameEn;
+        return $this->cdNom;
     }
 }
