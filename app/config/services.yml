@@ -38,6 +38,9 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+    ObservationBundle\DataFixtures\:
+        resource: '../../src/ObservationBundle/DataFixtures'
+        tags: ['doctrine.fixture.orm']
 
     app.form.edit:
         class: UserBundle\Form\EditProfileType

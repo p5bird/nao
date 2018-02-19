@@ -15,6 +15,7 @@ use ObservationBundle\Entity\Taxon;
 use ObservationBundle\Entity\Image;
 use ObservationBundle\Entity\Validation;
 use ObservationBundle\Form\ValidationType;
+use ObservationBundle\Service\Geoloc;
 
 class ObservationController extends Controller
 {
@@ -173,11 +174,20 @@ class ObservationController extends Controller
 
         if ($formValid->isSubmitted() and $formValid->isValid())
         {
+            if ($formValid->get('cancel')->isClicked())
+            {
+                return $this->redirectToRoute('nao_obs_check_list');
+            }
+
             $validation->setAuthor($user);
             $validation->setDate(new \DateTime());
             if ($formValid->get('valid')->isClicked())
             {
                 $validation->setGranted(true);
+            }
+            if ($formValid->get('reject')->isClicked())
+            {
+                $validation->setRejected(true);
             }
 
             $observation->setValidation($validation);
@@ -209,6 +219,19 @@ class ObservationController extends Controller
             ->getManager()
             ->getRepository('ObservationBundle:Observation')
             ->findOneBy(['id' => $id]);
+
+        if (empty($observation)) {
+            return $this->render('ObservationBundle:Observation:show.html.twig', [
+                'observation'   => $observation
+            ]);            
+        }
+        
+        // // Service Google Geoloc
+        // $locationInfos = $this->get('observation.geoloc')->getLocationInfos($observation);
+
+        // echo '<pre>';
+        // var_dump($locationInfos); 
+        // echo '</pre>'; 
 
         return $this->render('ObservationBundle:Observation:show.html.twig', [
         	'observation'	=> $observation
@@ -271,7 +294,7 @@ class ObservationController extends Controller
             ->getDoctrine()
             ->getManager()
             ->getRepository('ObservationBundle:Observation')
-            ->findAll();
+            ->findAllValidated();
 
         $obsJson = [];
         foreach ($observations as $obs) {
@@ -280,7 +303,7 @@ class ObservationController extends Controller
                 'birdName'  => $obs->getBirdName(),
                 'latitude'  => $obs->getLatitude(),
                 'longitude' => $obs->getLongitude(),
-                'url'       => "http://monUrl/" . $obs->getId()
+                'url'       => $this->generateUrl('nao_obs_show', ['id' => $obs->getId()])
             ]);
         }
 
@@ -373,7 +396,7 @@ class ObservationController extends Controller
             ->getDoctrine()
             ->getManager()
             ->getRepository('ObservationBundle:Observation')
-            ->findAll();
+            ->findAllValidated();
 
         $obsJson = [];
         foreach ($observations as $obs) {

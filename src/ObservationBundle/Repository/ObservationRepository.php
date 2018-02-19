@@ -10,5 +10,16 @@ namespace ObservationBundle\Repository;
  */
 class ObservationRepository extends \Doctrine\ORM\EntityRepository
 {
-	
+	public function findAllValidated()
+	{
+		$queryBuilder = $this->createQueryBuilder('obs');
+		$queryBuilder
+			->where('obs.publish = :publish')
+				->setParameter('publish', true)
+			->leftJoin('obs.validation', 'val')
+			->andWhere('val.granted = :granted')
+				->setParameter('granted', true)
+			->orderBy('obs.day', 'DESC');
+		return $queryBuilder->getQuery()->getResult();
+	}
 }

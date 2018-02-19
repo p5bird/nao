@@ -9,3 +9,9 @@ services:
         public: true
         tags:
           - { name: validator.constraint_validator, alias: observation.birdNameExists }
+
+    observation.geoloc:
+        class: ObservationBundle\Service\Geoloc
+        arguments:
+          - "%google_map_api%"
+        public: true

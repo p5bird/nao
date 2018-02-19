@@ -160,6 +160,7 @@ class Validation
     public function setGranted($granted)
     {
         $this->granted = $granted;
+        $this->rejected = !$granted;
 
         return $this;
     }
@@ -181,21 +182,22 @@ class Validation
      *
      * @return Validation
      */
-    public function setDelete($rejected)
+    public function setRejected($rejected)
     {
-        $this->delete = $rejected;
+        $this->rejected = $rejected;
+        $this->granted = !$rejected;
 
         return $this;
     }
 
     /**
-     * Get delete
+     * Get Rejected
      *
      * @return bool
      */
-    public function getDelete()
+    public function getRejected()
     {
-        return $this->delete;
+        return $this->rejected;
     }
 
     /**

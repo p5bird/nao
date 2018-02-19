@@ -285,13 +285,20 @@ class Observation
         return true;
     }
 
-
     /**
      * 
      */
     public function removeValidation()
     {
         $this->setValidation(null);
+    }
+
+    /**
+     * 
+     */
+    public function getLatAndLng()
+    {
+        return $this->getLatitude() . ',' . $this->getLongitude();
     }
 
 
