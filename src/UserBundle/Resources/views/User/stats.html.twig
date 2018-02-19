@@ -22,7 +22,7 @@
                     <div class="stats-observation">
                         <div class="stats-observation-title">Observations</div>
                         <div class="stats-observation-subtitle">Nombre total d'observations</div>
-                        <div class="stats-observation-content">344</div>
+                        <div class="stats-observation-content">{{ observations }}</div>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -62,11 +62,11 @@
 
             var data = google.visualization.arrayToDataTable([
                 ['Month', 'Utilisateurs', 'Observations', 'Articles', 'Commentaires'],
-                ["{{ graphData.4.date }}",  {{ graphData.4.users }},      4,         {{ graphData.4.articles }},             {{ graphData.4.comments }}],
-                ["{{ graphData.3.date }}",  {{ graphData.3.users }},      4,        {{ graphData.3.articles }},             {{ graphData.3.comments }}],
-                ["{{ graphData.2.date }}",  {{ graphData.2.users }},      4,        {{ graphData.2.articles }},             {{ graphData.2.comments }}],
-                ["{{ graphData.1.date }}",  {{ graphData.1.users }},      4,        {{ graphData.1.articles }},             {{ graphData.1.comments }}],
-                ["{{ graphData.0.date }}",  {{ graphData.0.users }},      4,         {{ graphData.0.articles }},             {{ graphData.0.comments }}]
+                ["{{ graphData.4.date }}",  {{ graphData.4.users }},      {{ graphData.4.observations }},         {{ graphData.4.articles }},             {{ graphData.4.comments }}],
+                ["{{ graphData.3.date }}",  {{ graphData.3.users }},      {{ graphData.3.observations }},        {{ graphData.3.articles }},             {{ graphData.3.comments }}],
+                ["{{ graphData.2.date }}",  {{ graphData.2.users }},      {{ graphData.2.observations }},        {{ graphData.2.articles }},             {{ graphData.2.comments }}],
+                ["{{ graphData.1.date }}",  {{ graphData.1.users }},      {{ graphData.1.observations }},        {{ graphData.1.articles }},             {{ graphData.1.comments }}],
+                ["{{ graphData.0.date }}",  {{ graphData.0.users }},      {{ graphData.0.observations }},         {{ graphData.0.articles }},             {{ graphData.0.comments }}]
             ]);
 
             var options = {

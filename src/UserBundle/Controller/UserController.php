@@ -126,6 +126,7 @@ class UserController extends Controller {
         $users = count($em->getRepository('UserBundle:User')->findAll());
         $articles = count($em->getRepository('BlogBundle:Article')->findAll());
         $comments = count($em->getRepository('BlogBundle:Comment')->findAll());
+        $observations = count($em->getRepository('ObservationBundle:Observation')->findAll());
 
         $dateNow = new \DateTime('+1 month');
         $list = [];
@@ -134,6 +135,7 @@ class UserController extends Controller {
             $list[$i]['users'] = $em->getRepository('UserBundle:User')->getUsersFromDate($dateNow);
             $list[$i]['articles'] = $em->getRepository('BlogBundle:Article')->getArticlesFromDate($dateNow);
             $list[$i]['comments'] = $em->getRepository('BlogBundle:Comment')->getCommentsFromDate($dateNow);
+            $list[$i]['observations'] = $em->getRepository('ObservationBundle:Observation')->getObservationsFromDate($dateNow);
 
             $dateNow->modify('-1 month');
             $list[$i]['date'] = $dateNow->format('Y/m');
@@ -143,7 +145,8 @@ class UserController extends Controller {
             'users' => $users,
             'graphData' => $list,
             'articles' => $articles,
-            'comments' => $comments
+            'comments' => $comments,
+            'observations' => $observations
         ));
     }
 

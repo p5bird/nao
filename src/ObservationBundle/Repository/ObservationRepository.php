@@ -22,4 +22,16 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 			->orderBy('obs.day', 'DESC');
 		return $queryBuilder->getQuery()->getResult();
 	}
+
+    public function getObservationsFromDate(\DateTime $date){
+        $qb = $this->_em->createQueryBuilder();
+        $date->modify('first day of this month');
+
+        $qb->select('count(o.id)')
+            ->from('ObservationBundle:Observation', 'o')
+            ->where('o.sendingDate < :date')
+            ->setParameter('date', $date);
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
 }
