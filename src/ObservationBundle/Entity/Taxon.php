@@ -10,10 +10,18 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="nao_obs_taxon")
  * @ORM\Entity(repositoryClass="ObservationBundle\Repository\TaxonRepository")
  */
-class Taxon
-{
+class Taxon {
     const URL_INPN = "https://inpn.mnhn.fr/espece/cd_nom/";
     const URL_WIKI = "https://fr.wikipedia.org/wiki/";
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
 
     /**
      * @var string
@@ -49,14 +57,6 @@ class Taxon
      * @ORM\Column(name="FAMILLE", type="string", length=255)
      */
     private $family;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     */
-    private $id;
 
     /**
      * @var int
@@ -253,54 +253,6 @@ class Taxon
     }
 
     /**
-     * Set nameVernaculaire
-     *
-     * @param string $nameVern
-     *
-     * @return Taxon
-     */
-    public function setNameVernaculaire($nameVern)
-    {
-        $this->nameVernaculaire = $nameVern;
-
-        return $this;
-    }
-
-    /**
-     * Get nameVernaculaire
-     *
-     * @return string
-     */
-    public function getNameVernaculaire()
-    {
-        return $this->nameVernaculaire;
-    }
-
-    /**
-     * Set nameVernaculaireEN
-     *
-     * @param string $nameVernEN
-     *
-     * @return Taxon
-     */
-    public function setNameVernaculaireEN($nameVernEN)
-    {
-        $this->nameVernaculaireEN = $nameVernEN;
-
-        return $this;
-    }
-
-    /**
-     * Get nameVernaculaireEN
-     *
-     * @return string
-     */
-    public function getNameVernaculaireEN()
-    {
-        return $this->nameVernaculaireEN;
-    }
-
-    /**
      * Set reign
      *
      * @param string $reign
@@ -418,20 +370,6 @@ class Taxon
     public function getNameVernEN()
     {
         return $this->nameVernEN;
-    }
-
-    /**
-     * Set id
-     *
-     * @param integer $id
-     *
-     * @return Taxon
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
     }
 
     /**
