@@ -41,4 +41,26 @@ class TaxonRepository extends \Doctrine\ORM\EntityRepository
 		return $queryBuilder->getQuery()->getOneOrNullResult();
 	}
 
+	public function getFamilies()
+	{
+		$queryBuilder = $this->createQueryBuilder('tax');
+		$queryBuilder
+			->select('tax.family')
+			->where('tax.cdNom = tax.cdRef')
+			->andWhere("tax.nameVern != ''")
+			->groupBy('tax.family');
+		return $queryBuilder->getQuery()->getScalarResult();
+	}
+
+	public function getOrders()
+	{
+		$queryBuilder = $this->createQueryBuilder('tax');
+		$queryBuilder
+			->select('tax.order')
+			->where('tax.cdNom = tax.cdRef')
+			->andWhere("tax.nameVern != ''")
+			->groupBy('tax.order');
+		return $queryBuilder->getQuery()->getScalarResult();
+	}
+
 }

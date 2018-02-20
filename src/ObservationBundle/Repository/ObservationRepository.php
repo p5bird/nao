@@ -34,4 +34,88 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getSingleScalarResult();
     }
+
+    public function countValidated()
+    {
+		$queryBuilder = $this->createQueryBuilder('obs');
+		$queryBuilder
+			->where('obs.publish = :publish')
+				->setParameter('publish', true)
+			->leftJoin('obs.validation', 'val')
+			->andWhere('val.granted = :granted')
+				->setParameter('granted', true)
+			->select('count(obs)');
+		return $queryBuilder->getQuery()->getSingleScalarResult();
+    }
+
+    public function searchFiltered($search)
+    {
+		$queryBuilder = $this->createQueryBuilder('obs');
+
+		$queryBuilder
+			->where('obs.publish = :publish')
+				->setParameter('publish', true)
+			->leftJoin('obs.validation', 'val')
+			->andWhere('val.granted = :granted')
+				->setParameter('granted', true)
+		;
+
+		if ($search->hasTaxonFilter())
+		{
+			$queryBuilder
+				->leftJoin('obs.taxon', 'tax')
+			;
+		}
+
+		if (!is_null($search->getBirdName()))
+		{
+			$queryBuilder
+				->andWhere('tax.nameVern = :nameVern')
+				->setParameter('nameVern', $search->getBirdName())
+			;
+		}
+
+		if (!is_null($search->getBirdFamily()))
+		{
+			$queryBuilder
+				->andWhere('tax.family = :family')
+				->setParameter('family', $search->getBirdFamily())
+			;
+		}
+
+		if (!is_null($search->getBirdOrder()))
+		{
+			$queryBuilder
+				->andWhere('tax.order = :order')
+				->setParameter('order', $search->getBirdOrder())
+			;
+		}
+
+		if (!is_null($search->getObsAuthor()))
+		{
+			$queryBuilder
+				->leftJoin('obs.author', 'user')
+				->andWhere('user.username = :author')
+				->setParameter('author', $search->getObsAuthor())
+			;
+		}
+
+		// if (!is_null($search->getObsDate()))
+		// {
+		// 	$queryBuilder
+		// 		->andWhere('obs.day = :day')
+		// 		->setParameter('day', $search->getObsDate())
+		// 	;
+		// }
+
+		if ($search->getObsWithImage())
+		{
+			$queryBuilder
+				->andWhere('obs.image IS NOT NULL')
+			;
+		}
+
+		return $queryBuilder->getQuery()->getResult();
+    }
+
 }

@@ -9,10 +9,11 @@ use Symfony\Component\Form\Extension\Core\Type;
 
 class SearchType extends AbstractType
 {
+    private $searchService;
 
-    public function __construct($entityManager)
+    public function __construct($searchFilteredService)
     {
-
+        $this->searchService = $searchFilteredService;
     }
 
     /**
@@ -29,54 +30,46 @@ class SearchType extends AbstractType
                     'data-autocomplete'  => 'birdName'
                 ]
             ])
-            ->add('family', ChoiceType::class, [
-                'label'     => "Famille d'oiseaux"
-                'choices'   => [
-                    'Maybe' => null,
-                    'Yes'   => true,
-                    'No'    => false
+            ->add('birdFamily', Type\ChoiceType::class, [
+                'label'     => "Famille d'oiseaux",
+                'choices'   => $this->searchService->getBirdFamiliesChoices()
+            ])
+            ->add('birdOrder', Type\ChoiceType::class, [
+                'label'     => "Ordre d'oiseaux",
+                'choices'   => $this->searchService->getBirdOrdersChoices()
+            ])
+            ->add('obsAuthor',          Type\TextType::class, [
+                'required'  => false,
+                'label'     => "Pseudo de l'observateur",
+                'attr'      => [
+                    'class'     => 'form-control'
                 ]
-            ]),
-            ->add('order', ChoiceType::class, [
-                'label'     => "Ordre d'oiseaux"
-                'choices'   => [
-                    'Maybe' => null,
-                    'Yes'   => true,
-                    'No'    => false
-                ]
-            ]),
-            ->add('day',            Type\DateType::class, [
+            ])
+            ->add('ObsDate',            Type\DateType::class, [
                 'required'  => true,
                 'label'     => "Date de l'observation",
                 'attr'      => [
                     'class'     => 'form-control'
                 ]
             ])
-            ->add('author',          Type\TextType::class, [
-                'required'  => false,
-                'label'     => "Pseudo de l'observateur",
-                'attr'      => [
-                    'class'     => 'form-control',
-                    'data-autocomplete'  => 'birdName'
-                ]
-            ])
-            ->add('place',          Type\TextType::class, [
+            ->add('obsLocation',          Type\TextType::class, [
                 'required'  => false,
                 'label'     => "Chercher un lieu",
                 'attr'      => [
                     'class'     => 'form-control'
                 ]
             ])
-            ->add('image',         Type\CheckboxType::class, [
+            ->add('obsWithImage',         Type\CheckboxType::class, [
                 'required'  => false,
                 'label'     => "Observations avec une photo uniquement",
                 'attr'      => [
                     'class'     => 'form-control'
                 ]
             ])
-            ->add('valid',          Type\SubmitType::class, [
-                'label'     => "Chercher"
-            ]);
+            ->add('search',          Type\SubmitType::class, [
+                'label'     => "Rechercher"
+            ])
+            ;
     }
 
     /**
@@ -85,7 +78,7 @@ class SearchType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'ObservationBundle\Entity\Observation'
+            'data_class' => 'ObservationBundle\Entity\Search'
         ));
     }
 
@@ -94,6 +87,6 @@ class SearchType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'observationbundle_observation';
+        return 'observationbundle_search';
     }
 }

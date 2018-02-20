@@ -8,16 +8,17 @@
         <h1>Rechercher des observations</h1>
         <p>carte en version RESPONSIVE (pas sur smartphone)</p>
     		<div class="col-xs-12 col-sm-6">
-          <p>{{ observations|length }} observations disponibles</p>
+          <p>{{ totalObs }} observations disponibles</p>
           <p>Filtres à venir :</p>
-          <ul class="list-group">
+          {{ form(formSearch) }}
+{#           <ul class="list-group">
             <li class="list-group-item">nom d'un oiseau</li>
             <li class="list-group-item">famille d'oiseaux</li>
             <li class="list-group-item">ordre d'oiseaux</li>
             <li class="list-group-item">observateur</li>
             <li class="list-group-item">localisation : commune, département, région</li>
             <li class="list-group-item">observations avec une image</li>
-          </ul>
+          </ul> #}
     		</div>
     		<div class="col-xs-12 col-sm-6">
           <div>
@@ -27,6 +28,18 @@
           </div>
     			<div id="map"></div>
     		</div>
+        <div class="col-xs-12 col-sm-6">
+          <p>Résultats : ( {{ observations|length }} )</p>
+          {% for observation in observations %}
+          <ul class="list-group">
+            <li class="list-group-item">nom d'oiseau : {{ observation.taxon.nameVern }}</li>
+            <li class="list-group-item">famille d'oiseaux : {{ observation.taxon.family }}</li>
+            <li class="list-group-item">ordre d'oiseaux : {{ observation.taxon.order }}</li>
+            <li class="list-group-item">observateur : {{ observation.author }}</li>
+            <li class="list-group-item">observations avec une image : {{ observation.hasImage ? 'oui' : 'non' }}</li>
+          </ul>
+          {% endfor %}
+        </div>      
     </div>
     
 

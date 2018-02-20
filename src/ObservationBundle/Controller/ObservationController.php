@@ -16,6 +16,9 @@ use ObservationBundle\Entity\Image;
 use ObservationBundle\Entity\Validation;
 use ObservationBundle\Form\ValidationType;
 use ObservationBundle\Service\Geoloc;
+use ObservationBundle\Entity\Search;
+use ObservationBundle\Form\SearchType;
+use ObservationBundle\Service\SearchFiltered;
 
 class ObservationController extends Controller
 {
@@ -288,13 +291,25 @@ class ObservationController extends Controller
     /**
      * @Route("/observation/search", name="nao_obs_search")
      */
-    public function searchAction()
+    public function searchAction(Request $request)
     {
-        $observations = $this
+        $obsRepository = $this
             ->getDoctrine()
             ->getManager()
-            ->getRepository('ObservationBundle:Observation')
-            ->findAllValidated();
+            ->getRepository('ObservationBundle:Observation');
+
+        $session = $request->getSession();
+
+        $search = ($session->has('search')) ? $session->get('search') : new Search();
+        $formSearch = $this->createForm(SearchType::class, $search);
+        $formSearch->handleRequest($request);
+
+        if ($formSearch->isSubmitted() and $formSearch->isValid())
+        {
+            $session->set('search', $search);
+        }
+
+        $observations = $obsRepository->SearchFiltered($search);
 
         $obsJson = [];
         foreach ($observations as $obs) {
@@ -303,13 +318,15 @@ class ObservationController extends Controller
                 'birdName'  => $obs->getBirdName(),
                 'latitude'  => $obs->getLatitude(),
                 'longitude' => $obs->getLongitude(),
-                'url'       => $this->generateUrl('nao_obs_show', ['id' => $obs->getId()])
+                'url'       => $this->generateUrl('nao_obs_show', ['id' => $obs->getId()], UrlGeneratorInterface::ABSOLUTE_URL)
             ]);
         }
 
         return $this->render('ObservationBundle:Observation:search.html.twig', [
             'observations'  => $observations,
-            'obsJson'       => $obsJson
+            'obsJson'       => json_encode($obsJson),
+            'formSearch'    => $formSearch->createView(),
+            'totalObs'      => $obsRepository->countValidated()
         ]);
     }
 
@@ -390,14 +407,17 @@ class ObservationController extends Controller
         return new JsonResponse("Avatar not changed", 500);
     }
 
-    public function obsMarkerAction()
+    public function obsMarkerAction(Request $request)
     {
-       $observations = $this
+        $session = $request->getSession();
+        $search = ($session->has('search')) ? $session->get('search') : new Search();
+
+        $observations = $this
             ->getDoctrine()
             ->getManager()
             ->getRepository('ObservationBundle:Observation')
-            ->findAllValidated();
-
+            ->SearchFiltered($search);
+       
         $obsJson = [];
         foreach ($observations as $obs) {
             array_push($obsJson, [

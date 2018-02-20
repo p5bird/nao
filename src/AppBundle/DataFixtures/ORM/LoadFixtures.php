@@ -265,7 +265,7 @@ class LoadFixtures extends AbstractFixture {
                 ->setNameValid($taxons[$i]['NOM_VALIDE'])
                 ->setNameVern($taxons[$i]['NOM_VERN'])
                 ->setNameVernEN($taxons[$i]['NOM_VERN_ENG'])
-                ->setOrder($i)
+                ->setOrder($taxons[$i]['ORDRE'])
                 ->setPhylum($taxons[$i]['PHYLUM'])
                 ->setReign($taxons[$i]['REGNE'])
                 ->setCdRef($taxons[$i]['CD_REF'])

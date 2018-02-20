@@ -15,3 +15,16 @@ services:
         arguments:
           - "%google_map_api%"
         public: true
+
+    observation.searchFiltered:
+        class: ObservationBundle\Service\SearchFiltered
+        arguments:
+          - "@doctrine.orm.entity_manager"
+        public: true
+
+    observation.form.search:
+        class: ObservationBundle\Form\SearchType
+        arguments:
+          - "@observation.searchFiltered"
+        public: true
+        tags: [form.type]
