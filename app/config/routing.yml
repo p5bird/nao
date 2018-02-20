@@ -38,7 +38,7 @@ nao_profile:
     defaults: { _controller: FOSUserBundle:Profile:show}
 
 nao_profile_edit:
-    path: /profile/edit/
+    path: /profile/edit
     defaults: { _controller: FOSUserBundle:Profile:edit }
 
 nao_admin:
@@ -75,8 +75,12 @@ nao_blog_add_article:
     defaults: { _controller: BlogBundle:Blog:addArticle }
 
 nao_blog_show_article:
-    path: /blog/{slug}/
+    path: /blog/article/{slug}/
     defaults: { _controller: BlogBundle:Blog:showArticle }
+
+nao_blog_all_articles:
+    path: /blog/all/
+    defaults: { _controller: BlogBundle:Blog:listArticle }
 
 nao_obs_add:
     path: /observation/add

@@ -18,13 +18,12 @@ body {
 *******************************/
 .sidebar {
     height: 100vh;
-    background-color: #2c3144;
+    background-color: #232a35;
     -webkit-transition: ease-in-out 0.4s;
     -moz-transition: ease-in-out 0.4s;
     -ms-transition: ease-in-out 0.4s;
     -o-transition: ease-in-out 0.4s;
-    transition: ease-in-out 0.4s;
-    height: 100vh;
+    transition: ease-in-out 0.4s;=
     overflow: auto;
     overflow-x: hidden;
 }
@@ -82,7 +81,7 @@ body {
 }
 
 .side.navbar-user {
-    background: #489c3dde;
+    background: #42b1c2;
     padding: 10px 0 10px 20px;
     margin: 20px 0 20px 0;
 }
@@ -145,7 +144,17 @@ span.menu-arrow {
 
 .brand-name {
     color: #FFFFFF;
-    font-size: 22pt;
+    padding: 15px 0 10px 5px;
+}
+
+img.logo-sidebar {
+    max-width: 60px;
+    float: left;
+}
+
+span.title-sidebar {
+    font-size: 17pt;
+    padding: 0 0 0 10px;
 }
 
 .toggle-sidebar {
@@ -314,11 +323,11 @@ a.user-options-menu-dropdown-item {
     margin-top: 15px;
 }
 
-#fos_user_profile_form_current_password, #fos_user_profile_form_username, #edit_profile_username, #edit_profile_current_password {
+#fos_user_profile_form_current_password, #fos_user_profile_form_username, #profile_username, #profile_current_password {
     max-width: 80%;
 }
 
-#fos_user_profile_form_email, #edit_profile_email {
+#fos_user_profile_form_email, #profile_email {
     max-width: 78%;
 }
 
@@ -326,17 +335,17 @@ a.user-options-menu-dropdown-item {
     margin: 0 0 0 80px;
 }
 
-#fos_user_profile_form_facebook, #fos_user_profile_form_instagram, #fos_user_profile_form_pinterest, #edit_profile_facebook, #edit_profile_instagram, #edit_profile_pinterest {
+#fos_user_profile_form_facebook, #fos_user_profile_form_instagram, #fos_user_profile_form_pinterest, #fos_user_profile_form_website, #profile_facebook, #profile_instagram, #profile_pinterest, #profile_website {
     max-width: 80%;
 }
 
-#fos_user_profile_form_firstname, #fos_user_profile_form_name, #fos_user_profile_form_birthdate, #fos_user_profile_form_city, #fos_user_profile_form_job, #fos_user_profile_form_level, #edit_profile_firstname, #edit_profile_name, #edit_profile_birthdate, #edit_profile_city, #edit_profile_job, #edit_profile_level {
+#fos_user_profile_form_firstname, #fos_user_profile_form_name, #fos_user_profile_form_birthdate, #fos_user_profile_form_city, #fos_user_profile_form_job, #fos_user_profile_form_level, #fos_user_profile_form_phone, #profile_firstname, #profile_name, #profile_birthdate, #profile_city, #profile_job, #profile_level, #profile_phone {
     max-width: 68%;
 }
 
-#fos_user_profile_form_bio, #edit_profile_bio {
+#fos_user_profile_form_bio, #profile_bio {
     max-width: 68%;
-    min-height: 100px;
+    min-height: 85px;
 }
 
 .user-avatar-image-edit {
@@ -344,6 +353,23 @@ a.user-options-menu-dropdown-item {
     max-width: 100%;
 }
 
+.edit-profile-privacy {
+    padding-top: 15px;
+}
+
+.profile-privacy-infos {
+    padding-top: 5px;
+    font-size: 10pt;
+    color: #bbc0c1;
+}
+
+.private-profile {
+    padding: 20px;
+}
+
+.private-profile i {
+    margin-right: 5px;
+}
 /********************
 ****Show profile*****
 ********************/
@@ -479,7 +505,7 @@ a.user-options-menu-dropdown-item {
 }
 
 .show-user-observation i.fas {
-    color: #448d3e;
+    color: #42b1c2;
 }
 
 .show-user-observation i.fa-star {
@@ -559,6 +585,79 @@ td.search {
 }
 
 .list-user-td i.fa-trash:hover {
+    color: #d01818;
+}
+
+/********************
+**List all articles**
+********************/
+.show-all-articles {
+    background: #FFFFFF;
+    border-radius: 2px;
+    margin: 20px 0 40px 0;
+    color: #4a5b65;
+    padding: 20px;
+}
+
+.list-article-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    float: left;
+}
+
+table.list-articles-table {
+    border-collapse: separate;
+    border-spacing: 0 1em;
+}
+
+tr.list-article-single {
+    background: #f7f7f7;
+}
+
+.list-table i.fa-trash {
+    -webkit-transition: ease-in-out 0.4s;
+    -moz-transition: ease-in-out 0.4s;
+    -ms-transition: ease-in-out 0.4s;
+    -o-transition: ease-in-out 0.4s;
+    transition: ease-in-out 0.4s;
+}
+
+table.list-articles-table > tbody > tr.list-article-single > td.list-article-td {
+    padding: 15px !important;
+    border-top: none !important;
+    vertical-align: middle;
+}
+
+table.list-articles-table > thead > tr > th > span {
+    border-bottom: 2px solid #989898;
+    padding: 0 0 8px 0;
+}
+
+td.search {
+    border-top: none !important;
+}
+
+.list-article-username {
+    text-transform: capitalize;
+    font-weight: 500;
+    padding: 15px 0 0 0;
+    margin: 0 0 0 70px;
+}
+
+.list-article-username a {
+    color: #4a5b65;
+}
+
+.list-article-username a:hover {
+    text-decoration: none;
+}
+
+.list-article-td a i {
+    color: #4a5b65;
+}
+
+.list-article-td i.fa-trash:hover {
     color: #d01818;
 }
 
@@ -758,6 +857,16 @@ img.last-observation {
     padding: 15px;
     color: #4a5b65;
     font-weight: 500;
+}
+
+.btn-nao {
+    background: #42b1c2;
+    border-color: #3994a2;
+    color: #FFFFFF;
+}
+
+.btn-nao:hover {
+    color: #FFFFFF !important;
 }
 /******************************
 *******************************

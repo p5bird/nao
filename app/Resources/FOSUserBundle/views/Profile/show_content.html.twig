@@ -6,7 +6,7 @@
     </div>
     <div class="go-edit">
         <a href="{{ path('nao_profile_edit') }}" >
-            <button type="submit" class="btn btn-primary btn-success">
+            <button type="submit" class="btn btn-nao">
                 Modifier
             </button>
         </a>
@@ -46,20 +46,34 @@
                             {% endif %}
                         </div>
                     </div>
-                    <div class="pre-separator">Réseaux sociaux</div><div class="separator" id="social"></div>
-                    <div class="show-user-info-left-container">
-                        <div class="show-user-social">
-                            <a href="{{ user.facebook }}">
-                                <i class="fab fa-facebook"></i>
-                            </a>
-                            <a href="{{ user.instagram }}">
-                                <i class="fab fa-instagram"></i>
-                            </a>
-                            <a href="{{ user.pinterest }}">
-                                <i class="fab fa-pinterest-square"></i>
-                            </a>
+                    {% if user.facebook|length == 0 and user.instagram|length == 0 and user.pinterest|length == 0 %}
+                        {% else %}
+                        <div class="pre-separator">Réseaux sociaux</div><div class="separator" id="social"></div>
+                        <div class="show-user-info-left-container">
+                            <div class="show-user-social">
+                                {% if user.facebook|length == 0 %}
+                                    {% else %}
+                                        <a href="{{ user.facebook }}">
+                                            <i class="fab fa-facebook"></i>
+                                        </a>
+                                {% endif %}
+
+                                {% if user.instagram|length == 0 %}
+                                {% else %}
+                                    <a href="{{ user.instagram }}">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                {% endif %}
+
+                                {% if user.pinterest|length == 0 %}
+                                {% else %}
+                                    <a href="{{ user.pinterest }}">
+                                        <i class="fab fa-pinterest-square"></i>
+                                    </a>
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
+                    {% endif %}
                 </div>
             </div>
 
@@ -74,13 +88,21 @@
                                     {{ user.firstName }} {{ user.name }}
                                 {% endif %}
                                 <div class="show-user-name-city">
-                                    {% if user.city|length == 0 %}
+                                    {% if user.profilePrivacy == 1 %}
                                         {% else %}
-                                        <i class="fas fa-map-marker-alt"></i> {{ user.city }}
+                                        {% if user.city|length == 0 %}
+                                            {% else %}
+                                            <i class="fas fa-map-marker-alt"></i> {{ user.city }}
+                                        {% endif %}
                                     {% endif %}
                                 </div>
                             </div>
                         </div>
+                        {% if user.profilePrivacy == 1 %}
+                            <div class="private-profile">
+                                <i class="fas fa-lock"></i> Ce profil est privé
+                            </div>
+                        {% else %}
                         <div class="pre-separator">Observations</div><div class="separator" id="observation"></div>
                         <div class="show-user-info-right-container">
                             <div class="show-user-observation">
@@ -94,11 +116,23 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3 pre-col">
+                                            <div>Role:</div>
                                             <div>Rang:</div>
                                             <div>Observations:</div>
                                         </div>
                                         <div class="col-md-9 post-col">
-                                            <div>Poussin</div>
+                                            {% if user.roles[0] == 'ROLE_USER' %}
+                                                <div>Utilisateur</div>
+                                            {% elseif user.roles[0] == 'ROLE_REDACTEUR' %}
+                                                <div>Rédacteur</div>
+                                            {% elseif user.roles[0] == 'ROLE_SPECIALISTE' %}
+                                                <div>Spécialiste</div>
+                                            {% elseif user.roles[0] == 'ROLE_NATURALISTE' %}
+                                                <div>Naturaliste</div>
+                                            {% elseif user.roles[0] == 'ROLE_ADMIN' %}
+                                                <div>Administrateur</div>
+                                            {% endif %}
+                                            <div>{{ user.groupNames[0] }}</div>
                                             <div>147</div>
                                         </div>
                                     </div>
@@ -119,7 +153,7 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <a href="#">
-                                                            <img src="http://www.lantipode.com/wp-content/uploads/2016/03/Tomtit.jpg" class="last-observation">
+                                                            <img src="https://4.bp.blogspot.com/-s8kHRTjc4xQ/UXVwYf7a8FI/AAAAAAAALnY/hk2Kv-h0eh4/s1600/European_Bee-eater2.jpg" class="last-observation">
                                                         </a>
                                                     </div>
                                                 </div>
@@ -136,56 +170,56 @@
                                 <div class="col-md-12">
                                     <div class="row pre-row">
                                         <div class="col-md-3 pre-col">
-                                            {% if user.name|length == 0 %}
-                                                {% else %}
-                                                <div>Nom:</div>
-                                            {% endif %}
-                                            {% if user.firstName|length == 0 %}
-                                                {% else %}
-                                                <div>Prénom:</div>
-                                            {% endif %}
-                                            {% if user.city|length == 0 %}
-                                                {% else %}
-                                                <div>Lieu:</div>
-                                            {% endif %}
-                                            {% if user.birthDate|length == 0 %}
-                                                {% else %}
-                                                <div>Date de naissance:</div>
-                                            {% endif %}
-                                            {% if user.job|length == 0 %}
-                                                {% else %}
-                                                <div>Profession:</div>
-                                            {% endif %}
-                                            {% if user.level|length == 0 %}
-                                                {% else %}
-                                                <div>Niveau:</div>
-                                            {% endif %}
-                                        </div>
-                                        <div class="col-md-9 post-col">
-                                            {% if user.name|length == 0 %}
-                                                {% else %}
-                                                <div>{{ user.name }}</div>
-                                            {% endif %}
-                                            {% if user.firstName|length == 0 %}
-                                                {% else %}
-                                                <div>{{ user.firstName }}</div>
-                                            {% endif %}
-                                            {% if user.city|length == 0 %}
-                                                {% else %}
-                                                <div>{{ user.city }}</div>
-                                            {% endif %}
-                                            {% if user.birthDate|length == 0 %}
-                                                {% else %}
-                                                <div>{{ user.birthDate|date('d/m/Y') }}</div>
-                                            {% endif %}
-                                            {% if user.job|length == 0 %}
-                                                {% else %}
-                                                <div>{{ user.job }}</div>
-                                            {% endif %}
-                                            {% if user.level|length == 0 %}
-                                                {% else %}
-                                                <div>{{ user.level }}</div>
-                                            {% endif %}
+                                                {% if user.name|length == 0 %}
+                                                    {% else %}
+                                                    <div>Nom:</div>
+                                                {% endif %}
+                                                {% if user.firstName|length == 0 %}
+                                                    {% else %}
+                                                    <div>Prénom:</div>
+                                                {% endif %}
+                                                {% if user.city|length == 0 %}
+                                                    {% else %}
+                                                    <div>Lieu:</div>
+                                                {% endif %}
+                                                {% if user.birthDate|length == 0 %}
+                                                    {% else %}
+                                                    <div>Date de naissance:</div>
+                                                {% endif %}
+                                                {% if user.job|length == 0 %}
+                                                    {% else %}
+                                                    <div>Profession:</div>
+                                                {% endif %}
+                                                {% if user.level|length == 0 %}
+                                                    {% else %}
+                                                    <div>Niveau:</div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-md-9 post-col">
+                                                {% if user.name|length == 0 %}
+                                                    {% else %}
+                                                    <div>{{ user.name }}</div>
+                                                {% endif %}
+                                                {% if user.firstName|length == 0 %}
+                                                    {% else %}
+                                                    <div>{{ user.firstName }}</div>
+                                                {% endif %}
+                                                {% if user.city|length == 0 %}
+                                                    {% else %}
+                                                    <div>{{ user.city }}</div>
+                                                {% endif %}
+                                                {% if user.birthDate|length == 0 %}
+                                                    {% else %}
+                                                    <div>{{ user.birthDate|date('d/m/Y') }}</div>
+                                                {% endif %}
+                                                {% if user.job|length == 0 %}
+                                                    {% else %}
+                                                    <div>{{ user.job }}</div>
+                                                {% endif %}
+                                                {% if user.level|length == 0 %}
+                                                    {% else %}
+                                                    <div>{{ user.level }}</div>
+                                                {% endif %}
                                         </div>
                                     </div>
                                 </div>
@@ -198,19 +232,32 @@
                                 <div class="col-md-12">
                                     <div class="row pre-row">
                                         <div class="col-md-3 pre-col">
-                                            <div>Téléphone:</div>
+                                            {% if user.phone|length == 0 %}
+                                            {% else %}
+                                                <div>Téléphone:</div>
+                                            {% endif %}
                                             <div>Email:</div>
-                                            <div>Site web:</div>
+                                            {% if user.website|length == 0 %}
+                                            {% else %}
+                                                <div>Site web:</div>
+                                            {% endif %}
                                         </div>
                                         <div class="col-md-9 post-col">
-                                            <div><a href="tel:0634459632">06 34 45 96 32</a></div>
+                                            {% if user.phone|length == 0 %}
+                                            {% else %}
+                                                <div><a href="tel:{{ user.phone }}">{{ user.phone }}</a></div>
+                                            {% endif %}
                                             <div><a href="mailto:{{ user.email }}">{{ user.email }}</a></div>
-                                            <div><a href="#">http://google.fr</a></div>
+                                            {% if user.website|length == 0 %}
+                                            {% else %}
+                                                <div><a href="{{ user.website }}">{{ user.website }}</a></div>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

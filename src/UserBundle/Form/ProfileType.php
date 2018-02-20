@@ -9,13 +9,13 @@
 namespace UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 
 use FOS\UserBundle\Form\Type\ProfileFormType as BaseProfileFormType;
 
@@ -47,6 +47,15 @@ class ProfileType extends AbstractType {
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Ville',
+                ],
+                'error_bubbling' => true
+            ))
+            ->add('phone', TelType::class, array(
+                'required' => false,
+                'label' => 'Téléphone',
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => '0123456789',
                 ],
                 'error_bubbling' => true
             ))
@@ -110,6 +119,15 @@ class ProfileType extends AbstractType {
                 ],
                 'error_bubbling' => true
             ))
+            ->add('website', UrlType::class, array(
+                'required' => false,
+                'label' => 'Site Web',
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Site Web',
+                ],
+                'error_bubbling' => true
+            ))
             ->add('bio', TextAreaType::class, array(
                 'required' => false,
                 'label' => 'Biographie',
@@ -128,9 +146,15 @@ class ProfileType extends AbstractType {
                 ],
                 'error_bubbling' => true
             ))
-            ->add('receiveNewsletter', CheckboxType::class, array(
-                'required' => false,
-                'label' => 'Recevoir la newsletter',
+            ->add('profilePrivacy', ChoiceType::class, array(
+                'label' => 'Options du profil',
+                'choices' => array(
+                    'Public' => 0,
+                    'Privé' => 1,
+                    ),
+                'choices_as_values' => true,
+                'multiple' => false,
+                'expanded' => true,
                 'error_bubbling' => true
             ));
     }

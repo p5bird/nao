@@ -5,9 +5,10 @@
         <div class="row">
             <div class="col-md-2 no-padding sidebar" id="sidebar">
                     <div class="navbar navbar-side" role="navigation">
-                        <div class="side navbar-brand">
+                        <div class="side">
                             <div class="brand-name">
-                                Nos Amis les Oiseaux
+                                <img src="{{ asset('img/logo.png') }}" class="logo-sidebar"/>
+                                <span class="title-sidebar">Nos Amis les Oiseaux</span>
                             </div>
                         </div>
                         <div class="side navbar-user">
@@ -150,8 +151,13 @@
                                     <div class="collapse" id="article_collapse" onClick="event.stopPropagation();">
                                         <ul class="sub-menu">
                                             <li>
-                                                <a href="#">
+                                                <a href="{{ path('nao_blog_all_articles') }}">
                                                     Tous les articles
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('nao_blog_add_article') }}">
+                                                    Ajouter
                                                 </a>
                                             </li>
                                             <li>
@@ -161,7 +167,7 @@
                                             </li>
                                             <li>
                                                 <a href="#">
-                                                    Ajouter
+                                                    Gestion des commentaires
                                                 </a>
                                             </li>
                                         </ul>

@@ -114,6 +114,20 @@ class User extends BaseUser implements ParticipantInterface {
     /**
      * @var string
      *
+     * @ORM\Column(name="website", type="string", nullable=true)
+     */
+    private $website;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="phone", type="string", nullable=true)
+     */
+    private $phone;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="bio", type="text", nullable=true)
      * @Assert\Length(
      *      max = 1000,
@@ -153,10 +167,9 @@ class User extends BaseUser implements ParticipantInterface {
     /**
      * @var boolean
      *
-     * @ORM\Column(name="receiveNewsletter", type="boolean")
+     * @ORM\Column(name="profilePrivacy", type="boolean")
      */
-    private $receiveNewsletter = false;
-
+    private $profilePrivacy;
 
     public function __construct()
     {
@@ -391,18 +404,74 @@ class User extends BaseUser implements ParticipantInterface {
     }
 
     /**
-     * @return bool
+     * Set profilePrivacy
+     *
+     * @param boolean $profilePrivacy
+     *
+     * @return User
      */
-    public function isReceiveNewsletter()
+    public function setProfilePrivacy($profilePrivacy)
     {
-        return $this->receiveNewsletter;
+        $this->profilePrivacy = $profilePrivacy;
+
+        return $this;
     }
 
     /**
-     * @param bool $receiveNewsletter
+     * Get profilePrivacy
+     *
+     * @return boolean
      */
-    public function setReceiveNewsletter($receiveNewsletter)
+    public function getProfilePrivacy()
     {
-        $this->receiveNewsletter = $receiveNewsletter;
+        return $this->profilePrivacy;
+    }
+
+    /**
+     * Set website
+     *
+     * @param string $website
+     *
+     * @return User
+     */
+    public function setWebsite($website)
+    {
+        $this->website = $website;
+
+        return $this;
+    }
+
+    /**
+     * Get website
+     *
+     * @return string
+     */
+    public function getWebsite()
+    {
+        return $this->website;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     *
+     * @return User
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
     }
 }

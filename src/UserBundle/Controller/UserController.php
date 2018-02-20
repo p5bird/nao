@@ -89,7 +89,6 @@ class UserController extends Controller {
      *
      * @return Response
      * @Route("/user/all/", name="nao_list_users")
-     * @Route("/dashboard", name="nao_dashboard")
      * @Security("has_role('ROLE_USER')")
      */
     public function listUsersAction() {
