@@ -150,8 +150,13 @@
                                     <div class="collapse" id="article_collapse" onClick="event.stopPropagation();">
                                         <ul class="sub-menu">
                                             <li>
-                                                <a href="#">
+                                                <a href="{{ path('nao_blog_all_articles') }}">
                                                     Tous les articles
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('nao_blog_add_article') }}">
+                                                    Ajouter
                                                 </a>
                                             </li>
                                             <li>
@@ -161,7 +166,7 @@
                                             </li>
                                             <li>
                                                 <a href="#">
-                                                    Ajouter
+                                                    Gestion des commentaires
                                                 </a>
                                             </li>
                                         </ul>

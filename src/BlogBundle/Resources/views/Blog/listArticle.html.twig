@@ -1,0 +1,101 @@
+{% extends "UserBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Liste des articles{% endblock %}
+
+{% block content %}
+    <div class="user-interface-page-header">
+        <div class="page-name">
+            Articles
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 col-md-offset-right-1 list-article-show">
+                <div class="show-all-articles">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="input-group">
+                                <input class="form-control" id="system-search" name="q" placeholder="Rechercher" required>
+                                <span class="input-group-btn">
+                                <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                            </span>
+                            </div>
+                            <table class="table list-articles-table list-table">
+                                <thead>
+                                <tr>
+                                    <th class="col-md-3">
+                                        <span>Auteur</span>
+                                    </th>
+                                    <th class="col-md-2">
+                                        <span>Article</span>
+                                    </th>
+                                    <th class="col-md-4">
+                                        <span>Extrait</span>
+                                    </th>
+                                    <th class="col-md-2">
+                                        <span>Commentaires</span>
+                                    </th>
+                                    <th class="col-md-1">
+                                        <span>Actions</span>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for key, article in articles %}
+                                    <tr class="list-article-single">
+                                        <td class="list-article-td">
+                                            {% if article.author.avatar.id is not defined %}
+                                                <img src="{{ asset('/img/no-image.png') }}" class="list-user-avatar"/>
+                                            {% else %}
+                                                <img src="{{ asset('/uploads/avatar/') }}user-{{ article.author.id }}.{{ article.author.avatar.extension }}" class="list-user-avatar"/>
+                                            {% endif %}
+                                            <div class="list-article-username">
+                                                <a href="">
+                                                    {{ article.author }}
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td class="list-article-td">
+                                            <div class="list-article-title">
+                                                <span>
+                                                    <a href="{{ path('nao_blog_show_article', {'slug' : article.slug }) }}">
+                                                    {{ article.title }}
+                                                    </a>
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td class="list-article-td">
+                                            <div class="list-article-content">
+                                                <span>{{ article.content|slice(0, 130) }}</span>
+                                            </div>
+                                        </td>
+                                        <td class="list-article-td">
+                                            <div class="list-article-comments">
+                                                <span>{{ article.comments|length }}</span>
+                                            </div>
+                                        </td>
+                                        <td class="list-article-td">
+                                            <div class="list-article-actions">
+                                                <div class="col-md-6">
+                                                    <a href="">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <a href="">
+                                                        <i class="fas fa-trash"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

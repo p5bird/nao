@@ -33,6 +33,8 @@ class BlogController extends Controller {
     }
 
     /**
+     * Add an article
+     *
      * @param Request $request
      * @return RedirectResponse|Response
      */
@@ -51,7 +53,7 @@ class BlogController extends Controller {
 
             $uniqueId = substr(md5(mt_rand()), 0, 7);
             $article->setUniqueId($uniqueId);
-            $article->setSlug(str_replace(" ", "-", $this->container->get('app.replace_accented_char')->replace_accented_char($article->getTitle())));
+            $article->setSlug(mb_strtolower(str_replace(" ", "-", $this->container->get('app.replace_accented_char')->replace_accented_char($article->getTitle()))));
 
             if ($data = $request->request->get('base64File')['image']) {
 
@@ -87,6 +89,8 @@ class BlogController extends Controller {
     }
 
     /**
+     * Show individual article
+     *
      * @param Request $request
      * @param Article $article
      * @return RedirectResponse|Response
@@ -112,6 +116,20 @@ class BlogController extends Controller {
         return $this->render('BlogBundle:Blog:showArticle.html.twig', array(
             'article' => $article,
             'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * List all articles
+     *
+     * @return Response
+     */
+    public function listArticleAction() {
+        $em = $this->getDoctrine()->getManager();
+        $articles = $em->getRepository('BlogBundle:Article')->findAll();
+
+        return $this->render('BlogBundle:Blog:listArticle.html.twig', array(
+            'articles' => $articles
         ));
     }
 }

@@ -10,7 +10,7 @@
         {% if is_granted('ROLE_ADMIN') %}
             <div class="go-edit">
                 <a href="{{ path('nao_edit_user', {'id' : user.id }) }}" >
-                    <button type="submit" class="btn btn-primary btn-success">
+                    <button type="submit" class="btn btn-nao">
                         Modifier
                     </button>
                 </a>
