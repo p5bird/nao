@@ -278,41 +278,45 @@ class LoadFixtures extends AbstractFixture {
     }
 
     private function loadObservations(ObjectManager $manager){
-        $taxon = $manager
-            ->getRepository('ObservationBundle:Taxon')
-            ->findOneBy(['id' => '10']);
-
         $user = $manager
             ->getRepository('UserBundle:User')
             ->findOneBy(['username' => 'admin']);
 
-        for ($i = 0; $i < 20; $i++) {
-            if ($taxon) {
-                $observation = new Observation();
-
-                $observation->setComment('observation importée par Fixtures');
-                $observation->setAuthor($user);
-                $observation->setNoName(false);
-                $observation->setBirdName($taxon->getNameVern());
-                $observation->setTaxon($taxon);
-
-                $timestamp = mt_rand(strtotime("Jan 01 2000"), strtotime("Jan 01 2018"));
-                $randomDate = date("Y-m-d", $timestamp);
-                $observation->setDay(new \DateTime($randomDate));
-
-                $validation = new Validation();
-                $validation->setAuthor($user);
-                $validation->setDate(new \DateTime());
-                $validation->setGranted(true);
-
-                $observation->setValidation($validation);
-                $observation->setPublish(true);
-
-                $observation->setLatitude($this->position[$i]['lat']);
-                $observation->setLongitude($this->position[$i]['lng']);
-
-                $manager->persist($observation);
-            }
+        $qbTaxon = $manager
+            ->getRepository('ObservationBundle:Taxon')
+            ->createQueryBuilder('tax');
+        $taxons = $qbTaxon
+            ->where('tax.cdNom = tax.cdRef')
+            ->andWhere("tax.nameVern != ''")
+            ->getQuery()
+            ->getResult();
+ 
+        for ($i=0; $i < 200; $i++) {
+            $observation = new Observation();
+            $observation->setComment('observation importée par Fixtures');
+            $observation->setAuthor($user);
+            $observation->setNoName(false);
+ 
+            $taxon = $taxons[mt_rand(0, count($taxons)-1)];
+            $observation->setBirdName($taxon->getNameVern());
+            $observation->setTaxon($taxon);
+ 
+            $timestamp = mt_rand( strtotime("Jan 01 2000"), strtotime("Feb 19 2018") );
+            $ramdomDate = date("Y-m-d", $timestamp);
+            $observation->setDay(new \DateTime($ramdomDate));
+ 
+            $validation = new Validation();
+            $validation->setAuthor($user);
+            $validation->setDate(new \DateTime());
+            $validation->setGranted(true);
+ 
+            $observation->setValidation($validation);
+            $observation->setPublish(true);
+ 
+            $observation->setLatitude($this->position[$i]['lat']);
+            $observation->setLongitude($this->position[$i]['lng']);
+ 
+            $manager->persist($observation);
         }
 
         $manager->flush();

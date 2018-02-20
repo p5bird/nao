@@ -7,7 +7,8 @@
       function initMap() {
         
         // Center of France Position : {lat: 46.52863469527167, lng: 2.43896484375}
-        var obsPosition = {lat: 46.52863469527167, lng: 2.43896484375};
+        var centerFrancePosition = {lat: 46.52863469527167, lng: 2.43896484375};
+        var obsPosition = centerFrancePosition;
 
 
         // initilize the map
@@ -34,7 +35,15 @@
         var geocoder = new google.maps.Geocoder();
 
         document.querySelector("input[id*='_place']").addEventListener('input', function() {
-          geocodeAddress(geocoder, map);
+          if (this.value.length > 2)
+          {
+            geocodeAddress(geocoder, map);
+          }
+        });
+
+        document.getElementById("centerMapFrance").addEventListener('click', function() {
+          map.setCenter(centerFrancePosition);
+          map.setZoom(5);
         });
 
         $.ajax({
@@ -61,9 +70,32 @@
                 return marker;
             });
 
+            // Setting markerCluster Options
+            var clusterStyles = [
+            {
+              textColor: 'white',
+              url: "{{ asset('/img/smallclusterimagex40.png') }}",
+              height: 40,
+              width: 40
+            },
+            {
+              textColor: 'white',
+              url: "{{ asset('/img/smallclusterimagex50.png') }}",
+              height: 50,
+              width: 50
+            },
+            {
+              textColor: 'white',
+              url: "{{ asset('/img/smallclusterimagex60.png') }}",
+              height: 60,
+              width: 60
+            }
+          ];
+
             // Add a marker clusterer to manage the markers.
             var markerCluster = new MarkerClusterer(map, markers,
-                {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+                //{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+                {styles: clusterStyles});
         }
 
 

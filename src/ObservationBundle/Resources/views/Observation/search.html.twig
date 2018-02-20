@@ -3,38 +3,30 @@
 {% block title %}{{ parent() }} - Rechercher des observations{% endblock %}
 
 {% block body %}
-    <h1>Rechercher des observations</h1>
-    <p>carte en version RESPONSIVE (pas sur smartphone)</p>
     <div class="container">
     	<div class="row">
+        <h1>Rechercher des observations</h1>
+        <p>carte en version RESPONSIVE (pas sur smartphone)</p>
     		<div class="col-xs-12 col-sm-6">
-    			formulaire des filtres de recherche
-    			<input type="text" id="search_place" />
+          <p>{{ observations|length }} observations disponibles</p>
+          <p>Filtres à venir :</p>
+          <ul class="list-group">
+            <li class="list-group-item">nom d'un oiseau</li>
+            <li class="list-group-item">famille d'oiseaux</li>
+            <li class="list-group-item">ordre d'oiseaux</li>
+            <li class="list-group-item">observateur</li>
+            <li class="list-group-item">localisation : commune, département, région</li>
+            <li class="list-group-item">observations avec une image</li>
+          </ul>
     		</div>
     		<div class="col-xs-12 col-sm-6">
+          <div>
+            <label>Centrer la carte sur un lieu</label>
+            <input type="text" id="search_place" />
+            <a href="#" id="centerMapFrance" class="btn btn-default btn-xs"><i class="fas fa-crosshairs fa-sm"></i> France</a>
+          </div>
     			<div id="map"></div>
     		</div>
-            <div class="col-xs-12 col-sm-6">
-<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingOne">
-      <h4 class="panel-title">
-        <a role="button" class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-          {{ observations|length }} observations enregistrées
-        </a>
-      </h4>
-    </div>
-    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-      <ul class="list-group">
-        {% for observation in observations %}
-            <li class="list-group-item"><a href="{{ path('nao_obs_show', {'id': observation.id}) }}">{{ observation.birdName }}</a></li>
-        {% endfor %}
-      </ul>
-    </div>
-  </div>
-</div>
-            </div>
-    	</div>
     </div>
     
 
