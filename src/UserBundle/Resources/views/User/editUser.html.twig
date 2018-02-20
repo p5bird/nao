@@ -84,6 +84,9 @@
                     <div class="edit-pinterest">
                         {{ form_row(form.pinterest) }}
                     </div>
+                    <div class="edit-website">
+                        {{ form_row(form.website) }}
+                    </div>
                 </div>
             </div>
 
@@ -104,6 +107,9 @@
                     <div class="edit-city">
                         {{ form_row(form.city) }}
                     </div>
+                    <div class="edit-phone">
+                        {{ form_row(form.phone) }}
+                    </div>
                     <div class="edit-job">
                         {{ form_row(form.job) }}
                     </div>
@@ -118,8 +124,12 @@
                     <div class="edit-confidentiality-title">
                         <h2>Confidentialité</h2>
                     </div>
-                    <div class="edit-newsletter">
-                        {{ form_row(form.receiveNewsletter) }}
+                    <div class="edit-profile-privacy">
+                        {{ form_row(form.profilePrivacy) }}
+                        <div class="profile-privacy-infos">
+                            Public - Affiche les informations que vous avez renseigné<br/>
+                            Privé - N'affiche que votre pseudo et votre avatar
+                        </div>
                     </div>
                 </div>
             </div>
@@ -132,17 +142,21 @@
 
     <script type="text/javascript">
         // Add form-control id to FOSUser generated inputs
-        $('#edit_profile_username, #edit_profile_email, #edit_profile_current_password').addClass("form-control");
+        $('#profile_username, #profile_email, #profile_current_password').addClass("form-control");
 
         // Add select2 id to birthDate input
-        $('#edit_profile_birthdate_year, #edit_profile_birthdate_month, #edit_profile_birthdate_day').select2({width:'33%', padding:'0 10px 0 10px'});
+        $('#profile_birthdate_year, #profile_birthdate_month, #profile_birthdate_day').select2({width:'33%', padding:'0 10px 0 10px'});
     </script>
 
     <script type="text/javascript">
         // Fix birthDate input disposition
-        $('#edit_profile_birthdate_day').next('.select2-container').css('padding', '0 0 0 7px');
-        $('#edit_profile_birthdate_year').next('.select2-container').css('padding', '0 7px 0 0');
-        $('#edit_profile_birthdate_year').next('.select2-container').find('.select2-selection__arrow').css('right', '8px');
+        $('#profile_birthdate_day').next('.select2-container').css('padding', '0 0 0 7px');
+        $('#profile_birthdate_year').next('.select2-container').css('padding', '0 7px 0 0');
+        $('#profile_birthdate_year').next('.select2-container').find('.select2-selection__arrow').css('right', '8px');
+
+        // Fix profile privacy disposition
+        $("label[for='profile_profilePrivacy_0']").after('</br>');
+        $("input[name='profile[profilePrivacy]']").css('margin-right', '5px');
     </script>
 
     <script type="text/javascript">

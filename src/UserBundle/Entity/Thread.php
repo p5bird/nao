@@ -48,4 +48,48 @@ class Thread extends BaseThread {
      * @var ThreadMetadata[]|Collection
      */
     protected $metadata;
+
+    /**
+     * Remove message
+     *
+     * @param \UserBundle\Entity\Message $message
+     */
+    public function removeMessage(\UserBundle\Entity\Message $message)
+    {
+        $this->messages->removeElement($message);
+    }
+
+    /**
+     * Add metadatum
+     *
+     * @param \UserBundle\Entity\ThreadMetadata $metadatum
+     *
+     * @return Thread
+     */
+    public function addMetadatum(\UserBundle\Entity\ThreadMetadata $metadatum)
+    {
+        $this->metadata[] = $metadatum;
+
+        return $this;
+    }
+
+    /**
+     * Remove metadatum
+     *
+     * @param \UserBundle\Entity\ThreadMetadata $metadatum
+     */
+    public function removeMetadatum(\UserBundle\Entity\ThreadMetadata $metadatum)
+    {
+        $this->metadata->removeElement($metadatum);
+    }
+
+    /**
+     * Get metadata
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMetadata()
+    {
+        return $this->metadata;
+    }
 }

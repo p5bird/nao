@@ -144,7 +144,17 @@ span.menu-arrow {
 
 .brand-name {
     color: #FFFFFF;
-    font-size: 22pt;
+    padding: 15px 0 10px 5px;
+}
+
+img.logo-sidebar {
+    max-width: 60px;
+    float: left;
+}
+
+span.title-sidebar {
+    font-size: 17pt;
+    padding: 0 0 0 10px;
 }
 
 .toggle-sidebar {
@@ -313,11 +323,11 @@ a.user-options-menu-dropdown-item {
     margin-top: 15px;
 }
 
-#fos_user_profile_form_current_password, #fos_user_profile_form_username, #edit_profile_username, #edit_profile_current_password {
+#fos_user_profile_form_current_password, #fos_user_profile_form_username, #profile_username, #profile_current_password {
     max-width: 80%;
 }
 
-#fos_user_profile_form_email, #edit_profile_email {
+#fos_user_profile_form_email, #profile_email {
     max-width: 78%;
 }
 
@@ -325,17 +335,17 @@ a.user-options-menu-dropdown-item {
     margin: 0 0 0 80px;
 }
 
-#fos_user_profile_form_facebook, #fos_user_profile_form_instagram, #fos_user_profile_form_pinterest, #edit_profile_facebook, #edit_profile_instagram, #edit_profile_pinterest {
+#fos_user_profile_form_facebook, #fos_user_profile_form_instagram, #fos_user_profile_form_pinterest, #fos_user_profile_form_website, #profile_facebook, #profile_instagram, #profile_pinterest, #profile_website {
     max-width: 80%;
 }
 
-#fos_user_profile_form_firstname, #fos_user_profile_form_name, #fos_user_profile_form_birthdate, #fos_user_profile_form_city, #fos_user_profile_form_job, #fos_user_profile_form_level, #edit_profile_firstname, #edit_profile_name, #edit_profile_birthdate, #edit_profile_city, #edit_profile_job, #edit_profile_level {
+#fos_user_profile_form_firstname, #fos_user_profile_form_name, #fos_user_profile_form_birthdate, #fos_user_profile_form_city, #fos_user_profile_form_job, #fos_user_profile_form_level, #fos_user_profile_form_phone, #profile_firstname, #profile_name, #profile_birthdate, #profile_city, #profile_job, #profile_level, #profile_phone {
     max-width: 68%;
 }
 
-#fos_user_profile_form_bio, #edit_profile_bio {
+#fos_user_profile_form_bio, #profile_bio {
     max-width: 68%;
-    min-height: 100px;
+    min-height: 85px;
 }
 
 .user-avatar-image-edit {
@@ -343,6 +353,23 @@ a.user-options-menu-dropdown-item {
     max-width: 100%;
 }
 
+.edit-profile-privacy {
+    padding-top: 15px;
+}
+
+.profile-privacy-infos {
+    padding-top: 5px;
+    font-size: 10pt;
+    color: #bbc0c1;
+}
+
+.private-profile {
+    padding: 20px;
+}
+
+.private-profile i {
+    margin-right: 5px;
+}
 /********************
 ****Show profile*****
 ********************/

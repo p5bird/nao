@@ -38,7 +38,7 @@ nao_profile:
     defaults: { _controller: FOSUserBundle:Profile:show}
 
 nao_profile_edit:
-    path: /profile/edit/
+    path: /profile/edit
     defaults: { _controller: FOSUserBundle:Profile:edit }
 
 nao_admin:
