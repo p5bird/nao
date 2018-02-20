@@ -93,9 +93,16 @@ body {
 }
 
 .user-avatar-image-topbar {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
+}
+
+span.topbar-username {
+    text-transform: capitalize;
+    padding: 0 0 0 5px;
+    font-weight: 500;
+    color: dimgrey;
 }
 
 .navbar-user-avatar {
@@ -152,9 +159,9 @@ img.logo-sidebar {
     float: left;
 }
 
-span.title-sidebar {
+.title-sidebar {
     font-size: 17pt;
-    padding: 0 0 0 10px;
+    padding: 0 0 0 70px;
 }
 
 .toggle-sidebar {
@@ -174,6 +181,37 @@ span.title-sidebar {
     -moz-box-shadow: 0px 6px 5px 0px rgba(238,240,241,1);
     box-shadow: 0px 6px 5px 0px rgba(238,240,241,1);
     position: relative;
+}
+
+.layout-icons {
+    display: inline-block;
+    float: right;
+    padding: 15px 135px 0 0;
+    font-size: 12pt;
+}
+
+.layout-icons a {
+    color: dimgrey;
+}
+
+.layout-icons a:hover {
+    color: dimgrey;
+    text-decoration: none;
+}
+.layout-icons i {
+    -webkit-transition: ease-in-out 0.4s;
+    -moz-transition: ease-in-out 0.4s;
+    -ms-transition: ease-in-out 0.4s;
+    -o-transition: ease-in-out 0.4s;
+    transition: ease-in-out 0.4s;
+}
+
+.layout-icons i:hover {
+    color: #333;
+}
+
+.layout-icons .fa-cogs {
+    padding: 0 0 0 10px;
 }
 
 .user-options-menu {
@@ -225,6 +263,11 @@ span.title-sidebar {
     transform: rotateX(0deg);
     transform-origin: top;
     width: 11%;
+}
+
+.dropdown-menu.user-options-menu-dropdown a:hover {
+    text-decoration: none;
+    color: #333;
 }
 
 a.user-options-menu-dropdown-item {
@@ -724,6 +767,10 @@ table.list-messages-table > tbody > tr.list-message-single > td.list-message-td 
     padding: 15px !important;
     border-top: none !important;
     vertical-align: middle;
+}
+
+.list-message-td {
+    text-transform: capitalize;
 }
 
 table.list-messages-table > thead > tr > th > span {

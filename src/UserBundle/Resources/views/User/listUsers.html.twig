@@ -52,7 +52,7 @@
                                     <tr class="list-user-single">
                                         <td class="list-user-td">
                                             {% if user.avatar.id is not defined %}
-                                                <img src="{{ asset('/img/no-image.png') }}" class="list-user-avatar"/>
+                                                <img src="{{ asset('/img/no-user.png') }}" class="list-user-avatar"/>
                                             {% else %}
                                                 <img src="{{ asset('/uploads/avatar/') }}user-{{ user.id }}.{{ user.avatar.extension }}" class="list-user-avatar"/>
                                             {% endif %}
@@ -126,7 +126,6 @@
                                                                     <i class="fas fa-trash" title="Désactiver"></i>
                                                                 </a>
                                                         {% endif %}
-
                                                     </div>
                                                 {% else %}
                                                     {{ user.city }}

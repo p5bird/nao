@@ -11,6 +11,7 @@ namespace BlogBundle\Controller;
 use BlogBundle\Entity\Image;
 use BlogBundle\Form\ArticleType;
 use BlogBundle\Form\CommentType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,6 +38,7 @@ class BlogController extends Controller {
      *
      * @param Request $request
      * @return RedirectResponse|Response
+     * @Security("has_role('ROLE_REDACTEUR')")
      */
     public function addArticleAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -120,9 +122,27 @@ class BlogController extends Controller {
     }
 
     /**
+     * Delete an article
+     *
+     * @param $id
+     * @return RedirectResponse
+     * @Security("has_role('ROLE_REDACTEUR')")
+     */
+    public function deleteArticleAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository('BlogBundle:Article')->find($id);
+
+        $em->remove($article);
+        $em->flush();
+
+        return $this->redirectToRoute('nao_blog_all_articles');
+    }
+
+    /**
      * List all articles
      *
      * @return Response
+     * @Security("has_role('ROLE_REDACTEUR')")
      */
     public function listArticleAction() {
         $em = $this->getDoctrine()->getManager();

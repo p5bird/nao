@@ -81,6 +81,10 @@ nao_blog_add_article:
     path: /blog/add/
     defaults: { _controller: BlogBundle:Blog:addArticle }
 
+nao_blog_delete_article:
+    path: /blog/{id}/delete
+    defaults: { _controller: BlogBundle:Blog:deleteArticle }
+
 nao_blog_show_article:
     path: /blog/article/{slug}/
     defaults: { _controller: BlogBundle:Blog:showArticle }
