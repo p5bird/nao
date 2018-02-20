@@ -63,7 +63,7 @@ class Taxon {
      *
      * @ORM\Column(name="CD_REF", type="integer")
      */
-    private $ref;
+    private $cdRef;
 
     /**
      * @var string
@@ -120,7 +120,7 @@ class Taxon {
      */
     public function getUrlInpn()
     {
-        return self::URL_INPN . $this->getId();
+        return self::URL_INPN . $this->getCdNom();
     }
 
     /**
@@ -390,30 +390,6 @@ class Taxon {
     }
 
     /**
-     * Set ref
-     *
-     * @param integer $ref
-     *
-     * @return Taxon
-     */
-    public function setRef($ref)
-    {
-        $this->ref = $ref;
-
-        return $this;
-    }
-
-    /**
-     * Get ref
-     *
-     * @return integer
-     */
-    public function getRef()
-    {
-        return $this->ref;
-    }
-
-    /**
      * Set cdNom
      *
      * @param string $cdNom
@@ -435,5 +411,29 @@ class Taxon {
     public function getCdNom()
     {
         return $this->cdNom;
+    }
+
+    /**
+     * Set cdRef
+     *
+     * @param integer $cdRef
+     *
+     * @return Taxon
+     */
+    public function setCdRef($cdRef)
+    {
+        $this->cdRef = $cdRef;
+
+        return $this;
+    }
+
+    /**
+     * Get cdRef
+     *
+     * @return integer
+     */
+    public function getCdRef()
+    {
+        return $this->cdRef;
     }
 }

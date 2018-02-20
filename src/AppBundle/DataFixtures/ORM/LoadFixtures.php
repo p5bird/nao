@@ -223,18 +223,21 @@ class LoadFixtures extends AbstractFixture {
     ];
 
     public function load(ObjectManager $manager) {
-        $this->loadUsers($manager);
         $this->loadGroups($manager);
+        $this->loadUsers($manager);
         $this->loadTaxons($manager);
         $this->loadObservations($manager);
     }
 
     private function loadUsers(ObjectManager $manager) {
         $user = new User();
+        $group = $manager->getRepository('UserBundle:Group')->findOneBy(['name' => 'Poussin']);
 
         $user->setUsername('admin');
         $user->setPlainPassword('admin');
         $user->setEmail('gatienhrd@gmail.com');
+        $user->setEnabled(1);
+        $user->addGroup($manager->getRepository('UserBundle:Group')->findOneBy(['name' => 'Poussin']));
 
         $manager->persist($user);
         $manager->flush();
@@ -265,7 +268,7 @@ class LoadFixtures extends AbstractFixture {
                 ->setOrder($i)
                 ->setPhylum($taxons[$i]['PHYLUM'])
                 ->setReign($taxons[$i]['REGNE'])
-                ->setRef($taxons[$i]['CD_REF'])
+                ->setCdRef($taxons[$i]['CD_REF'])
                 ->setCdNom($taxons[$i]['CD_NOM']);
 
             $manager->persist($taxon);

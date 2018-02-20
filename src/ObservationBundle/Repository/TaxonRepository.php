@@ -21,7 +21,7 @@ class TaxonRepository extends \Doctrine\ORM\EntityRepository
 		$queryBuilder
 			->where($queryBuilder->expr()->like('tax.nameVern', ':nameVern'))
 			->setParameter('nameVern', $nameVern . '%')
-			->andWhere('tax.id = tax.ref')
+			->andWhere('tax.cdNom = tax.cdRef')
 			->orderBy('tax.nameVern', 'ASC');
 		return $queryBuilder->getQuery()->getResult();
 	}
@@ -37,7 +37,7 @@ class TaxonRepository extends \Doctrine\ORM\EntityRepository
 		$queryBuilder
 			->where($queryBuilder->expr()->like('tax.nameVern', ':nameVern'))
 			->setParameter('nameVern', $nameVern)
-			->andWhere('tax.id = tax.ref');
+			->andWhere('tax.cdNom = tax.cdRef');
 		return $queryBuilder->getQuery()->getOneOrNullResult();
 	}
 
