@@ -588,6 +588,26 @@ td.search {
     color: #d01818;
 }
 
+.list-user-td i.fa-check:hover {
+    color: #039603;
+}
+
+span.active {
+    background: #039603;
+    color: #FFFFFF;
+    border-radius: 4px;
+    font-weight: 500;
+    padding: 5px;
+}
+
+span.inactive {
+    background: #d00420;
+    color: #FFFFFF;
+    border-radius: 4px;
+    font-weight: 500;
+    padding: 5px;
+}
+
 /********************
 **List all articles**
 ********************/
@@ -615,12 +635,16 @@ tr.list-article-single {
     background: #f7f7f7;
 }
 
-.list-table i.fa-trash {
+.list-table i.fa-trash, .list-table i.fa-check {
     -webkit-transition: ease-in-out 0.4s;
     -moz-transition: ease-in-out 0.4s;
     -ms-transition: ease-in-out 0.4s;
     -o-transition: ease-in-out 0.4s;
     transition: ease-in-out 0.4s;
+}
+
+.list-table {
+    font-weight: 500;
 }
 
 table.list-articles-table > tbody > tr.list-article-single > td.list-article-td {
@@ -739,8 +763,17 @@ td.search {
 
 .list-message-td i.fa-circle {
     color: #448d3e;
-    font-size: 9pt;
+    font-size: 12pt;
     margin-left: 5px;
+    position: absolute;
+    left: -8px;
+    top: 0;
+}
+
+.list-message-avatar-container {
+    position: relative;
+    display: inline-block;
+    float: left;
 }
 
 .messenger_thread_message {

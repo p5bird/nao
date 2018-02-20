@@ -85,6 +85,38 @@ class UserController extends Controller {
     }
 
     /**
+     * Deactivate user
+     *
+     * @param $id
+     * @return RedirectResponse
+     */
+    public function deactivateUserAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('UserBundle:User')->find($id);
+
+        $user->setEnabled(0);
+        $em->flush();
+
+        return $this->redirectToRoute('nao_list_users');
+    }
+
+    /**
+     * Activate user
+     *
+     * @param $id
+     * @return RedirectResponse
+     */
+    public function activateUserAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('UserBundle:User')->find($id);
+
+        $user->setEnabled(1);
+        $em->flush();
+
+        return $this->redirectToRoute('nao_list_users');
+    }
+
+    /**
      * List all users
      *
      * @return Response

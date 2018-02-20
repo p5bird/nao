@@ -59,8 +59,15 @@ nao_edit_user:
 
 nao_edit_user_avatar:
     path: /{id}/editUserAvatar
-    defaults:
-        _controller: UserBundle:User:editUserAvatar
+    defaults: { _controller: UserBundle:User:editUserAvatar }
+
+nao_activate_user:
+    path: /user/{id}/activate
+    defaults: { _controller: UserBundle:User:activateUser }
+
+nao_deactivate_user:
+    path: /user/{id}/deactivate
+    defaults: { _controller: UserBundle:User:deactivateUser }
 
 nao_list_users:
     path: /user/all/
