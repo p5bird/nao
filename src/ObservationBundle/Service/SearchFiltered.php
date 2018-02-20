@@ -71,7 +71,7 @@ class SearchFiltered
 			$arrayChoices[$key] = $key;
 		}
 
-		$defaultOption = ['' => null];
+		$defaultOption = ['' => 'notValid'];
 		$arrayChoices = array_merge($defaultOption, $arrayChoices);
 
 		return $arrayChoices;

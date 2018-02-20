@@ -46,6 +46,21 @@
 {% endblock %}
 
 {% block javascript %}
+    <script type="text/javascript" title="Reset form">
+      document.querySelector("button[type='reset']").addEventListener('click', function() {
+        var inputs = document.querySelectorAll("input[type='text']");
+
+        Array.prototype.forEach.call( inputs, function( node ) {
+            node.value = null;
+        });
+
+        var options = document.querySelectorAll('option');
+        Array.prototype.forEach.call( options, function( node ) {
+            node.removeAttribute('selected');
+        });
+        document.querySelector("select option:first-child").setAttribute('selected', 'selected');
+      });
+    </script>
     {{ include("ObservationBundle:Script:autocomplete.html.twig") }}
     {{ include("ObservationBundle:Script:gmapview.html.twig") }}
 {% endblock %}

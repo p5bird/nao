@@ -45,13 +45,13 @@ class SearchType extends AbstractType
                     'class'     => 'form-control'
                 ]
             ])
-            ->add('ObsDate',            Type\DateType::class, [
-                'required'  => true,
-                'label'     => "Date de l'observation",
-                'attr'      => [
-                    'class'     => 'form-control'
-                ]
-            ])
+            // ->add('ObsDate',            Type\DateType::class, [
+            //     'required'  => true,
+            //     'label'     => "Date de l'observation",
+            //     'attr'      => [
+            //         'class'     => 'form-control'
+            //     ]
+            // ])
             ->add('obsLocation',          Type\TextType::class, [
                 'required'  => false,
                 'label'     => "Chercher un lieu",
@@ -68,6 +68,9 @@ class SearchType extends AbstractType
             ])
             ->add('search',          Type\SubmitType::class, [
                 'label'     => "Rechercher"
+            ])
+            ->add('reset',          Type\ResetType::class, [
+                'attr'      => ['class' => 'reset']
             ])
             ;
     }

@@ -97,6 +97,11 @@ class Search
      */
     public function setBirdFamily($birdFamily)
     {
+        if ($birdFamily == 'notValid')
+        {
+            $birdFamily = null;
+        }
+
         $this->birdFamily = $birdFamily;
 
         return $this;
@@ -121,6 +126,11 @@ class Search
      */
     public function setBirdOrder($birdOrder)
     {
+        if ($birdOrder == 'notValid')
+        {
+            $birdOrder = null;
+        }
+
         $this->birdOrder = $birdOrder;
 
         return $this;
