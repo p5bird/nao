@@ -6,33 +6,76 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use ObservationBundle\Entity\Observation;
-use ObservationBundle\Entity\User;
+use FOS\UserBundle\Model\User;
 use ObservationBundle\Entity\Taxon;
 use ObservationBundle\Entity\Validation;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\DataFixtures\AbstractFixture;
 
-class LoadObservation implements FixtureInterface
+class LoadObservation extends AbstractFixture implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface
 {
+	public function getOrder() {
+		return 10;
+	}
+
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->container = $container;
+    }
+
 	public function load(ObjectManager $manager)
 	{
-		$taxon = $manager
-			->getRepository('ObservationBundle:Taxon')
-			->findOneBy(['id' => '986'])
-		;
+		// Upload nao_bos_taxon table
+		$conn=$manager->getConnection();
+		$file="web/taxref/nao_obs_taxon.sql";
+		if(!file_exists($file)) {
+			echo sprintf("Error LoadObservation : File '%s' does not exists \n", $file);
+			return;
+		}
+		$data = file_get_contents($file);
+		$conn->executeUpdate($data);
 
-		$user = $manager
-			->getRepository('UserBundle:User')
-			->findOneBy(['username' => 'admin'])
-		;
+
+        // Get our userManager, you must implement `ContainerAwareInterface`
+        $userManager = $this->container->get('fos_user.user_manager');
+
+        // Create our user and set details
+        $user = $userManager->createUser();
+        $user->setUsername('doctrine');
+        $user->setEmail('ocp5bird@gmail.com');
+        $user->setPlainPassword('fixture');
+        //$user->setPassword('3NCRYPT3D-V3R51ON');
+        $user->setRoles(array('ROLE_ADMIN'));
+        $user->setEnabled(true);
+        $user->setConfirmationToken(null);
+        $userGroup = $manager->getRepository('UserBundle:Group')->findOneBy(['name' => 'Poussin']);
+        $user->addGroup($userGroup);
+
+        // Update the user
+        $userManager->updateUser($user, true);
+
+        $qbTaxon = $manager
+        	->getRepository('ObservationBundle:Taxon')
+        	->createQueryBuilder('tax');
+        $taxons = $qbTaxon
+			->where('tax.id = tax.ref')
+			->andWhere("tax.nameVern != ''")
+			->getQuery()
+			->getResult();
 
 		for ($i=0; $i < 200; $i++) { 
 			$observation = new Observation();
 			$observation->setComment('observation importée par Fixtures');
 			$observation->setAuthor($user);
 			$observation->setNoName(false);
+
+			$taxon = $taxons[mt_rand(0, count($taxons)-1)];
 			$observation->setBirdName($taxon->getNameVern());
 			$observation->setTaxon($taxon);
 
-			$timestamp = mt_rand( strtotime("Jan 01 2000"), strtotime("Jan 01 2018") );
+			$timestamp = mt_rand( strtotime("Jan 01 2000"), strtotime("Feb 19 2018") );
 			$ramdomDate = date("Y-m-d", $timestamp);
 			$observation->setDay(new \DateTime($ramdomDate));
 
