@@ -31,15 +31,8 @@ services:
 
     # makes classes in src/AppBundle/DataFixtures available to be used as services
     # and have a tag that allows actions to type-hint services
-    UserBundle\DataFixtures\:
-        resource: '../../src/UserBundle/DataFixtures'
-        tags: ['doctrine.fixture.orm']
-    # add more services, or override services that need manual wiring
-    # AppBundle\Service\ExampleService:
-    #     arguments:
-    #         $someArgument: 'some_value'
-    ObservationBundle\DataFixtures\:
-        resource: '../../src/ObservationBundle/DataFixtures'
+    AppBundle\DataFixtures\:
+        resource: '../../src/AppBundle/DataFixtures'
         tags: ['doctrine.fixture.orm']
 
     app.form.edit:

@@ -10,10 +10,18 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="nao_obs_taxon")
  * @ORM\Entity(repositoryClass="ObservationBundle\Repository\TaxonRepository")
  */
-class Taxon
-{
+class Taxon {
     const URL_INPN = "https://inpn.mnhn.fr/espece/cd_nom/";
     const URL_WIKI = "https://fr.wikipedia.org/wiki/";
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
 
     /**
      * @var string
@@ -53,17 +61,9 @@ class Taxon
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     */
-    private $id;
-
-    /**
-     * @var int
-     *
      * @ORM\Column(name="CD_REF", type="integer")
      */
-    private $ref;
+    private $cdRef;
 
     /**
      * @var string
@@ -100,6 +100,13 @@ class Taxon
      */
     private $nameVernEN;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="CD_NOM", type="string", length=255)
+     */
+    private $cdNom;
+
 
     /**
      * ---------------------------------------
@@ -113,7 +120,7 @@ class Taxon
      */
     public function getUrlInpn()
     {
-        return self::URL_INPN . $this->getId();
+        return self::URL_INPN . $this->getCdNom();
     }
 
     /**
@@ -253,54 +260,6 @@ class Taxon
     }
 
     /**
-     * Set nameVernaculaire
-     *
-     * @param string $nameVern
-     *
-     * @return Taxon
-     */
-    public function setNameVernaculaire($nameVern)
-    {
-        $this->nameVernaculaire = $nameVern;
-
-        return $this;
-    }
-
-    /**
-     * Get nameVernaculaire
-     *
-     * @return string
-     */
-    public function getNameVernaculaire()
-    {
-        return $this->nameVernaculaire;
-    }
-
-    /**
-     * Set nameVernaculaireEN
-     *
-     * @param string $nameVernEN
-     *
-     * @return Taxon
-     */
-    public function setNameVernaculaireEN($nameVernEN)
-    {
-        $this->nameVernaculaireEN = $nameVernEN;
-
-        return $this;
-    }
-
-    /**
-     * Get nameVernaculaireEN
-     *
-     * @return string
-     */
-    public function getNameVernaculaireEN()
-    {
-        return $this->nameVernaculaireEN;
-    }
-
-    /**
      * Set reign
      *
      * @param string $reign
@@ -421,20 +380,6 @@ class Taxon
     }
 
     /**
-     * Set id
-     *
-     * @param integer $id
-     *
-     * @return Taxon
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
      * Get id
      *
      * @return integer
@@ -445,26 +390,50 @@ class Taxon
     }
 
     /**
-     * Set ref
+     * Set cdNom
      *
-     * @param integer $ref
+     * @param string $cdNom
      *
      * @return Taxon
      */
-    public function setRef($ref)
+    public function setCdNom($cdNom)
     {
-        $this->ref = $ref;
+        $this->cdNom = $cdNom;
 
         return $this;
     }
 
     /**
-     * Get ref
+     * Get cdNom
+     *
+     * @return string
+     */
+    public function getCdNom()
+    {
+        return $this->cdNom;
+    }
+
+    /**
+     * Set cdRef
+     *
+     * @param integer $cdRef
+     *
+     * @return Taxon
+     */
+    public function setCdRef($cdRef)
+    {
+        $this->cdRef = $cdRef;
+
+        return $this;
+    }
+
+    /**
+     * Get cdRef
      *
      * @return integer
      */
-    public function getRef()
+    public function getCdRef()
     {
-        return $this->ref;
+        return $this->cdRef;
     }
 }
