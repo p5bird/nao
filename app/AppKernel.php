@@ -22,7 +22,8 @@ class AppKernel extends Kernel
             new UserBundle\UserBundle(),
             new ObservationBundle\ObservationBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
-            new BlogBundle\BlogBundle()
+            new BlogBundle\BlogBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

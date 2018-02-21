@@ -329,34 +329,41 @@ class ObservationController extends Controller
         $formSearch = $this->createForm(SearchType::class, $search);
         $formSearch->handleRequest($request);
 
+        if ($formSearch->isSubmitted() and $formSearch->isValid())
+        {
+            $session->set('search', $search);
+        }
+
         $obsJson = [];
         $observations = [];
 
-        if ($formSearch->isSubmitted() and $formSearch->isValid())
-        {
-            if ($search->hasActiveFilter())
-            {
-                $session->set('search', $search);
-                $observations = $obsRepository->SearchFiltered($search);
+        $observations = $obsRepository->SearchFiltered($search);
 
-                foreach ($observations as $obs) {
-                    array_push($obsJson, [
-                        'id'        => $obs->getId(),
-                        'birdName'  => $obs->getBirdName(),
-                        'latitude'  => $obs->getLatitude(),
-                        'longitude' => $obs->getLongitude(),
-                        'url'       => $this->generateUrl('nao_obs_show', ['id' => $obs->getId()], UrlGeneratorInterface::ABSOLUTE_URL)
-                    ]);
-                }
-            }
+        foreach ($observations as $obs) {
+            array_push($obsJson, [
+                'id'        => $obs->getId(),
+                'birdName'  => $obs->getBirdName(),
+                'latitude'  => $obs->getLatitude(),
+                'longitude' => $obs->getLongitude(),
+                'url'       => $this->generateUrl('nao_obs_show', ['id' => $obs->getId()], UrlGeneratorInterface::ABSOLUTE_URL)
+            ]);
         }
 
+        $query = $obsRepository->SearchFilteredQuery($search);
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            10
+        );
 
         return $this->render('ObservationBundle:Observation:search.html.twig', [
             'observations'  => $observations,
             'obsJson'       => json_encode($obsJson),
             'formSearch'    => $formSearch->createView(),
-            'totalObs'      => $obsRepository->countValidated()
+            'totalObs'      => $obsRepository->countValidated(),
+            'pagination'    => $pagination,
+            'search'        => $search
         ]);
     }
 

@@ -59,7 +59,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 		return $queryBuilder->getQuery()->getSingleScalarResult();
     }
 
-    public function searchFiltered($search)
+    public function searchFilteredQuery($search)
     {
 		$queryBuilder = $this->createQueryBuilder('obs');
 
@@ -126,9 +126,6 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 			;
 		}
 
-		// var_dump($search->getObsLocation());
-		// var_dump(empty($search->getObsLocation())); die;
-
 		if (!empty($search->getObsLocation()))
 		{
 			$queryBuilder
@@ -138,7 +135,14 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 			;
 		}
 
-		return $queryBuilder->getQuery()->getResult();
+		return $queryBuilder;
     }
+
+
+	public function searchFiltered($search)
+	{
+		$queryBuilder = $this->searchFilteredQuery($search);
+		return $queryBuilder->getQuery()->getResult();
+	}
 
 }
