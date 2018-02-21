@@ -26,7 +26,7 @@ class ImageType extends AbstractType
             ])
             ->add('authorization',   Type\CheckboxType::class, [
                 'required'  => true,
-                'label'     => "Autoriser la publication/réutilisation de la photo."
+                'label'     => "Je cèdes mes droits de publication et de réutilisation de la photo."
             ]);
     }/**
      * {@inheritdoc}

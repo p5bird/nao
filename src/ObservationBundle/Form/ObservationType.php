@@ -28,7 +28,7 @@ class ObservationType extends AbstractType
             ])
             ->add('noName',         Type\CheckboxType::class, [
                 'required'  => false,
-                'label'     => "nom d'oiseau inconnu de l'observateur"
+                'label'     => "je ne connais pas le nom exact"
             ])
             ->add('day',            Type\DateType::class, [
                 'required'  => true,

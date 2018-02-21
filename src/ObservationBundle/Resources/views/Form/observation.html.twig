@@ -11,21 +11,28 @@
     {% else %}
         <img id="image-remover-tracker-off" src="{{ asset('/img/no-image.png') }}" class="user-avatar-image-edit"/>
     {% endif %}
+	{{ form_errors(formObs.image.imageFile) }}
     {{ form_label(formObs.image.imageFile) }}
 	{{ form_widget(formObs.image.imageFile) }}
+	{{ form_errors(formObs.image.imageFile) }}
 	<a id="image-remover" href="#" class="btn btn-danger btn-sm hide"><i class="fas fa-times"></i> supprimer l'image</a>
 	<div class="row">
 		<div class="col-xs-12">
 			{{ form_widget(formObs.image.authorization) }}
+			{{ form_errors(formObs.image.authorization) }}
 		</div>
 	</div>
 	{{ form_label(formObs.birdName) }} <span class="required">*</span>
 	{{ form_widget(formObs.birdName) }}
+	{{ form_errors(formObs.birdName) }}
 	{{ form_widget(formObs.noName) }}
+	{{ form_errors(formObs.noName) }}
 	{{ form_label(formObs.day) }} <span class="required">*</span>
 	{{ form_widget(formObs.day) }}
+	{{ form_errors(formObs.day) }}
 	{{ form_label(formObs.comment) }} <span class="required">*</span>
 	{{ form_widget(formObs.comment) }}
+	{{ form_errors(formObs.comment) }}
 </div>
 
 <div class="col-xs-12 col-sm-6">
@@ -33,9 +40,11 @@
 	{{ form_widget(formObs.place) }}
 	<div id="map"></div>
 	{{ form_label(formObs.latitude) }} <span class="required">*</span>
-	{{ form_widget(formObs.latitude) }} 
+	{{ form_widget(formObs.latitude) }}
+	{{ form_errors(formObs.latitude) }} 
 	{{ form_label(formObs.longitude) }} <span class="required">*</span>
 	{{ form_widget(formObs.longitude) }}
+	{{ form_errors(formObs.longitude) }}
 </div>
 
 <div class="col-xs-12 text-center submit-area">

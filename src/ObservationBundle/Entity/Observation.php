@@ -53,8 +53,8 @@ class Observation
      * @var \DateTime
      *
      * @ORM\Column(name="day", type="date")
-     * @assert\NotBlank()
-     * @assert\Date()
+     * @Assert\NotBlank()
+     * @Assert\Date()
      * @DateNoFuture()
      */
     private $day;
@@ -63,7 +63,7 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="latitude", type="string")
-     * @assert\NotBlank()
+     * @Assert\NotBlank()
      * @LatitudeOk()
      */
     private $latitude;
@@ -72,7 +72,7 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="longitude", type="string")
-     * @assert\NotBlank()
+     * @Assert\NotBlank()
      * @LongitudeOk()
      */
     private $longitude;
@@ -94,7 +94,7 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="comment", type="text")
-     * @assert\NotBlank()
+     * @Assert\NotBlank()
      */
     private $comment;
 
