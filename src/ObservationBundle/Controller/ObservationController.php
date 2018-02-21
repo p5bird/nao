@@ -329,23 +329,28 @@ class ObservationController extends Controller
         $formSearch = $this->createForm(SearchType::class, $search);
         $formSearch->handleRequest($request);
 
+        $obsJson = [];
+        $observations = [];
+
         if ($formSearch->isSubmitted() and $formSearch->isValid())
         {
-            $session->set('search', $search);
+            if ($search->hasActiveFilter())
+            {
+                $session->set('search', $search);
+                $observations = $obsRepository->SearchFiltered($search);
+
+                foreach ($observations as $obs) {
+                    array_push($obsJson, [
+                        'id'        => $obs->getId(),
+                        'birdName'  => $obs->getBirdName(),
+                        'latitude'  => $obs->getLatitude(),
+                        'longitude' => $obs->getLongitude(),
+                        'url'       => $this->generateUrl('nao_obs_show', ['id' => $obs->getId()], UrlGeneratorInterface::ABSOLUTE_URL)
+                    ]);
+                }
+            }
         }
 
-        $observations = $obsRepository->SearchFiltered($search);
-
-        $obsJson = [];
-        foreach ($observations as $obs) {
-            array_push($obsJson, [
-                'id'        => $obs->getId(),
-                'birdName'  => $obs->getBirdName(),
-                'latitude'  => $obs->getLatitude(),
-                'longitude' => $obs->getLongitude(),
-                'url'       => $this->generateUrl('nao_obs_show', ['id' => $obs->getId()], UrlGeneratorInterface::ABSOLUTE_URL)
-            ]);
-        }
 
         return $this->render('ObservationBundle:Observation:search.html.twig', [
             'observations'  => $observations,

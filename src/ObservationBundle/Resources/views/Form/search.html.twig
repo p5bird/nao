@@ -1,0 +1,52 @@
+<div class="row">
+
+  {{ form_start(formSearch) }}
+
+  <div class="col-xs-12">
+    {{ form_errors(formSearch) }}
+  </div>
+
+  <div class="col-xs-12">
+    {{ form_label(formSearch.birdName) }}
+    {{ form_widget(formSearch.birdName) }}
+  </div>
+
+  <div class="col-xs-12 col-sm-6">
+    {{ form_label(formSearch.birdFamily) }}
+    {{ form_widget(formSearch.birdFamily) }}
+  </div>
+
+  <div class="col-xs-12 col-sm-6">
+    {{ form_label(formSearch.birdOrder) }}
+    {{ form_widget(formSearch.birdOrder) }}
+  </div>
+
+  <div class="col-xs-12 col-sm-6">
+    {{ form_label(formSearch.obsAuthor) }}
+    {{ form_widget(formSearch.obsAuthor) }}
+  </div>
+
+  <div class="col-xs-12 col-sm-6">
+    {{ form_label(formSearch.obsLocation) }}
+    {{ form_widget(formSearch.obsLocation) }}
+  </div>
+
+  <div class="col-xs-12">
+  	<div class="row">
+  	  <div class="col-xs-2">
+  	    {{ form_widget(formSearch.obsWithImage) }}
+  	  </div>
+	  <div class="col-xs-10">
+	    <label for="observationbundle_search_obsWithImage"> Observations avec une photo uniquement</label>
+      </div>
+  	</div>
+  </div>
+  <div class="col-xs-12 well well-sm"></div>
+  <div class="col-xs-12">
+    {{ form_widget(formSearch.search) }}
+    {{ form_widget(formSearch.reset) }}
+  </div>
+
+  {{ form_end(formSearch) }}
+
+</div>

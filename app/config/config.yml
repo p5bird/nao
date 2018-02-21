@@ -10,6 +10,7 @@ imports:
 parameters:
     locale: fr
     file_image_default: '/img/no-image.png'
+    file_image_obs_default: '/img/default-obs.png'
 
 framework:
     #esi: ~
@@ -45,6 +46,7 @@ twig:
     globals:
         google_map_api: '%google_map_api%'
         file_image_default: '%file_image_default%'
+        file_image_obs_default: '%file_image_obs_default%'
 
 # Doctrine Configuration
 doctrine:

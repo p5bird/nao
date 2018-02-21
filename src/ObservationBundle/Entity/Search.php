@@ -57,11 +57,37 @@ class Search
      */
     public function hasTaxonFilter()
     {
-        if (is_null($this->birdName) and is_null($this->birdFamily) and is_null($this->birdOrder))
+        if (empty($this->birdName) and empty($this->birdFamily) and empty($this->birdOrder))
         {
             return false;
         }
         return true;
+    }
+
+
+    /**
+     * 
+     */
+    public function hasObsFilter()
+    {
+        if (empty($this->obsAuthor) and empty($this->obsDate) and empty($this->obsLocation) and !$this->obsWithImage)
+        {
+            return false;
+        }
+        return true;
+    }
+
+
+    /**
+     * 
+     */
+    public function hasActiveFilter()
+    {
+        if ($this->hasTaxonFilter() or $this->hasObsFilter())
+        {
+            return true;
+        }
+        return false;
     }
 
     /**

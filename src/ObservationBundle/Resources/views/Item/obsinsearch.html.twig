@@ -1,0 +1,14 @@
+{% for observation in observations %}
+	<div class="media">
+	  <div class="media-left media-top">
+	    <a href="{{ path('nao_obs_show', {'id': observation.id}) }}">
+	      <img class="media-object media-object-searchresult" src="{{ observation.image ? asset(vich_uploader_asset(observation.image, 'imageFile')) : asset(file_image_obs_default) }}" alt="{{ observation.birdName }}">
+	    </a>
+	  </div>
+	  <div class="media-body">
+	    <h4 class="media-heading">{{ observation.birdName }}</h4>
+	    <p>Observé le : {{ observation.day|date('d/m/Y') }} - Dpt : {{ observation.locCounty }}</p>
+	  </div>
+	</div>
+{% endfor %}
+

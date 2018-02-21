@@ -61,7 +61,7 @@ class SearchType extends AbstractType
             ])
             ->add('obsWithImage',         Type\CheckboxType::class, [
                 'required'  => false,
-                'label'     => "Observations avec une photo uniquement",
+                'label'     => false,
                 'attr'      => [
                     'class'     => 'form-control'
                 ]
