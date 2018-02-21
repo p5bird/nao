@@ -3,44 +3,52 @@
 {% block title %}{{ parent() }} - Observations à valider{% endblock %}
 
 {% block content %}
+	<div class="user-interface-page-header">
 
-	{% for alert in app.session.flashbag.get('alert') %}
-		<p class="alert alert-{{ alert.type }}">{{ alert.content }}</p>
-	{% endfor %}
+        {% for alert in app.session.flashbag.get('alert') %}
+            <p class="alert alert-{{ alert.type }}">{{ alert.content }}</p>
+        {% endfor %}
 
-	{% if observations is empty %}
-		<div class="container">
-			<p>Aucune observation en attente</p>
-		</div>
-	{% else %}
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-12">
-					<h1>Observations à valider</h1>
-				</div>
-				<div class="col-xs-12">
-					<div class="table-responsive">
-						<table class="table table-sm table-hover">
-							<thead>
+        <div class="page-name">
+            Observations à valider
+        </div>
+        <div class="validate-edit">
+            {# <input type="submit" value="Ajouter" class="btn btn-nao"/> #}
+        </div>
+    </div>
+    
+    <div class="container">
+	    <div class="col-xs-12 profile-edit">
+
+			{% if observations is empty %}
+				<div class="alert alert-default">
+	                Application à jour : aucune observation à valider.
+	            </div>
+
+			{% else %}
+				<div class="table-responsive">
+					<table class="table table-sm table-hover">
+						<thead>
+	    					<tr>
+	    						<th scope="col">Oiseau</th>
+	    						<th scope="col">Date d'observation</th>
+	    						<th scope="col">Statut</th>
+	    					</tr>
+						</thead>
+	    				<tbody>
+							{% for observation in observations %}
 		    					<tr>
-		    						<th scope="col">Oiseau</th>
-		    						<th scope="col">Date d'observation</th>
-		    						<th scope="col">Statut</th>
+		    						<td><a href="{{ path('nao_obs_check', {'id': observation.id}) }}">{{ observation.noName ? 'non identifié' : observation.birdName }}</a></td>
+		    						<td>{{ observation.day|date('d/m/Y') }}</td>
+		    						<td>{{ observation.validated ? 'Validée' : 'En attente' }}</td>
 		    					</tr>
-							</thead>
-		    				<tbody>
-								{% for observation in observations %}
-			    					<tr>
-			    						<td><a href="{{ path('nao_obs_check', {'id': observation.id}) }}">{{ observation.noName ? 'non identifié' : observation.birdName }}</a></td>
-			    						<td>{{ observation.day|date('d/m/Y') }}</td>
-			    						<td>{{ observation.validated ? 'Validée' : 'Non validée' }}</td>
-			    					</tr>
-								{% endfor %}
-		    				</tbody>
-		    			</table>
-	    			</div>
-	    		</div>
-	    	</div>
+							{% endfor %}
+	    				</tbody>
+	    			</table>
+				</div>
+			{% endif %}
+
 	    </div>
-	{% endif %}
+	</div>
+
 {% endblock %}

@@ -6,6 +6,9 @@
 	{{ form_row(formValid.comment) }}
 </div> #}
 
-<div class="col-xs-12">
+<div class="col-xs-12 text-center submit-area">
+	{{ form_widget(formValid.valid) }}
+	{{ form_widget(formValid.reject) }}
+	{{ form_widget(formValid.cancel) }}
 	{{ form_end(formValid) }}
 </div>

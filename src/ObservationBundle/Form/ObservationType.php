@@ -21,56 +21,40 @@ class ObservationType extends AbstractType
             ])
             ->add('birdName',          Type\TextType::class, [
                 'required'  => false,
-                'label'     => "Nom de l'oiseau *",
+                'label'     => "Nom de l'oiseau",
                 'attr'      => [
-                    'class'     => 'form-control',
                     'data-autocomplete'  => 'birdName'
                 ]
             ])
             ->add('noName',         Type\CheckboxType::class, [
                 'required'  => false,
-                'label'     => "inconnu",
-                'attr'      => [
-                    'class'     => 'form-control'
-                ]
+                'label'     => "nom d'oiseau inconnu de l'observateur"
             ])
             ->add('day',            Type\DateType::class, [
                 'required'  => true,
-                'label'     => "Date *",
-                'attr'      => [
-                    'class'     => 'form-control'
-                ]
+                'label'     => "Date de l'observation"
             ])
             ->add('latitude',       Type\NumberType::class, [
                 'required'  => true,
-                'label'     => "Latitude *",
-                'attr'      => [
-                    'class'     => 'form-control'
-                ]
+                'label'     => "Latitude"
             ])
             ->add('longitude',       Type\NumberType::class, [
                 'required'  => true,
-                'label'     => "Longitude *",
-                'attr'      => [
-                    'class'     => 'form-control'
-                ]
+                'label'     => "Longitude"
             ])
             ->add('place',          Type\TextType::class, [
                 'required'  => false,
-                'label'     => "Chercher un lieu",
-                'attr'      => [
-                    'class'     => 'form-control'
-                ]
+                'label'     => "Chercher un lieu sur la carte"
             ])
             ->add('comment',        Type\TextareaType::class, [
                 'required'  => true,
-                'label'     => "Observation *",
-                'attr'      => [
-                    'class'     => 'form-control'
-                ]
+                'label'     => "Description de l'observation"
             ])
             ->add('valid',          Type\SubmitType::class, [
-                'label'     => "Demander la publication"
+                'label'     => "Demander la publication",
+                'attr'      => [
+                    'class'  => 'btn-nao'
+                ]
             ])
             ->add('save',          Type\SubmitType::class, [
                 'label'     => "Sauvegarder"

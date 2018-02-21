@@ -3,32 +3,40 @@
 {% block title %}{{ parent() }} - Modifier une observation{% endblock %}
 
 {% block content %}
-    
-    
-
-    {% if observation is null %}
-        <div class="container">
-            <p>Désolé, cette observation n'existe pas ou plus.</p>
-        </div>
-    {% else %}
+    <div class="user-interface-page-header">
 
         {% for alert in app.session.flashbag.get('alert') %}
             <p class="alert alert-{{ alert.type }}">{{ alert.content }}</p>
         {% endfor %}
 
-        {% if observation.author.id != user.id %}
-            <div class="container">         
-                <p>Désolé, vous n'êtes pas autorisé à modifier cette observation.</p>
+        {% if observation is null %}
+            <div class="alert alert-default">
+                Oups... Cette observation n'existe pas ou plus.
             </div>
+        </div>
+
+        {% elseif observation.author.id != user.id %}
+            <div class="alert alert-warning">
+                Accès sécurisé : vous n'êtes pas autorisé à modifier cette observation.
+            </div>
+        </div>
+
         {% else %}
-            <div class="container">
-                <div class="row">
-                    <h1>Modifier l'observation n°{{ observation.id }}</h1>
-                    {{ include("ObservationBundle:Form:observation.html.twig") }}
-                </div>
-            </div>
+        <div class="page-name">
+            Modifier l'observation n°{{ observation.id }}
+        </div>
+        <div class="validate-edit">
+            <input type="submit" value="Modifier" class="btn btn-nao"/>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="col-xs-12 profile-edit">
+            {{ include("ObservationBundle:Form:observation.html.twig") }}
+        </div>
+    </div>
+                                  
         {% endif %}
-    {% endif %}
 {% endblock %}
 
 {% block javascript %}

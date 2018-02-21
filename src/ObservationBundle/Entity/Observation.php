@@ -126,7 +126,9 @@ class Observation
     private $reports;
 
     /**
-     * @ORM\OneToOne(targetEntity="ObservationBundle\Entity\Image", inversedBy="observation", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="ObservationBundle\Entity\Image", inversedBy="observation", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
+     * @Assert\Valid()
      */
     private $image;
 

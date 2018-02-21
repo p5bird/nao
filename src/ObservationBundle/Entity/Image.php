@@ -66,8 +66,22 @@ class Image
     /**
      * @var boolean
      *
-     * @ORM\Column(name="")
+     * @ORM\Column(name="authorization", type="boolean")
+     * @Assert\IsTrue(message="Vous devez céder vos droits pour ajouter une image.")
      */
+    private $authorization = false;
+
+
+    /**
+     * ---------------------------------------
+     * Constructor
+     * ---------------------------------------
+     */
+
+    public function __constructor()
+    {
+        //
+    }
 
 
     /**
@@ -100,10 +114,7 @@ class Image
      * ---------------------------------------
      */
 
-    public function getName()
-    {
-        
-    }
+
 
 
     /**
@@ -223,4 +234,28 @@ class Image
         return $this->updatedAt;
     }
 
+
+    /**
+     * Set authorization
+     *
+     * @param boolean $authorization
+     *
+     * @return Image
+     */
+    public function setAuthorization($authorization)
+    {
+        $this->authorization = $authorization;
+
+        return $this;
+    }
+
+    /**
+     * Get authorization
+     *
+     * @return boolean
+     */
+    public function getAuthorization()
+    {
+        return $this->authorization;
+    }
 }

@@ -1,0 +1,112 @@
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					{% if observation.image %}
+						<div class="row text-center">
+						<img src="{{ asset(vich_uploader_asset(observation.image, 'imageFile')) }}" alt="{{ observation.birdName }}" class="img-fluid rounded img-responsive img-area-obs-details" />
+						</div>
+					{% else %}
+						<p>Aucune photo</p>
+					{% endif %}		
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-6">
+			    	<div class="card">
+			    		<div class="card-header">
+			    			<h3>Identification</h3>
+			    		</div>
+			    		<div class="card-body">
+			    			<table class="table table-sm">
+			    				<tbody>
+			    					<tr>
+			    						<td>Nom de l'oiseau :</td>
+			    						<td>{{ observation.taxon.nameVern }}</td>
+			    					</tr>
+			    					<tr>
+			    						<td>Nom complet valide :</td>
+			    						<td>{{ observation.taxon.nameValid }}</td>
+			    					</tr>
+			    					<tr>
+			    						<td>Famille :</td>
+			    						<td>{{ observation.taxon.family }}</td>
+			    					</tr>
+			    					<tr>
+			    						<td>Ordre :</td>
+			    						<td>{{ observation.taxon.order }}</td>
+			    					</tr>
+			    					<tr>
+			    						<td>Classe :</td>
+			    						<td>{{ observation.taxon.class }}</td>
+			    					</tr>
+			    					<tr>
+			    						<td>Phylum :</td>
+			    						<td>{{ observation.taxon.phylum }}</td>
+			    					</tr>
+			    					<tr>
+			    						<td>Règne :</td>
+			    						<td>{{ observation.taxon.reign }}</td>
+			    					</tr>
+			    					<tr>
+			    						<td>Fiches externes :</td>
+			    						<td class="" role="group">
+			    							<a href="{{ observation.urlInpn }}" target="_blank" rel="nofollow" type="button" class="btn btn-default"><i class="fas fa-database"></i> INPN</a>
+			    							<a href="{{ observation.urlWiki }}" target="_blank" rel="nofollow" type="button" class="btn btn-default"><i class="fab fa-wikipedia-w"></i> Wiki</a>
+			    						</td>
+			    					</tr>
+			    				</tbody>
+			    			</table>
+			    		</div>
+			    	</div>
+			    </div>
+				<div class="col-xs-12 col-sm-6">
+			    	<div class="card">
+			    		<div class="card-header">
+			    			<h3>Observation</h3>
+			    		</div>
+			    		<div class="card-body">
+			    			<table class="table table-sm">
+			    				<tbody>
+			    					<tr>
+			    						<td>Date :</td>
+			    						<td>{{ observation.day|date("d M Y") }}</td>
+			    					</tr>
+			    					<tr>
+			    						<td>Lieu :</td>
+			    						<td>{{ observation.place }}</td>
+			    					</tr>
+			    					<tr>
+			    						<td>Coordonnées géographiques :</td>
+			    						<td>{{ observation.latitude }}, {{ observation.longitude }}</td>
+			    					</tr>
+			    					<tr>
+			    						<td>Commentaire :</td>
+			    						<td>{{ observation.comment }}</td>
+			    					</tr>
+			    					<tr>
+			    						<td>Auteur :</td>
+			    						<td><a href="{{ path('nao_show_user',{'id': observation.author.id}) }}">{{ observation.author.username }}</a></td>
+			    					</tr>
+			    					<tr>
+			    						<td>Validé par :</td>
+			    						<td>
+			    							{% if observation.validated %}
+			    								<a href="{{ path('nao_show_user',{'id': observation.validation.author.id}) }}">{{ observation.validation.author.username }}</a>
+			    							{% endif %}
+			    						</td>
+			    					</tr>
+			    					<tr>
+			    						<td>Validé :</td>
+			    						<td>{{ observation.validated ? 'Oui' : 'Non' }}</td>
+			    					</tr>
+			    					<tr>
+			    						<td>Publié :</td>
+			    						<td>{{ observation.publish ? 'Oui' : 'Non' }}</td>
+			    					</tr>
+			    				</tbody>
+			    			</table>
+			    		</div>
+			    	</div>
+		    	</div>
+		    </div> {# end row #}
+		</div> {# end container #}

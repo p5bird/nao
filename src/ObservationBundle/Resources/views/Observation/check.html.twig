@@ -1,128 +1,49 @@
 {% extends "UserBundle::layout.html.twig" %}
 
-{% block title %}{{ parent() }} - Vérifier une observation{% endblock %}
+{% block title %}{{ parent() }} - Contrôler une observation{% endblock %}
 
 {% block content %}
-	{% if observation is null %}
-		<div class="container">
-			<p>Désolé, cette observation n'existe pas ou plus.</p>
-		</div>
-	{% else %}
+	<div class="user-interface-page-header">
 
-		{% for alert in app.session.flashbag.get('alert') %}
-			<p class="alert alert-{{ alert.type }}">{{ alert.content }}</p>
-		{% endfor %}
+        {% for alert in app.session.flashbag.get('alert') %}
+            <p class="alert alert-{{ alert.type }}">{{ alert.content }}</p>
+        {% endfor %}
 
-		{% if observation.author.id != user.id and not is_granted('ROLE_SPECIALISTE') %}
-			<div class="container">			
-				<p>Désolé, vous n'êtes pas autorisé à vérifier ou modifier cette observation.</p>
-			</div>
-		{% else %}
-		<div class="container">
-			<div class="row">
-				<h1>Observation n°{{ observation.id }}</h1>
-				<div class="col-xs-12">
-					{% if observation.image %}
-						<img src="{{ asset(vich_uploader_asset(observation.image, 'imageFile')) }}" alt="{{ observation.birdName }}" class="img-fluid rounded" />
-					{% else %}
-						<p>Aucune photo</p>
-					{% endif %}	
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-12 col-sm-6">
-			    	<div class="card">
-			    		<div class="card-header">
-			    			<h3>Identification</h3>
-			    		</div>
-			    		<div class="card-body">
-			    			<table class="table table-sm">
-			    				<tbody>
-			    					<tr>
-			    						<td>Nom de l'oiseau :</td>
-			    						<td>{{ observation.taxon.nameVern }}</td>
-			    					</tr>
-			    					<tr>
-			    						<td>Nom complet valide :</td>
-			    						<td>{{ observation.taxon.nameValid }}</td>
-			    					</tr>
-			    					<tr>
-			    						<td>Famille :</td>
-			    						<td>{{ observation.taxon.family }}</td>
-			    					</tr>
-			    					<tr>
-			    						<td>Ordre :</td>
-			    						<td>{{ observation.taxon.order }}</td>
-			    					</tr>
-			    					<tr>
-			    						<td>Classe :</td>
-			    						<td>{{ observation.taxon.class }}</td>
-			    					</tr>
-			    					<tr>
-			    						<td>Phylum :</td>
-			    						<td>{{ observation.taxon.phylum }}</td>
-			    					</tr>
-			    					<tr>
-			    						<td>Règne :</td>
-			    						<td>{{ observation.taxon.reign }}</td>
-			    					</tr>
-			    					<tr>
-			    						<td>Fiches externes :</td>
-			    						<td class="" role="group">
-			    							<a href="{{ observation.urlInpn }}" target="_blank" rel="nofollow" type="button" class="btn btn-default">INPN</a>
-			    							<a href="{{ observation.urlWiki }}" target="_blank" rel="nofollow" type="button" class="btn btn-default">Wiki</a>
-			    						</td>
-			    					</tr>
-			    				</tbody>
-			    			</table>
-			    		</div>
-			    	</div>
-			    </div>
-				<div class="col-xs-12 col-sm-6">
-			    	<div class="card">
-			    		<div class="card-header">
-			    			<h3>Observation</h3>
-			    		</div>
-			    		<div class="card-body">
-			    			<table class="table table-sm">
-			    				<tbody>
-			    					<tr>
-			    						<td>Date :</td>
-			    						<td>{{ observation.day|date("d M Y") }}</td>
-			    					</tr>
-			    					<tr>
-			    						<td>Lieu :</td>
-			    						<td>{{ observation.place }}</td>
-			    					</tr>
-			    					<tr>
-			    						<td>Coordonnées géographiques :</td>
-			    						<td>{{ observation.latitude }}, {{ observation.longitude }}</td>
-			    					</tr>
-			    					<tr>
-			    						<td>Commentaire :</td>
-			    						<td>{{ observation.comment }}</td>
-			    					</tr>
-			    					<tr>
-			    						<td>Auteur :</td>
-			    						<td><a href="{{ path('nao_show_user',{'id': observation.author.id}) }}">{{ observation.author.username }}</a></td>
-			    					</tr>
-			    				</tbody>
-			    			</table>
-			    		</div>
-			    	</div>
-		    	</div>
-		    </div> {# end row #}
-		    <div class="row">
-		    	<div class="col-xs-12 col-sm-6">
-		    		{{ include('ObservationBundle:Form:validation.html.twig') }}
-		    	</div>
-		    </div>
-		</div> {# end container #}
+        {% if observation is null %}
+            <div class="alert alert-default">
+                Oups... Cette observation n'existe pas ou plus.
+            </div>
+        </div>
+
+        {% elseif observation.author.id != user.id and not is_granted('ROLE_SPECIALISTE') %}	
+            <div class="alert alert-warning">
+                Accès sécurisé : vous n'êtes pas autorisé à valider cette observation.
+            </div>
+        </div>
+
+        {% else %}
+        <div class="page-name">
+            Contrôler l'observation n°{{ observation.id }}
+        </div>
+        <div class="validate-edit">
+            <input type="submit" value="Valider" class="btn btn-nao"/>
+            <input type="submit" value="Rejeter" class="btn btn-danger"/>
+            <a href="#" type="submit" value="Retour" class="btn btn-default">Retour</a>
+        </div>
+    </div>
+    
+    <div class="container">
+	    <div class="col-xs-12 profile-edit">
+	    	{{ include('ObservationBundle:Item:obsdetails.html.twig') }}
+	    	{{ include('ObservationBundle:Form:validation.html.twig') }}
+	    </div>
+	</div>
+
 		{% endif %}
-
-	{% endif %}
 {% endblock %}
 
 {% block javascript %}
     {{ include("ObservationBundle:Script:autocomplete.html.twig") }}
 {% endblock %}
+
+

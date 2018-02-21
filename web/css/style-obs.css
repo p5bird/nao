@@ -1,3 +1,15 @@
 .media-object-searchresult {
 	height: 3em;
 }
+
+img.obs-img-form {
+	height: 12em;
+}
+
+.submit-area {
+	padding-top: 2em;
+}
+
+img.img-area-obs-details {
+	height: 25em;
+}

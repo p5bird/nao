@@ -127,6 +127,13 @@ nao_obs_edit:
     requirements:
         id: \d+
 
+nao_obs_remove:
+    path: /observation/remove/{id}
+    defaults:
+        _controller: ObservationBundle:Observation:remove
+    requirements:
+        id: \d+
+
 nao_obs_user_list:
     path: /observation/userList
     defaults:

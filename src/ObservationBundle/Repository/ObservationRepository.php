@@ -59,6 +59,16 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 		return $queryBuilder->getQuery()->getSingleScalarResult();
     }
 
+    public function countForUser($user)
+    {
+		$queryBuilder = $this->createQueryBuilder('obs');
+		$queryBuilder
+			->where('obs.author = :user')
+				->setParameter('user', $user)
+			->select('count(obs)');
+		return $queryBuilder->getQuery()->getSingleScalarResult();
+    }
+
     public function searchFilteredQuery($search)
     {
 		$queryBuilder = $this->createQueryBuilder('obs');

@@ -29,8 +29,6 @@ class ObservationController extends Controller
     public function addAction(Request $request)
     {
         $observation = new Observation();
-        //$image = new Image();
-        //$observation->getImages()->add($image);
         $formObs = $this->createForm(ObservationType::class, $observation);
 
         $formObs->handleRequest($request);
@@ -240,6 +238,38 @@ class ObservationController extends Controller
 
 
     /**
+     * @Route("/observation/remove/{id}", name="nao_obs_remove")
+     */
+    public function removeAction($id)
+    {
+
+        $entityManager = $this
+            ->getDoctrine()
+            ->getManager();
+
+        $observation = $entityManager
+            ->getRepository('ObservationBundle:Observation')
+            ->findOneBy(['id' => $id]);
+
+        if (empty($observation)) {
+            return $this->redirectToRoute('nao_obs_user_list'
+            );            
+        }
+        
+        if ($observation->hasImage() and is_null($observation->getImage()->getImageFile()))
+        {
+            $entityManager->remove($observation->getImage());
+            $observation->setImage(null);
+        }
+        $entityManager->remove($observation);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('nao_obs_user_list');
+    }
+
+
+
+    /**
      * @Route("/observation/show/{id}", name="nao_obs_show")
      */
     public function showAction($id)
@@ -287,8 +317,15 @@ class ObservationController extends Controller
                 ['day' => 'desc']
             );
 
+        $totalObs = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('ObservationBundle:Observation')
+            ->countForUser($user);
+
         return $this->render('ObservationBundle:Observation:showUserList.html.twig', [
-            'observations'   => $observations
+            'observations'   => $observations,
+            'totalObs'       => $totalObs
         ]);
     }
 

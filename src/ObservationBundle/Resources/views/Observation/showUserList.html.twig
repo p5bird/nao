@@ -4,61 +4,73 @@
 
 {% block content %}
 
-	{% for alert in app.session.flashbag.get('alert') %}
-		<p class="alert alert-{{ alert.type }}">{{ alert.content }}</p>
-	{% endfor %}
+	<div class="user-interface-page-header">
 
-	{% if observations is empty %}
-		<div class="container">
-			<p>Vous n'avez pas d'observation.</p>
-		</div>
-	{% else %}
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-12">
-					<h1>Mes observations</h1>
-				</div>
-				<div class="col-xs-12">
-					<div class="table-responsive">
-						<table class="table table-sm table-hover">
-							<thead>
+        {% for alert in app.session.flashbag.get('alert') %}
+            <p class="alert alert-{{ alert.type }}">{{ alert.content }}</p>
+        {% endfor %}
+
+        <div class="page-name">
+            Mes observations
+        </div>
+        <div class="validate-edit">
+        	<h3><span class="label label-default">{{ observations|length }}</span></h3>
+            {# <input type="submit" value="Ajouter" class="btn btn-nao"/> #}
+        </div>
+    </div>
+    
+    <div class="container">
+	    <div class="col-xs-12 profile-edit">
+
+			{% if observations is empty %}
+				<div class="alert alert-default">
+	                Vous n'avez pas encore d'observation.
+	            </div>
+
+			{% else %}
+
+				<div class="table-responsive">
+					<table class="table table-sm table-hover">
+						<thead>
+	    					<tr>
+	    						<th scope="col">Statut / Observation</th>
+	    						<th scope="col">Edition</th>
+	    					</tr>
+						</thead>
+	    				<tbody>
+							{% for observation in observations %}
 		    					<tr>
-		    						<th scope="col">Statut / Observation</th>
-		    						<th scope="col">Edition</th>
+		    						<td>
+		    							<a href="{{ path('nao_obs_show', {'id': observation.id}) }}" class="btn {{ not observation.hasValidation ? 'text-warning' : observation.validated ? 'text-success' : 'text-danger' }}">
+			    							{% if not observation.hasValidation %}
+			    								<i class="fas fa-pause-circle fa-lg" title="en attente de validation"></i>
+			    							{% elseif observation.validated %}
+			    								<i class="fas fa-check-circle fa-lg" title="validée"></i> 
+											{% else %}
+												<i class="fas fa-times-circle fa-lg" title="validation rejetée"></i> 
+			    							{% endif %}
+			    							{% if observation.publish %}
+			    								<i class="fas fa-eye fa-lg" title="publiée"></i>
+			    							{% else %}
+												<i class="fas fa-eye-slash fa-lg" title="non publiée"></i> 
+			    							{% endif %}
+			    								
+		    								{{ observation.noName ? 'non identifié' : observation.birdName }} ( {{ observation.day|date('d/m/Y') }} )
+		    							</a>
+		    						</td>
+		    						<td class="btn-group">
+		    							<a href="{{ path('nao_obs_edit', {'id': observation.id}) }}" class="btn btn-default"><i class="fas fa-edit fa-lg" title="modifier"></i></a>
+		    							<a href="{{ path('nao_obs_remove', {'id': observation.id}) }}" class="btn btn-danger"><i class="fas fa-trash-alt fa-lg" title="supprimer"></i></a>
+		    						</td>
 		    					</tr>
-							</thead>
-		    				<tbody>
-								{% for observation in observations %}
-			    					<tr>
-			    						<td>
-			    							<a href="{{ path('nao_obs_show', {'id': observation.id}) }}" class="btn {{ not observation.hasValidation ? 'text-warning' : observation.validated ? 'text-success' : 'text-danger' }}">
-				    							{% if not observation.hasValidation %}
-				    								<i class="fas fa-pause-circle fa-lg" title="en attente de validation"></i>
-				    							{% elseif observation.validated %}
-				    								<i class="fas fa-check-circle fa-lg" title="validée"></i> 
-												{% else %}
-													<i class="fas fa-times-circle fa-lg" title="validation rejetée"></i> 
-				    							{% endif %}
-				    							{% if observation.publish %}
-				    								<i class="fas fa-eye fa-lg" title="publiée"></i>
-				    							{% else %}
-													<i class="fas fa-eye-slash fa-lg" title="non publiée"></i> 
-				    							{% endif %}
-				    								
-			    								{{ observation.noName ? 'non identifié' : observation.birdName }} ( {{ observation.day|date('d/m/Y') }} )
-			    							</a>
-			    						</td>
-			    						<td class="btn-group">
-			    							<a href="{{ path('nao_obs_edit', {'id': observation.id}) }}" class="btn btn-default"><i class="fas fa-edit fa-lg" title="modifier"></i></a>
-			    							<a href="#" class="btn btn-danger"><i class="fas fa-trash-alt fa-lg" title="supprimer"></i></a>
-			    						</td>
-			    					</tr>
-								{% endfor %}
-		    				</tbody>
-		    			</table>
-	    			</div>
-	    		</div>
-	    	</div>
+							{% endfor %}
+	    				</tbody>
+	    			</table>
+    			</div>
+
+			{% endif %}
+
 	    </div>
-	{% endif %}
+	</div>
+
 {% endblock %}

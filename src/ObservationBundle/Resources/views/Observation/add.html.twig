@@ -3,10 +3,17 @@
 {% block title %}{{ parent() }} - Ajouter une observation{% endblock %}
 
 {% block content %}
-    <h2>Ajouter une observation</h2>
+    <div class="user-interface-page-header">
+        <div class="page-name">
+            Ajouter une observation
+        </div>
+        <div class="validate-edit">
+            <input type="submit" value="Ajouter" class="btn btn-nao"/>
+        </div>
+    </div>
     
     <div class="container">
-	    <div class="row">
+	    <div class="col-xs-12 profile-edit">
 	    	{{ include("ObservationBundle:Form:observation.html.twig") }}
 	    </div>
 	</div>

@@ -26,7 +26,6 @@ class SearchType extends AbstractType
                 'required'  => false,
                 'label'     => "Nom de l'oiseau",
                 'attr'      => [
-                    'class'     => 'form-control',
                     'data-autocomplete'  => 'birdName'
                 ]
             ])
@@ -40,31 +39,19 @@ class SearchType extends AbstractType
             ])
             ->add('obsAuthor',          Type\TextType::class, [
                 'required'  => false,
-                'label'     => "Pseudo de l'observateur",
-                'attr'      => [
-                    'class'     => 'form-control'
-                ]
+                'label'     => "Pseudo de l'observateur"
             ])
             // ->add('ObsDate',            Type\DateType::class, [
             //     'required'  => true,
-            //     'label'     => "Date de l'observation",
-            //     'attr'      => [
-            //         'class'     => 'form-control'
-            //     ]
+            //     'label'     => "Date de l'observation"
             // ])
             ->add('obsLocation',          Type\TextType::class, [
                 'required'  => false,
-                'label'     => "Chercher un lieu",
-                'attr'      => [
-                    'class'     => 'form-control'
-                ]
+                'label'     => "Chercher un lieu"
             ])
             ->add('obsWithImage',         Type\CheckboxType::class, [
                 'required'  => false,
-                'label'     => false,
-                'attr'      => [
-                    'class'     => 'form-control'
-                ]
+                'label'     => false
             ])
             ->add('search',          Type\SubmitType::class, [
                 'label'     => "Rechercher"

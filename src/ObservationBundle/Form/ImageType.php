@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type;
 
 class ImageType extends AbstractType
 {
@@ -22,6 +23,10 @@ class ImageType extends AbstractType
                     'data-toggle' => 'modal',
                     'data-target' => '#cropp-image'
                 ]
+            ])
+            ->add('authorization',   Type\CheckboxType::class, [
+                'required'  => true,
+                'label'     => "Autoriser la publication/réutilisation de la photo."
             ]);
     }/**
      * {@inheritdoc}
