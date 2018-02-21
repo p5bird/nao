@@ -58,6 +58,14 @@ class ObservationController extends Controller
             if ($formObs->get('valid')->isClicked())
             {
                 $observation->setPublish(true);
+                if ($user->hasRole('ROLE_NATURALISTE'))
+                {
+                    $validation = new Validation();
+                    $validation->setAuthor($user);
+                    $validation->setDate(new \DateTime());
+                    $validation->setGranted(true);
+                    $observation->setValidation($validation);
+                }
             }
             if ($formObs->get('save')->isClicked())
             {
@@ -256,7 +264,7 @@ class ObservationController extends Controller
             );            
         }
         
-        if ($observation->hasImage() and is_null($observation->getImage()->getImageFile()))
+        if ($observation->hasImage())
         {
             $entityManager->remove($observation->getImage());
             $observation->setImage(null);

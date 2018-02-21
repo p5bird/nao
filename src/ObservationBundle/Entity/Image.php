@@ -37,7 +37,7 @@ class Image
 
     /**
      * @ORM\OneToOne(targetEntity="ObservationBundle\Entity\Observation", mappedBy="image")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $observation;
 
