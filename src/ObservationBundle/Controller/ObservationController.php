@@ -52,6 +52,20 @@ class ObservationController extends Controller
                 $observation->setImage($image);
             }
 
+            $observation = $this
+                ->get('observation.geoloc')
+                ->setLocationInfos($observation)
+            ;
+
+            if ($formObs->get('valid')->isClicked())
+            {
+                $observation->setPublish(true);
+            }
+            if ($formObs->get('save')->isClicked())
+            {
+                $observation->setPublish(false);
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($observation);
             $entityManager->flush();
@@ -127,6 +141,20 @@ class ObservationController extends Controller
             {
                 $entityManager->remove($observation->getValidation());
                 $observation->removeValidation();
+            }
+
+            $observation = $this
+                ->get('observation.geoloc')
+                ->setLocationInfos($observation)
+            ;
+
+            if ($formObs->get('valid')->isClicked())
+            {
+                $observation->setPublish(true);
+            }
+            if ($formObs->get('save')->isClicked())
+            {
+                $observation->setPublish(false);
             }
 
             $entityManager->persist($observation);
@@ -276,10 +304,7 @@ class ObservationController extends Controller
             ->getDoctrine()
             ->getManager()
             ->getRepository('ObservationBundle:Observation')
-            ->findBy(
-                ['validation' => null],
-                ['sendingDate' => 'desc']
-            );
+            ->getNeedValidation();
 
         return $this->render('ObservationBundle:Observation:showCheckList.html.twig', [
             'observations'   => $observations

@@ -32,4 +32,56 @@ class Geoloc
         }
         return $locationInfos;
 	}
+
+	public function setLocationInfos($observation)
+	{
+		$locationInfos = $this->getLocationInfos($observation);
+
+		$address = "";
+		if (array_key_exists('street_number', $locationInfos))
+		{
+			$address .= $locationInfos['street_number'];
+		}
+		if (array_key_exists('route', $locationInfos) and $locationInfos['route'] != 'Unnamed Road')
+		{
+			$address .= empty($address) ? "" : " ";
+			$address .= $locationInfos['route'];
+		}
+
+		if (array_key_exists('locality', $locationInfos))
+		{
+			$observation->setLocLocality($locationInfos['locality']);
+			$address .= empty($address) ? "" : ", ";
+			$address .= $locationInfos['locality'];
+		}
+
+		if (array_key_exists('administrative_area_level_2', $locationInfos))
+		{
+			$observation->setLocCounty($locationInfos['administrative_area_level_2']);
+		}
+
+		if (array_key_exists('administrative_area_level_1', $locationInfos))
+		{
+			$observation->setLocRegion($locationInfos['administrative_area_level_1']);
+		}
+
+		if (array_key_exists('country', $locationInfos))
+		{
+			$observation->setLocCountry($locationInfos['country']);
+			$address .= empty($address) ? "" : ", ";
+			$address .= $locationInfos['country'];
+		}
+
+		if (array_key_exists('postal_code', $locationInfos))
+		{
+			$observation->setLocPostalCode($locationInfos['postal_code']);
+		}
+
+		if (!empty($address))
+		{
+			$observation->setLocAddress($address);
+		}
+		
+		return $observation;
+	}
 }

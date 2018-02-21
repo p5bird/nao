@@ -49,9 +49,8 @@
     <script type="text/javascript" title="Reset form">
       document.querySelector("button[type='reset']").addEventListener('click', function() {
         var inputs = document.querySelectorAll("input[type='text']");
-
         Array.prototype.forEach.call( inputs, function( node ) {
-            node.value = null;
+            node.setAttribute('value', '');
         });
 
         var options = document.querySelectorAll('option');

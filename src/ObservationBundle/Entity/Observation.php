@@ -147,6 +147,48 @@ class Observation
      */
     private $updatedAt;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="locAddress", type="string", nullable=true)
+     */
+    private $locAddress;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="locLocality", type="string", nullable=true)
+     */
+    private $locLocality;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="locCounty", type="string", nullable=true)
+     */
+    private $locCounty;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="locRegion", type="string", nullable=true)
+     */
+    private $locRegion;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="locCountry", type="string", nullable=true)
+     */
+    private $locCountry;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="locPostalCode", type="string", nullable=true)
+     */
+    private $locPostalCode;
+
 
     /**
      * ---------------------------------------
@@ -158,6 +200,7 @@ class Observation
         $this->publish = false;
         $this->likes = 0;
         $this->reports = 0;
+        $this->day = new \DateTime('now');
     }
 
 
@@ -708,5 +751,149 @@ class Observation
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * Set locAddress
+     *
+     * @param string $locAddress
+     *
+     * @return Observation
+     */
+    public function setLocAddress($locAddress)
+    {
+        $this->locAddress = $locAddress;
+
+        return $this;
+    }
+
+    /**
+     * Get locAddress
+     *
+     * @return string
+     */
+    public function getLocAddress()
+    {
+        return $this->locAddress;
+    }
+
+    /**
+     * Set locLocality
+     *
+     * @param string $locLocality
+     *
+     * @return Observation
+     */
+    public function setLocLocality($locLocality)
+    {
+        $this->locLocality = $locLocality;
+
+        return $this;
+    }
+
+    /**
+     * Get locLocality
+     *
+     * @return string
+     */
+    public function getLocLocality()
+    {
+        return $this->locLocality;
+    }
+
+    /**
+     * Set locCounty
+     *
+     * @param string $locCounty
+     *
+     * @return Observation
+     */
+    public function setLocCounty($locCounty)
+    {
+        $this->locCounty = $locCounty;
+
+        return $this;
+    }
+
+    /**
+     * Get locCounty
+     *
+     * @return string
+     */
+    public function getLocCounty()
+    {
+        return $this->locCounty;
+    }
+
+    /**
+     * Set locRegion
+     *
+     * @param string $locRegion
+     *
+     * @return Observation
+     */
+    public function setLocRegion($locRegion)
+    {
+        $this->locRegion = $locRegion;
+
+        return $this;
+    }
+
+    /**
+     * Get locRegion
+     *
+     * @return string
+     */
+    public function getLocRegion()
+    {
+        return $this->locRegion;
+    }
+
+    /**
+     * Set locCountry
+     *
+     * @param string $locCountry
+     *
+     * @return Observation
+     */
+    public function setLocCountry($locCountry)
+    {
+        $this->locCountry = $locCountry;
+
+        return $this;
+    }
+
+    /**
+     * Get locCountry
+     *
+     * @return string
+     */
+    public function getLocCountry()
+    {
+        return $this->locCountry;
+    }
+
+    /**
+     * Set locPostalCode
+     *
+     * @param string $locPostalCode
+     *
+     * @return Observation
+     */
+    public function setLocPostalCode($locPostalCode)
+    {
+        $this->locPostalCode = $locPostalCode;
+
+        return $this;
+    }
+
+    /**
+     * Get locPostalCode
+     *
+     * @return string
+     */
+    public function getLocPostalCode()
+    {
+        return $this->locPostalCode;
     }
 }

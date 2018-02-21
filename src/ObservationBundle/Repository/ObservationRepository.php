@@ -23,6 +23,17 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 		return $queryBuilder->getQuery()->getResult();
 	}
 
+	public function getNeedValidation()
+	{
+		$queryBuilder = $this->createQueryBuilder('obs');
+		$queryBuilder
+			->where('obs.validation IS NULL')
+			->andWhere('obs.publish = :publish')
+				->setParameter('publish', true)
+			->orderBy('obs.day', 'DESC');
+		return $queryBuilder->getQuery()->getResult();
+	}
+
     public function getObservationsFromDate(\DateTime $date){
         $qb = $this->_em->createQueryBuilder();
         $date->modify('first day of this month');
@@ -67,7 +78,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 			;
 		}
 
-		if (!is_null($search->getBirdName()))
+		if (!empty($search->getBirdName()))
 		{
 			$queryBuilder
 				->andWhere('tax.nameVern = :nameVern')
@@ -75,7 +86,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 			;
 		}
 
-		if (!is_null($search->getBirdFamily()))
+		if (!empty($search->getBirdFamily()))
 		{
 			$queryBuilder
 				->andWhere('tax.family = :family')
@@ -83,7 +94,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 			;
 		}
 
-		if (!is_null($search->getBirdOrder()))
+		if (!empty($search->getBirdOrder()))
 		{
 			$queryBuilder
 				->andWhere('tax.order = :order')
@@ -91,7 +102,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 			;
 		}
 
-		if (!is_null($search->getObsAuthor()))
+		if (!empty($search->getObsAuthor()))
 		{
 			$queryBuilder
 				->leftJoin('obs.author', 'user')
@@ -100,7 +111,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 			;
 		}
 
-		// if (!is_null($search->getObsDate()))
+		// if (!empty($search->getObsDate()))
 		// {
 		// 	$queryBuilder
 		// 		->andWhere('obs.day = :day')
@@ -112,6 +123,18 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 		{
 			$queryBuilder
 				->andWhere('obs.image IS NOT NULL')
+			;
+		}
+
+		// var_dump($search->getObsLocation());
+		// var_dump(empty($search->getObsLocation())); die;
+
+		if (!empty($search->getObsLocation()))
+		{
+			$queryBuilder
+				->andWhere('obs.locLocality LIKE :location OR obs.locCounty LIKE :location OR obs.locRegion LIKE :location OR obs.locPostalCode LIKE :location OR obs.locPostalCode LIKE :countyCode')
+				->setParameter('location', $search->getObsLocation())
+				->setParameter('countyCode', substr($search->getObsLocation(), 0, 2) .'%')
 			;
 		}
 

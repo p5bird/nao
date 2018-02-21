@@ -70,7 +70,10 @@ class ObservationType extends AbstractType
                 ]
             ])
             ->add('valid',          Type\SubmitType::class, [
-                'label'     => "Envoyer"
+                'label'     => "Demander la publication"
+            ])
+            ->add('save',          Type\SubmitType::class, [
+                'label'     => "Sauvegarder"
             ]);
     }
 
