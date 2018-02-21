@@ -167,7 +167,7 @@ class User extends BaseUser implements ParticipantInterface {
     /**
      * @var boolean
      *
-     * @ORM\Column(name="profilePrivacy", type="boolean")
+     * @ORM\Column(name="profilePrivacy", type="boolean", nullable=true)
      */
     private $profilePrivacy;
 

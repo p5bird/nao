@@ -9,7 +9,7 @@
     {{ article.content }}
 
     {% if article.image is not defined %}
-        <img src="{{ asset('/img/no-image.png') }}" class="user-avatar-image-edit"/>
+        <img src="{{ asset('/img/no-user.png') }}" class="user-avatar-image-edit"/>
     {% else %}
         <img src="{{ asset('/uploads/blog/') }}article-{{ article.uniqueId }}.{{ article.image.extension }}" class="user-avatar-image-edit"/>
     {% endif %}

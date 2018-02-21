@@ -8,6 +8,15 @@ $( document ).ready(function() {
             $('.navbar-user-username').css('padding', '13px 0 0 30px');
             $('.navbar-user-group').css('padding-left', '30px');
             $('.brand-name').css('font-size', '22px');
+            $('.logo-sidebar').css({
+                'float' : 'none',
+                'margin' : '0 0 10px 40px',
+            });
+            $('.title-sidebar').css({
+                'padding' : '0 10px 0 5px',
+                'font-size' : '15pt',
+                'text-align' : 'center'
+            });
         } else {
             $('#sidebar').removeClass('col-md-1').addClass('col-md-2');
             $('#user-interface-page-content').removeClass('col-md-11').addClass('col-md-10');
@@ -15,6 +24,15 @@ $( document ).ready(function() {
             $('.navbar-user-username').css('padding', '13px 0 0 0');
             $('.navbar-user-group').css('padding-left', '0px');
             $('.brand-name').css('font-size', '22pt');
+            $('.logo-sidebar').css({
+                'float' : 'left',
+                'margin' : '0',
+            });
+            $('.title-sidebar').css({
+                'padding' : '5px 0 0 70px',
+                'font-size' : '18pt',
+                'text-align' : 'initial'
+            });
         }
     });
 

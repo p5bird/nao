@@ -23,7 +23,7 @@
                             <table class="table list-users-table list-table">
                                 <thead>
                                     <tr>
-                                        <th class="col-md-4">
+                                        <th class="col-md-3">
                                             <span>Utilisateur</span>
                                         </th>
                                         <th class="col-md-2">
@@ -33,6 +33,9 @@
                                             <span>Rôle</span>
                                         </th>
                                         <th class="col-md-2">
+                                            <span>Statut</span>
+                                        </th>
+                                        <th class="col-md-1">
                                             <span>Email</span>
                                         </th>
                                         <th class="col-md-2">
@@ -49,7 +52,7 @@
                                     <tr class="list-user-single">
                                         <td class="list-user-td">
                                             {% if user.avatar.id is not defined %}
-                                                <img src="{{ asset('/img/no-image.png') }}" class="list-user-avatar"/>
+                                                <img src="{{ asset('/img/no-user.png') }}" class="list-user-avatar"/>
                                             {% else %}
                                                 <img src="{{ asset('/uploads/avatar/') }}user-{{ user.id }}.{{ user.avatar.extension }}" class="list-user-avatar"/>
                                             {% endif %}
@@ -81,6 +84,19 @@
                                             </div>
                                         </td>
                                         <td class="list-user-td">
+                                            <div class="list-user-status">
+                                                {% if user.enabled == 1 %}
+                                                    <span class="active">
+                                                        Activé
+                                                    </span>
+                                                    {% else %}
+                                                    <span class="inactive">
+                                                        Inactif
+                                                    </span>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                        <td class="list-user-td">
                                             <div class="list-user-email">
                                                 <a href="mailto:{{ user.email }}">
                                                     {{ user.email }}
@@ -92,18 +108,24 @@
                                                 {% if is_granted('ROLE_ADMIN') %}
                                                     <div class="col-md-4">
                                                         <a href="{{ path('nao_show_user', {'id' : user.id}) }}">
-                                                            <i class="fas fa-eye"></i>
+                                                            <i class="fas fa-eye" title="Voir"></i>
                                                         </a>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <a href="{{ path('nao_edit_user', {'id' : user.id}) }}">
-                                                            <i class="fas fa-edit"></i>
+                                                            <i class="fas fa-edit" title="Modifier"></i>
                                                         </a>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <a href="">
-                                                            <i class="fas fa-trash"></i>
-                                                        </a>
+                                                        {% if user.enabled == 0 %}
+                                                                <a href="{{ path('nao_activate_user', {'id' : user.id}) }}">
+                                                                    <i class="fas fa-check" title="Activer"></i>
+                                                                </a>
+                                                            {% else %}
+                                                                <a href="{{ path('nao_deactivate_user', {'id' : user.id}) }}">
+                                                                    <i class="fas fa-trash" title="Désactiver"></i>
+                                                                </a>
+                                                        {% endif %}
                                                     </div>
                                                 {% else %}
                                                     {{ user.city }}

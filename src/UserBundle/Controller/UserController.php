@@ -35,7 +35,7 @@ class UserController extends Controller {
      * @param $id
      * @return Response
      * @throws \Exception
-     * @Route("/user/{id}/", name="nao_show_user")
+     * @Security("has_role('ROLE_USER')")
      */
     public function showUserAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
@@ -56,7 +56,6 @@ class UserController extends Controller {
      * @param Request $request
      * @param $id
      * @return RedirectResponse|Response
-     * @Route("/user/{id}/edit/", name="nao_edit_user")
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function editUserAction(Request $request, $id) {
@@ -85,10 +84,43 @@ class UserController extends Controller {
     }
 
     /**
+     * Deactivate user
+     *
+     * @param $id
+     * @return RedirectResponse
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function deactivateUserAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('UserBundle:User')->find($id);
+
+        $user->setEnabled(0);
+        $em->flush();
+
+        return $this->redirectToRoute('nao_list_users');
+    }
+
+    /**
+     * Activate user
+     *
+     * @param $id
+     * @return RedirectResponse
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function activateUserAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('UserBundle:User')->find($id);
+
+        $user->setEnabled(1);
+        $em->flush();
+
+        return $this->redirectToRoute('nao_list_users');
+    }
+
+    /**
      * List all users
      *
      * @return Response
-     * @Route("/user/all/", name="nao_list_users")
      * @Security("has_role('ROLE_USER')")
      */
     public function listUsersAction() {
@@ -105,7 +137,6 @@ class UserController extends Controller {
      * Dashboard
      *
      * @return Response
-     * @Route("/dashboard", name="nao_dashboard")
      * @Security("has_role('ROLE_USER')")
      */
     public function dashboardAction() {
@@ -116,7 +147,6 @@ class UserController extends Controller {
      * Statistics
      *
      * @return Response
-     * @Route("/stats", name="nao_stats")
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function statsAction() {
@@ -154,6 +184,7 @@ class UserController extends Controller {
      * @param User $user
      * @return JsonResponse
      * @Route("/{id}/editUserAvatar", name="nao_edit_user_avatar")
+     * @Security("has_role('ROLE_USER')")
      */
     public function editUserAvatarAction(Request $request, User $user){
         $em = $this->getDoctrine()->getManager();

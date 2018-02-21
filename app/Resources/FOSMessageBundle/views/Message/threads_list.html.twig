@@ -35,11 +35,16 @@
                                 {% for thread in threads %}
                                 <tr class="list-message-single">
                                     <td class="list-message-td">
-                                        {% if thread.createdBy.avatar.id is not defined %}
-                                            <img src="{{ asset('/img/no-image.png') }}" class="list-message-avatar"/>
-                                        {% else %}
-                                            <img src="{{ asset('/uploads/avatar/') }}user-{{ thread.createdBy.id }}.png" class="list-message-avatar"/>
-                                        {% endif %}
+                                        <div class="list-message-avatar-container">
+                                            {% if thread.createdBy.avatar.id is not defined %}
+                                                <img src="{{ asset('/img/no-image.png') }}" class="list-message-avatar"/>
+                                            {% else %}
+                                                <img src="{{ asset('/uploads/avatar/') }}user-{{ thread.createdBy.id }}.png" class="list-message-avatar">
+                                            {% endif %}
+                                            {% if not fos_message_is_read(thread) %}
+                                                <i class="fas fa-circle"></i>
+                                            {% endif %}
+                                        </div>
                                         <div class="list-message-username">
                                             {{ thread.createdBy }}
                                         </div>
@@ -48,10 +53,6 @@
                                         <a href="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}">
                                             {{ thread.subject }}
                                         </a>
-
-                                        {% if not fos_message_is_read(thread) %}
-                                            <i class="fas fa-circle"></i>
-                                        {% endif %}
                                     </td>
                                     <td class="list-message-td">
                                         <div class="list-message-inscription">

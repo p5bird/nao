@@ -45,7 +45,7 @@
                         {{ form_label(form.avatar) }}
                         <div class="user-avatar-edit">
                             {% if user.avatar.id is not defined %}
-                                <img src="{{ asset('/img/no-image.png') }}" class="user-avatar-image-edit"/>
+                                <img src="{{ asset('/img/no-user.png') }}" class="user-avatar-image-edit"/>
                             {% else %}
                                 <img src="{{ asset('/uploads/avatar/') }}user-{{ user.id }}.{{ user.avatar.extension }}" class="user-avatar-image-edit"/>
                             {% endif %}

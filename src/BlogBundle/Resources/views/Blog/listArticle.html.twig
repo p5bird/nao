@@ -26,10 +26,10 @@
                                     <th class="col-md-3">
                                         <span>Auteur</span>
                                     </th>
-                                    <th class="col-md-2">
+                                    <th class="col-md-3">
                                         <span>Article</span>
                                     </th>
-                                    <th class="col-md-4">
+                                    <th class="col-md-3">
                                         <span>Extrait</span>
                                     </th>
                                     <th class="col-md-2">
@@ -45,7 +45,7 @@
                                     <tr class="list-article-single">
                                         <td class="list-article-td">
                                             {% if article.author.avatar.id is not defined %}
-                                                <img src="{{ asset('/img/no-image.png') }}" class="list-user-avatar"/>
+                                                <img src="{{ asset('/img/no-user.png') }}" class="list-user-avatar"/>
                                             {% else %}
                                                 <img src="{{ asset('/uploads/avatar/') }}user-{{ article.author.id }}.{{ article.author.avatar.extension }}" class="list-user-avatar"/>
                                             {% endif %}
@@ -66,7 +66,7 @@
                                         </td>
                                         <td class="list-article-td">
                                             <div class="list-article-content">
-                                                <span>{{ article.content|slice(0, 130) }}</span>
+                                                <span>{{ article.content|slice(0, 92) }}</span>
                                             </div>
                                         </td>
                                         <td class="list-article-td">
@@ -78,12 +78,12 @@
                                             <div class="list-article-actions">
                                                 <div class="col-md-6">
                                                     <a href="">
-                                                        <i class="fas fa-edit"></i>
+                                                        <i class="fas fa-edit" title="Editer"></i>
                                                     </a>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <a href="">
-                                                        <i class="fas fa-trash"></i>
+                                                    <a href="{{ path('nao_blog_delete_article', {'id' : article.id}) }}">
+                                                        <i class="fas fa-trash" title="Supprimer"></i>
                                                     </a>
                                                 </div>
                                             </div>

@@ -21,7 +21,7 @@
                         <div class="show-avatar">
                             <div class="user-avatar-show">
                                 {% if app.user.avatar.id is not defined %}
-                                    <img src="{{ asset('/img/no-image.png') }}" class="user-avatar-image-show"/>
+                                    <img src="{{ asset('/img/no-user.png') }}" class="user-avatar-image-show"/>
                                     {% else %}
                                     <img src="{{ asset('/uploads/avatar/') }}user-{{ app.user.id }}.{{ user.avatar.extension }}" class="user-avatar-image-show"/>
                                 {% endif %}
