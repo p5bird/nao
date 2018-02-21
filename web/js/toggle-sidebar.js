@@ -13,8 +13,9 @@ $( document ).ready(function() {
                 'margin' : '0 0 10px 40px',
             });
             $('.title-sidebar').css({
-                'padding' : '0px',
-                'font-size' : '20pt'
+                'padding' : '0 10px 0 5px',
+                'font-size' : '15pt',
+                'text-align' : 'center'
             });
         } else {
             $('#sidebar').removeClass('col-md-1').addClass('col-md-2');
@@ -28,8 +29,9 @@ $( document ).ready(function() {
                 'margin' : '0',
             });
             $('.title-sidebar').css({
-                'padding' : '0 0 0 70px',
-                'font-size' : '17pt'
+                'padding' : '5px 0 0 70px',
+                'font-size' : '18pt',
+                'text-align' : 'initial'
             });
         }
     });

@@ -160,8 +160,9 @@ img.logo-sidebar {
 }
 
 .title-sidebar {
-    font-size: 17pt;
-    padding: 0 0 0 70px;
+    font-size: 18pt;
+    padding: 5px 0 0 65px;
+    font-family: "Architects Daughter", 'Roboto', sans-serif;
 }
 
 .toggle-sidebar {
@@ -186,7 +187,7 @@ img.logo-sidebar {
 .layout-icons {
     display: inline-block;
     float: right;
-    padding: 15px 135px 0 0;
+    padding: 15px 170px 0 0;
     font-size: 12pt;
 }
 
@@ -669,6 +670,10 @@ span.inactive {
     float: left;
 }
 
+.list-article-content {
+    text-align: justify;
+}
+
 table.list-articles-table {
     border-collapse: separate;
     border-spacing: 0 1em;
@@ -947,6 +952,10 @@ img.last-observation {
 
 .btn-nao:hover {
     color: #FFFFFF !important;
+}
+
+span.orange {
+    color: #f89a1d;
 }
 /******************************
 *******************************
