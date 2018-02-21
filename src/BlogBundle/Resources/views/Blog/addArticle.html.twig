@@ -7,7 +7,7 @@
 
     <!-- Modal -->
     <div class="modal fade" id="cropp-avatar" tabindex="-1" role="dialog" aria-labelledby="cropp-avatar" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-article" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="cropp-avatar-title">Redimensionnez votre avatar</h5>
@@ -27,10 +27,10 @@
     </div>
 
     {{ form_start(form) }}
-    <input type="hidden" name="base64File[image]" id="base64File_image"/>
-    <input type="file" data-toggle="modal" data-target="#cropp-avatar" id="article_image_file">
+    <input type="hidden" name="base64File[image]" id="base64File_image" required/>
+    <input type="file" data-toggle="modal" data-target="#cropp-avatar" id="article_image_file" required>
     <img id="image"/>
-    <input type="submit" value="Mettre à jour" class="btn btn-nao btn-lg btn-success"/>
+    <input type="submit" value="Mettre à jour" class="btn btn-nao btn-lg btn-nao"/>
     {{ form_end(form) }}
 
 
@@ -38,13 +38,13 @@
         // Initialize image cropper
         var $uploadCrop = $('#profile-pic-preview').croppie({
             viewport: {
-                width: 315,
-                height: 315,
+                width: 1200,
+                height: 300,
                 type: 'square'
             },
             boundary: {
-                width: 600,
-                height: 600
+                width: 1200,
+                height: 400
             },
             enableOrientation: true,
             enableExif: true

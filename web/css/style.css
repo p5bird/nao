@@ -4,12 +4,20 @@ body {
 
 .no-padding {
     padding: 0 !important;
-    margin: 0 !important;
+    margin: 0;
+}
+
+.no-padding-left {
+    padding-left: 0 !important;
+}
+
+.no-padding-right {
+    padding-right: 0 !important;
 }
 
 /******************************
 *******************************
-*********USER INTERFACE********
+**********BACK OFFICE**********
 *******************************
 *******************************/
 
@@ -23,7 +31,7 @@ body {
     -moz-transition: ease-in-out 0.4s;
     -ms-transition: ease-in-out 0.4s;
     -o-transition: ease-in-out 0.4s;
-    transition: ease-in-out 0.4s;=
+    transition: ease-in-out 0.4s;
     overflow: auto;
     overflow-x: hidden;
 }
@@ -81,7 +89,7 @@ body {
 }
 
 .side.navbar-user {
-    background: #42b1c2;
+    background: #00bcd4;
     padding: 10px 0 10px 20px;
     margin: 20px 0 20px 0;
 }
@@ -187,7 +195,7 @@ img.logo-sidebar {
 .layout-icons {
     display: inline-block;
     float: right;
-    padding: 15px 170px 0 0;
+    padding: 15px 135px 0 0;
     font-size: 12pt;
 }
 
@@ -549,7 +557,7 @@ a.user-options-menu-dropdown-item {
 }
 
 .show-user-observation i.fas {
-    color: #42b1c2;
+    color: #00bcd4;
 }
 
 .show-user-observation i.fa-star {
@@ -906,6 +914,252 @@ td.search {
     padding: 50px 0 0 0;
     font-size: 40px;
 }
+/******************************
+*******************************
+**********FRONT OFFICE*********
+*******************************
+*******************************/
+
+/********************
+********Index********
+********************/
+
+img.header-logo {
+    max-width: 200px;
+    padding: 15px 0 10px 0;
+}
+
+nav.navbar.navbar-home {
+    background-color: #FFFFFF;
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+}
+
+.nav-home a {
+    border-right: 1px solid #dddddd;
+    border-left: 1px solid #dddddd;
+}
+
+.nav-home>li>a:hover, .nav-home>li>a:focus {
+    text-decoration: none;
+    background-color: #3f5562 !important;
+    color: #FFFFFF;
+    -webkit-transition: ease-in-out 0.4s;
+    -moz-transition: ease-in-out 0.4s;
+    -ms-transition: ease-in-out 0.4s;
+    -o-transition: ease-in-out 0.4s;
+    transition: ease-in-out 0.4s;
+}
+
+.nav-home>li>a:focus {
+    border-color: #3f5562 !important;
+}
+
+.sub-menu-index a {
+    font-size: 12pt !important;
+}
+
+.navbar-home {
+    margin: 0 !important;
+}
+
+.navbar-home a {
+    color: #5d5d5d;
+    font-weight: 500;
+    font-size: 12pt !important;
+}
+
+.navbar-social-media {
+    font-size: 25pt;
+    color: #3f5562;
+    padding: 24px 18px 0 0;
+}
+
+.navbar-social-media i {
+    padding: 0 8px;
+}
+
+.header-search {
+    padding: 20px 0 0 0;
+}
+
+.btn-search {
+    font-weight: 500;
+}
+
+.index-slide {
+    background-color: #222a34ff;
+}
+
+.carousel-control .fa-chevron-left, .carousel-control .fa-chevron-right, .carousel-control .icon-next, .carousel-control .icon-prev {
+    position: absolute;
+    top: 50%;
+    z-index: 5;
+    display: inline-block;
+    margin-top: -10px;
+}
+
+.index-carousel-inner {
+    max-height: 300px;
+}
+
+.index-main-content-carousel-inner {
+    height: 400px;
+}
+
+.index-main-content {
+    padding: 40px 0 40px 0;
+}
+
+#index-main-content-carousel img {
+    min-height: 400px;
+}
+
+.index-article-container-title {
+    color: #3f5562;
+    font-weight: 500;
+    font-size: 15pt;
+}
+
+.index-article-image {
+    padding: 20px 0 0 0;
+    height: 115px;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+}
+
+img.index-article-single-image {
+    width: 115px;
+    height: 115px;
+}
+
+.index-article-single {
+    border-bottom: 1px solid #dddddd;
+    padding: 12px 0 10px 0;
+}
+
+.index-article-title {
+    font-weight: 500;
+    font-size: 13pt;
+}
+
+.index-article-title a {
+    color: #3f5562;
+}
+
+.index-article-title a:hover {
+    text-decoration: none;
+}
+
+.index-article-meta {
+    color: #676767;
+}
+
+.index-article-excerpt {
+    padding: 10px 0 0 0;
+    text-align: justify;
+}
+
+.index-buttons {
+    text-align: center;
+}
+
+.index-buttons button {
+    font-weight: 500;
+    font-size: 13pt;
+    padding: 15px;
+    width: 150px;
+    border-radius: 8px;
+}
+
+.index-main-content-carousel {
+    padding: 20px 0 0 0;
+}
+
+footer.footer {
+    padding: 30px 0 40px 0;
+}
+
+.container-footer {
+    background: #222a34ff;
+    padding: 0 0 30px 0;
+}
+
+.footer-section-title {
+    color: #e6e6e6;
+    font-size: 13pt;
+    font-weight: 500;
+}
+
+.footer-section-content {
+    color: #b4b4b4;
+}
+
+.footer-section-content ul {
+    padding: 10px 0 0 0;
+    list-style-type: none;
+    line-height: 25px;
+}
+
+.footer-section {
+    border-right: 1px solid #b4b4b4;
+    height: 220px;
+}
+
+.footer-section-title, .footer-section-content {
+    padding: 0 10px 0 10px;
+}
+
+.pre-footer {
+    background: #2c3033;
+    color: #b4b4b4;
+    text-align: center;
+    padding: 10px 0 10px 0;
+    font-weight: 500;
+    font-size: 14pt;
+}
+
+.footer-newsletter {
+    text-align: center;
+    color: #FFFFFF;
+    background: #f89a1d;
+    width: 350px;
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 10px;
+    font-weight: 500;
+}
+
+.quick-actions {
+    padding: 80px 0 80px 0;
+    text-align: center;
+}
+
+.quick-actions-icon {
+    font-size: 40pt;
+    color: #00bcd4;
+}
+
+.quick-action-title {
+    color: #00bcd4;
+    font-weight: 500;
+    font-size: 15pt;
+    padding: 0 60px;
+}
+
+.quick-actions-content {
+    color: #616161;
+    padding: 10px 0 0 0;
+}
+
+.four-grid {
+    padding: 40px 0 0 0;
+}
+
+.four-grid .col-md-6 {
+    margin: 0 0 20px 0;
+}
 
 /*****/
 
@@ -945,12 +1199,22 @@ img.last-observation {
 }
 
 .btn-nao {
-    background: #42b1c2;
+    background: #00bcd4;
     border-color: #3994a2;
     color: #FFFFFF;
 }
 
 .btn-nao:hover {
+    color: #FFFFFF !important;
+}
+
+.btn-search {
+    background: #3f5562;
+    border-color: #3f5562;
+    color: #FFFFFF;
+}
+
+.btn-search:hover {
     color: #FFFFFF !important;
 }
 
@@ -994,5 +1258,11 @@ span.orange {
     form.fos_message_thread_new {
         max-width: 70%;
         padding: 20px;
+    }
+}
+
+@media (min-width: 768px) {
+    .modal-dialog {
+        width: 1200px !important;
     }
 }

@@ -1,9 +1,190 @@
 {% extends "AppBundle::layout.html.twig" %}
 
 {% block content %}
-    <h1>Page d'accueil</h1>
-    <ul class="list-group list-group-flush">
-    	<li class="list-group-item"><a href="{{ path('nao_dashboard') }}">dashboard</li>
-    	<li class="list-group-item"><a href="{{ path('nao_obs_search') }}">chercher observation</li>
-    </ul>
+    <div class="container-fluid index-slide">
+        <div class="row">
+            <div class="container">
+                <div id="index-carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner index-carousel-inner">
+                        <div class="item active">
+                            <img src="{{ asset('img/1.jpg') }}" alt="Oiseau">
+                        </div>
+
+                        <div class="item">
+                            <img src="{{ asset('img/2.jpg') }}" alt="Oiseau">
+                        </div>
+
+                        <div class="item">
+                            <img src="{{ asset('img/3.jpg') }}" alt="Oiseau">
+                        </div>
+                    </div>
+
+                    <a class="left carousel-control" href="#index-carousel" data-slide="prev">
+                        <span class="fas fa-chevron-left"></span>
+                        <span class="sr-only">Précédent</span>
+                    </a>
+                    <a class="right carousel-control" href="#index-carousel" data-slide="next">
+                        <span class="fas fa-chevron-right"></span>
+                        <span class="sr-only">Suivant</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid index-main-content">
+        <div class="row">
+            <div class="container">
+                <div class="col-md-6 no-padding-left">
+                    <div class="index-article-container-title">
+                        Actualités
+                    </div>
+                    {% for key, article in lastThreeArticles %}
+                        <div class="index-article-single">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="index-article-image" style="background: url({{ asset('/uploads/blog/') }}article-{{ article.uniqueId }}.{{ article.image.extension }});">
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="index-article-content">
+                                        <div class="index-article-title">
+                                            <a href="{{ path('nao_blog_show_article', {'slug' : article.slug }) }}">
+                                                {{ article.title }}
+                                            </a>
+                                        </div>
+                                        <div class="index-article-meta">
+                                            {{ article.createdAt|date }}
+                                        </div>
+                                        <div class="index-article-excerpt">
+                                            {{ article.content|slice(0, 185) }}...
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="index-buttons">
+                            <div class="row">
+                                <div class="col-md-4 no-padding-left">
+                                    <a href="{{ path('nao_dashboard') }}">
+                                        <button class="btn btn-nao">
+                                            Mon espace<br/> NAO
+                                        </button>
+                                     </a>
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-nao">
+                                        Faire un<br/> don
+                                    </button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-nao">
+                                        Adhérer à<br/> la NAO
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="index-main-content-carousel">
+                            <div id="index-main-content-carousel" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner index-main-content-carousel-inner">
+                                    <div class="item active">
+                                        <img src="https://picturecorrect-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/stunning-bird-photos.gif" alt="Oiseau">
+                                    </div>
+
+                                    <div class="item">
+                                        <img src="http://cdn.walkthroughindia.com/wp-content/uploads/2016/07/scarlet-macaw-667x400.jpg" alt="Oiseau">
+                                    </div>
+
+                                    <div class="item">
+                                        <img src="http://cdn.walkthroughindia.com/wp-content/uploads/2016/08/Pitta_Indian.jpg" alt="Oiseau">
+                                    </div>
+                                </div>
+
+                                <a class="left carousel-control" href="#index-main-content-carousel" data-slide="prev">
+                                    <span class="fas fa-chevron-left"></span>
+                                    <span class="sr-only">Précédent</span>
+                                </a>
+                                <a class="right carousel-control" href="#index-main-content-carousel" data-slide="next">
+                                    <span class="fas fa-chevron-right"></span>
+                                    <span class="sr-only">Suivant</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="container quick-actions">
+                <div class="col-md-3">
+                    <div class="quick-actions-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="quick-action-title">
+                        Devenez membre NAO
+                    </div>
+                    <div class="quick-actions-content">
+                        Rejoignez une communauté d'ornithologues et de passionnés
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="quick-actions-icon">
+                        <i class="fa fa-camera-retro"></i>
+                    </div>
+                    <div class="quick-action-title">
+                        Partagez vos observations
+                    </div>
+                    <div class="quick-actions-content">
+                        Contribuez à l'amélioration de notre base de données sur les oiseaux
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="quick-actions-icon">
+                        <i class="fab fa-earlybirds"></i>
+                    </div>
+                    <div class="quick-action-title">
+                        Participez à la préservation
+                    </div>
+                    <div class="quick-actions-content">
+                        Aidez à la sensibilisation et la préservation des espèces en danger
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="quick-actions-icon">
+                        <i class="fas fa-sitemap"></i>
+                    </div>
+                    <div class="quick-action-title">
+                        Faites partie du réseau NAO
+                    </div>
+                    <div class="quick-actions-content">
+                        Rejoignez des membres impliqués dans leurs observations
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="container four-grid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="https://www.lpo.fr/images/modules/encart_1_470.jpg"/>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="https://www.lpo.fr/images/modules/EncartSorties_1_470.jpg"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="https://www.lpo.fr/images/modules/EncartReserves_2_470.jpg"/>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="https://www.lpo.fr/images/modules/clef_pour_agir_480.jpg"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

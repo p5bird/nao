@@ -194,11 +194,6 @@
     }
 }
 
-.nav>li>a:focus, .nav>li>a:hover {
-    text-decoration: none;
-    background-color: #2c3144 !important;
-    color: #FFFFFF;
-}
 .navbar-brand.side {
     float:none !important;
 }

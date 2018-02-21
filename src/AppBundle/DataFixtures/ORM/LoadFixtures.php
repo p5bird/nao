@@ -237,6 +237,7 @@ class LoadFixtures extends AbstractFixture {
         $user->setPlainPassword('admin');
         $user->setEmail('gatienhrd@gmail.com');
         $user->setEnabled(1);
+        $user->setRoles(['ROLE_ADMIN']);
         $user->addGroup($manager->getRepository('UserBundle:Group')->findOneBy(['name' => 'Poussin']));
 
         $manager->persist($user);
