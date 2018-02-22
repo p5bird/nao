@@ -14,59 +14,96 @@
             Mes observations
         </div>
         <div class="validate-edit">
-        	<h3><span class="label label-default">{{ observations|length }}</span></h3>
-            {# <input type="submit" value="Ajouter" class="btn btn-nao"/> #}
+        	<h3><span class="label label-default">{{ totalObs }}</span></h3>
         </div>
     </div>
     
     <div class="container">
-	    <div class="col-xs-12 profile-edit">
+	    <div class="col-xs-12 user-interface-content-container">
 
-			{% if observations is empty %}
+			{% if totalObs == 0 %}
 				<div class="alert alert-default">
 	                Vous n'avez pas encore d'observation.
 	            </div>
 
 			{% else %}
 
-				<div class="table-responsive">
-					<table class="table table-sm table-hover">
-						<thead>
-	    					<tr>
-	    						<th scope="col">Statut / Observation</th>
-	    						<th scope="col">Edition</th>
-	    					</tr>
-						</thead>
-	    				<tbody>
-							{% for observation in observations %}
-		    					<tr>
-		    						<td>
-		    							<a href="{{ path('nao_obs_show', {'id': observation.id}) }}" class="btn {{ not observation.hasValidation ? 'text-warning' : observation.validated ? 'text-success' : 'text-danger' }}">
-			    							{% if not observation.hasValidation %}
-			    								<i class="fas fa-pause-circle fa-lg" title="en attente de validation"></i>
-			    							{% elseif observation.validated %}
-			    								<i class="fas fa-check-circle fa-lg" title="validée"></i> 
-											{% else %}
-												<i class="fas fa-times-circle fa-lg" title="validation rejetée"></i> 
-			    							{% endif %}
-			    							{% if observation.publish %}
-			    								<i class="fas fa-eye fa-lg" title="publiée"></i>
-			    							{% else %}
-												<i class="fas fa-eye-slash fa-lg" title="non publiée"></i> 
-			    							{% endif %}
-			    								
-		    								{{ observation.noName ? 'non identifié' : observation.birdName }} ( {{ observation.day|date('d/m/Y') }} )
-		    							</a>
-		    						</td>
-		    						<td class="btn-group">
-		    							<a href="{{ path('nao_obs_edit', {'id': observation.id}) }}" class="btn btn-default"><i class="fas fa-edit fa-lg" title="modifier"></i></a>
-		    							<a href="{{ path('nao_obs_remove', {'id': observation.id}) }}" class="btn btn-danger"><i class="fas fa-trash-alt fa-lg" title="supprimer"></i></a>
-		    						</td>
-		    					</tr>
+{# 				<div class="input-group">
+                    <input class="form-control" id="system-search" name="q" placeholder="Rechercher" required>
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                    </span>
+                </div> #}
+
+                {% set obsPerPage = 10 %}
+
+				<div class="panel">	
+				{% if counts.rejected > 0 %}
+					<ul class="list-group">
+						<li class="list-group-item list-group-item-danger">
+							<span class="badge">{{ counts.rejected }}</span>
+							<a href="{{ path('nao_obs_userList') }}">Observations rejetées</a>
+						</li>
+					</ul>
+
+					<table class="table table-sm table-hover table-striped list-table">
+						<tbody>
+							{% for observation in pagination %}
+								{% if observation.isrejected %}
+										{{ include('ObservationBundle:Item:singleobsuserlist.html.twig') }}
+								{% endif %}
 							{% endfor %}
-	    				</tbody>
-	    			</table>
-    			</div>
+						</tbody>
+					</table>
+				{% endif %}
+
+				{% if counts.saved > 0 %}
+					<ul class="list-group" id="list-obs-saved">
+						<li class="list-group-item list-group-item-warning">
+							<span class="badge">{{ counts.saved }}</span>
+							{% set page = counts.rejected // obsPerPage + 1 %}
+							<a href="{{ path('nao_obs_user_list') }}?page={{ page }}#list-obs-saved">
+							Observations sauvegardées</a>
+						</li>
+					</ul>
+
+					<table class="table table-sm table-hover table-striped list-table">
+						<tbody>
+							{% for observation in pagination %}
+								{% if observation.issaved %}
+										{{ include('ObservationBundle:Item:singleobsuserlist.html.twig') }}
+								{% endif %}
+							{% endfor %}
+						</tbody>
+					</table>
+				{% endif %}
+
+				{% if counts.validated > 0 %}
+					<ul class="list-group" id="list-obs-validated">
+						<li class="list-group-item list-group-item-success">
+							<span class="badge">{{ counts.validated }}</span>
+							{% set page = (counts.rejected + counts.saved) // obsPerPage + 1 %}
+							<a href="{{ path('nao_obs_user_list') }}?page={{ page }}#list-obs-validated">
+							Observations validées</a>
+						</li>
+					</ul>
+
+					<table class="table table-sm table-hover table-striped list-table">
+						<tbody>
+							{% for observation in pagination %}
+								{% if observation.isvalidated %}
+										{{ include('ObservationBundle:Item:singleobsuserlist.html.twig') }}
+								{% endif %}
+							{% endfor %}
+						</tbody>
+					</table>
+				{% endif %}	
+
+					<div class="panel-footer navigation">
+				    {{ knp_pagination_render(pagination) }}
+					</div>
+
+				</div>
 
 			{% endif %}
 
@@ -74,3 +111,5 @@
 	</div>
 
 {% endblock %}
+
+

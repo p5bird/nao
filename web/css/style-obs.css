@@ -13,3 +13,29 @@ img.obs-img-form {
 img.img-area-obs-details {
 	height: 25em;
 }
+
+.user-interface-content-container {
+    color: #4a5b65;
+}
+
+.user-interface-content-container i {
+    color: #4a5b65;
+}
+
+.user-interface-content-container i.icon-success {
+    color: green;
+}
+
+.user-interface-content-container i.icon-delete {
+    color: white;
+}
+
+@media (max-width: 768px) {
+	table tr {
+		display: block !important;
+		border-bottom: 1px solid lightgrey;
+	}
+	table tr td {
+		border: none !important;
+	}
+}

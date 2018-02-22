@@ -321,6 +321,34 @@ class Observation
         return false;
     }
 
+    /**
+     * Check if validations rejected
+     *
+     * @return bool
+     */
+    public function isRejected()
+    {
+        if (!is_null($this->validation) and $this->validation->getRejected())
+        {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Check if validations rejected
+     *
+     * @return bool
+     */
+    public function isSaved()
+    {
+        if (is_null($this->validation))
+        {
+            return true;
+        }
+        return false;
+    }
+
     public function hasImage()
     {
         if (is_null($this->getImage()))

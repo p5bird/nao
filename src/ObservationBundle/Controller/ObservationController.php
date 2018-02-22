@@ -313,27 +313,35 @@ class ObservationController extends Controller
      * @Route("/observation/showUserList", name="nao_obs_user_list")
      * @Security("has_role('ROLE_USER')")
      */
-    public function showUserListAction()
+    public function showUserListAction(Request $request)
     {
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
-        $observations = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('ObservationBundle:Observation')
-            ->findBy(
-                ['author' => $user],
-                ['day' => 'desc']
-            );
+        $entityManager = $this->getDoctrine()->getManager();
+        $obsRepository = $entityManager->getRepository('ObservationBundle:Observation');
+    
+        $observations = $obsRepository->findAllUser($user);
 
-        $totalObs = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('ObservationBundle:Observation')
-            ->countForUser($user);
+
+        $totalObs = $obsRepository->countForUser($user);
+
+        // pagination
+        $query = $obsRepository->findAllUserQuery($user);
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            10
+        );
+
+        $counts['rejected'] = $obsRepository->countUserRejected($user);
+        $counts['saved'] = $obsRepository->countUserSaved($user);
+        $counts['validated'] = $obsRepository->countUserValidated($user);
 
         return $this->render('ObservationBundle:Observation:showUserList.html.twig', [
             'observations'   => $observations,
-            'totalObs'       => $totalObs
+            'totalObs'       => $totalObs,
+            'pagination'   => $pagination,
+            'counts'        => $counts
         ]);
     }
 

@@ -34,6 +34,85 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 		return $queryBuilder->getQuery()->getResult();
 	}
 
+	public function findAllUserQuery($user)
+	{
+		$queryBuilder = $this->createQueryBuilder('obs');
+		$queryBuilder
+			->leftJoin('obs.author', 'user')
+			->andWhere('user.id = :userId')
+				->setParameter('userId', $user->getId())
+			->orderBy('obs.day', 'DESC');
+		return $queryBuilder;
+	}
+
+	public function findAllUser($user)
+	{
+		$queryBuilder = $this->findAllUserQuery($user);
+		return $queryBuilder->getQuery()->getResult();
+	}
+
+	public function findAllUserValidatedQuery($user)
+	{
+		$queryBuilder = $this->createQueryBuilder('obs');
+		$queryBuilder
+			->leftJoin('obs.author', 'user')
+			->andWhere('user.id = :userId')
+				->setParameter('userId', $user->getId())
+			->andWhere('obs.publish = :publish')
+				->setParameter('publish', true)
+			->leftJoin('obs.validation', 'val')
+			->andWhere('val.granted = :granted')
+				->setParameter('granted', true)
+			->orderBy('obs.day', 'DESC');
+		return $queryBuilder;
+	}
+
+	public function findAllUserValidated($user)
+	{
+		$queryBuilder = $this->findAllUserValidatedQuery($user);
+		return $queryBuilder->getQuery()->getResult();
+	}
+
+	public function findAllUserSavedQuery($user)
+	{
+		$queryBuilder = $this->createQueryBuilder('obs');
+		$queryBuilder
+			->leftJoin('obs.author', 'user')
+			->andWhere('user.id = :userId')
+				->setParameter('userId', $user->getId())
+			->andWhere('obs.publish = :publish')
+				->setParameter('publish', false)
+			->andWhere('obs.validation IS NULL')
+			->orderBy('obs.day', 'DESC');
+		return $queryBuilder;
+	}
+
+	public function findAllUserSaved($user)
+	{
+		$queryBuilder = $this->findAllUserSavedQuery($user);
+		return $queryBuilder->getQuery()->getResult();
+	}
+
+	public function findAllUserRejectedQuery($user)
+	{
+		$queryBuilder = $this->createQueryBuilder('obs');
+		$queryBuilder
+			->leftJoin('obs.author', 'user')
+			->andWhere('user.id = :userId')
+				->setParameter('userId', $user->getId())
+			->leftJoin('obs.validation', 'val')
+			->andWhere('val.rejected = :rejected')
+				->setParameter('rejected', true)
+			->orderBy('obs.day', 'DESC');
+		return $queryBuilder;
+	}
+
+	public function findAllUserRejected($user)
+	{
+		$queryBuilder = $this->findAllUserRejectedQuery($user);
+		return $queryBuilder->getQuery()->getResult();
+	}
+
     public function getObservationsFromDate(\DateTime $date){
         $qb = $this->_em->createQueryBuilder();
         $date->modify('first day of this month');
@@ -44,6 +123,27 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('date', $date);
 
         return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function countUserValidated($user)
+    {
+    	$queryBuilder = $this->findAllUserValidatedQuery($user);
+		$queryBuilder->select('count(obs)');
+		return $queryBuilder->getQuery()->getSingleScalarResult();
+    }
+
+    public function countUserSaved($user)
+    {
+    	$queryBuilder = $this->findAllUserSavedQuery($user);
+		$queryBuilder->select('count(obs)');
+		return $queryBuilder->getQuery()->getSingleScalarResult();
+    }
+
+    public function countUserRejected($user)
+    {
+    	$queryBuilder = $this->findAllUserRejectedQuery($user);
+		$queryBuilder->select('count(obs)');
+		return $queryBuilder->getQuery()->getSingleScalarResult();
     }
 
     public function countValidated()
