@@ -1,16 +1,14 @@
-{% extends "BlogBundle::layout.html.twig" %}
+{% extends "UserBundle::layout.html.twig" %}
 
-{% block title %}{{ parent() }} - Ajouter un article{% endblock %}
+{% block title %}{{ parent() }} - Blog{% endblock %}
 
 {% block content %}
-    <h1>Ajout article</h1>
-
     <!-- Modal -->
     <div class="modal fade" id="cropp-avatar" tabindex="-1" role="dialog" aria-labelledby="cropp-avatar" aria-hidden="true">
         <div class="modal-dialog modal-dialog-article" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="cropp-avatar-title">Redimensionnez votre avatar</h5>
+                    <h5 class="modal-title" id="cropp-avatar-title">Redimensionnez l'image d'en-tête</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -26,24 +24,48 @@
         </div>
     </div>
 
-    {{ form_start(form) }}
-    <input type="hidden" name="base64File[image]" id="base64File_image" required/>
-    <input type="file" data-toggle="modal" data-target="#cropp-avatar" id="article_image_file" required>
-    <img id="image"/>
-    <input type="submit" value="Mettre à jour" class="btn btn-nao btn-lg btn-nao"/>
-    {{ form_end(form) }}
+    <div class="user-interface-page-header">
+        <div class="page-name">
+            Ajouter un article
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 add-article-container">
+                {{ form_start(form) }}
+                <div class="add-article-image">
+                    <div class="add-article-image-label">Image</div>
+                    <div class="add-article-image-preview-container">
+                        <img id="add-article-image-preview"/>
+                    </div>
+                    <input type="hidden" name="base64File[image]" id="base64File_image" required/>
+                    <input type="file" class="custom-file-input" data-toggle="modal" data-target="#cropp-avatar" id="article_image_file" required>
+                </div>
 
+                <div class="add-article-title">
+                    {{ form_row(form.title) }}
+                </div>
+
+                <div class="add-article-content">
+                    {{ form_row(form.content) }}
+                </div>
+
+                <input type="submit" value="Valider" class="btn btn-nao"/>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
 
     <script type="text/javascript">
         // Initialize image cropper
         var $uploadCrop = $('#profile-pic-preview').croppie({
             viewport: {
-                width: 1200,
+                width: 900,
                 height: 300,
                 type: 'square'
             },
             boundary: {
-                width: 1200,
+                width: 900,
                 height: 400
             },
             enableOrientation: true,
@@ -65,11 +87,15 @@
                 type: 'canvas',
                 size: 'viewport'
             }).then(function (resp) {
-                $("#image").attr('src', resp);
+                $("#add-article-image-preview").attr('src', resp);
                 var temp = resp;
 
                 document.getElementById('base64File_image').value = temp;
             });
         });
+    </script>
+
+    <script type="text/javascript">
+        $('#article_content').prop('required', false);
     </script>
 {% endblock %}

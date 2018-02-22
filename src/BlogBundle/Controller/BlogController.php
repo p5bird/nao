@@ -27,10 +27,15 @@ class BlogController extends Controller {
 
     /**
      * @return Response
-     * @Route("/blog/", name="nao_blog_index")
      */
     public function indexAction() {
-        return $this->render('BlogBundle:Blog:index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+
+        $lastThreeArticles = $em->getRepository('BlogBundle:Article')->getLastThreeArticles();
+
+        return $this->render('BlogBundle:Blog:index.html.twig', array(
+            'lastThreeArticles' => $lastThreeArticles
+        ));
     }
 
     /**
@@ -55,7 +60,7 @@ class BlogController extends Controller {
 
             $uniqueId = substr(md5(mt_rand()), 0, 7);
             $article->setUniqueId($uniqueId);
-            $article->setSlug(mb_strtolower(str_replace(" ", "-", $this->container->get('app.replace_accented_char')->replace_accented_char($article->getTitle()))));
+            $article->setSlug(mb_strtolower(str_replace("'", "-", str_replace(" ", "-", $this->container->get('app.replace_accented_char')->replace_accented_char($article->getTitle())))));
 
             if ($data = $request->request->get('base64File')['image']) {
 
@@ -105,6 +110,7 @@ class BlogController extends Controller {
         $form = $this->createForm(CommentType::class, $comment);
 
         $comment->setArticle($article);
+        $comment->setAuthor($this->getUser());
 
         $form->handleRequest($request);
 

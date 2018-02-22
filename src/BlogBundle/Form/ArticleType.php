@@ -9,6 +9,7 @@
 namespace BlogBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -26,7 +27,7 @@ class ArticleType extends AbstractType {
                 ],
                 'error_bubbling' => true
             ))
-            ->add('content', TextType::class, array(
+            ->add('content', TextareaType::class, array(
                 'required' => true,
                 'label' => 'Contenu',
                 'attr' => [

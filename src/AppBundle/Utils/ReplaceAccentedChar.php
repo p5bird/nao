@@ -32,7 +32,13 @@ class ReplaceAccentedChar {
     'Ý'=>'Y',
     'ý'=>'y', 'ÿ'=>'y',
     'Ž'=>'Z',
-    'ž'=>'z'
+    'ž'=>'z',
+    '&' => '',
+    '\''=>'',
+    '"'=>'',
+    '@'=>'',
+    '€'=>'',
+    '$'=>''
     );
 
     public static function replace_accented_char($orig_string) {

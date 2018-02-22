@@ -6,7 +6,9 @@
             <header class="header">
                 <div class="container">
                     <div class="header-logo">
-                        <img src="{{ asset('img/logo-full.png') }}" class="header-logo"/>
+                        <a href="{{ path('nao_home') }}">
+                            <img src="{{ asset('img/logo-full.png') }}" class="header-logo"/>
+                        </a>
                         <form class="navbar-form navbar-right">
                             <div class="input-group header-search">
                                 <input type="text" class="form-control" placeholder="Rechercher...">
@@ -110,27 +112,27 @@
                         </div>
                         <div class="footer-section-content">
                             <ul>
-                                <li class="sub-menu-index">Lien</li>
-                                <li class="sub-menu-index">Lien</li>
-                                <li class="sub-menu-index">Lien</li>
-                                <li class="sub-menu-index">Lien</li>
-                                <li class="sub-menu-index">Lien</li>
-                                <li class="sub-menu-index">Lien</li>
+                                <li class="sub-menu-index">Participer</li>
+                                <li class="sub-menu-index">Consulter</li>
+                                <li class="sub-menu-index">Blog</li>
+                                <li class="sub-menu-index">Jeu</li>
+                                <li class="sub-menu-index">A propos</li>
+                                <li class="sub-menu-index">FAQ</li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-md-3 footer-section">
                         <div class="footer-section-title">
-                            Nos actions
+                            Contact
                         </div>
                         <div class="footer-section-content">
                             <ul>
-                                <li class="sub-menu-index">Lien</li>
-                                <li class="sub-menu-index">Lien</li>
-                                <li class="sub-menu-index">Lien</li>
-                                <li class="sub-menu-index">Lien</li>
-                                <li class="sub-menu-index">Lien</li>
-                                <li class="sub-menu-index">Lien</li>
+                                <li class="sub-menu-index">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="quick-contact" placeholder="Email" />
+                                        <textarea class="form-control" id="quick-contact" rows="5" id="message" placeholder="Message"></textarea>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -151,17 +153,35 @@
                     </div>
                     <div class="col-md-3 footer-section">
                         <div class="footer-section-title">
-                            Agir à nos côtés
+                            Partenaires
                         </div>
                         <div class="footer-section-content">
-                            <ul>
-                                <li class="sub-menu-index">Lien</li>
-                                <li class="sub-menu-index">Lien</li>
-                                <li class="sub-menu-index">Lien</li>
-                                <li class="sub-menu-index">Lien</li>
-                                <li class="sub-menu-index">Lien</li>
-                                <li class="sub-menu-index">Lien</li>
-                            </ul>
+                            <div class="footer-logos">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <a href="http://www.oiseaux.net">
+                                            <img src="{{ asset('img/logo-oiseauxnet.png') }}" class="logo-footer"/>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a href="http://www.ornithomedia.com">
+                                            <img src="{{ asset('img/logo-ornithomedia.png') }}" class="logo-footer" />
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <a href="https://inpn.mnhn.fr">
+                                            <img src="{{ asset('img/logo-inpn.png') }}" class="logo-footer"/>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a href="http://www.gepog.org">
+                                            <img src="{{ asset('img/logo-gepog.png') }}" class="logo-footer" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </footer>

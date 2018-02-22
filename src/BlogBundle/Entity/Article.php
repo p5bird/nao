@@ -61,7 +61,7 @@ class Article {
     private $author;
 
     /**
-     * @ORM\OneToMany(targetEntity="BlogBundle\Entity\Comment", mappedBy="article")
+     * @ORM\OneToMany(targetEntity="BlogBundle\Entity\Comment", mappedBy="article", cascade={"all"})
      */
     private $comments;
 
