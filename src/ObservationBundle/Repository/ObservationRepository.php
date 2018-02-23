@@ -41,7 +41,9 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 			->leftJoin('obs.author', 'user')
 			->andWhere('user.id = :userId')
 				->setParameter('userId', $user->getId())
-			->orderBy('obs.day', 'DESC');
+			->addOrderBy('obs.publish')
+			->addOrderBy('obs.day', 'DESC')
+			;
 		return $queryBuilder;
 	}
 
@@ -93,6 +95,26 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 		return $queryBuilder->getQuery()->getResult();
 	}
 
+	public function findAllUserNeedValidationQuery($user)
+	{
+		$queryBuilder = $this->createQueryBuilder('obs');
+		$queryBuilder
+			->leftJoin('obs.author', 'user')
+			->andWhere('user.id = :userId')
+				->setParameter('userId', $user->getId())
+			->andWhere('obs.publish = :publish')
+				->setParameter('publish', true)
+			->andWhere('obs.validation IS NULL')
+			->orderBy('obs.day', 'DESC');
+		return $queryBuilder;
+	}
+
+	public function findAllUserNeedValidation($user)
+	{
+		$queryBuilder = $this->findAllUserNeedValidationQuery($user);
+		return $queryBuilder->getQuery()->getResult();
+	}
+
 	public function findAllUserRejectedQuery($user)
 	{
 		$queryBuilder = $this->createQueryBuilder('obs');
@@ -139,6 +161,13 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 		return $queryBuilder->getQuery()->getSingleScalarResult();
     }
 
+    public function countUserNeedValidation($user)
+    {
+    	$queryBuilder = $this->findAllUserNeedValidationQuery($user);
+		$queryBuilder->select('count(obs)');
+		return $queryBuilder->getQuery()->getSingleScalarResult();
+    }
+
     public function countUserRejected($user)
     {
     	$queryBuilder = $this->findAllUserRejectedQuery($user);
@@ -174,8 +203,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 		$queryBuilder = $this->createQueryBuilder('obs');
 
 		$queryBuilder
-			->where('obs.publish = :publish')
-				->setParameter('publish', true)
+			->where('obs.validation IS NOT NULL')
 			->leftJoin('obs.validation', 'val')
 			->andWhere('val.granted = :granted')
 				->setParameter('granted', true)
@@ -192,7 +220,9 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 		{
 			$queryBuilder
 				->andWhere('tax.nameVern = :nameVern')
-				->setParameter('nameVern', $search->getBirdName())
+					->setParameter('nameVern', $search->getBirdName())
+				->orWhere('obs.birdName LIKE :birdName')
+					->setParameter('birdName', "%".$search->getBirdName()."%")
 			;
 		}
 

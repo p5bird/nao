@@ -78,11 +78,32 @@
 					</table>
 				{% endif %}
 
+				{% if counts.needValidation > 0 %}
+					<ul class="list-group" id="list-obs-saved">
+						<li class="list-group-item list-group-item-warning">
+							<span class="badge">{{ counts.needValidation }}</span>
+							{% set page = (counts.rejected + counts.saved) // obsPerPage + 1 %}
+							<a href="{{ path('nao_obs_user_list') }}?page={{ page }}#list-obs-saved">
+							Observations en attente de validation</a>
+						</li>
+					</ul>
+
+					<table class="table table-sm table-hover table-striped list-table">
+						<tbody>
+							{% for observation in pagination %}
+								{% if observation.needValidation %}
+										{{ include('ObservationBundle:Item:singleobsuserlist.html.twig') }}
+								{% endif %}
+							{% endfor %}
+						</tbody>
+					</table>
+				{% endif %}
+
 				{% if counts.validated > 0 %}
 					<ul class="list-group" id="list-obs-validated">
 						<li class="list-group-item list-group-item-success">
 							<span class="badge">{{ counts.validated }}</span>
-							{% set page = (counts.rejected + counts.saved) // obsPerPage + 1 %}
+							{% set page = (counts.rejected + counts.saved + counts.needValidation) // obsPerPage + 1 %}
 							<a href="{{ path('nao_obs_user_list') }}?page={{ page }}#list-obs-validated">
 							Observations validées</a>
 						</li>

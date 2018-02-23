@@ -335,6 +335,7 @@ class ObservationController extends Controller
 
         $counts['rejected'] = $obsRepository->countUserRejected($user);
         $counts['saved'] = $obsRepository->countUserSaved($user);
+        $counts['needValidation'] = $obsRepository->countUserNeedValidation($user);
         $counts['validated'] = $obsRepository->countUserValidated($user);
 
         return $this->render('ObservationBundle:Observation:showUserList.html.twig', [

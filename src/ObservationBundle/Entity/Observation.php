@@ -46,6 +46,7 @@ class Observation
      * @var bool
      *
      * @ORM\Column(name="noName", type="boolean")
+     * @Assert\NotNull()
      */
     private $noName;
 
@@ -209,7 +210,7 @@ class Observation
         $this->likes = 0;
         $this->reports = 0;
         $this->day = new \DateTime('now');
-        //$this->image = new Image();
+        $this->noName = false;
     }
 
 
@@ -343,13 +344,27 @@ class Observation
     }
 
     /**
-     * Check if validations rejected
+     * Check if validations saved
      *
      * @return bool
      */
     public function isSaved()
     {
-        if (is_null($this->validation))
+        if (is_null($this->validation) and !$this->publish)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Check if validations need validation
+     *
+     * @return bool
+     */
+    public function needValidation()
+    {
+        if (is_null($this->validation) and $this->publish)
         {
             return true;
         }
