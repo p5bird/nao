@@ -48,7 +48,10 @@
 		{{ form_label(formObs.place) }}
 		{{ form_widget(formObs.place) }}
 		<div id="map"></div>
-		<div class="alert alert-warning"><i class="fas fa-info-circle"></i> Bouger le curseur sur la carte pour indiquer les coordonnées géographiques</div>
+		<div class="alert alert-warning">
+			<i class="fas fa-info-circle"></i> 
+			Bouger le curseur sur la carte pour géolocaliser le lieu de l'observation
+		</div>
 		{{ form_label(formObs.latitude) }} <span class="required">*</span>
 		{{ form_widget(formObs.latitude) }}
 		{{ form_errors(formObs.latitude) }} 
@@ -140,7 +143,7 @@
 </div>
 
 <div class="col-xs-12">
-	{{ form_label(formObs.description.comment) }}
+	{{ form_label(formObs.description.comment) }} <span class="required">*</span>
 	{{ form_widget(formObs.description.comment) }}
 	{{ form_errors(formObs.description.comment) }}
 </div>

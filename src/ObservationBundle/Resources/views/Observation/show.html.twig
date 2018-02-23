@@ -1,8 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'AppBundle::layout.html.twig' %}
 
 {% block title %}{{ parent() }} - Observation{% endblock %}
 
-{% block body %}
+{% block content %}
 	{% if observation is null %}
 		<div class="container">
 			<p>Désolé, cette observation n'existe pas ou plus.</p>
