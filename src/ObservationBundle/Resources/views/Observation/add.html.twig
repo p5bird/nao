@@ -3,6 +3,7 @@
 {% block title %}{{ parent() }} - Ajouter une observation{% endblock %}
 
 {% block content %}
+
     <div class="user-interface-page-header">
         <div class="page-name">
             Ajouter une observation
@@ -20,6 +21,7 @@
 {% endblock %}
 
 {% block javascript %}
+    {{ parent() }}
     {{ include("ObservationBundle:Script:autocomplete.html.twig") }}
     {# {{ include("ObservationBundle:Script:imagecropper.html.twig") }} #}
     {{ include("ObservationBundle:Script:gmapedit.html.twig") }}

@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Entity\File as EmbeddedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use ObservationBundle\Validator\CopyrightFreeRequired;
 
 /**
  * Image
@@ -16,6 +17,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Entity(repositoryClass="ObservationBundle\Repository\ImageRepository")
  * @ORM\HasLifecycleCallbacks()
  * @Vich\Uploadable
+ * @CopyrightFreeRequired()
  */
 class Image
 {
@@ -36,8 +38,7 @@ class Image
     private $likes = 0;
 
     /**
-     * @ORM\OneToOne(targetEntity="ObservationBundle\Entity\Observation", mappedBy="image")
-     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
+     * @ORM\OneToOne(targetEntity="ObservationBundle\Entity\Observation")
      */
     private $observation;
 
@@ -67,7 +68,6 @@ class Image
      * @var boolean
      *
      * @ORM\Column(name="authorization", type="boolean")
-     * @Assert\IsTrue(message="Vous devez céder vos droits pour ajouter une image.")
      */
     private $authorization = false;
 

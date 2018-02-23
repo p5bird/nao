@@ -1,50 +1,175 @@
+<div class="form-title col-xs-12 btn-nao">
+		<h3>Informations obligatoires</h3>
+</div>
+
 <div class="col-xs-12">
 	{{ form_start(formObs) }}
 	{{ form_errors(formObs) }}
 </div>
 
-<div class="col-xs-12 col-sm-6" class="image-edit">
-    {% if observation.image %}
-    	<div class="">
-    		<img id="image-remover-tracker-on" src="{{ asset(vich_uploader_asset(observation.image, 'imageFile')) }}" alt="{{ observation.birdName }}" class="img-fluid rounded  obs-img-form img-responsive" />
-    	</div>
-    {% else %}
-        <img id="image-remover-tracker-off" src="{{ asset('/img/no-image.png') }}" class="user-avatar-image-edit"/>
-    {% endif %}
-	{{ form_errors(formObs.image.imageFile) }}
-    {{ form_label(formObs.image.imageFile) }}
-	{{ form_widget(formObs.image.imageFile) }}
-	{{ form_errors(formObs.image.imageFile) }}
-	<a id="image-remover" href="#" class="btn btn-danger btn-sm hide"><i class="fas fa-times"></i> supprimer l'image</a>
-	<div class="row">
-		<div class="col-xs-12">
-			{{ form_widget(formObs.image.authorization) }}
-			{{ form_errors(formObs.image.authorization) }}
+<div class="form-block">
+	<div class="col-xs-12 col-sm-6" class="image-edit">
+	    {% if observation.image and observation.image.imageName %}
+	    	<div class="">
+	    		<img id="image-remover-tracker-on" src="{{ asset(vich_uploader_asset(observation.image, 'imageFile')) }}" alt="{{ observation.birdName }}" class="img-fluid rounded  obs-img-form img-responsive" />
+	    	</div>
+	    {% else %}
+	        <div>
+	        	<img id="image-remover-tracker-off" src="{{ asset('/img/no-image.png') }}" class="user-avatar-image-edit img-responsive"/>
+	        </div>
+	    {% endif %}
+
+	    {% block modal %}
+			{% include 'ObservationBundle:Modal:imageauthor.html.twig' %}
+		{% endblock %}
+
+		{{ form_errors(formObs.image.imageFile) }}
+	    {{ form_label(formObs.image.imageFile) }}
+	    <a id="image-remover" href="#" class="btn btn-danger btn-sm hide"><i class="fas fa-times"></i> supprimer l'image</a>
+		{{ form_widget(formObs.image.imageFile) }}
+		{{ form_errors(formObs.image.imageFile) }}
+		<div class="row">
+			<div class="col-xs-12">
+				{{ form_widget(formObs.image.authorization) }}
+				{{ form_errors(formObs.image.authorization) }}
+			</div>
 		</div>
+		{{ form_label(formObs.birdName) }} <span class="required">*</span>
+		{{ form_widget(formObs.birdName) }}
+		{{ form_errors(formObs.birdName) }}
+		{{ form_widget(formObs.noName) }}
+		{{ form_errors(formObs.noName) }}
+		{{ form_label(formObs.day) }} <span class="required">*</span>
+		{{ form_widget(formObs.day) }}
+		{{ form_errors(formObs.day) }}
 	</div>
-	{{ form_label(formObs.birdName) }} <span class="required">*</span>
-	{{ form_widget(formObs.birdName) }}
-	{{ form_errors(formObs.birdName) }}
-	{{ form_widget(formObs.noName) }}
-	{{ form_errors(formObs.noName) }}
-	{{ form_label(formObs.day) }} <span class="required">*</span>
-	{{ form_widget(formObs.day) }}
-	{{ form_errors(formObs.day) }}
-	{{ form_label(formObs.comment) }} <span class="required">*</span>
-	{{ form_widget(formObs.comment) }}
-	{{ form_errors(formObs.comment) }}
+
+	<div class="col-xs-12 col-sm-6">
+		{{ form_label(formObs.place) }}
+		{{ form_widget(formObs.place) }}
+		<div id="map"></div>
+		<div class="alert alert-warning"><i class="fas fa-info-circle"></i> Bouger le curseur sur la carte pour indiquer les coordonnées géographiques</div>
+		{{ form_label(formObs.latitude) }} <span class="required">*</span>
+		{{ form_widget(formObs.latitude) }}
+		{{ form_errors(formObs.latitude) }} 
+		{{ form_label(formObs.longitude) }} <span class="required">*</span>
+		{{ form_widget(formObs.longitude) }}
+		{{ form_errors(formObs.longitude) }}
+	</div>
+</div>
+
+
+<div class="form-title col-xs-12 btn-nao">
+		<h3>Informations recommandées</h3>
+</div>
+
+
+
+<div class="form-title col-xs-12 btn-default">
+		<h4>Environnement de l'observation</h4>
+</div>
+
+<div class="col-xs-12">
+	<div class="col-xs-12 col-sm-6">
+		{{ form_label(formObs.description.environment) }}
+		{{ form_widget(formObs.description.environment) }}
+		{{ form_errors(formObs.description.environment) }}
+
+		{{ form_label(formObs.description.number) }}
+		{{ form_widget(formObs.description.number) }}
+		{{ form_errors(formObs.description.number) }}
+	</div>
+	<div class="col-xs-12 col-sm-6">
+		{{ form_label(formObs.description.nest) }}
+		{{ form_widget(formObs.description.nest) }}
+		{{ form_errors(formObs.description.nest) }}
+
+		{{ form_label(formObs.description.eggs) }}
+		{{ form_widget(formObs.description.eggs) }}
+		{{ form_errors(formObs.description.eggs) }}
+	</div>
+</div>
+
+<div class="form-title col-xs-12 btn-default">
+		<h4>Taille et morphologie de l'oiseau</h4>
+</div>
+
+<div class="col-xs-12">
+	<div class="col-xs-12 col-sm-6">
+		{{ form_label(formObs.description.size) }}
+		{{ form_widget(formObs.description.size) }}
+		{{ form_errors(formObs.description.size) }}
+
+		{{ form_label(formObs.description.wings) }}
+		{{ form_widget(formObs.description.wings) }}
+		{{ form_errors(formObs.description.wings) }}
+
+		{{ form_label(formObs.description.tail) }}
+		{{ form_widget(formObs.description.tail) }}
+		{{ form_errors(formObs.description.tail) }}
+
+		{{ form_label(formObs.description.paws) }}
+		{{ form_widget(formObs.description.paws) }}
+		{{ form_errors(formObs.description.paws) }}
+
+		{{ form_label(formObs.description.beak) }}
+		{{ form_widget(formObs.description.beak) }}
+		{{ form_errors(formObs.description.beak) }}
+	</div>
+	<div class="col-xs-12 col-sm-6">
+		{{ form_label(formObs.description.plumageColor) }}
+		{{ form_widget(formObs.description.plumageColor) }}
+		{{ form_errors(formObs.description.plumageColor) }}
+
+		{{ form_label(formObs.description.bareColor) }}
+		{{ form_widget(formObs.description.bareColor) }}
+		{{ form_errors(formObs.description.bareColor) }}
+
+		{{ form_label(formObs.description.pawsColor) }}
+		{{ form_widget(formObs.description.pawsColor) }}
+		{{ form_errors(formObs.description.pawsColor) }}
+
+		{{ form_label(formObs.description.beakColor) }}
+		{{ form_widget(formObs.description.beakColor) }}
+		{{ form_errors(formObs.description.beakColor) }}
+	</div>
+</div>
+
+<div class="form-title col-xs-12 btn-default">
+		<h4>Comportement et autres détails</h4>
+</div>
+
+<div class="col-xs-12">
+	{{ form_label(formObs.description.comment) }}
+	{{ form_widget(formObs.description.comment) }}
+	{{ form_errors(formObs.description.comment) }}
+</div>
+
+{# <div class="col-xs-12">
+	{{ form_label(formObs.description.escape) }}
+	{{ form_widget(formObs.description.escape) }}
+	{{ form_errors(formObs.description.escape) }}
+
+	{{ form_label(formObs.description.move) }}
+	{{ form_widget(formObs.description.move) }}
+	{{ form_errors(formObs.description.move) }}
+
+	{{ form_label(formObs.description.land) }}
+	{{ form_widget(formObs.description.land) }}
+	{{ form_errors(formObs.description.land) }}
+
+	{{ form_label(formObs.description.sounds) }}
+	{{ form_widget(formObs.description.sounds) }}
+	{{ form_errors(formObs.description.sounds) }}
+</div> #}
+<div class="form-title col-xs-12 btn-nao">
+		<h3>Soumission de l'observation</h3>
 </div>
 
 <div class="col-xs-12 col-sm-6">
-	{{ form_label(formObs.place) }}
-	{{ form_widget(formObs.place) }}
-	<div id="map"></div>
-	{{ form_label(formObs.latitude) }} <span class="required">*</span>
-	{{ form_widget(formObs.latitude) }}
-	{{ form_errors(formObs.latitude) }} 
-	{{ form_label(formObs.longitude) }} <span class="required">*</span>
-	{{ form_widget(formObs.longitude) }}
-	{{ form_errors(formObs.longitude) }}
+	{{ form_label(formObs.comment) }}
+	{{ form_widget(formObs.comment) }}
+	{{ form_errors(formObs.comment) }}
 </div>
 
 <div class="col-xs-12 text-center submit-area">

@@ -24,7 +24,6 @@ use UserBundle\Entity\User;
  * @ORM\Entity(repositoryClass="ObservationBundle\Repository\ObservationRepository")
  * @ORM\HasLifecycleCallbacks()
  * @Vich\Uploadable
- * @BirdNameExists()
  */
 class Observation
 {
@@ -39,6 +38,7 @@ class Observation
 
     /**
      * @ORM\ManyToOne(targetEntity="ObservationBundle\Entity\Taxon")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $taxon;
 
@@ -52,7 +52,7 @@ class Observation
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="day", type="date")
+     * @ORM\Column(name="day", type="datetime")
      * @Assert\NotBlank()
      * @Assert\Date()
      * @DateNoFuture()
@@ -79,7 +79,7 @@ class Observation
 
     /**
      * @var string
-     *
+     * @ORM\Column(name="place", type="text", nullable=true)
      */
     private $place;
 
@@ -93,8 +93,7 @@ class Observation
     /**
      * @var string
      *
-     * @ORM\Column(name="comment", type="text")
-     * @Assert\NotBlank()
+     * @ORM\Column(name="comment", type="text", nullable=true)
      */
     private $comment;
 
@@ -126,7 +125,7 @@ class Observation
     private $reports;
 
     /**
-     * @ORM\OneToOne(targetEntity="ObservationBundle\Entity\Image", inversedBy="observation", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="ObservationBundle\Entity\Image", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
      * @Assert\Valid()
      */
@@ -134,6 +133,7 @@ class Observation
 
     /**
      * @var string
+     * @ORM\Column(name="birdName", type="string", nullable=true)
      */
     private $birdName;
 
@@ -191,6 +191,12 @@ class Observation
      */
     private $locPostalCode;
 
+    /**
+     * @ORM\OneToOne(targetEntity="ObservationBundle\Entity\Description", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
+     * @Assert\Valid()
+     */
+    private $description;
 
     /**
      * ---------------------------------------
@@ -203,6 +209,7 @@ class Observation
         $this->likes = 0;
         $this->reports = 0;
         $this->day = new \DateTime('now');
+        //$this->image = new Image();
     }
 
 
@@ -412,6 +419,12 @@ class Observation
      */
     public function getNoName()
     {
+        if (is_null($this->taxon))
+        {
+            return true;
+        }
+        else
+
         return $this->noName;
     }
 
@@ -656,7 +669,7 @@ class Observation
      */
     public function getBirdName()
     {
-        if (is_null($this->taxon) or $this->birdName != $this->taxon->getNameVern())
+        if (is_null($this->taxon))
         {
             return $this->birdName;
         }
@@ -925,5 +938,29 @@ class Observation
     public function getLocPostalCode()
     {
         return $this->locPostalCode;
+    }
+
+    /**
+     * Set description
+     *
+     * @param \ObservationBundle\Entity\Description $description
+     *
+     * @return Observation
+     */
+    public function setDescription(\ObservationBundle\Entity\Description $description = null)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return \ObservationBundle\Entity\Description
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

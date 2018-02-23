@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type;
 use ObservationBundle\Form\ImageType;
+use ObservationBundle\Form\DescriptionType;
 
 class ObservationType extends AbstractType
 {
@@ -21,34 +22,38 @@ class ObservationType extends AbstractType
             ])
             ->add('birdName',          Type\TextType::class, [
                 'required'  => false,
-                'label'     => "Nom de l'oiseau",
+                'label'     => "Nom de l'espèce",
                 'attr'      => [
                     'data-autocomplete'  => 'birdName'
                 ]
             ])
             ->add('noName',         Type\CheckboxType::class, [
                 'required'  => false,
-                'label'     => "je ne connais pas le nom exact"
+                'label'     => "Je ne connais pas le nom exact de l'espèce"
             ])
-            ->add('day',            Type\DateType::class, [
+            ->add('day',            Type\DateTimeType::class, [
                 'required'  => true,
                 'label'     => "Date de l'observation"
             ])
-            ->add('latitude',       Type\NumberType::class, [
+            ->add('latitude',       Type\TextType::class, [
                 'required'  => true,
                 'label'     => "Latitude"
             ])
-            ->add('longitude',       Type\NumberType::class, [
+            ->add('longitude',       Type\TextType::class, [
                 'required'  => true,
                 'label'     => "Longitude"
             ])
             ->add('place',          Type\TextType::class, [
                 'required'  => false,
-                'label'     => "Chercher un lieu sur la carte"
+                'label'     => "Lieu de l'observation"
             ])
             ->add('comment',        Type\TextareaType::class, [
-                'required'  => true,
-                'label'     => "Description de l'observation"
+                'required'  => false,
+                'label'     => "Commentaire pour le validateur"
+            ])
+            ->add('description',    DescriptionType::class, [
+                'required'  => false,
+                'label'     => "Description détaillée"
             ])
             ->add('valid',          Type\SubmitType::class, [
                 'label'     => "Demander la publication",

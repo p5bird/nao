@@ -1,6 +1,6 @@
 
 <tr>
-	<td>
+	<td class="col-sm-1">
 		<a href="{{ path('nao_obs_show', {'id': observation.id}) }}" class="{{ not observation.hasValidation ? 'text-warning' : observation.validated ? 'text-success' : 'text-danger' }}">
 			{% if not observation.hasValidation %}
 				<span><i class="fas fa-save" title="en attente de validation"></i></span>
@@ -16,13 +16,15 @@
 			{% endif %}
 		</a>
 	</td>
-	<td>
-		{{ observation.noName ? 'non identifié' : observation.birdName }}
+	<td class="col-sm-6">
+		{% if observation.noName %}
+			<i class="far fa-question-circle"></i> 
+		{% endif %}
+		{{ observation.birdName ? observation.birdName : 'non identifié' }}
 	</td>
-	<td>
+	<td class="col-sm-3">
 		{{ observation.day|date('d/m/Y') }}
-	</td>
-	<td class="btn-group">
+	<td class="btn-group col-sm-2">
 		<a href="{{ path('nao_obs_edit', {'id': observation.id}) }}" class="btn btn-default btn-sm"><i class="fas fa-edit fa-lg" title="modifier"></i></a>
 		<a href="{{ path('nao_obs_remove', {'id': observation.id}) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-lg icon-delete" title="supprimer"></i></a>
 	</td>

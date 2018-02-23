@@ -17,6 +17,7 @@ class ImageType extends AbstractType
     {
         $builder
             ->add('imageFile',   FileType::class, [
+                'required'  => false,
                 'label'     => "Uploader une photo",
                 'attr'      => [
                     'class'     => 'custom-file-input',
@@ -25,8 +26,8 @@ class ImageType extends AbstractType
                 ]
             ])
             ->add('authorization',   Type\CheckboxType::class, [
-                'required'  => true,
-                'label'     => "Je cèdes mes droits de publication et de réutilisation de la photo."
+                'required'  => false,
+                'label'     => "Je cède les droits de publication et de réutilisation de la photo."
             ]);
     }/**
      * {@inheritdoc}

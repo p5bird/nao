@@ -10,13 +10,27 @@
 
 	// remove image and button on click
 	document.getElementById("image-remover").addEventListener('click', function(event){
-		document.querySelector("input[id*='_imageFile']").value = null;
-		document.querySelector("[id^='image-remover-tracker']").src = "{{ asset(file_image_default) }}";
-		this.classList.add("hide");
+		removeAction();
 	});
 
 	// show button if image added
 	document.querySelector("input[id*='_imageFile']").addEventListener('change', function(event){
 		document.getElementById("image-remover").classList.remove("hide");
+		$('#imageAuthorModal').modal('show');
+	});
+
+	function removeAction() {
+		document.querySelector("input[id*='_imageFile']").value = null;
+		document.querySelector("[id^='image-remover-tracker']").src = "{{ asset(file_image_default) }}";	
+		document.getElementById("image-remover").classList.add('hide');
+		$('input[id*="_image_authorization"]').prop( "checked", false );	
+	}
+
+	$('#imageAuthorReject').click(function() {
+		removeAction();
+	});
+
+	$('#imageAuthorAccept').click(function() {
+		$('input[id*="_image_authorization"]').prop( "checked", true );
 	});
 </script>
