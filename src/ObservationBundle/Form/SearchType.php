@@ -30,16 +30,27 @@ class SearchType extends AbstractType
                 ]
             ])
             ->add('birdFamily', Type\ChoiceType::class, [
+                'required'  => false,
                 'label'     => "Famille d'oiseaux",
                 'choices'   => $this->searchService->getBirdFamiliesChoices()
             ])
             ->add('birdOrder',  Type\ChoiceType::class, [
+                'required'  => false,
                 'label'     => "Ordre d'oiseaux",
                 'choices'   => $this->searchService->getBirdOrdersChoices()
             ])
             ->add('birdSize',   Type\ChoiceType::class, [
+                'required'  => false,
                 'label'     => "Taille de l'oiseau",
-                'choices'   => ['xs', 'xxs', 's', 'm', 'l', 'xl', 'xxl']
+                'choices'   => [
+                    'xs'    => 'petit', 
+                    'xxs'   => 'très petit', 
+                    's'     => 'moyen inférieur', 
+                    'm'     => 'moyen',
+                    'l'     => 'moyen supérieur',
+                    'xl'    => 'grand',
+                    'xxl'   => 'très grand'
+                ]
             ])
             ->add('birdColor',  Type\TextType::class, [
                 'required'  => false,
@@ -49,10 +60,10 @@ class SearchType extends AbstractType
                 'required'  => false,
                 'label'     => "Pseudo de l'observateur"
             ])
-            // ->add('ObsDate',            Type\DateType::class, [
-            //     'required'  => true,
-            //     'label'     => "Date de l'observation"
-            // ])
+            ->add('obsDate',            Type\DateType::class, [
+                'required'  => false,
+                'label'     => "Date de l'observation"
+            ])
             ->add('obsLocation', Type\TextType::class, [
                 'required'  => false,
                 'label'     => "Lieu de l'observation"

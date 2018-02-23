@@ -61,6 +61,23 @@ class Search
      */
     private $birdColor;
 
+    /**
+     * ---------------------------------------
+     * Constructor
+     * ---------------------------------------
+     */
+
+    /**
+     * ---------------------------------------
+     * EVENTS methods
+     * ---------------------------------------
+     */
+
+    /**
+     * ---------------------------------------
+     * Other methods
+     * ---------------------------------------
+     */
 
     /**
      * 
@@ -91,14 +108,67 @@ class Search
     /**
      * 
      */
+    public function hasDescriptionFilter()
+    {
+        if (empty($this->birdSize) and empty($this->birdColor))
+        {
+            return false;
+        }
+        return true;
+    }
+
+
+    /**
+     * 
+     */
     public function hasActiveFilter()
     {
-        if ($this->hasTaxonFilter() or $this->hasObsFilter())
+        if ($this->hasTaxonFilter() or $this->hasObsFilter() or $this->hasDescriptionFilter())
         {
             return true;
         }
         return false;
     }
+
+    /**
+     * Remove separators between each words of a string and revert a table of words
+     * @param  string $string string with separators between words
+     * @return array        array of strings
+     */
+    public function explodeString($string)
+    {
+        // explode string framed by :
+        //  " " , - _
+        $strings = preg_split("/[\s,-_]+/", $string);
+
+        return $strings;
+    }
+
+    /**
+     * Replace separators between each words to put -
+     * @param  string $string string with separators between words
+     * @return string         string formatted to google map API returns
+     */
+    public function googleLikeExpression($string)
+    {
+        // explode string framed by :
+        //  " " , _
+        $string = preg_replace("/[\s,_]+/", "-", $string);
+
+        return $string;
+    }
+
+    public function getObsLocationGoogle()
+    {
+        $location = $this->googleLikeExpression($this->obsLocation);
+        return $location;
+    }
+
+    /**
+     * ---------------------------------------
+     * Getters / Setters
+     * ---------------------------------------
+     */
 
     /**
      * Set birdName

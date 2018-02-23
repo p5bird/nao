@@ -219,8 +219,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 		if (!empty($search->getBirdName()))
 		{
 			$queryBuilder
-				->andWhere('tax.nameVern LIKE :nameVern OR obs.birdName LIKE :birdName')
-					->setParameter('nameVern', "%".$search->getBirdName()."%")
+				->andWhere('tax.nameVern LIKE :birdName OR obs.birdName LIKE :birdName OR tax.name LIKE :birdName')
 					->setParameter('birdName', "%".$search->getBirdName()."%")
 			;
 		}
@@ -241,22 +240,64 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 			;
 		}
 
+		if ($search->hasDescriptionFilter())
+		{
+			$queryBuilder
+				->leftJoin('obs.description', 'des')
+			;
+		}
+
+		if (!empty($search->getBirdSize()))
+		{
+			$queryBuilder
+				->andWhere('des.size = :size')
+				->setParameter('size', $search->getBirdSize())
+			;
+		}
+
+		if (!empty($search->getBirdColor()))
+		{
+
+			$colors = $search->explodeString($search->getBirdcolor());
+			$colorQuery = "";
+			foreach ($colors as $color)
+			{
+				// this comment below allow to find bird whithout every colors required
+				// The active query after found bird having every colors required
+				// $queryBuilder
+				// 	->andWhere('des.plumageColor LIKE :color OR des.bareColor LIKE :color OR des.pawsColor LIKE :color OR des.beakColor LIKE :color')
+				// 	->setParameter('color', "%".$color."%")
+				// ;
+				if (!empty($colorQuery))
+				{
+					$colorQuery .= " AND ";
+				}
+				$colorQuery .= "(des.plumageColor LIKE '%${color}%' OR des.bareColor LIKE '%${color}%' OR des.pawsColor LIKE '%${color}%' OR des.beakColor LIKE '%${color}%')";
+			}
+				$queryBuilder
+					->andWhere($colorQuery)
+				;
+		}
+
 		if (!empty($search->getObsAuthor()))
 		{
 			$queryBuilder
 				->leftJoin('obs.author', 'user')
-				->andWhere('user.username = :author')
+				->andWhere('user.username LIKE :author')
 				->setParameter('author', $search->getObsAuthor())
 			;
 		}
 
-		// if (!empty($search->getObsDate()))
-		// {
-		// 	$queryBuilder
-		// 		->andWhere('obs.day = :day')
-		// 		->setParameter('day', $search->getObsDate())
-		// 	;
-		// }
+		if (!empty($search->getObsDate()))
+		{
+			$dateFrom = new \DateTime($search->getObsDate()->format("Y-m-d")." 00:00:00");
+			$dateTo = new \DateTime($search->getObsDate()->format("Y-m-d")." 23:59:59");
+			$queryBuilder
+				->andWhere('obs.day BETWEEN :from AND :to')
+				->setParameter('from', $dateFrom)				
+				->setParameter('to', $dateTo)				
+			;
+		}
 
 		if ($search->getObsWithImage())
 		{
@@ -268,9 +309,10 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 		if (!empty($search->getObsLocation()))
 		{
 			$queryBuilder
-				->andWhere('obs.locLocality LIKE :location OR obs.locCounty LIKE :location OR obs.locRegion LIKE :location OR obs.locPostalCode LIKE :location OR obs.locPostalCode LIKE :countyCode')
+				->andWhere('obs.locLocality LIKE :locGoogle OR obs.locCounty LIKE :locGoogle OR obs.locRegion LIKE :locGoogle OR obs.locPostalCode LIKE :location OR obs.locPostalCode LIKE :countyCode OR obs.place LIKE :location')
 				->setParameter('location', "%".$search->getObsLocation()."%")
 				->setParameter('countyCode', substr($search->getObsLocation(), 0, 2) .'%')
+				->setParameter('locGoogle', "%".$search->getObsLocationGoogle()."%")
 			;
 		}
 

@@ -381,16 +381,10 @@ class ObservationController extends Controller
         $formSearch = $this->createForm(SearchType::class, $search);
         $formSearch->handleRequest($request);
 
-        if ($formSearch->isSubmitted() and $formSearch->isValid())
-        {
-            $session->set('search', $search);
-        }
-
         $obsJson = [];
         $observations = [];
 
         $observations = $obsRepository->SearchFiltered($search);
-
         foreach ($observations as $obs) {
             array_push($obsJson, [
                 'id'        => $obs->getId(),
@@ -401,20 +395,35 @@ class ObservationController extends Controller
             ]);
         }
 
-        $query = $obsRepository->SearchFilteredQuery($search);
-        $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', 1),
-            10
-        );
+        if ($formSearch->isSubmitted() and $formSearch->isValid())
+        {
+            $session->set('search', $search);
+
+            // pagination
+            $query = $obsRepository->SearchFilteredQuery($search);
+            $paginator = $this->get('knp_paginator');
+            $pagination = $paginator->paginate(
+                $query,
+                $request->query->getInt('page', 1),
+                10
+            );
+
+            return $this->render('ObservationBundle:Observation:search.html.twig', [
+                'observations'  => $observations,
+                'obsJson'       => json_encode($obsJson),
+                'formSearch'    => $formSearch->createView(),
+                'totalObs'      => $obsRepository->countValidated(),
+                'pagination'    => $pagination,
+                'search'        => $search
+            ]);
+
+        }
 
         return $this->render('ObservationBundle:Observation:search.html.twig', [
             'observations'  => $observations,
             'obsJson'       => json_encode($obsJson),
             'formSearch'    => $formSearch->createView(),
             'totalObs'      => $obsRepository->countValidated(),
-            'pagination'    => $pagination,
             'search'        => $search
         ]);
     }

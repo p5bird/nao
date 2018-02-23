@@ -1,4 +1,5 @@
 {% for observation in pagination %}
+	<div class="col-xs-12 col-sm-6">
 	<div class="media">
 	  <div class="media-left media-top">
 	    <a href="{{ path('nao_obs_show', {'id': observation.id}) }}">
@@ -7,8 +8,9 @@
 	  </div>
 	  <div class="media-body">
 	    <h4 class="media-heading">{{ observation.birdName }}</h4>
-	    <p>Observé le : {{ observation.day|date('d/m/Y') }}</p>
+	    <p>{{ observation.taxon.nameValid }}</p>
 	  </div>
+	</div>
 	</div>
 {% endfor %}
 
