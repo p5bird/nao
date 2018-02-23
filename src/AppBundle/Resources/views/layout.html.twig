@@ -193,24 +193,26 @@
 <button onclick="topFunction()" id="btnTop" title="en haut ^" class="btn btn-nao"><i class="fas fa-angle-up"></i></button>
 
 
-<script type="text/javascript" title="Go to Top">
-    // When the user scrolls down 20px from the top of the document, show the button
-    window.onscroll = function() {scrollFunction()};
+{% block javascript %}
+    <script type="text/javascript" title="Go to Top">
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {scrollFunction()};
 
-    function scrollFunction() {
-        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            document.getElementById("btnTop").style.display = "block";
-        } else {
-            document.getElementById("btnTop").style.display = "none";
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("btnTop").style.display = "block";
+            } else {
+                document.getElementById("btnTop").style.display = "none";
+            }
         }
-    }
 
-    // When the user clicks on the button, scroll to the top of the document
-    function topFunction() {
-        document.body.scrollTop = 0; // For Safari
-        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-    }
-</script>
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        }
+    </script>
+{% endblock %}
 
 
 {% endblock %}

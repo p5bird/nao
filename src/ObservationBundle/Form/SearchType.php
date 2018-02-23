@@ -24,7 +24,7 @@ class SearchType extends AbstractType
         $builder
             ->add('birdName',          Type\TextType::class, [
                 'required'  => false,
-                'label'     => "Nom de l'oiseau",
+                'label'     => "Nom de l'espèce",
                 'attr'      => [
                     'data-autocomplete'  => 'birdName'
                 ]
@@ -33,11 +33,19 @@ class SearchType extends AbstractType
                 'label'     => "Famille d'oiseaux",
                 'choices'   => $this->searchService->getBirdFamiliesChoices()
             ])
-            ->add('birdOrder', Type\ChoiceType::class, [
+            ->add('birdOrder',  Type\ChoiceType::class, [
                 'label'     => "Ordre d'oiseaux",
                 'choices'   => $this->searchService->getBirdOrdersChoices()
             ])
-            ->add('obsAuthor',          Type\TextType::class, [
+            ->add('birdSize',   Type\ChoiceType::class, [
+                'label'     => "Taille de l'oiseau",
+                'choices'   => ['xs', 'xxs', 's', 'm', 'l', 'xl', 'xxl']
+            ])
+            ->add('birdColor',  Type\TextType::class, [
+                'required'  => false,
+                'label'     => "Couleur(s) de l'oiseau"
+            ])
+            ->add('obsAuthor',  Type\TextType::class, [
                 'required'  => false,
                 'label'     => "Pseudo de l'observateur"
             ])
@@ -45,18 +53,18 @@ class SearchType extends AbstractType
             //     'required'  => true,
             //     'label'     => "Date de l'observation"
             // ])
-            ->add('obsLocation',          Type\TextType::class, [
+            ->add('obsLocation', Type\TextType::class, [
                 'required'  => false,
-                'label'     => "Chercher un lieu"
+                'label'     => "Lieu de l'observation"
             ])
-            ->add('obsWithImage',         Type\CheckboxType::class, [
+            ->add('obsWithImage', Type\CheckboxType::class, [
                 'required'  => false,
-                'label'     => false
+                'label'     => 'Observation avec photo uniquement'
             ])
-            ->add('search',          Type\SubmitType::class, [
+            ->add('search',      Type\SubmitType::class, [
                 'label'     => "Rechercher"
             ])
-            ->add('reset',          Type\ResetType::class, [
+            ->add('reset',       Type\ResetType::class, [
                 'attr'      => ['class' => 'reset']
             ])
             ;

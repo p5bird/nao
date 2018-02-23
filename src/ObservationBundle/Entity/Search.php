@@ -52,9 +52,14 @@ class Search
     private $obsLocation;
 
     /**
-     * 
+     * @var string
      */
     private $birdSize;
+
+    /**
+     * @var string
+     */
+    private $birdColor;
 
 
     /**
@@ -271,6 +276,54 @@ class Search
     public function getObsLocation()
     {
         return $this->obsLocation;
+    }
+
+    /**
+     * Set birdSize
+     *
+     * @param string $birdSize
+     *
+     * @return Search
+     */
+    public function setBirdSize($birdSize)
+    {
+        $this->birdSize = $birdSize;
+
+        return $this;
+    }
+
+    /**
+     * Get birdSize
+     *
+     * @return string
+     */
+    public function getBirdSize()
+    {
+        return $this->birdSize;
+    }
+
+    /**
+     * Set birdColor
+     *
+     * @param string $birdColor
+     *
+     * @return Search
+     */
+    public function setBirdColor($birdColor)
+    {
+        $this->birdColor = $birdColor;
+
+        return $this;
+    }
+
+    /**
+     * Get birdColor
+     *
+     * @return string
+     */
+    public function getBirdColor()
+    {
+        return $this->birdColor;
     }
 }
 

@@ -25,6 +25,18 @@
   </div>
 
   <div class="col-xs-12 col-sm-6">
+    {{ form_label(formSearch.birdSize) }}
+    {{ form_widget(formSearch.birdSize) }}
+    {{ form_errors(formSearch.birdSize) }}
+  </div>
+
+  <div class="col-xs-12 col-sm-6">
+    {{ form_label(formSearch.birdColor) }}
+    {{ form_widget(formSearch.birdColor) }}
+    {{ form_errors(formSearch.birdColor) }}
+  </div>
+
+  <div class="col-xs-12 col-sm-6">
     {{ form_label(formSearch.obsAuthor) }}
     {{ form_widget(formSearch.obsAuthor) }}
     {{ form_errors(formSearch.obsAuthor) }}
@@ -37,17 +49,11 @@
   </div>
 
   <div class="col-xs-12">
-  	<div class="row">
-  	  <div class="col-xs-2">
-  	    {{ form_widget(formSearch.obsWithImage) }}
-        {{ form_errors(formSearch.obsWithImage) }}
-  	  </div>
-	  <div class="col-xs-10">
-	    <label for="observationbundle_search_obsWithImage"> Observations avec une photo uniquement</label>
-      </div>
-  	</div>
+    {{ form_label(formSearch.obsWithImage) }}
+    {{ form_widget(formSearch.obsWithImage) }}
+    {{ form_errors(formSearch.obsWithImage) }}
   </div>
-  <div class="col-xs-12 well well-sm"></div>
+
   <div class="col-xs-12">
     {{ form_widget(formSearch.search) }}
     {{ form_widget(formSearch.reset) }}

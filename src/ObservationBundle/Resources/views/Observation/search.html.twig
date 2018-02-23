@@ -19,6 +19,15 @@
                   {{ include('ObservationBundle:Form:search.html.twig') }}
                 </div>
                 <div class="panel-footer">
+                  {% if search.hasActiveFilter %}
+                    {% if pagination.getTotalItemCount > 0 %}
+                      {{ pagination.getTotalItemCount }} observations trouvées
+                    {% else %}
+                        Aucune observation ne correspond à ces critères
+                    {% endif %}
+                  {% else %}
+                    Aucun critère de recherche.
+                  {% endif %}
                 </div>
               </div>
         		</div>
