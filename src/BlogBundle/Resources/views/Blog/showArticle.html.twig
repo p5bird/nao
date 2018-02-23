@@ -1,28 +1,77 @@
-{% extends "BlogBundle::layout.html.twig" %}
+{% extends "AppBundle::layout.html.twig" %}
 
 {% block title %}{{ parent() }} - Article{% endblock %}
 
 {% block content %}
-    <h1>Blog</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="container">
+                <div class="blog-article">
+                    <div class="blog-article-image-container">
+                        {% if article.image is not defined %}
+                            <img src="{{ asset('/img/no-user.png') }}" class="blog-article-image"/>
+                        {% else %}
+                            <div class="blog-article-image">
+                                <img src="{{ asset('/uploads/blog/') }}article-{{ article.uniqueId }}.{{ article.image.extension }}" class="blog-article-image"/>
+                            </div>
+                        {% endif %}
+                        <div class="blog-article-title-container">
+                            <div class="blog-article-title">
+                                {{ article.title }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="blog-article-content-container">
+                        <div class="blog-article-meta">
+                            <i class="far fa-calendar-alt"></i> Publié le: {{ article.createdAt|date('d/m/Y') }}
+                            <i class="fas fa-user"></i>Auteur: {{ article.author }}
+                        </div>
+                        <div class="blog-article-content">
+                            {% autoescape false %}
+                                {{ article.content }}
+                            {% endautoescape %}
+                        </div>
+                        <div class="blog-article-share">
+                            Partager
+                        </div>
+                    </div>
+                </div>
+                <div class="blog-comments">
+                    {% for comment in article.comments %}
+                        <div class="blog-comment-single">
+                            <div class="row">
+                                {% if comment.author.id is not defined %}
+                                    <div class="blog-comment-image">
+                                        <img src="{{ asset('/img/no-user.png') }}" class="comment-user-avatar"/>
+                                    </div>
+                                {% else %}
+                                    <div class="blog-comment-image">
+                                        <img src="{{ asset('/uploads/avatar/') }}user-{{ comment.author.id }}.{{ comment.author.avatar.extension }}" class="comment-user-avatar"/>
+                                    </div>
+                                {% endif %}
+                                <div class="comment-author">
+                                    {{ comment.author }}:
+                                </div>
+                                <div class="comment-meta"></div>
+                                <div class="comment-content">
+                                    {{ comment.content }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
 
-    {{ article.title }}
-    {{ article.content }}
-
-    {% if article.image is not defined %}
-        <img src="{{ asset('/img/no-user.png') }}" class="user-avatar-image-edit"/>
-    {% else %}
-        <img src="{{ asset('/uploads/blog/') }}article-{{ article.uniqueId }}.{{ article.image.extension }}" class="user-avatar-image-edit"/>
-    {% endif %}
-
-    {{ article.author }}
-
-    {{ form_start(form) }}
-    <div>
-        <input type="submit" value="Commentaire" />
+                    {% if is_granted('ROLE_USER') %}
+                        {{ form_start(form) }}
+                        {{ form_row(form.content) }}
+                        <div>
+                            <input type="submit" class="btn btn-nao" value="Ajouter" />
+                        </div>
+                        {{ form_end(form) }}
+                    {% else %}
+                        Vous devez être connecté pour ajouter un commentaire
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
-    {{ form_end(form) }}
-
-    {% for comment in article.comments %}
-        {{ comment.content }}
-    {% endfor %}
 {% endblock %}

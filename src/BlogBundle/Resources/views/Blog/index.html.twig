@@ -1,7 +1,47 @@
-{% extends "BlogBundle::layout.html.twig" %}
+{% extends "AppBundle::layout.html.twig" %}
 
 {% block title %}{{ parent() }} - Blog{% endblock %}
 
 {% block content %}
-    <h1>Blog</h1>
+    <div class="container-fluid blog">
+        <div class="row">
+            <div class="container">
+                <div class="col-md-9">
+                    {% for key, article in lastThreeArticles %}
+                    <div class="blog-index-article">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="blog-index-article-image-container">
+                                    <div class="blog-index-article-image" style="background: url({{ asset('/uploads/blog/') }}article-{{ article.uniqueId }}.{{ article.image.extension }});"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="blog-index-article-content">
+                                    <div class="blog-index-article-title">
+                                        <a href="{{ path('nao_blog_show_article', {'slug' : article.slug }) }}">
+                                            {{ article.title }}
+                                        </a>
+                                    </div>
+                                    <div class="blog-index-article-meta">
+                                        {{ article.createdAt|date }} - {{ article.author }}
+                                    </div>
+                                    <div class="blog-index-article-excerpt">
+                                        {% autoescape false %}
+                                            {{ article.content|slice(0, 200) }}...
+                                        {% endautoescape %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="col-md-3">
+                    <div class="blog-sidebar">
+                        Sidebar
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

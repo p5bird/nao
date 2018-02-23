@@ -8,10 +8,14 @@
             <div class="col-md-2 no-padding sidebar" id="sidebar">
                     <div class="navbar navbar-side" role="navigation">
                         <div class="side">
-                            <div class="brand-name">
-                                <img src="{{ asset('img/logo.png') }}" class="logo-sidebar"/>
-                                <div class="title-sidebar"><span class="orange">N</span>os <span class="orange">A</span>mis les <span class="orange">O</span>iseaux</div>
-                            </div>
+                            <a href="{{ path('nao_home') }}" class="brand-name-link">
+                                <div class="brand-name">
+                                    <img src="{{ asset('img/logo.png') }}" class="logo-sidebar"/>
+                                    <div class="title-sidebar">
+                                        <span class="orange">N</span>os <span class="orange">A</span>mis les <span class="orange">O</span>iseaux
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                         <div class="side navbar-user">
                             <div class="row">

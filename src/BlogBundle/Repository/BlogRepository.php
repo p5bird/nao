@@ -35,4 +35,15 @@ class BlogRepository extends EntityRepository {
 
         return $qb->getQuery()->getSingleScalarResult();
     }
+
+    public function getLastThreeArticles() {
+        $qb = $this->_em->createQueryBuilder();
+
+        $qb->select('a')
+            ->from('BlogBundle:Article', 'a')
+            ->orderBy('a.id', 'DESC')
+            ->setMaxResults(3);
+
+        return $qb->getQuery()->getResult();
+    }
 }

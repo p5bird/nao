@@ -33,6 +33,12 @@ class Comment {
     private $content;
 
     /**
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $author;
+
+    /**
      * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Article", inversedBy="comments")
      * @ORM\JoinColumn(name="article_id", referencedColumnName="id")
      */
@@ -119,5 +125,29 @@ class Comment {
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    /**
+     * Set author
+     *
+     * @param \UserBundle\Entity\User $author
+     *
+     * @return Comment
+     */
+    public function setAuthor(\UserBundle\Entity\User $author = null)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return \UserBundle\Entity\User
+     */
+    public function getAuthor()
+    {
+        return $this->author;
     }
 }
