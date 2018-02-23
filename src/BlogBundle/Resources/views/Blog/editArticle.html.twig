@@ -1,6 +1,6 @@
 {% extends "UserBundle::layout.html.twig" %}
 
-{% block title %}{{ parent() }} - Ajouter un article{% endblock %}
+{% block title %}{{ parent() }} - Editer l'article{% endblock %}
 
 {% block content %}
     <!-- Modal -->
@@ -26,7 +26,7 @@
 
     <div class="user-interface-page-header">
         <div class="page-name">
-            Ajouter un article
+            Editer l'article
         </div>
     </div>
     <div class="container">
@@ -36,10 +36,10 @@
                 <div class="add-article-image">
                     <div class="add-article-image-label">Image</div>
                     <div class="add-article-image-preview-container">
-                        <img id="add-article-image-preview"/>
+                        <img id="add-article-image-preview" src="{{ asset('/uploads/blog/') }}article-{{ article.uniqueId }}.{{ article.image.extension }}"/>
                     </div>
-                    <input type="hidden" name="base64File[image]" id="base64File_image" required/>
-                    <input type="file" class="custom-file-input" data-toggle="modal" data-target="#cropp-avatar" id="article_image_file" required>
+                    <input type="hidden" name="base64File[image]" id="base64File_image"/>
+                    <input type="file" class="custom-file-input" data-toggle="modal" data-target="#cropp-avatar" id="article_image_file">
                 </div>
 
                 <div class="add-article-title">

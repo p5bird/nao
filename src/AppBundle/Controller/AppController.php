@@ -31,4 +31,8 @@ class AppController extends Controller {
             'lastThreeArticles' => $lastThreeArticles
         ));
     }
+
+    public function sendContactMessageAction() {
+
+    }
 }
