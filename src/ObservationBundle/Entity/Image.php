@@ -38,11 +38,6 @@ class Image
     private $likes = 0;
 
     /**
-     * @ORM\OneToOne(targetEntity="ObservationBundle\Entity\Observation")
-     */
-    private $observation;
-
-    /**
      * @ORM\Column(name="imageName", type="string", length=255, nullable=true)
      * 
      * @var string
@@ -156,30 +151,6 @@ class Image
     public function getLikes()
     {
         return $this->likes;
-    }
-
-    /**
-     * Set observation
-     *
-     * @param \stdClass $observation
-     *
-     * @return Image
-     */
-    public function setObservation($observation)
-    {
-        $this->observation = $observation;
-
-        return $this;
-    }
-
-    /**
-     * Get observation
-     *
-     * @return \stdClass
-     */
-    public function getObservation()
-    {
-        return $this->observation;
     }
 
     public function setImageFile(File $image = null)

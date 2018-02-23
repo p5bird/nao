@@ -219,9 +219,8 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 		if (!empty($search->getBirdName()))
 		{
 			$queryBuilder
-				->andWhere('tax.nameVern = :nameVern')
-					->setParameter('nameVern', $search->getBirdName())
-				->orWhere('obs.birdName LIKE :birdName')
+				->andWhere('tax.nameVern LIKE :nameVern OR obs.birdName LIKE :birdName')
+					->setParameter('nameVern', "%".$search->getBirdName()."%")
 					->setParameter('birdName', "%".$search->getBirdName()."%")
 			;
 		}
@@ -270,7 +269,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 		{
 			$queryBuilder
 				->andWhere('obs.locLocality LIKE :location OR obs.locCounty LIKE :location OR obs.locRegion LIKE :location OR obs.locPostalCode LIKE :location OR obs.locPostalCode LIKE :countyCode')
-				->setParameter('location', $search->getObsLocation())
+				->setParameter('location', "%".$search->getObsLocation()."%")
 				->setParameter('countyCode', substr($search->getObsLocation(), 0, 2) .'%')
 			;
 		}

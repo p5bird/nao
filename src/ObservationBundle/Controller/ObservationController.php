@@ -128,7 +128,6 @@ class ObservationController extends Controller
             if ($observation->hasImage())
             {
                 $image = $observation->getImage();
-                $image->setObservation($observation);
                 $observation->setImage($image);
             }
 
@@ -137,7 +136,6 @@ class ObservationController extends Controller
             // remove image
             if ($observation->hasImage() and is_null($observation->getImage()->getImageFile()))
             {
-                //$bdImage = $entityManager->getRepository('ObservationBundle:Image')->findOneBy(['observation' => $observation]);
                 $entityManager->remove($observation->getImage());
                 $observation->setImage(null);
             }

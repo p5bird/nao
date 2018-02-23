@@ -51,6 +51,11 @@ class Search
      */
     private $obsLocation;
 
+    /**
+     * 
+     */
+    private $birdSize;
+
 
     /**
      * 
