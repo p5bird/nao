@@ -5,22 +5,28 @@ namespace ObservationBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+
 use ObservationBundle\Entity\Observation;
-use ObservationBundle\Form\ObservationType;
-use ObservationBundle\Form\ObservationAddType;
-use ObservationBundle\Form\ObservationCheckType;
 use ObservationBundle\Entity\Taxon;
 use ObservationBundle\Entity\Image;
 use ObservationBundle\Entity\Validation;
-use ObservationBundle\Form\ValidationType;
-use ObservationBundle\Service\Geoloc;
 use ObservationBundle\Entity\Search;
+
+use ObservationBundle\Form\ObservationType;
+use ObservationBundle\Form\ObservationAddType;
+use ObservationBundle\Form\ObservationCheckType;
+use ObservationBundle\Form\ValidationType;
 use ObservationBundle\Form\SearchType;
+
 use ObservationBundle\Service\SearchFiltered;
+use ObservationBundle\Service\Geoloc;
+use ObservationBundle\Service\TaxonFinder;
+use ObservationBundle\Service\ObsValidation;
 
 class ObservationController extends Controller
 {
@@ -39,11 +45,7 @@ class ObservationController extends Controller
             $user = $this->container->get('security.token_storage')->getToken()->getUser();
             $observation->setAuthor($user);
 
-            if (!$observation->hasNoName()) {
-                $taxonRepository = $this->getDoctrine()->getManager()->getRepository('ObservationBundle:Taxon');
-                $taxon = $taxonRepository->findByNameVern($observation->getBirdName());
-                $observation->setTaxon($taxon);
-            }
+            $observation = $this->get('observation.taxonFinder')->setTaxonToObservation($observation);
 
             if ($observation->hasImage())
             {
@@ -51,23 +53,23 @@ class ObservationController extends Controller
                 $observation->setImage($image);
             }
 
-            $observation = $this
-                ->get('observation.geoloc')
-                ->setLocationInfos($observation)
-            ;
+            $observation = $this->get('observation.geoloc')->setLocationInfos($observation);
 
+            // valid button clicked =>
+            // publish asked by user and also validation required
             if ($formObs->get('valid')->isClicked())
             {
                 $observation->setPublish(true);
+
                 if ($user->hasRole('ROLE_NATURALISTE'))
                 {
-                    $validation = new Validation();
-                    $validation->setAuthor($user);
-                    $validation->setDate(new \DateTime());
-                    $validation->setGranted(true);
-                    $observation->setValidation($validation);
+                    $observation = $this->get('observation.obsValidation')->setGranted($observation);
                 }
             }
+
+            // save button clicked =>
+            // just save in db without ask publish 
+            // and also doesn't need validation
             if ($formObs->get('save')->isClicked())
             {
                 $observation->setPublish(false);
@@ -217,10 +219,14 @@ class ObservationController extends Controller
             $validation = $observation->getValidation();
             $validation->setAuthor($user);
             $validation->setDate(new \DateTime());
+
             if ($formValid->get('valid')->isClicked())
             {
+
                 $validation->setGranted(true);
             }
+
+
             if ($formValid->get('reject')->isClicked())
             {
                 $validation->setRejected(true);

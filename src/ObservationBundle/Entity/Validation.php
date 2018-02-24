@@ -55,11 +55,6 @@ class Validation
      */
     private $author;
 
-    /**
-     * @var string
-     */
-    private $birdName;
-
 
     /**
      * ---------------------------------------
@@ -222,29 +217,5 @@ class Validation
     public function getAuthor()
     {
         return $this->author;
-    }
-
-    /**
-     * Get birdName
-     *
-     * @return string
-     */
-    public function getBirdName()
-    {
-        return $this->birdName;
-    }
-
-    /**
-     * Set birdName
-     *
-     * @param string $birdName
-     *
-     * @return Validation
-     */
-    public function setBirdName($birdName)
-    {
-        $this->birdName = $birdName;
-
-        return $this;
     }
 }
