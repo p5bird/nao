@@ -46,7 +46,6 @@ class ObservationController extends Controller
             if ($observation->hasImage())
             {
                 $image = $observation->getImage();
-                $image->setObservation($observation);
                 $observation->setImage($image);
             }
 
@@ -140,8 +139,8 @@ class ObservationController extends Controller
                 $observation->setImage(null);
             }
 
-            // remove validation is observation already validated
-            if ($observation->isValidated())
+            // remove validation is observation already has validation
+            if ($observation->hasValidation())
             {
                 $entityManager->remove($observation->getValidation());
                 $observation->removeValidation();

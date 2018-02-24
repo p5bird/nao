@@ -8,7 +8,7 @@
 	</div>
 </div>
 <div class="col-xs-12 col-sm-6">
-	<div class="panel panel-default">
+	<div class="panel panel-{{ observation.taxon.nameVern is null ? 'danger panel-redalert' : 'default' }}">
 		<div class="panel-heading">
 			<h3>Identification</h3>
 		</div>
@@ -203,7 +203,7 @@
     	</div>		    		
 	</div>
 	<div class="col-xs-12 col-sm-6">
-    	<div class="panel panel-default">
+    	<div class="panel panel-default panel-nao">
     		<div class="panel-heading">
     			<h5>Comportement et autres détails</h5>
     		</div>

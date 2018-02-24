@@ -141,7 +141,7 @@ class DescriptionType extends AbstractType
                 'required'  => true,
                 'label'     => "Description détaillée",
                 'attr'      => [
-                    'placeholder' => "Donnez un maximum de détails, conditions de l'observation, compléments sur le milieu, la morphologie, le comportement, le nombre d'invidus et les intractions entre eux, les couleurs..."
+                    'placeholder' => "Donnez un maximum de détails, conditions de l'observation, compléments sur le milieu, la morphologie, le comportement, le nombre d'individus et leurs intéractions entre eux, les couleurs de l'oiseau..."
                 ]    
             ]);
     }

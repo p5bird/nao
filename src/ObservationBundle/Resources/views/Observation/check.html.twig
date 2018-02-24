@@ -35,7 +35,29 @@
     <div class="container">
 	    <div class="col-xs-12 profile-edit">
 	    	{{ include('ObservationBundle:Item:obsdetails.html.twig') }}
-	    	{{ include('ObservationBundle:Form:validation.html.twig') }}
+
+            <div class="col-xs-12">
+                <div class="panel panel-default panel-nao-yellow">
+                    <div class="panel-heading">
+                        <h3>Zone de validation</h3>
+                    </div>                      
+                </div>              
+            </div>
+
+            <div class="col-xs-12 col-sm-6">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h5>Commentaire privé de l'observateur</h5>
+                    </div>
+                    <div class="panel-body">
+                        {{ observation.comment }}
+                    </div>
+                </div>
+
+            </div>
+
+            {{ include('ObservationBundle:Form:validation.html.twig') }}
 	    </div>
 	</div>
 
