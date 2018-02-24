@@ -1,0 +1,21 @@
+<div class="media">
+  <div class="media-left media-top">
+    <a href="{{ path('nao_show_user',{'id': observation.author.id}) }}">
+	    {% if user.avatar.id is not defined %}
+	        <img class="media-object media-object-searchresult" src="{{ asset(file_image_user_default) }}" />
+	    {% else %}
+	        <img class="media-object media-object-searchresult" src="{{ asset('/uploads/avatar/') }}user-{{ user.id }}.{{ user.avatar.extension }}" />
+	    {% endif %}
+    </a>
+  </div>
+  <div class="media-body">
+  	<a href="{{ path('nao_show_user',{'id': user.id}) }}">
+    	<h4 class="media-heading">{{ user.username }}</h4>
+	</a>
+    <p>
+    	{% for group in user.groups %}
+			{{ group.name }} 
+    	{% endfor %}
+    </p>
+  </div>
+</div>

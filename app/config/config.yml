@@ -47,6 +47,7 @@ twig:
         google_map_api: '%google_map_api%'
         file_image_default: '%file_image_default%'
         file_image_obs_default: '%file_image_obs_default%'
+        file_image_user_default: '/img/no-user.png'
 
 # Doctrine Configuration
 doctrine:

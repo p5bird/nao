@@ -1603,7 +1603,8 @@ ul.dropdown-menu.dropdown-menu-mobile a {
 
 @media (min-width: 768px) {
     .modal-dialog {
-        width: 1200px !important;
+        width: 100%;
+        max-width: 1200px !important;
     }
 }
 

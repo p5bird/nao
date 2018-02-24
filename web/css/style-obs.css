@@ -76,8 +76,34 @@ ul.list-unstyled li span {
     width: 2em;
     font-size: 1.7em;
     background-color: #909394;
+    border: none;
 }
 
 #btnTop:hover {
 	background-color: #f89a1d;
+}
+
+.label-nao-yellow {
+	background-color: #f89a1d;
+}
+
+/**
+ * Pagination
+ */
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    z-index: 3;
+    color: #fff;
+    cursor: default;
+    background-color: #00bcd4;
+    border-color: #0097ab;
+}
+
+.img-center {
+	display: block;
+    margin: 0 auto;
+}
+
+.img-obs-details {
+	max-height: 90vh;
 }

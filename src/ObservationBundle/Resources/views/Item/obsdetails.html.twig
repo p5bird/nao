@@ -1,112 +1,218 @@
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-12">
-					{% if observation.image %}
-						<div class="row text-center">
-						<img src="{{ asset(vich_uploader_asset(observation.image, 'imageFile')) }}" alt="{{ observation.birdName }}" class="img-fluid rounded img-responsive img-area-obs-details" />
-						</div>
-					{% else %}
-						<p>Aucune photo</p>
-					{% endif %}		
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-12 col-sm-6">
-			    	<div class="card">
-			    		<div class="card-header">
-			    			<h3>Identification</h3>
-			    		</div>
-			    		<div class="card-body">
-			    			<table class="table table-sm">
-			    				<tbody>
-			    					<tr>
-			    						<td>Nom de l'oiseau :</td>
-			    						<td>{{ observation.taxon.nameVern }}</td>
-			    					</tr>
-			    					<tr>
-			    						<td>Nom complet valide :</td>
-			    						<td>{{ observation.taxon.nameValid }}</td>
-			    					</tr>
-			    					<tr>
-			    						<td>Famille :</td>
-			    						<td>{{ observation.taxon.family }}</td>
-			    					</tr>
-			    					<tr>
-			    						<td>Ordre :</td>
-			    						<td>{{ observation.taxon.order }}</td>
-			    					</tr>
-			    					<tr>
-			    						<td>Classe :</td>
-			    						<td>{{ observation.taxon.class }}</td>
-			    					</tr>
-			    					<tr>
-			    						<td>Phylum :</td>
-			    						<td>{{ observation.taxon.phylum }}</td>
-			    					</tr>
-			    					<tr>
-			    						<td>Règne :</td>
-			    						<td>{{ observation.taxon.reign }}</td>
-			    					</tr>
-			    					<tr>
-			    						<td>Fiches externes :</td>
-			    						<td class="" role="group">
-			    							<a href="{{ observation.urlInpn }}" target="_blank" rel="nofollow" type="button" class="btn btn-default"><i class="fas fa-database"></i> INPN</a>
-			    							<a href="{{ observation.urlWiki }}" target="_blank" rel="nofollow" type="button" class="btn btn-default"><i class="fab fa-wikipedia-w"></i> Wiki</a>
-			    						</td>
-			    					</tr>
-			    				</tbody>
-			    			</table>
-			    		</div>
-			    	</div>
-			    </div>
-				<div class="col-xs-12 col-sm-6">
-			    	<div class="card">
-			    		<div class="card-header">
-			    			<h3>Observation</h3>
-			    		</div>
-			    		<div class="card-body">
-			    			<table class="table table-sm">
-			    				<tbody>
-			    					<tr>
-			    						<td>Date :</td>
-			    						<td>{{ observation.day|date("d M Y") }}</td>
-			    					</tr>
-			    					<tr>
-			    						<td>Lieu :</td>
-			    						<td>{{ observation.place }}</td>
-			    					</tr>
-			    					<tr>
-			    						<td>Coordonnées géographiques :</td>
-			    						<td>{{ observation.latitude }}, {{ observation.longitude }}</td>
-			    					</tr>
-			    					<tr>
-			    						<td>Commentaire :</td>
-			    						<td>{{ observation.comment }}</td>
-			    					</tr>
-			    					<tr>
-			    						<td>Auteur :</td>
-			    						<td><a href="{{ path('nao_show_user',{'id': observation.author.id}) }}">{{ observation.author.username }}</a></td>
-			    					</tr>
-			    					<tr>
-			    						<td>Validé par :</td>
-			    						<td>
-			    							{% if observation.validated %}
-			    								<a href="{{ path('nao_show_user',{'id': observation.validation.author.id}) }}">{{ observation.validation.author.username }}</a>
-			    							{% endif %}
-			    						</td>
-			    					</tr>
-			    					<tr>
-			    						<td>Validé :</td>
-			    						<td>{{ observation.validated ? 'Oui' : 'Non' }}</td>
-			    					</tr>
-			    					<tr>
-			    						<td>Publié :</td>
-			    						<td>{{ observation.publish ? 'Oui' : 'Non' }}</td>
-			    					</tr>
-			    				</tbody>
-			    			</table>
-			    		</div>
-			    	</div>
-		    	</div>
-		    </div> {# end row #}
-		</div> {# end container #}
+<div class="col-xs-12 col-sm-6">
+	<div class="panel">
+		{% set imgSrc = observation.image ? asset(vich_uploader_asset(observation.image, 'imageFile')) : asset(file_image_obs_default) %}
+		{% set imgAlt = observation.image ? observation.birdName : "image par défaut" %}
+		<a href="#" onclick="runModal()">
+			<img src="{{ imgSrc }}" alt="{{ imgAlt }}" class="img-fluid rounded img-responsive img-area-obs-details img-obs-details" />
+		</a>
+	</div>
+</div>
+<div class="col-xs-12 col-sm-6">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3>Identification</h3>
+		</div>
+		<table class="table table-sm">
+		<tbody>
+			<tr>
+				<td>Nom de l'espèce :</td>
+				<td>{{ observation.taxon.nameVern }}</td>
+			</tr>
+			<tr>
+				<td>Nom complet valide :</td>
+				<td>{{ observation.taxon.nameValid }}</td>
+			</tr>
+			<tr>
+				<td>Famille :</td>
+				<td>{{ observation.taxon.family }}</td>
+			</tr>
+			<tr>
+				<td>Ordre :</td>
+				<td>{{ observation.taxon.order }}</td>
+			</tr>
+			<tr>
+				<td>Classe :</td>
+				<td>{{ observation.taxon.class }}</td>
+			</tr>
+			<tr>
+				<td>Phylum :</td>
+				<td>{{ observation.taxon.phylum }}</td>
+			</tr>
+			<tr>
+				<td>Règne :</td>
+				<td>{{ observation.taxon.reign }}</td>
+			</tr>
+			<tr>
+				<td>Fiches externes :</td>
+				<td class="" role="group">
+					<a href="{{ observation.urlInpn }}" target="_blank" rel="nofollow" type="button" class="btn btn-default"><i class="fas fa-database"></i> INPN</a>
+					<a href="{{ observation.urlWiki }}" target="_blank" rel="nofollow" type="button" class="btn btn-default"><i class="fab fa-wikipedia-w"></i> Wiki</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+</div>
+<div class="col-xs-12 col-sm-6">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3>Observation</h3>
+		</div>
+		<table class="table table-sm">
+			<tbody>
+				<tr>
+					<td class="col-xs-4">Date:</td>
+					<td class="col-xs-8">{{ observation.day|date("d / m / Y à h\\hm") }}</td>
+				</tr>
+				<tr>
+					<td>Lieu :</td>
+					<td>{{ observation.place }}</td>
+				</tr>
+				<tr>
+					<td>Zone géographique :</td>
+					<td>{{ observation.locCounty }}, {{ observation.locRegion }}</td>
+				</tr>
+				{% if is_granted("ROLE_NATURALISTE") %}
+					<tr>
+						<td>Coordonnées géographiques :</td>
+						<td>{{ observation.latitude }}, {{ observation.longitude }}</td>
+					</tr>
+				{% endif %}
+				<tr>
+					<td>Auteur :</td>
+					<td>
+						{% set user = observation.author %}
+						{% include 'ObservationBundle:Item:usermedia.html.twig' %}
+					</td>
+				</tr>
+				<tr>
+					<td>Validateur :</td>
+					<td>
+						{% if observation.validated %}
+							{% set user = observation.validation.author %}
+							{% include 'ObservationBundle:Item:usermedia.html.twig' %}
+						{% endif %}
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div class="col-xs-12 col-sm-6">
+	<div class="panel panel-default">
+		<div id="map"></div>
+	</div>
+</div>
+
+{% set description = observation.description %}
+{% if description is not null %}
+	
+	<div class="col-xs-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3>Détails de l'observation</h3>
+			</div>			    		
+		</div>	    		
+	</div>
+
+	<div class="col-xs-12 col-sm-6">
+    	<div class="panel panel-default">
+    		<div class="panel-heading">
+    			<h5>Environnement de l'observation</h5>
+    		</div>
+			<table class="table table-sm">
+				<tbody>
+	    					<tr>
+    						<td class="col-xs-4">Milieu de l'observation</td>
+    						<td class="col-xs-8">{{ description.environment }}</td>
+    					</tr>
+    					<tr>
+    						<td class="col-xs-4">Nombre d'oiseaux observés</td>
+    						<td class="col-xs-8">{{ description.number }}</td>
+    					</tr>
+    					<tr>
+    						<td class="col-xs-4">Présence d'un nid</td>
+    						<td class="col-xs-8">{% if description.nest is not null %}{{ description.nest is sameas(true) ? 'oui' : 'non' }}{% endif %}</td>
+    					</tr>
+    					{% if description.nest is sameas(true) %}
+	    					<tr>
+	    						<td class="col-xs-4">Nombre d'oeufs</td>
+	    						<td class="col-xs-8">{{ description.eggs }}</td>
+	    					</tr>
+    					{% endif %}
+				</tbody>
+			</table>
+    	</div>		    		
+	</div>
+	<div class="col-xs-12 col-sm-6">
+    	<div class="panel panel-default">
+    		<div class="panel-heading">
+    			<h5>Taille et morphologie de l'oiseau</h5>
+    		</div>
+			<table class="table table-sm">
+				<tbody>
+    					<tr>
+    						<td class="col-xs-4">Taille de l'oiseau</td>
+    						<td class="col-xs-8">{{ description.size }}</td>
+    					</tr>
+    					<tr>
+    						<td class="col-xs-4">Morphologie des ailes</td>
+    						<td class="col-xs-8">{{ description.wings }}</td>
+    					</tr>
+    					<tr>
+    						<td class="col-xs-4">Morphologie de la queue</td>
+    						<td class="col-xs-8">{{ description.tail }}</td>
+    					</tr>
+    					<tr>
+    						<td class="col-xs-4">Morphologie des pattes</td>
+    						<td class="col-xs-8">{{ description.paws }}</td>
+    					</tr>
+    					<tr>
+    						<td class="col-xs-4">Morphologie du bec</td>
+    						<td class="col-xs-8">{{ description.beak }}</td>
+    					</tr>
+				</tbody>
+			</table>
+    	</div>		    		
+	</div>
+	<div class="col-xs-12 col-sm-6">
+    	<div class="panel panel-default">
+    		<div class="panel-heading">
+    			<h5>Couleurs de l'oiseau</h5>
+    		</div>
+			<table class="table table-sm">
+				<tbody>
+    					<tr>
+    						<td class="col-xs-4">Couleur du plumage</td>
+    						<td class="col-xs-8">{{ description.plumageColor }}</td>
+    					</tr>
+    					<tr>
+    						<td class="col-xs-4">Couleur des parties nues</td>
+    						<td class="col-xs-8">{{ description.bareColor }}</td>
+    					</tr>
+    					<tr>
+    						<td class="col-xs-4">Couleur des pattes</td>
+    						<td class="col-xs-8">{{ description.pawsColor }}</td>
+    					</tr>
+    					<tr>
+    						<td class="col-xs-4">Couleur du bec</td>
+    						<td class="col-xs-8">{{ description.beakColor }}</td>
+    					</tr>
+				</tbody>
+			</table>
+    	</div>		    		
+	</div>
+	<div class="col-xs-12 col-sm-6">
+    	<div class="panel panel-default">
+    		<div class="panel-heading">
+    			<h5>Comportement et autres détails</h5>
+    		</div>
+    		<div class="panel-body">
+    			{{ description.comment }}
+    		</div>
+    	</div>		    		
+	</div>
+
+{% endif %}
+
+{% include 'ObservationBundle:Modal:image.html.twig' %}

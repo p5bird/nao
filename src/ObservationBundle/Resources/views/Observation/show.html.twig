@@ -5,9 +5,27 @@
 {% block content %}
 	{% if observation is null %}
 		<div class="container">
-			<p>Désolé, cette observation n'existe pas ou plus.</p>
+			<p>Oups, cette observation n'existe pas ou plus.</p>
 		</div>
 	{% else %}
-		{{ include('ObservationBundle:Item:obsdetails.html.twig') }}
+		<div class="container">
+    		<div class="row">
+	        	<h1>{{ observation.birdName }}</h1>
+				{{ include('ObservationBundle:Item:obsdetails.html.twig') }}
+			</div>
+		</div>
 	{% endif %}
+
+	
+{% endblock %}
+
+{% block javascript %}
+	{{ parent() }}
+	{% include 'ObservationBundle:Script:gmapfixed.html.twig' %}
+	<script type="text/javascript" title="Image modal launcher">
+		function runModal()
+		{
+			$('#imageObsModal').modal('toggle');
+		}
+	</script>
 {% endblock %}

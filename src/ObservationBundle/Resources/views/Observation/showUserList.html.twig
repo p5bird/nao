@@ -11,10 +11,10 @@
         {% endfor %}
 
         <div class="page-name">
-            Mes observations
+            Mes observations <span class="label label-nao-yellow">{{ totalObs }}</span>
         </div>
         <div class="validate-edit">
-        	<h3><span class="label label-default">{{ totalObs }}</span></h3>
+        	<a href="{{ path('nao_obs_add') }}" class="btn btn-nao"/>Ajouter</a>
         </div>
     </div>
     
