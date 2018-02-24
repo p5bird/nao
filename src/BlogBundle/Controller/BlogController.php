@@ -118,7 +118,7 @@ class BlogController extends Controller {
             $em->persist($comment);
             $em->flush();
 
-            return $this->redirectToRoute('nao_home');
+            return $this->redirect($request->getUri());
         }
 
         return $this->render('BlogBundle:Blog:showArticle.html.twig', array(
@@ -138,10 +138,61 @@ class BlogController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('BlogBundle:Article')->find($id);
 
+        unlink('uploads/blog/article-' . $article->getUniqueId() . '.png');
+
         $em->remove($article);
         $em->flush();
 
-        return $this->redirectToRoute('nao_blog_all_articles');
+        return $this->redirectToRoute('nao_blog_list_articles');
+    }
+
+    /**
+     * Edit an article
+     *
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse|Response
+     */
+    public function editArticleAction(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository('BlogBundle:Article')->find($id);
+
+        $form = $this->createForm(ArticleType::class, $article);
+
+        if ($data = $request->request->get('base64File')['image']) {
+
+            $article->getImage() ? $image = $article->getImage() : $image = new Image();
+
+            list($type, $data) = explode(';', $data);
+            list(, $data) = explode(',', $data);
+            $data = str_replace('data:image/png;base64,', '', $data);
+            $data = str_replace(' ', '+', $data);
+
+            $data = base64_decode($data);
+
+            $imageName = 'article-' . $article->getUniqueId() . '.png';
+
+            file_put_contents('uploads/blog/' . $imageName, $data);
+
+            $file = new UploadedFile('uploads/blog/' . $imageName, $imageName, 'image/png');
+
+            $image->setArticle($article);
+            $article->setImage($image);
+            $image->setFile($file);
+        }
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            return $this->redirectToRoute('nao_home');
+        }
+
+        return $this->render('BlogBundle:Blog:editArticle.html.twig', array(
+            'article' => $article,
+            'form' => $form->createView()
+        ));
     }
 
     /**
@@ -156,6 +207,63 @@ class BlogController extends Controller {
 
         return $this->render('BlogBundle:Blog:listArticle.html.twig', array(
             'articles' => $articles
+        ));
+    }
+
+    /**
+     * List all comments
+     *
+     * @return Response
+     */
+    public function listCommentsAction() {
+        $em = $this->getDoctrine()->getManager();
+        $comments = $em->getRepository('BlogBundle:Comment')->findAll();
+
+        return $this->render('BlogBundle:Blog:listComments.html.twig', array(
+            'comments' => $comments
+        ));
+    }
+
+    /**
+     * Delete a comment
+     *
+     * @param $id
+     * @return RedirectResponse
+     */
+    public function deleteCommentAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $comment = $em->getRepository('BlogBundle:Comment')->find($id);
+
+        $em->remove($comment);
+        $em->flush();
+
+        return $this->redirectToRoute('nao_blog_list_articles');
+    }
+
+    /**
+     * Edit a comment
+     *
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse|Response
+     */
+    public function editCommentAction(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+        $comment = $em->getRepository('BlogBundle:Comment')->find($id);
+
+        $form = $this->createForm(CommentType::class, $comment);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            return $this->redirectToRoute('nao_blog_list_comments');
+        }
+
+        return $this->render('BlogBundle:Blog:editComment.html.twig', array(
+            'comment' => $comment,
+            'form' => $form->createView()
         ));
     }
 }

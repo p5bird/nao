@@ -1,6 +1,6 @@
 {% extends "UserBundle::layout.html.twig" %}
 
-{% block title %}{{ parent() }} - Liste des articles{% endblock %}
+{% block title %}{{ parent() }} - Liste des commentaires{% endblock %}
 
 {% block content %}
     <div class="user-interface-page-header">
@@ -29,11 +29,8 @@
                                     <th class="col-md-3">
                                         <span>Article</span>
                                     </th>
-                                    <th class="col-md-3">
+                                    <th class="col-md-5">
                                         <span>Extrait</span>
-                                    </th>
-                                    <th class="col-md-2">
-                                        <span>Commentaires</span>
                                     </th>
                                     <th class="col-md-1">
                                         <span>Actions</span>
@@ -41,25 +38,25 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for key, article in articles %}
+                                {% for key, comment in comments %}
                                     <tr class="list-article-single">
                                         <td class="list-article-td">
-                                            {% if article.author.avatar.id is not defined %}
+                                            {% if comment.author.avatar.id is not defined %}
                                                 <img src="{{ asset('/img/no-user.png') }}" class="list-user-avatar"/>
                                             {% else %}
-                                                <img src="{{ asset('/uploads/avatar/') }}user-{{ article.author.id }}.{{ article.author.avatar.extension }}" class="list-user-avatar"/>
+                                                <img src="{{ asset('/uploads/avatar/') }}user-{{ comment.author.id }}.{{ comment.author.avatar.extension }}" class="list-user-avatar"/>
                                             {% endif %}
                                             <div class="list-article-username">
                                                 <a href="">
-                                                    {{ article.author }}
+                                                    {{ comment.author }}
                                                 </a>
                                             </div>
                                         </td>
                                         <td class="list-article-td">
                                             <div class="list-article-title">
                                                 <span>
-                                                    <a href="{{ path('nao_blog_show_article', {'slug' : article.slug }) }}">
-                                                    {{ article.title }}
+                                                    <a href="{{ path('nao_blog_show_article', {'slug' : comment.article.slug }) }}">
+                                                    {{ comment.article.title }}
                                                     </a>
                                                 </span>
                                             </div>
@@ -68,25 +65,20 @@
                                             <div class="list-article-content">
                                                 <span>
                                                     {% autoescape false %}
-                                                        {{ article.content|slice(0, 92) }}
+                                                        {{ comment.content|slice(0, 92) }}
                                                     {% endautoescape %}
                                                 </span>
                                             </div>
                                         </td>
                                         <td class="list-article-td">
-                                            <div class="list-article-comments">
-                                                <span>{{ article.comments|length }}</span>
-                                            </div>
-                                        </td>
-                                        <td class="list-article-td">
                                             <div class="list-article-actions">
                                                 <div class="col-md-6">
-                                                    <a href="{{ path('nao_blog_edit_article', {'id' : article.id}) }}">
+                                                    <a href="{{ path('nao_blog_edit_comment', {'id' : comment.id}) }}">
                                                         <i class="fas fa-edit" title="Editer"></i>
                                                     </a>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <a href="{{ path('nao_blog_delete_article', {'id' : article.id}) }}">
+                                                    <a href="{{ path('nao_blog_delete_comment', {'id' : comment.id}) }}">
                                                         <i class="fas fa-trash" title="Supprimer"></i>
                                                     </a>
                                                 </div>

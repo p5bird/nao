@@ -85,13 +85,29 @@ nao_blog_delete_article:
     path: /blog/{id}/delete
     defaults: { _controller: BlogBundle:Blog:deleteArticle }
 
+nao_blog_edit_article:
+    path: /blog/{id}/edit
+    defaults: { _controller: BlogBundle:Blog:editArticle }
+
 nao_blog_show_article:
     path: /blog/article/{slug}/
     defaults: { _controller: BlogBundle:Blog:showArticle }
 
-nao_blog_all_articles:
+nao_blog_list_articles:
     path: /blog/all/
     defaults: { _controller: BlogBundle:Blog:listArticle }
+
+nao_blog_list_comments:
+    path: /blog/comments/all
+    defaults: { _controller: BlogBundle:Blog:listComments }
+
+nao_blog_edit_comment:
+    path: /blog/comment/{id}/edit
+    defaults: { _controller: BlogBundle:Blog:editComment }
+
+nao_blog_delete_comment:
+    path: /blog/comment/{id}/delete
+    defaults: { _controller: BlogBundle:Blog:deleteArticle }
 
 nao_obs_add:
     path: /observation/add

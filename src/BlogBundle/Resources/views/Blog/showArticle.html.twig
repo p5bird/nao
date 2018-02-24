@@ -15,16 +15,22 @@
                                 <img src="{{ asset('/uploads/blog/') }}article-{{ article.uniqueId }}.{{ article.image.extension }}" class="blog-article-image"/>
                             </div>
                         {% endif %}
+                    </div>
+                    <div class="blog-article-content-container">
                         <div class="blog-article-title-container">
                             <div class="blog-article-title">
                                 {{ article.title }}
                             </div>
                         </div>
-                    </div>
-                    <div class="blog-article-content-container">
                         <div class="blog-article-meta">
                             <i class="far fa-calendar-alt"></i> Publié le: {{ article.createdAt|date('d/m/Y') }}
-                            <i class="fas fa-user"></i>Auteur: {{ article.author }}
+                            <i class="far fa-user"></i> Auteur: {{ article.author }}
+                            <i class="far fa-comments"></i> Commentaires :
+                            {% if article.comments|length == 0 %}
+                                Aucun commentaire
+                            {% else %}
+                                {{ article.comments|length }}
+                            {% endif %}
                         </div>
                         <div class="blog-article-content">
                             {% autoescape false %}
@@ -40,7 +46,7 @@
                     {% for comment in article.comments %}
                         <div class="blog-comment-single">
                             <div class="row">
-                                {% if comment.author.id is not defined %}
+                                {% if comment.author.avatar.id is not defined %}
                                     <div class="blog-comment-image">
                                         <img src="{{ asset('/img/no-user.png') }}" class="comment-user-avatar"/>
                                     </div>
