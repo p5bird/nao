@@ -123,3 +123,12 @@ ul.list-unstyled li span {
     color: #FFFFFF;
 
 }
+
+.text-redalert {
+	color: #ea4335;
+}
+
+.block-redalert {
+	background: #ea4335;
+    color: #FFFFFF;	
+}

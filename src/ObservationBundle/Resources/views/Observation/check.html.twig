@@ -51,7 +51,7 @@
                         <h5>Commentaire privé de l'observateur</h5>
                     </div>
                     <div class="panel-body">
-                        {{ observation.comment }}
+                        {{ observation.comment is empty ? "L'observateur n'a laissé aucun commentaire" : observation.comment }}
                     </div>
                 </div>
 
@@ -65,7 +65,8 @@
 {% endblock %}
 
 {% block javascript %}
+    {{ parent() }}
     {{ include("ObservationBundle:Script:autocomplete.html.twig") }}
+    {% include 'ObservationBundle:Script:gmapfixed.html.twig' %}
+    {% include 'ObservationBundle:Script:imagemodal.html.twig' %}
 {% endblock %}
-
-

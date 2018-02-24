@@ -11,6 +11,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use ObservationBundle\Entity\Observation;
 use ObservationBundle\Form\ObservationType;
+use ObservationBundle\Form\ObservationAddType;
+use ObservationBundle\Form\ObservationCheckType;
 use ObservationBundle\Entity\Taxon;
 use ObservationBundle\Entity\Image;
 use ObservationBundle\Entity\Validation;
@@ -29,7 +31,7 @@ class ObservationController extends Controller
     public function addAction(Request $request)
     {
         $observation = new Observation();
-        $formObs = $this->createForm(ObservationType::class, $observation);
+        $formObs = $this->createForm(ObservationAddType::class, $observation);
 
         $formObs->handleRequest($request);
         if ($formObs->isSubmitted() and $formObs->isValid())
@@ -111,7 +113,7 @@ class ObservationController extends Controller
             ]);            
         }
 
-        $formObs = $this->createForm(ObservationType::class, $observation);
+        $formObs = $this->createForm(ObservationAddType::class, $observation);
         $formObs->handleRequest($request);
 
         if ($formObs->isSubmitted() and $formObs->isValid())
@@ -202,8 +204,7 @@ class ObservationController extends Controller
 
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
 
-        $validation = new Validation();
-        $formValid = $this->createForm(ValidationType::class, $validation);
+        $formValid = $this->createForm(ObservationCheckType::class, $observation);
         $formValid->handleRequest($request);
 
         if ($formValid->isSubmitted() and $formValid->isValid())
@@ -213,6 +214,7 @@ class ObservationController extends Controller
                 return $this->redirectToRoute('nao_obs_check_list');
             }
 
+            $validation = $observation->getValidation();
             $validation->setAuthor($user);
             $validation->setDate(new \DateTime());
             if ($formValid->get('valid')->isClicked())

@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type;
 use ObservationBundle\Form\ImageType;
 use ObservationBundle\Form\DescriptionType;
+use ObservationBundle\Form\ValidationType;
 
 class ObservationType extends AbstractType
 {
@@ -55,15 +56,10 @@ class ObservationType extends AbstractType
                 'required'  => false,
                 'label'     => "Description détaillée"
             ])
-            ->add('valid',          Type\SubmitType::class, [
-                'label'     => "Demander la publication",
-                'attr'      => [
-                    'class'  => 'btn-nao'
-                ]
+            ->add('validation',      ValidationType::class, [
+                'required'  => false
             ])
-            ->add('save',          Type\SubmitType::class, [
-                'label'     => "Sauvegarder"
-            ]);
+        ;
     }
 
     /**

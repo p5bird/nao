@@ -1,11 +1,48 @@
-<div class="col-xs-12">
-	{{ form_start(formValid) }}
-	{{ form_errors(formValid) }}
-</div>
 
 {# <div class="col-xs-12">
 	{{ form_row(formValid.comment) }}
 </div> #}
+
+<div class="col-xs-12 col-sm-6">
+	{{ form_start(formValid) }}
+	{{ form_errors(formValid) }}
+
+	{% if observation.taxon.id is null %}
+		<div class="alert alert-danger text-redalert">
+			<i class="fas fa-exclamation-triangle"></i>
+			Vous devez identifier l'espèce de l'oiseau.
+		</div>
+	{% endif %}
+
+
+	<div class="form-group has-error has-feedback">
+	</div>
+
+	{{ form_label(formValid.birdName) }} <span class="required">*</span>
+	{{ form_errors(formValid.birdName) }}
+
+	<div class="input-group form-group has-{{ observation.taxon.id is null ? 'error' : 'success' }} has-feedback">
+		<a href="#" class="input-group-addon btn btn-default disabled" type="reset"><i class="fas fa-database"></i> INPN</a>
+		<a href="#" class="input-group-addon btn btn-default disabled" type="reset"><i class="fab fa-wikipedia-w"></i> Wiki</a>
+
+		{{ form_widget(formValid.birdName) }}
+
+		{% if observation.taxon.id is null %}
+			<span class="form-control-feedback" aria-hidden="true"><i class="fas fa-exclamation"></i></span>
+		{% else %}
+			<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+		{% endif %}
+
+		<span id="_birdNameStatus" class="sr-only">(error)</span>
+
+	</div>
+</div>
+
+<div class="col-xs-12">
+	{{ form_label(formValid.validation.comment) }}
+	{{ form_errors(formValid.validation.comment) }}
+	{{ form_widget(formValid.validation.comment) }}
+</div>
 
 <div class="col-xs-12 text-center submit-area">
 	{{ form_widget(formValid.valid) }}

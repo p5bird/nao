@@ -22,10 +22,5 @@
 {% block javascript %}
 	{{ parent() }}
 	{% include 'ObservationBundle:Script:gmapfixed.html.twig' %}
-	<script type="text/javascript" title="Image modal launcher">
-		function runModal()
-		{
-			$('#imageObsModal').modal('toggle');
-		}
-	</script>
+	{% include 'ObservationBundle:Script:imagemodal.html.twig' %}
 {% endblock %}
