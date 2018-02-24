@@ -23,7 +23,8 @@
 		document.querySelector("input[id*='_imageFile']").value = null;
 		document.querySelector("[id^='image-remover-tracker']").src = "{{ asset(file_image_default) }}";	
 		document.getElementById("image-remover").classList.add('hide');
-		$('input[id*="_image_authorization"]').prop( "checked", false );	
+		$('input[id*="_image_authorization"]').prop( "checked", false );
+		$('input[removeField="image"]').prop("value", true);
 	}
 
 	$('#imageAuthorReject').click(function() {
@@ -32,5 +33,6 @@
 
 	$('#imageAuthorAccept').click(function() {
 		$('input[id*="_image_authorization"]').prop( "checked", true );
+		$('input[removeField="image"]').prop("value", false);
 	});
 </script>

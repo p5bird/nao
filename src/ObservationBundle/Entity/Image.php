@@ -66,6 +66,11 @@ class Image
      */
     private $authorization = false;
 
+    /**
+     * @var boolean
+     */
+    private $removeMe = false;
+
 
     /**
      * ---------------------------------------
@@ -109,6 +114,10 @@ class Image
      * ---------------------------------------
      */
 
+    public function needRemoving()
+    {
+        return $this->removeMe;
+    }
 
 
 
@@ -228,5 +237,29 @@ class Image
     public function getAuthorization()
     {
         return $this->authorization;
+    }
+
+    /**
+     * Set removeMe
+     *
+     * @param boolean $removeMe
+     *
+     * @return Image
+     */
+    public function setRemoveMe($removeMe)
+    {
+        $this->removeMe = $removeMe;
+
+        return $this;
+    }
+
+    /**
+     * Get removeMe
+     *
+     * @return boolean
+     */
+    public function getRemoveMe()
+    {
+        return $this->removeMe;
     }
 }

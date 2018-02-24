@@ -27,6 +27,7 @@
 		{% include 'ObservationBundle:Modal:imageauthor.html.twig' %}
 	{% endblock %}
 
+	{{ form_widget(formObs.image.removeMe) }}
     {{ form_label(formObs.image.imageFile) }}
 	{{ form_errors(formObs.image.imageFile) }}
     <a id="image-remover" href="#" class="btn btn-danger btn-sm hide"><i class="fas fa-times"></i> supprimer l'image</a>

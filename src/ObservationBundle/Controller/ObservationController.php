@@ -47,13 +47,13 @@ class ObservationController extends Controller
 
             $observation = $this->get('observation.taxonFinder')->setTaxonToObservation($observation);
 
-            if ($observation->hasImage())
+            $observation = $this->get('observation.geoloc')->setLocationInfos($observation);
+
+            if ($observation->hasImage() === true)
             {
                 $image = $observation->getImage();
                 $observation->setImage($image);
             }
-
-            $observation = $this->get('observation.geoloc')->setLocationInfos($observation);
 
             // valid button clicked =>
             // publish asked by user and also validation required
@@ -102,9 +102,9 @@ class ObservationController extends Controller
      */
     public function editAction($id, Request $request)
     {
-        $observation = $this
-            ->getDoctrine()
-            ->getManager()
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $observation = $entityManager
             ->getRepository('ObservationBundle:Observation')
             ->findOneBy(['id' => $id]);
 
@@ -115,50 +115,54 @@ class ObservationController extends Controller
             ]);            
         }
 
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+
         $formObs = $this->createForm(ObservationAddType::class, $observation);
         $formObs->handleRequest($request);
 
         if ($formObs->isSubmitted() and $formObs->isValid())
         {
-            $taxonRepository = $this->getDoctrine()->getManager()->getRepository('ObservationBundle:Taxon');
-            $taxon = $taxonRepository->findByNameVern($observation->getBirdName());
+            $observation = $this->get('observation.taxonFinder')->setTaxonToObservation($observation);
 
-            if (!is_null($taxon)) 
-            {              
-                $observation->setTaxon($taxon);
-            }
+            $observation = $this->get('observation.geoloc')->setLocationInfos($observation);
 
-            if ($observation->hasImage())
+            // set or remove image
+            if ($observation->hasImage() === true)
             {
-                $image = $observation->getImage();
-                $observation->setImage($image);
+                if ($observation->getImage()->needRemoving() === true or $observation->getImage()->needRemoving() == "true")
+                {
+                    $entityManager->remove($observation->getImage());
+                    $observation->setImage(null);
+                }
+                else
+                {
+                    $image = $observation->getImage();
+                    $observation->setImage($image);
+                }
             }
 
-            $entityManager = $this->getDoctrine()->getManager();
-
-            // remove image
-            if ($observation->hasImage() and is_null($observation->getImage()->getImageFile()))
-            {
-                $entityManager->remove($observation->getImage());
-                $observation->setImage(null);
-            }
-
-            // remove validation is observation already has validation
-            if ($observation->hasValidation())
-            {
-                $entityManager->remove($observation->getValidation());
-                $observation->removeValidation();
-            }
-
-            $observation = $this
-                ->get('observation.geoloc')
-                ->setLocationInfos($observation)
-            ;
-
+            // valid button clicked =>
+            // publish asked by user and also validation required
             if ($formObs->get('valid')->isClicked())
             {
+                // remove validation is observation already has validation
+                if ($observation->hasValidation())
+                {
+                    $entityManager->remove($observation->getValidation());
+                    $observation->setValidation(null);
+                }
+
+                if ($user->hasRole('ROLE_NATURALISTE'))
+                {
+                    $observation = $this->get('observation.obsValidation')->setGranted($observation);
+                }
+
                 $observation->setPublish(true);
             }
+
+            // save button clicked =>
+            // just save in db without ask publish 
+            // and also doesn't need validation
             if ($formObs->get('save')->isClicked())
             {
                 $observation->setPublish(false);
@@ -178,7 +182,7 @@ class ObservationController extends Controller
 
         return $this->render('ObservationBundle:Observation:edit.html.twig', [
             'observation'   => $observation,
-            'user'          => $this->container->get('security.token_storage')->getToken()->getUser(),
+            'user'          => $user,
             'formObs'       => $formObs->createView()
         ]);
     }
