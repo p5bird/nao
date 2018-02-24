@@ -391,7 +391,9 @@ class ObservationController extends Controller
                 'birdName'  => $obs->getBirdName(),
                 'latitude'  => $obs->getLatitude(),
                 'longitude' => $obs->getLongitude(),
-                'url'       => $this->generateUrl('nao_obs_show', ['id' => $obs->getId()], UrlGeneratorInterface::ABSOLUTE_URL)
+                'url'       => $this->generateUrl('nao_obs_show', ['id' => $obs->getId()], UrlGeneratorInterface::ABSOLUTE_URL),
+                'nameValid'  => $obs->getTaxon()->getNameValid(),
+                'date'       => $obs->getDay()->format('d/m/Y h:m')
             ]);
         }
 

@@ -4,6 +4,8 @@
     {# google Map #}
     <script type="text/javascript" title="Google Map">
     
+      var infowindow;
+
       function initMap() {
         
         // Center of France Position : {lat: 46.52863469527167, lng: 2.43896484375}
@@ -32,7 +34,6 @@
           console.log('Error: Your browser doesn\'t support geolocation.');
         }
 
-
         // Geocoder to move marker on typed address (find geoloc datas)
         var geocoder = new google.maps.Geocoder();
 
@@ -49,6 +50,8 @@
           $("input[id*='_place']").val(null);
         });
 
+        infowindow = new google.maps.InfoWindow();
+
         var obsJson = {{ obsJson|raw }};
         addMarkers(obsJson, map);
         
@@ -60,15 +63,34 @@
         //     }
         // });
 
+        // $('.gmarker').hover(function(e) {
+          
+        //   for(var i= 0; i < markers.length; i++)
+        //   {
+        //       markers[i].setMap(null);
+        //       console.log(markers[i].id);
+        //       console.log(this.getAttribute('gmarker'));
+        //      if (markers[i].id = this.getAttribute('gmarker'))
+        //      {
+        //         markers[i].setMap(map);
+        //         //map.setCenter(parseFloat(markers[i].lat), parseFloat(markers[i].lng));
+        //         map.setZoom(5); 
+        //      }   
+        //   }
+        // });
 
       }
+      var markers;
     
         function addMarkers(obsList, map) {
-            var markers = obsList.map(function(obs, i) {
+            markers = obsList.map(function(obs, i) {
               var marker = new google.maps.Marker({
+                lat: parseFloat(obsList[i].latitude),
+                lng: parseFloat(obsList[i].longitude),
                 position: {lat: parseFloat(obsList[i].latitude), lng: parseFloat(obsList[i].longitude)},
                 title: obsList[i].birdName,
-                url: obsList[i].url
+                url: obsList[i].url,
+                id: obsList[i].id
               });
                 google.maps.event.addListener(marker, 'click', function() {
                     window.location.href = this.url;
