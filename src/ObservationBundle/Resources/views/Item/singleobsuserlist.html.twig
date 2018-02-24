@@ -2,6 +2,7 @@
 <tr>
 	<td class="col-sm-1">
 		<a href="{{ path('nao_obs_show', {'id': observation.id}) }}" class="{{ not observation.hasValidation ? 'text-warning' : observation.validated ? 'text-success' : 'text-danger' }}">
+			
 			{% if not observation.hasValidation %}
 				<span><i class="fas fa-save" title="en attente de validation"></i></span>
 			{% elseif observation.validated %}
@@ -9,6 +10,7 @@
 			{% else %}
 				<i class="fas fa-exclamation-triangle" title="validation rejetée"></i> 
 			{% endif %}
+
 			{% if observation.publish %}
 				<i class="fas fa-eye" title="publiée"></i>
 			{% else %}

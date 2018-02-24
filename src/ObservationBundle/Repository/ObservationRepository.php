@@ -84,7 +84,9 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 				->setParameter('userId', $user->getId())
 			->andWhere('obs.publish = :publish')
 				->setParameter('publish', false)
-			->andWhere('obs.validation IS NULL')
+			->leftJoin('obs.validation', 'val')
+			->andWhere('obs.validation IS NULL OR val.granted = :false')
+				->setParameter('false', false)
 			->orderBy('obs.day', 'DESC');
 		return $queryBuilder;
 	}

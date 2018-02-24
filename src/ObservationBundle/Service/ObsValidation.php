@@ -27,4 +27,13 @@ class ObsValidation
 
         return $observation;
 	}
+
+	public function cancelValidation($observation)
+	{
+		$validation = $observation->getValidation();
+		$validation->setGranted(false);
+        $observation->setValidation($validation);
+
+        return $observation;
+	}
 }

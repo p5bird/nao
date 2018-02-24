@@ -72,6 +72,18 @@ class Validation
      * EVENTS methods
      * ---------------------------------------
      */
+    
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function checkStatements()
+    {
+        if ($this->granted === true and $this->rejected === true)
+        {
+            $this->granted = false;
+        }
+    }
 
 
     /**
@@ -155,7 +167,6 @@ class Validation
     public function setGranted($granted)
     {
         $this->granted = $granted;
-        $this->rejected = !$granted;
 
         return $this;
     }
@@ -180,7 +191,6 @@ class Validation
     public function setRejected($rejected)
     {
         $this->rejected = $rejected;
-        $this->granted = !$rejected;
 
         return $this;
     }

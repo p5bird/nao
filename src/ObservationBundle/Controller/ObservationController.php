@@ -165,6 +165,7 @@ class ObservationController extends Controller
             // and also doesn't need validation
             if ($formObs->get('save')->isClicked())
             {
+                $observation = $this->get('observation.obsValidation')->cancelValidation($observation);
                 $observation->setPublish(false);
             }
 

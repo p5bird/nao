@@ -350,7 +350,12 @@ class Observation
      */
     public function isSaved()
     {
-        if (is_null($this->validation) and !$this->publish)
+        if ($this->publish)
+        {
+            return false;
+        }
+
+        if (is_null($this->validation) or !$this->validation->getGranted())
         {
             return true;
         }
