@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use ObservationBundle\Form\ImageType;
 use ObservationBundle\Form\DescriptionType;
 use ObservationBundle\Form\ValidationType;
@@ -58,6 +59,12 @@ class ObservationType extends AbstractType
             ])
             ->add('validation',      ValidationType::class, [
                 'required'  => false
+            ])
+            ->add('removeImage', HiddenType::class, [
+                'attr'  => [
+                    'removeField' => "image",
+                    'value'       => false
+                ]
             ])
         ;
     }

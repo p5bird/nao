@@ -44,6 +44,10 @@
     
     <div class="container">
         <div class="col-xs-12 profile-edit">
+            {% if observation.hasValidation and observation.isValidated is sameas("false") %}
+                <div></div>
+            {% endif %}
+            
             {{ include("ObservationBundle:Form:observation.html.twig") }}
         </div>
     </div>

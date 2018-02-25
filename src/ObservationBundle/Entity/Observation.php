@@ -200,6 +200,12 @@ class Observation
     private $description;
 
     /**
+     * @var boolean
+     */
+    private $removeImage = false;
+
+
+    /**
      * ---------------------------------------
      * Constructor
      */
@@ -399,6 +405,14 @@ class Observation
     public function getLatAndLng()
     {
         return $this->getLatitude() . ',' . $this->getLongitude();
+    }
+
+    /**
+     * 
+     */
+    public function needRemoveImage()
+    {
+        return $this->removeImage;
     }
 
 
@@ -982,5 +996,29 @@ class Observation
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set removeImage
+     *
+     * @param boolean $removeImage
+     *
+     * @return Observation
+     */
+    public function setRemoveImage($removeImage)
+    {
+        $this->removeImage = $removeImage;
+
+        return $this;
+    }
+
+    /**
+     * Get removeImage
+     *
+     * @return boolean
+     */
+    public function getRemoveImage()
+    {
+        return $this->removeImage;
     }
 }

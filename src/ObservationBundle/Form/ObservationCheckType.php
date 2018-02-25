@@ -24,6 +24,7 @@ class ObservationCheckType extends AbstractType
             ->remove('description')
             ->remove('save')
             ->remove('valid')
+            ->remove('removeImage')
             ->add('valid',          Type\SubmitType::class, [
                 'label'     => "Valider",
                 'attr'      => [

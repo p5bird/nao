@@ -8,7 +8,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class ImageType extends AbstractType
 {
@@ -30,12 +29,6 @@ class ImageType extends AbstractType
             ->add('authorization',   Type\CheckboxType::class, [
                 'required'  => false,
                 'label'     => "Je cède mes droits de publication et de réutilisation de la photo."
-            ])
-            ->add('removeMe', HiddenType::class, [
-                'attr'  => [
-                    'removeField' => "image",
-                    'value'       => false
-                ]
             ])
         ;
     }/**

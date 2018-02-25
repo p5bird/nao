@@ -49,10 +49,14 @@ class ObservationController extends Controller
 
             $observation = $this->get('observation.geoloc')->setLocationInfos($observation);
 
-            if ($observation->hasImage() === true)
+            if ($observation->hasImage() and !is_null($observation->getImage()->getImageName()))
             {
                 $image = $observation->getImage();
                 $observation->setImage($image);
+            }
+            else
+            {
+                $observation->setImage(null);
             }
 
             // valid button clicked =>
@@ -129,7 +133,7 @@ class ObservationController extends Controller
             // set or remove image
             if ($observation->hasImage() === true)
             {
-                if ($observation->getImage()->needRemoving() === true or $observation->getImage()->needRemoving() == "true")
+                if ($observation->needRemoveImage() === true or $observation->needRemoveImage() == "true")
                 {
                     $entityManager->remove($observation->getImage());
                     $observation->setImage(null);
@@ -222,6 +226,10 @@ class ObservationController extends Controller
             }
 
             $validation = $observation->getValidation();
+            if (is_null($validation))
+            {
+                $validation = new Validation();
+            }
             $validation->setAuthor($user);
             $validation->setDate(new \DateTime());
 

@@ -31,8 +31,11 @@ class ObsValidation
 	public function cancelValidation($observation)
 	{
 		$validation = $observation->getValidation();
-		$validation->setGranted(false);
-        $observation->setValidation($validation);
+		if (!is_null($validation))
+		{
+			$validation->setGranted(false);
+        	$observation->setValidation($validation);
+        }
 
         return $observation;
 	}

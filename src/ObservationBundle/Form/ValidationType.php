@@ -17,7 +17,7 @@ class ValidationType extends AbstractType
         $builder
             ->add('comment',        Type\TextareaType::class, [
                 'required'  => false,
-                'label'     => "Votre commentaire pour l'observateur"
+                'label'     => "Vos conseils pour l'observateur"
             ])
         ;
     }

@@ -66,11 +66,6 @@ class Image
      */
     private $authorization = false;
 
-    /**
-     * @var boolean
-     */
-    private $removeMe = false;
-
 
     /**
      * ---------------------------------------
@@ -99,26 +94,12 @@ class Image
         $this->setUpdatedAt(new \DateTime('now'));
     }
 
-    /**
-     * @ORM\PostRemove()
-     */
-    public function removeImageFile()
-    {
-        // to be done with file system   
-    }
-
 
     /**
      * ---------------------------------------
      * Other methods
      * ---------------------------------------
      */
-
-    public function needRemoving()
-    {
-        return $this->removeMe;
-    }
-
 
 
     /**
@@ -237,29 +218,5 @@ class Image
     public function getAuthorization()
     {
         return $this->authorization;
-    }
-
-    /**
-     * Set removeMe
-     *
-     * @param boolean $removeMe
-     *
-     * @return Image
-     */
-    public function setRemoveMe($removeMe)
-    {
-        $this->removeMe = $removeMe;
-
-        return $this;
-    }
-
-    /**
-     * Get removeMe
-     *
-     * @return boolean
-     */
-    public function getRemoveMe()
-    {
-        return $this->removeMe;
     }
 }

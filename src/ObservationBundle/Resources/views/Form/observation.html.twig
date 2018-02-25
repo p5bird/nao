@@ -27,7 +27,7 @@
 		{% include 'ObservationBundle:Modal:imageauthor.html.twig' %}
 	{% endblock %}
 
-	{{ form_widget(formObs.image.removeMe) }}
+	{{ form_widget(formObs.removeImage) }}
     {{ form_label(formObs.image.imageFile) }}
 	{{ form_errors(formObs.image.imageFile) }}
     <a id="image-remover" href="#" class="btn btn-danger btn-sm hide"><i class="fas fa-times"></i> supprimer l'image</a>
@@ -190,6 +190,32 @@
 	{{ form_errors(formObs.comment) }}
 	{{ form_widget(formObs.comment) }}
 </div>
+
+{% if observation.hasValidation %}
+
+	<div class="col-xs-12 col-sm-6">
+		<div class="panel panel-warning">
+			<div class="panel-heading">
+				<h5>Conseils du validateur</h5>
+			</div>
+			<div class="panel-body">
+				{% if observation.validation.comment is not null %}
+					{{ observation.validation.comment }}
+				{% else %}
+					Le validateur n'a laissé aucun commentaire
+				{% endif %}
+			</div>
+			<ul class="list-group">
+				<li class="list-group-item">
+					{% set user = observation.validation.author %}
+					{% include 'ObservationBundle:Item:usermedia.html.twig' %}
+				</li>
+			</ul>
+		</div>
+	</div>
+
+{% endif %}
+
 
 <div class="col-xs-12 text-center submit-area">
 	{{ form_widget(formObs.valid) }}
