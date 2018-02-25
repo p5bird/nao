@@ -10,7 +10,7 @@ namespace ObservationBundle\Repository;
  */
 class ObservationRepository extends \Doctrine\ORM\EntityRepository
 {
-	public function findAllValidated()
+	public function findAllValidatedQuery()
 	{
 		$queryBuilder = $this->createQueryBuilder('obs');
 		$queryBuilder
@@ -19,8 +19,16 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 			->leftJoin('obs.validation', 'val')
 			->andWhere('val.granted = :granted')
 				->setParameter('granted', true)
-			->orderBy('obs.day', 'DESC');
-		return $queryBuilder->getQuery()->getResult();
+			;
+		return $queryBuilder;
+	}
+
+	public function findAllValidated(){
+		$queryBuilder = $this->findAllValidatedQuery();
+
+		$queryBuilder->orderBy('obs.day', 'DESC');
+		
+		return $queryBuilder->getQuery()->getResult();		
 	}
 
 	public function getNeedValidationQuery()
@@ -340,5 +348,67 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 		$queryBuilder = $this->searchFilteredQuery($search);
 		return $queryBuilder->getQuery()->getResult();
 	}
+
+
+	public function getForUserQuery($user)
+	{
+		$queryBuilder = $this->createQueryBuilder('obs');
+		$queryBuilder
+			->leftJoin('obs.author', 'user')
+			->andWhere('user.id = :userId')
+				->setParameter('userId', $user->getId())
+			->leftJoin('obs.validation', 'val')
+			->andWhere('val.granted = :true')
+				->setParameter('true', true)
+			;
+		return $queryBuilder;
+	}
+
+	public function getForUser($user, $limit = 0)
+	{
+		$queryBuilder = $this->getForUserQuery($user);
+		$queryBuilder->addOrderBy('obs.updatedAt', 'DESC');
+
+		if ($limit > 0)
+		{
+			$queryBuilder->setMaxResults($limit);
+		}
+			
+		return $queryBuilder->getQuery()->getResult();
+	}
+
+	public function getLastValidated($limit = 0)
+	{
+		$queryBuilder=$this->findAllValidatedQuery();
+		$queryBuilder->addOrderBy('obs.updatedAt', 'DESC');
+
+		if ($limit > 0)
+		{
+			$queryBuilder->setMaxResults($limit);
+		}
+			
+		return $queryBuilder->getQuery()->getResult();
+	}
+
+	public function getLastThreeObservations()
+	{
+		return $this->getLastValidated(3);
+	}
+
+	public function getLastValidatedWithImage($limit = 0)
+	{
+		$queryBuilder=$this->findAllValidatedQuery();
+		$queryBuilder
+			->andWhere('obs.image IS NOT NULL')
+			->addOrderBy('obs.updatedAt', 'DESC');
+
+		if ($limit > 0)
+		{
+			$queryBuilder->setMaxResults($limit);
+		}
+			
+		return $queryBuilder->getQuery()->getResult();
+	}
+
 
 }
