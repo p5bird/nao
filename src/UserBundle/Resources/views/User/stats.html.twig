@@ -11,43 +11,42 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 stats-show">
-                <div class="col-md-3">
-                    <div class="stats-user">
-                        <div class="stats-user-title">Utilisateurs</div>
-                        <div class="stats-user-subtitle">Nombre total d'utilisateurs</div>
-                        <div class="stats-user-content">{{ users }}</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stats-observation">
-                        <div class="stats-observation-title">Observations</div>
-                        <div class="stats-observation-subtitle">Nombre total d'observations</div>
-                        <div class="stats-observation-content">{{ observations }}</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stats-article">
-                        <div class="stats-article-title">Articles</div>
-                        <div class="stats-article-subtitle">Nombre total d'articles</div>
-                        <div class="stats-article-content">{{ articles }}</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stats-comment">
-                        <div class="stats-comment-title">Commentaires</div>
-                        <div class="stats-comment-subtitle">Nombre total de commentaires</div>
-                        <div class="stats-comment-content">{{ comments }}</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12 stats-show">
                 <div class="col-md-6">
                     <div id="chart_div" style="width: 100%; height: 500px;"></div>
                 </div>
                 <div class="col-md-6">
-
+                    <div class="row global-stats">
+                        <div class="col-md-6">
+                            <div class="stats-user">
+                                <div class="stats-user-title">Utilisateurs</div>
+                                <div class="stats-user-subtitle">Nombre total d'utilisateurs</div>
+                                <div class="stats-user-content">{{ users }}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="stats-observation">
+                                <div class="stats-observation-title">Observations</div>
+                                <div class="stats-observation-subtitle">Nombre total d'observations</div>
+                                <div class="stats-observation-content">{{ observations }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row global-stats">
+                        <div class="col-md-6">
+                            <div class="stats-article">
+                                <div class="stats-article-title">Articles</div>
+                                <div class="stats-article-subtitle">Nombre total d'articles</div>
+                                <div class="stats-article-content">{{ articles }}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="stats-comment">
+                                <div class="stats-comment-title">Commentaires</div>
+                                <div class="stats-comment-subtitle">Nombre total de commentaires</div>
+                                <div class="stats-comment-content">{{ comments }}</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

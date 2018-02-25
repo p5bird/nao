@@ -247,6 +247,31 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
+                                <a href="{{ path('nao_home') }}">
+                                    <div class="collapse-logo">
+                                        <img src="{{ asset('img/logo.png') }}" class="collapse-logo img-responsive"/>
+                                        <div class="collapse-brand">
+                                            NAO
+                                        </div>
+                                    </div>
+                                </a>
+                                <div class="collapse-quick-menu">
+                                    <a href="{{ path('nao_obs_add') }}">
+                                        <i class="fas fa-camera-retro"></i>
+                                    </a>
+                                    <a href="{{ path('nao_obs_search') }}">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+                                    <a href="{{ path('nao_blog_index') }}">
+                                        <i class="far fa-newspaper"></i>
+                                    </a>
+                                    <a href="#">
+                                        <i class="fas fa-gamepad"></i>
+                                    </a>
+                                    <a href="{{ path('nao_profile') }}">
+                                        <i class="fas fa-user"></i>
+                                    </a>
+                                </div>
                             </div>
 
                             <div class="collapse navbar-collapse navbar-collapse-mobile" id="collapse-mobile">
@@ -254,10 +279,10 @@
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tableau de bord <span class="caret"></span></a>
                                         <ul class="dropdown-menu dropdown-menu-mobile">
-                                            <li><a href="#">Accueil</a></li>
+                                            <li><a href="{{ path('nao_dashboard') }}">Accueil</a></li>
                                             {% if is_granted('ROLE_ADMIN') %}
-                                            <li><a href="#">Statistiques</a></li>
-                                            {% else %}
+                                                <li><a href="{{ path('nao_stats') }}">Statistiques</a></li>
+                                                {% else %}
                                             {% endif %}
                                         </ul>
                                     </li>
@@ -265,30 +290,30 @@
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profil <span class="caret"></span></a>
                                         <ul class="dropdown-menu dropdown-menu-mobile">
-                                            <li><a href="#">Mon profil</a></li>
-                                            <li><a href="#">Modifier</a></li>
+                                            <li><a href="{{ path('nao_profile') }}">Mon profil</a></li>
+                                            <li><a href="{{ path('nao_profile_edit') }}">Modifier</a></li>
                                         </ul>
                                     </li>
 
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Messagerie<span class="caret"></span></a>
                                         <ul class="dropdown-menu dropdown-menu-mobile">
-                                            <li><a href="#">Boite de réception</a></li>
-                                            <li><a href="#">Nouveau message</a></li>
-                                            <li><a href="#">Messages envoyés</a></li>
-                                            <li><a href="#">Messages archivés</a></li>
+                                            <li><a href="{{ path('fos_message_inbox') }}">Boite de réception</a></li>
+                                            <li><a href="{{ path('fos_message_thread_new') }}">Nouveau message</a></li>
+                                            <li><a href="{{ path('fos_message_sent') }}">Messages envoyés</a></li>
+                                            <li><a href="{{ path('fos_message_deleted') }}">Messages archivés</a></li>
                                         </ul>
                                     </li>
 
-                                    <li><a href="#">Communauté</a></li>
+                                    <li><a href="{{ path('nao_list_users') }}">Communauté</a></li>
 
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Observations<span class="caret"></span></a>
                                         <ul class="dropdown-menu dropdown-menu-mobile">
                                             <li><a href="#">Mes observations</a></li>
-                                            <li><a href="#">Ajouter une observation</a></li>
+                                            <li><a href="{{ path('nao_obs_add') }}">Ajouter une observation</a></li>
                                             {% if is_granted('ROLE_NATURALISTE') %}
-                                            <li><a href="#">Valider observations</a></li>
+                                            <li><a href="{{ path('nao_obs_check_list') }}">Valider observations</a></li>
                                             {% else %}
                                             {% endif %}
                                         </ul>
