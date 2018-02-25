@@ -1,18 +1,18 @@
 {% for observation in pagination %}
 	<div class="col-xs-12 col-sm-6">
-	<div class="media">
-	  <div class="media-left media-top gmarker" gmarker="{{ observation.id }}">
-	    <a href="{{ path('nao_obs_show', {'id': observation.id}) }}">
-	      <img class="media-object media-object-searchresult" src="{{ observation.image ? asset(vich_uploader_asset(observation.image, 'imageFile')) : asset(file_image_obs_default) }}" alt="{{ observation.birdName }}">
-	    </a>
-	  </div>
-	  <div class="media-body">
-	  	<a href="{{ path('nao_obs_show', {'id': observation.id}) }}">
-	    	<h4 class="media-heading">{{ observation.birdName }}</h4>
-		</a>
-	    <p>{{ observation.taxon.nameValid }}</p>
-	  </div>
-	</div>
+		<div class="media">
+		  <div class="media-left media-top gmarker" gmarker="{{ observation.id }}">
+		    <a href="{{ path('nao_obs_show', {'id': observation.id}) }}">
+		      <img class="media-object media-object-searchresult" src="{{ observation.image ? asset(vich_uploader_asset(observation.image, 'imageFile')) : asset(file_image_obs_default) }}" alt="{{ observation.birdName }}">
+		    </a>
+		  </div>
+		  <div class="media-body">
+		  	<a href="{{ path('nao_obs_show', {'id': observation.id}) }}">
+		    	<h4 class="media-heading">{{ observation.birdName }}</h4>
+			</a>
+		    <p>{{ observation.taxon.nameValid }}</p>
+		  </div>
+		</div>
 	</div>
 {% endfor %}
 

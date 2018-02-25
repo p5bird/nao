@@ -17,6 +17,7 @@ use ObservationBundle\Entity\Image;
 use ObservationBundle\Entity\Validation;
 use ObservationBundle\Entity\Search;
 
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use ObservationBundle\Form\ObservationType;
 use ObservationBundle\Form\ObservationAddType;
 use ObservationBundle\Form\ObservationCheckType;
@@ -294,7 +295,7 @@ class ObservationController extends Controller
     /**
      * @Route("/observation/remove/{id}", name="nao_obs_remove")
      */
-    public function removeAction($id)
+    public function removeAction($id, Request $request)
     {
 
         $entityManager = $this
@@ -305,20 +306,49 @@ class ObservationController extends Controller
             ->getRepository('ObservationBundle:Observation')
             ->findOneBy(['id' => $id]);
 
-        if (empty($observation)) {
-            return $this->redirectToRoute('nao_obs_user_list'
-            );            
-        }
-        
-        if ($observation->hasImage())
-        {
-            $entityManager->remove($observation->getImage());
-            $observation->setImage(null);
-        }
-        $entityManager->remove($observation);
-        $entityManager->flush();
+        $form = $this->createFormBuilder()
+            ->add('cancel', SubmitType::class, [
+                'label' => "Annuler"
+            ])
+            ->add('delete', SubmitType::class, [
+                'label' => "Supprimer",
+                'attr'  => [
+                    'class' => 'btn-danger block-redalert'
+                ]
+            ])
+            ->getForm()
+        ;
 
-        return $this->redirectToRoute('nao_obs_user_list');
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted())
+        {
+            if ($form->get('delete')->isClicked())
+            {
+                if ($observation->hasImage())
+                {
+                    $entityManager->remove($observation->getImage());
+                    $observation->setImage(null);
+                }
+                $entityManager->remove($observation);
+                $entityManager->flush();   
+
+                $request
+                    ->getSession()
+                    ->getFlashBag()
+                    ->add('alert', [
+                    'type'      => 'success',
+                    'content'   => "Observation n°${id} supprimée"
+                ]);                             
+            }
+
+            return $this->redirectToRoute('nao_obs_user_list');
+        }   
+
+        return $this->render('ObservationBundle:Observation:remove.html.twig', [
+            'observation'   => $observation,
+            'form'          => $form->createView()
+        ]);
     }
 
 

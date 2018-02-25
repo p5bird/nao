@@ -1,5 +1,9 @@
 .media-object-searchresult {
-	height: 3em;
+	max-height: 3em;
+}
+
+.media-object-delete-obs {
+	max-height: 6em;
 }
 
 img.obs-img-form {
