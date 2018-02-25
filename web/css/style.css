@@ -1332,6 +1332,11 @@ img.logo-footer:hover {
     padding-bottom: 60px;
 }
 
+.register-check {
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
 .register label {
     color: dimgrey;
 }
