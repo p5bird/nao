@@ -42,8 +42,8 @@
 	{{ form_errors(formObs.birdName) }}
 	<div class="input-group">
 		{{ form_widget(formObs.birdName) }}
-		<a href="#" class="input-group-addon btn btn-default disabled" type="reset"><i class="fas fa-database"></i> INPN</a>
-		<a href="#" class="input-group-addon btn btn-default disabled" type="reset"><i class="fab fa-wikipedia-w"></i> Wiki</a>
+		<a href="#" id="inpnLink" class="input-group-addon btn btn-default disabled" target="_blank"><i class="fas fa-database"></i> INPN</a>
+		<a href="#" id="wikiLink" class="input-group-addon btn btn-default disabled" target="_blank"><i class="fab fa-wikipedia-w"></i> Wiki</a>
 	</div>
 	{{ form_widget(formObs.noName) }}
 	{{ form_errors(formObs.noName) }}

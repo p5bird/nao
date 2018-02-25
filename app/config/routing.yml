@@ -114,14 +114,6 @@ nao_obs_add:
     defaults:
         _controller: ObservationBundle:Observation:add
 
-nao_ajax_bird_name:
-    path: /observation/ajax/birdName/{birdName}
-    defaults:
-        _controller: ObservationBundle:Observation:birdNameAutoComplete
-        birdName: ''
-    requirements:
-        birdName: .*
-
 nao_obs_check:
     path: /observation/check/{id}
     defaults:
@@ -168,7 +160,23 @@ nao_obs_search:
 nao_ajax_obs_list:
     path: /observation/ajax/obsList
     defaults:
-        _controller: ObservationBundle:Observation:obsMarker
+        _controller: ObservationBundle:Ajax:obsMarker
+
+nao_ajax_bird_name:
+    path: /observation/ajax/birdName/{birdName}
+    defaults:
+        _controller: ObservationBundle:Ajax:birdNameAutoComplete
+        birdName: ''
+    requirements:
+        birdName: .*
+
+nao_ajax_urls_taxon:
+    path: /observation/ajax/urlsTaxon/{birdName}
+    defaults:
+        _controller: ObservationBundle:Ajax:getUrlsTaxon
+        birdName: ''
+    requirements:
+        birdName: .*
 
 nao_obs_search_result:
     path: /observation/result/{view}/{filter}

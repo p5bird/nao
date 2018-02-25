@@ -21,19 +21,10 @@
 	{{ form_label(formValid.birdName) }} <span class="required">*</span>
 	{{ form_errors(formValid.birdName) }}
 
-	<div class="input-group form-group has-{{ observation.taxon.id is null ? 'error' : 'success' }} has-feedback">
-		<a href="#" class="input-group-addon btn btn-default disabled" type="reset"><i class="fas fa-database"></i> INPN</a>
-		<a href="#" class="input-group-addon btn btn-default disabled" type="reset"><i class="fab fa-wikipedia-w"></i> Wiki</a>
-
+	<div id="urlsTaxonFeedback" class="input-group">
 		{{ form_widget(formValid.birdName) }}
-
-		{% if observation.taxon.id is null %}
-			<span class="form-control-feedback" aria-hidden="true"><i class="fas fa-exclamation"></i></span>
-		{% else %}
-			<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
-		{% endif %}
-
-		<span id="_birdNameStatus" class="sr-only">(error)</span>
+		<a href="#" id="inpnLink" class="input-group-addon btn btn-default disabled" target="_blank"><i class="fas fa-database"></i> INPN</a>
+		<a href="#" id="wikiLink" class="input-group-addon btn btn-default disabled" target="_blank"><i class="fab fa-wikipedia-w"></i> Wiki</a>
 
 	</div>
 </div>

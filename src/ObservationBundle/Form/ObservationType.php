@@ -26,7 +26,8 @@ class ObservationType extends AbstractType
                 'required'  => false,
                 'label'     => "Nom de l'espèce",
                 'attr'      => [
-                    'data-autocomplete'  => 'birdName'
+                    'data-autocomplete'  => 'birdName',
+                    'placeholder'       => "Tapez au moins 3 lettres"
                 ]
             ])
             ->add('noName',         Type\CheckboxType::class, [

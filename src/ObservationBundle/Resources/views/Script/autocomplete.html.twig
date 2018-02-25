@@ -11,6 +11,46 @@
                     }
                 });
             },
-            minLenght: 3
+            minLength: 3
         });
+
+        
+
+        /**
+         * Auto generate button links to INPN and Wikipedia
+         */
+
+        $("input[data-autocomplete='birdName']").on('input', function() {
+            getUrlsTaxon();
+        });
+
+        $("input[data-autocomplete='birdName']").on("autocompleteclose", function() {
+            getUrlsTaxon();
+        });
+
+        var qGetUrlsTaxon = "{{ path('nao_ajax_urls_taxon') }}";
+        function getUrlsTaxon() {
+            $.ajax({
+                url: qGetUrlsTaxon + "/" + $("input[data-autocomplete='birdName']").val(),
+                dataType: 'json',
+                success: function(urlsTaxon) {
+                    if (urlsTaxon !== "null")
+                    {
+                        $("#inpnLink").attr('href', urlsTaxon['urlInpn']);
+                        $("#inpnLink").removeClass('disabled');
+
+                        $("#wikiLink").attr('href', urlsTaxon['urlWiki']);
+                        $("#wikiLink").removeClass('disabled');
+                    }
+                    else
+                    {
+                        $("#inpnLink").attr('href', '#');
+                        $("#inpnLink").addClass('disabled'); 
+
+                        $("#wikiLink").attr('href', '#');
+                        $("#wikiLink").addClass('disabled');                    
+                    }
+                }
+            });
+        }
     </script>
