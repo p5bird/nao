@@ -26,13 +26,28 @@ class AppController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $lastThreeArticles = $em->getRepository('BlogBundle:Article')->getLastThreeArticles();
+        $lastThreeObservations = $em->getRepository('ObservationBundle:Observation')->getLastValidatedWithImage();
 
         return $this->render('AppBundle:App:index.html.twig', array(
-            'lastThreeArticles' => $lastThreeArticles
+            'lastThreeArticles' => $lastThreeArticles,
+            'lastThreeObservations' => $lastThreeObservations
         ));
     }
 
+    /**
+     * Landing page
+     *
+     * @return Response
+     */
+    public function landingPageAction() {
+        return $this->render('AppBundle:App:landingPage.html.twig');
+    }
+
     public function sendContactMessageAction() {
+
+    }
+
+    public function searchBarAction() {
 
     }
 }

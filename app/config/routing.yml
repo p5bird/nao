@@ -187,3 +187,7 @@ nao_obs_search_result:
     requirements:
         view:   \w*
         filter: \w*
+
+nao_landing_page:
+    path: /landing-page/
+    defaults: { _controller: AppBundle:App:landingPage }
