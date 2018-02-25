@@ -32,7 +32,38 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                        <a class="navbar-brand" href="{{ path('nao_home') }}">Accueil</a>
+                            <a href="{{ path('nao_home') }}">
+                                <div class="collapse-logo">
+                                    <img src="{{ asset('img/landing-page/Logo-condensé.png') }}" class="collapse-logo img-responsive"/>
+                                    <div class="collapse-brand">
+                                        NAO
+                                    </div>
+                                </div>
+                            </a>
+
+                            <div class="collapse-quick-menu">
+                                <a href="{{ path('nao_obs_add') }}">
+                                    <i class="fas fa-camera-retro"></i>
+                                </a>
+                                <a href="{{ path('nao_obs_search') }}">
+                                    <i class="fas fa-search"></i>
+                                </a>
+                                <a href="{{ path('nao_blog_index') }}">
+                                    <i class="far fa-newspaper"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="fas fa-gamepad"></i>
+                                </a>
+                                <a href="{{ path('nao_profile') }}">
+                                    <i class="fas fa-user"></i>
+                                </a>
+                            </div>
+
+                            <div class="nav-brand">
+                                <a href="{{ path('nao_home') }}">
+                                <i class="fas fa-home"></i> Accueil
+                                </a>
+                            </div>
                         </div>
 
                         <div class="collapse navbar-collapse" id="navbar-collapse">
@@ -157,24 +188,24 @@
                         <div class="footer-section-content">
                             <div class="footer-logos">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-xs-6">
                                         <a href="http://www.oiseaux.net">
                                             <img src="{{ asset('img/logo-oiseauxnet.png') }}" class="logo-footer"/>
                                         </a>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-xs-6">
                                         <a href="http://www.ornithomedia.com">
                                             <img src="{{ asset('img/logo-ornithomedia.png') }}" class="logo-footer" />
                                         </a>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-xs-6">
                                         <a href="https://inpn.mnhn.fr">
                                             <img src="{{ asset('img/logo-inpn.png') }}" class="logo-footer"/>
                                         </a>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-xs-6">
                                         <a href="http://www.gepog.org">
                                             <img src="{{ asset('img/logo-gepog.png') }}" class="logo-footer" />
                                         </a>
@@ -193,7 +224,7 @@
 <button onclick="topFunction()" id="btnTop" class="btn btn-nao"><i class="fas fa-angle-up"></i></button>
 
 
-{% block javascript %}
+{% block javascripts %}
     <script type="text/javascript" title="Go to Top">
         // When the user scrolls down 20px from the top of the document, show the button
         window.onscroll = function() {scrollFunction()};
@@ -213,6 +244,5 @@
         }
     </script>
 {% endblock %}
-
 
 {% endblock %}

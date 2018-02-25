@@ -93,17 +93,37 @@
                         <div class="index-main-content-carousel">
                             <div id="index-main-content-carousel" class="carousel slide" data-ride="carousel">
                                 <div class="carousel-inner index-main-content-carousel-inner">
-                                    <div class="item active">
-                                        <img src="https://picturecorrect-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/stunning-bird-photos.gif" alt="Oiseau">
-                                    </div>
+                                    {% for key, observation in lastThreeObservations %}
+                                        {% set imgSrc = observation.image ? asset(vich_uploader_asset(observation.image, 'imageFile')) : asset(file_image_obs_default) %}
+                                        {% set imgAlt = observation.image ? observation.birdName : "image par défaut" %}
 
-                                    <div class="item">
-                                        <img src="http://cdn.walkthroughindia.com/wp-content/uploads/2016/07/scarlet-macaw-667x400.jpg" alt="Oiseau">
-                                    </div>
+                                        {% if loop.first %}
+                                            <div class="item active index-obs">
+                                                <img src="{{ imgSrc }}" alt="{{ imgAlt }}" class="user-avatar-image-show"/>
+                                                <div class="index-obs-infos">
+                                                    <div class="index-obs-name">
+                                                        {{ observation.birdName }}
+                                                    </div>
+                                                    <div class="index-obs-area">
+                                                        {{ observation.locCounty }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% else %}
+                                            <div class="item index-obs">
+                                                <img src="{{ imgSrc }}" alt="{{ imgAlt }}" class="user-avatar-image-show"/>
+                                                <div class="index-obs-infos">
+                                                    <div class="index-obs-name">
+                                                        {{ observation.birdName }}
+                                                    </div>
+                                                    <div class="index-obs-area">
+                                                        {{ observation.locCounty }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
 
-                                    <div class="item">
-                                        <img src="http://cdn.walkthroughindia.com/wp-content/uploads/2016/08/Pitta_Indian.jpg" alt="Oiseau">
-                                    </div>
+                                    {% endfor %}
                                 </div>
 
                                 <a class="left carousel-control" href="#index-main-content-carousel" data-slide="prev">

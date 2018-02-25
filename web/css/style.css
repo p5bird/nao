@@ -961,6 +961,32 @@ nav.navbar.navbar-home {
     border-bottom: 1px solid #dddddd;
 }
 
+.navbar-home span.icon-bar {
+    background: #333;
+}
+
+.collapse-quick-menu {
+    display: none;
+}
+
+.collapse-quick-menu i {
+    -webkit-transition: ease-in-out 0.4s;
+    -moz-transition: ease-in-out 0.4s;
+    -ms-transition: ease-in-out 0.4s;
+    -o-transition: ease-in-out 0.4s;
+    transition: ease-in-out 0.4s;
+}
+
+.nav-brand {
+    display: inline-block;
+    padding: 15px 0 0 0;
+}
+
+img.collapse-logo {
+    max-width: 50px;
+    display: inline-block;
+}
+
 .nav-home a {
     border-right: 1px solid #dddddd;
     border-left: 1px solid #dddddd;
@@ -1037,8 +1063,39 @@ nav.navbar.navbar-home {
     padding: 40px 0 40px 0;
 }
 
+#index-main-content-carousel {
+    border: 1px solid #dddddd;
+}
+
 #index-main-content-carousel img {
     min-height: 400px;
+}
+
+#index-main-content-carousel .carousel-control {
+    background: none;
+}
+
+.index-obs {
+    position: relative;
+}
+
+.index-obs-infos {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #FFFFFF;
+    text-align: center;
+    padding: 10px;
+    color: dimgrey;
+}
+
+.index-obs-name {
+    font-size: 18pt;
+}
+
+.index-obs-area {
+    font-size: 14pt;
 }
 
 .index-article-container-title {
@@ -1250,6 +1307,71 @@ img.logo-footer:hover {
 }
 
 /********************
+***Login & Register**
+********************/
+
+.login, .register {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.register label {
+    color: dimgrey;
+}
+
+.login-box, .register-box {
+    border: 1px solid #dddddd;
+    padding: 20px;
+    max-width: 350px;
+    margin: 0 auto;
+}
+
+.remember-me {
+    padding: 5px 0 20px 0;
+    color: dimgrey;
+}
+
+.form-login {
+    background: #efefef;
+    border: none;
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+}
+
+.form-login::-webkit-input-placeholder {
+    color: #b5b4b4;
+}
+.form-login::-moz-placeholder {
+    color: #b5b4b4;
+}
+.form-login:-ms-input-placeholder {
+    color: #b5b4b4;
+}
+.form-login:-moz-placeholder {
+    color: #b5b4b4;
+}
+
+.login-submit {
+    text-align: center;
+}
+
+.login-submit input, .register-submit input {
+    width: 100%;
+}
+
+.register-submit {
+    padding: 20px 0 0 0;
+}
+
+.not-registered {
+    text-align: center;
+    padding: 20px 0 0 0;
+    font-size: 9pt;
+    color: dimgrey;
+}
+
+/********************
 *****Blog Index******
 ********************/
 
@@ -1409,6 +1531,303 @@ img.comment-user-avatar {
     margin: 0 0 20px 0;
 }
 
+/******************************
+*******************************
+*********LANDING PAGE**********
+*******************************
+*******************************/
+
+body.landing-page {
+    margin: 0;
+}
+
+section.landing-header, section.landing-application, section.landing-photos, section.landing-footer {
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
+    background-position: top center !important;
+    -webkit-background-size: cover !important;
+    -moz-background-size: cover !important;
+    background-size: cover !important;
+}
+
+section.landing-header {
+    background: url("/img/landing-page/oiseau-background.jpg");
+    min-height: 929px;
+}
+
+section.landing-application {
+    background: url("/img/landing-page/application-background.jpg");
+}
+
+section.landing-photos {
+    background: url("/img/landing-page/photos-background.jpg");
+}
+
+section.landing-footer {
+    background: url("/img/landing-page/footer-background.jpg");
+    min-height: 929px;
+}
+
+section.landing-programme {
+    background: #f7f8fa;
+}
+
+section.landing-mobility, section.landing-programme {
+    border-bottom: 1px solid #D7DCE1;
+}
+
+.row.mobility {
+    border-bottom: 1px solid #D7DCE1;
+}
+
+.container.steps {
+    padding-top: 50px;
+}
+
+section.landing-programme, section.landing-application, section.landing-photos, section.landing-footer {
+    padding: 150px 0;
+}
+
+section.landing-mobility {
+    padding: 150px 0 100px 0;
+}
+
+section.landing-header {
+    padding: 300px 0;
+}
+
+section.landing-association {
+    padding: 80px 0;
+}
+
+.programme-infos, .application-content, .photos-content, .landing-footer-content, .header-content {
+    text-align: center;
+}
+
+.programme-title, .programme-description, .mobility-title, .photos-title {
+    color: #909394;
+    font-size: 24px;
+}
+
+.header-description {
+    color: #FFFFFF;
+    font-size: 27px;
+    padding: 0 0 30px 0;
+}
+
+.mobility-step-title {
+    color: #262e32;
+    font-size: 24px;
+    padding: 20px 0 10px 0;
+}
+
+.mobility-step-content {
+    color: #5d666a;
+    font-size: 18px;
+    padding: 0 10px 0 0;
+}
+
+.application-title {
+    color: #96cbd6;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.photos-title {
+    color: #a5bdc9;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.application-subtitle, .photos-subtitle, .landing-footer-title, .header-title {
+    color: #FFFFFF;
+    font-size: 56px;
+}
+
+.landing-footer-description {
+    color: #fbfbfb;
+    font-size: 24px;
+    padding: 0 180px 30px 180px;
+}
+
+.application-description {
+    color: #c1e1e7;
+    font-size: 24px;
+}
+
+.application-phone-infos {
+    padding: 40px 0 40px 0;
+}
+
+.application-phone-infos-left {
+    text-align: right;
+}
+
+.application-phone-infos-right {
+    text-align: left;
+}
+
+.application-phone-infos i, .application-phone-infos-title {
+    color: #FFFFFF;
+    padding: 0 0 20px 0;
+}
+
+.application-phone-infos-title {
+    font-weight: 500;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.application-phone-infos-left .application-phone-infos-content {
+    padding: 0 0 0 60px;
+}
+
+.application-phone-infos-right .application-phone-infos-content {
+    padding: 0 60px 0 0;
+}
+
+.application-phone-infos-content {
+    color: #add8e0;
+    font-size: 16px;
+}
+
+.application-phone-infos i {
+    font-size: 30pt;
+}
+
+.programme-title {
+    padding: 0 0 20px 0;
+    font-weight: 500;
+}
+
+.programme-subtitle, .mobility-subtitle {
+    font-size: 56px;
+    padding: 0 0 30px 0;
+}
+
+.programme-image {
+    padding: 30px 0 0 0;
+}
+
+.programme-buttons {
+    padding: 50px 0 0 0;
+}
+
+.programme-buttons i {
+    font-size: 30pt;
+    padding: 0 0 20px 0;
+    color: #00bcd4;
+}
+
+.programme-buttons-title {
+    font-size: 20px;
+    padding: 0 0 20px 0;
+    font-weight: 500;
+}
+
+.programme-buttons-content {
+    font-size: 18px;
+    color: #5d666a;
+}
+
+.programme-infos, .application-content, .photos-content {
+    padding: 0 100px;
+}
+
+.application-content {
+    margin: 0 0 80px 0;
+}
+
+img.img-mobility {
+    float: right;
+}
+
+img.img-application {
+    margin: 0 auto;
+}
+
+img.img-footer {
+    width: 900px;
+    margin: 0 auto;
+}
+
+.mobility-content {
+    margin-top: 250px;
+}
+
+.mobility-description {
+    color: #5b666d;
+    font-size: 24px;
+    padding: 0 50px 30px 0;
+}
+
+.observation-name {
+    background: #FFFFFF;
+    text-align: center;
+    padding: 20px 0 20px 0;
+}
+
+.observation-bird-name {
+    color: #262e32;
+    font-size: 24px;
+}
+
+.photos-button {
+    text-align: center;
+}
+
+.photos-content {
+    padding: 0 80px 80px 80px;
+}
+
+.observation-area {
+    color: #5b666d;
+    font-size: 16px;
+}
+
+.photos-observation {
+    padding: 0 0 40px 0;
+}
+
+#association-carousel .carousel-control {
+    background: none;
+}
+
+#association-carousel span.fa-chevron-right, #association-carousel span.fa-chevron-left {
+    color: #333;
+}
+
+.slide-inner-content {
+    text-align: center;
+}
+
+.slide-inner-text {
+    color: #262e32;
+    font-size: 36px;
+    padding: 0 100px 40px 100px;
+}
+
+.slide-inner-name {
+    padding: 20px 0 0 0;
+    font-size: 12pt;
+}
+
+.application-button {
+    text-align: center;
+    padding: 50px 0 0 0;
+}
+
+.btn-start-application {
+    background: #FFFFFF;
+    color: #00bcd4;
+    text-transform: uppercase;
+    font-weight: 500 !important;
+}
+
+.landing-page button {
+    text-transform: uppercase;
+}
+
 /*****/
 
 .user-editing-password {
@@ -1451,6 +1870,14 @@ img.last-observation {
     border-color: #3994a2;
     color: #FFFFFF;
     font-weight: 500 !important;
+}
+
+.bleu-nao {
+    color: #00bcd4;
+}
+
+.bold {
+    font-weight: 500;
 }
 
 .btn-nao:hover {
@@ -1501,7 +1928,25 @@ ul.dropdown-menu.dropdown-menu-mobile a {
     }
 }
 
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 768px) {
+    .collapse-quick-menu {
+        display: inline-block;
+        padding: 14px 50px 0 0;
+        float: right;
+    }
+
+    .collapse-quick-menu i {
+        margin: 0 10px;
+        font-size: 15pt;
+    }
+
+    .collapse-quick-menu a:hover {
+        text-decoration: none;
+        color: #f89a1d;
+    }
+}
+
+@media screen and (max-width: 990px) {
     .sidebar {
         display:none;
     }
@@ -1576,6 +2021,26 @@ ul.dropdown-menu.dropdown-menu-mobile a {
     .stats-user, .stats-observation, .stats-article, .stats-comment {
         margin: 0 0 10px 0;
     }
+
+    .header-logo {
+        display: none;
+    }
+
+    .nav-brand {
+        display: none;
+    }
+
+    .collapse-logo {
+        display: inline-block;
+        padding: 5px 0 0 5px;
+    }
+
+    .collapse-brand {
+        display: inline-block;
+        vertical-align: bottom;
+        font-size: 15pt;
+        padding: 0 0 0 2px;
+    }
 }
 
 @media screen and (min-width: 991px) and (max-width: 1400px) {
@@ -1599,16 +2064,20 @@ ul.dropdown-menu.dropdown-menu-mobile a {
         max-width: 70%;
         padding: 20px;
     }
+
+    .collapse-logo {
+        display: none;
+    }
 }
 
-@media (min-width: 768px) {
+@media screen and (min-width: 768px) {
     .modal-dialog {
         width: 100%;
         max-width: 1200px !important;
     }
 }
 
-@media (max-width: 1200px) {
+@media screen and (max-width: 1200px) {
     .brand-name {
         display: block !important;
     }
