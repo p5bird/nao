@@ -1957,6 +1957,26 @@ ul.dropdown-menu.dropdown-menu-mobile a {
         text-decoration: none;
         color: #f89a1d;
     }
+
+    table,
+    tbody,
+    tr
+    {
+        display: block;
+        width: auto !important;
+    }
+
+    tbody {
+        padding: 20px 0 0 0;
+    }
+
+    thead {
+        display: none;
+    }
+
+    td {
+        display: inline-block;
+    }
 }
 
 @media screen and (max-width: 990px) {
@@ -2024,11 +2044,6 @@ ul.dropdown-menu.dropdown-menu-mobile a {
     .layout-icons {
         position: absolute;
         right: 0;
-    }
-
-    .user-interface-right-part {
-        overflow: initial;
-        height: 100%;
     }
 
     .stats-user, .stats-observation, .stats-article, .stats-comment {
