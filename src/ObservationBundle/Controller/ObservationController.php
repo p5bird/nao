@@ -428,16 +428,27 @@ class ObservationController extends Controller
      * @Route("/observation/showCheckList", name="nao_obs_check_list")
      * @Security("is_granted('ROLE_SPECIALISTE')")
      */
-    public function showCheckListAction()
+    public function showCheckListAction(Request $request)
     {
-        $observations = $this
+        $obsRepository = $this
             ->getDoctrine()
             ->getManager()
-            ->getRepository('ObservationBundle:Observation')
-            ->getNeedValidation();
+            ->getRepository('ObservationBundle:Observation');
+
+        // $observations = $obsRepository->getNeedValidation();
+
+        //pagination
+        $query = $obsRepository->getNeedValidationQuery();
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            10
+        );
 
         return $this->render('ObservationBundle:Observation:showCheckList.html.twig', [
-            'observations'   => $observations
+            'pagination'   => $pagination
+            // 'observations'    => $observations
         ]);
     }
 

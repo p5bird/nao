@@ -23,15 +23,28 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 		return $queryBuilder->getQuery()->getResult();
 	}
 
-	public function getNeedValidation()
+	public function getNeedValidationQuery()
 	{
 		$queryBuilder = $this->createQueryBuilder('obs');
 		$queryBuilder
 			->where('obs.validation IS NULL')
 			->andWhere('obs.publish = :publish')
 				->setParameter('publish', true)
-			->orderBy('obs.day', 'DESC');
+			->orderBy('obs.updatedAt', 'ASC');
+		return $queryBuilder;
+	}
+
+	public function getNeedValidation()
+	{
+		$queryBuilder = $this->getNeedValidationQuery();
 		return $queryBuilder->getQuery()->getResult();
+	}
+
+	public function countNeedValidation()
+	{
+		$queryBuilder = $this->getNeedValidationQuery();
+		$queryBuilder->select('count(obs)');
+		return $queryBuilder->getQuery()->getSingleScalarResult();
 	}
 
 	public function findAllUserQuery($user)

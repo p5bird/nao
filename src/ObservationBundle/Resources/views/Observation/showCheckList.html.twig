@@ -6,46 +6,75 @@
 	<div class="user-interface-page-header">
 
         {% for alert in app.session.flashbag.get('alert') %}
-            <p class="alert alert-{{ alert.type }}">{{ alert.content }}</p>
+            <div class="alert alert-{{ alert.type }}"><h4>{{ alert.content }}</h4></div>
         {% endfor %}
 
         <div class="page-name">
-            Observations à valider
+            Observations à valider <span class="label label-nao-yellow">{{ pagination.getTotalItemCount }}</span>
+{#             Observations à valider <span class="label label-nao-yellow">{{ observations|length }}</span> #}
         </div>
         <div class="validate-edit">
-            {# <input type="submit" value="Ajouter" class="btn btn-nao"/> #}
+            <a href="{{ path('nao_obs_user_list') }}" class="btn btn-nao"/>Mes observations</a>
         </div>
     </div>
     
     <div class="container">
-	    <div class="col-xs-12 profile-edit">
+	    <div class="col-xs-12 user-interface-content-container">
 
-			{% if observations is empty %}
+			{% if pagination.getTotalItemCount is same as(0) %}
+{# 			{% if observations is empty %} #}
+
 				<div class="alert alert-default">
-	                Application à jour : aucune observation à valider.
+	                <i class="fas fa-check"></i> Application à jour : aucune observation à valider.
 	            </div>
 
 			{% else %}
+
+{# 				<div class="input-group">
+                    <input class="form-control" id="system-search" name="q" placeholder="Rechercher" required>
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                    </span>
+                </div> #}
+                <div class="panel panel-default">
 				<div class="table-responsive">
-					<table class="table table-sm table-hover">
+					<table class="table table-sm table-hover table-striped list-users-table list-table">
 						<thead>
 	    					<tr>
-	    						<th scope="col">Oiseau</th>
-	    						<th scope="col">Date d'observation</th>
-	    						<th scope="col">Statut</th>
+	    						<th class="col-sm-1"></th>
+	    						<th class="col-sm-6">Oiseau</th>
+	    						<th class="col-sm-2">Date de soumission</th>
+	    						<th class="col-sm-3">Auteur</th>
 	    					</tr>
 						</thead>
 	    				<tbody>
-							{% for observation in observations %}
+							{% for observation in pagination %}
+{# 							{% for observation in observations %} #}
 		    					<tr>
-		    						<td><a href="{{ path('nao_obs_check', {'id': observation.id}) }}">{{ observation.noName ? 'non identifié' : observation.birdName }}</a></td>
-		    						<td>{{ observation.day|date('d/m/Y') }}</td>
-		    						<td>{{ observation.validated ? 'Validée' : 'En attente' }}</td>
+		    						<td>
+		    							<i class="fas fa-gavel"></i>		
+		    						</td>
+		    						<td>
+		    							{% if observation.noName %}
+											<i class="far fa-question-circle"></i> 
+										{% endif %}
+		    							<a href="{{ path('nao_obs_check', {'id': observation.id}) }}">{{ observation.birdName ? observation.birdName : 'non identifié' }}</a>
+		    						</td>
+		    						<td>
+		    							{{ observation.updatedAt|date('d/m/Y : H\\hm') }}
+		    						</td>
+		    						<td>
+		    							<a href="{{ path('nao_show_user',{'id': observation.author.id}) }}">{{ observation.author.username }}</a>
+		    						</td>
 		    					</tr>
 							{% endfor %}
 	    				</tbody>
 	    			</table>
+					<div class="panel-footer navigation">
+				    	{{ knp_pagination_render(pagination) }}
+					</div>	
 				</div>
+				</div>			
 			{% endif %}
 
 	    </div>

@@ -26,9 +26,7 @@
             Contrôler l'observation n°{{ observation.id }}
         </div>
         <div class="validate-edit">
-            <input type="submit" value="Valider" class="btn btn-nao"/>
-            <input type="submit" value="Rejeter" class="btn btn-danger"/>
-            <a href="#" type="submit" value="Retour" class="btn btn-default">Retour</a>
+            <a href="{{ path('nao_obs_check_list') }}" class="btn btn-nao">Liste des validations</a>
         </div>
     </div>
     

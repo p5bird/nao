@@ -15,6 +15,9 @@
         </div>
         <div class="validate-edit">
         	<a href="{{ path('nao_obs_add') }}" class="btn btn-nao"/>Ajouter</a>
+        	{% if is_granted("ROLE_NATURALISTE") %}
+        		<a href="{{ path('nao_obs_check_list') }}" class="btn btn-nao"/>Valider</a>
+        	{% endif %}
         </div>
     </div>
     
