@@ -29,7 +29,7 @@
                                     <th class="col-md-3">
                                         <span>Article</span>
                                     </th>
-                                    <th class="col-md-3">
+                                    <th class="col-md-4">
                                         <span>Extrait</span>
                                     </th>
                                     <th class="col-md-2">
@@ -41,7 +41,8 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for key, article in articles %}
+                                {% if articles %}
+                                    {% for key, article in articles %}
                                     <tr class="list-article-single">
                                         <td class="list-article-td">
                                             {% if article.author.avatar.id is not defined %}
@@ -67,9 +68,7 @@
                                         <td class="list-article-td">
                                             <div class="list-article-content">
                                                 <span>
-                                                    {% autoescape false %}
-                                                        {{ article.content|slice(0, 92) }}
-                                                    {% endautoescape %}
+                                                    {{ article.content|striptags|slice(0, 95)|raw }}
                                                 </span>
                                             </div>
                                         </td>
@@ -94,6 +93,13 @@
                                         </td>
                                     </tr>
                                 {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td class="no-article">
+                                            Aucun article
+                                        </td>
+                                    </tr>
+                                {% endif %}
                                 </tbody>
                             </table>
                         </div>

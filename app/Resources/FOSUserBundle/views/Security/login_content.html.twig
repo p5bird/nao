@@ -22,12 +22,23 @@
                     <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
                 </div>
 
+                <div class="forgotten-password">
+                    <a href="{{ path('fos_user_resetting_request') }}">
+                        Mot de passe oublié ?
+                    </a>
+                </div>
+
                 <div class="login-submit">
                     <input class="btn btn-nao" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
                 </div>
 
                 <div class="not-registered">
-                    Pas encore membre ? <span class="bleu-nao bold">Créer un compte</span>
+                    Pas encore membre ?
+                    <span class="bleu-nao bold">
+                        <a href="{{ path('fos_user_registration_register') }}">
+                            Créer un compte
+                        </a>
+                    </span>
                 </div>
             </form>
         </div>

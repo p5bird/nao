@@ -146,21 +146,21 @@
                                                 <div class="col-md-12">
                                                     <div class="row pre-row">
                                                         <div class="last-observation-title">Dernières observations:</div>
-                                                        <div class="col-md-4">
-                                                            <a href="#">
-                                                                <img src="https://www.mieux-vivre-autrement.com/wp-content/uploads/2015/12/oiseau-froid.jpg" class="last-observation">
-                                                            </a>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <a href="#">
-                                                                <img src="http://www.detentejardin.com/sites/art-de-vivre/files/styles/large/public/dj111_oiseaux_arbre_mort_fotolia.jpg?itok=mjFyUU9A" class="last-observation">
-                                                            </a>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <a href="#">
-                                                                <img src="https://4.bp.blogspot.com/-s8kHRTjc4xQ/UXVwYf7a8FI/AAAAAAAALnY/hk2Kv-h0eh4/s1600/European_Bee-eater2.jpg" class="last-observation">
-                                                            </a>
-                                                        </div>
+                                                        {% if lastThreeObservations %}
+                                                            {% for key, observation in lastThreeObservations %}
+                                                                    {% set imgSrc = observation.image ? asset(vich_uploader_asset(observation.image, 'imageFile')) : asset(file_image_obs_default) %}
+                                                                    {% set imgAlt = observation.image ? observation.birdName : "image par défaut" %}
+                                                                    <div class="col-md-4">
+                                                                        <a href="{{ path('nao_obs_show', {'id' : observation.id }) }}">
+                                                                            <img src="{{ imgSrc }}" alt="{{ imgAlt }}" class="last-observation"/>
+                                                                        </a>
+                                                                    </div>
+                                                            {% endfor %}
+                                                        {% else %}
+                                                            <div class="no-observation">
+                                                                Aucune observation
+                                                            </div>
+                                                        {% endif %}
                                                     </div>
                                                 </div>
                                             </div>

@@ -14,11 +14,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-
-
 use UserBundle\Entity\Avatar;
 use UserBundle\Entity\User;
 use UserBundle\Form\ProfileType;
@@ -40,13 +37,15 @@ class UserController extends Controller {
     public function showUserAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('UserBundle:User')->find($id);
+        $lastThreeObservations = $em->getRepository('ObservationBundle:Observation')->getForUser($user, 3);
 
         if (null == $user) {
             return $this->render('error/404.html.twig');
         }
 
         return $this->render('UserBundle:User:showUser.html.twig', array(
-            'user' => $user
+            'user' => $user,
+            'lastThreeObservations' => $lastThreeObservations
         ));
     }
 

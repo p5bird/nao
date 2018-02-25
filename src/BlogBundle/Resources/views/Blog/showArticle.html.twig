@@ -33,9 +33,7 @@
                             {% endif %}
                         </div>
                         <div class="blog-article-content">
-                            {% autoescape false %}
-                                {{ article.content }}
-                            {% endautoescape %}
+                            {{ article.content|raw }}
                         </div>
                         <div class="blog-article-share">
                             Partager

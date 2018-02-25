@@ -90,15 +90,24 @@
                                         <li class="sub-menu-index"><a href="#">Contact</a></li>
                                     </ul>
                                 </li>
+
+                                {% if is_granted('ROLE_USER') %}
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mon espace <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li class="sub-menu-index"><a href="{{ path('nao_dashboard') }}">Tableau de bord</a></li>
-                                        <li class="sub-menu-index"><a href="#">Validations</a></li>
+                                        <li class="sub-menu-index"><a href="{{ path('nao_obs_check_list') }}">Validations</a></li>
                                         <li class="sub-menu-index"><a href="{{ path('fos_message_inbox') }}">Messagerie</a></li>
                                         <li class="sub-menu-index"><a href="{{ path('nao_profile_edit') }}">Paramètres</a></li>
                                     </ul>
                                 </li>
+                                {% else %}
+                                    <li class="sub-menu-index">
+                                        <a href="{{ path('nao_login') }}">
+                                            Se connecter
+                                        </a>
+                                    </li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>

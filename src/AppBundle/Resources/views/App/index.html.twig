@@ -57,9 +57,7 @@
                                             {{ article.createdAt|date }}
                                         </div>
                                         <div class="index-article-excerpt">
-                                            {% autoescape false %}
-                                                {{ article.content|slice(0, 190) }}...
-                                            {% endautoescape %}
+                                            {{ article.content|striptags|slice(0, 190)|raw }}...
                                         </div>
                                     </div>
                                 </div>

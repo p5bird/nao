@@ -31,9 +31,7 @@
                                 </div>
 
                                 <div class="messenger_thread_message_body" id="message_{{ message.id }}">
-                                    {% autoescape false %}
-                                        {{ message.body }}
-                                    {% endautoescape %}
+                                    {{ message.body|raw }}
                                 </div>
                             </div>
                         {% endfor %}
