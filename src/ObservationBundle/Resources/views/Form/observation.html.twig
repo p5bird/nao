@@ -12,16 +12,14 @@
 </div>
 
 
-<div class="col-xs-12 col-sm-6" class="image-edit">
-    {% if observation.image and observation.image.imageName %}
-    	<div class="">
-    		<img id="image-remover-tracker-on" src="{{ asset(vich_uploader_asset(observation.image, 'imageFile')) }}" alt="{{ observation.birdName }}" class="img-fluid rounded  obs-img-form img-responsive" />
-    	</div>
-    {% else %}
-        <div>
-        	<img id="image-remover-tracker-off" src="{{ asset('/img/no-image.png') }}" class="user-avatar-image-edit img-responsive"/>
-        </div>
-    {% endif %}
+<div class="col-xs-12 col-sm-6">
+	<div class="image-obs-form">
+	    {% if observation.image and observation.image.imageName %}
+	    	<img id="image-remover-tracker-on" src="{{ asset(vich_uploader_asset(observation.image, 'imageFile')) }}" alt="{{ observation.birdName }}" class="img-responsive" />
+	    {% else %}
+	        <img id="image-remover-tracker-off" src="{{ asset(file_image_obs_default) }}" class="img-responsive"/>
+	    {% endif %}
+	</div>
 
     {% block modal %}
 		{% include 'ObservationBundle:Modal:imageauthor.html.twig' %}

@@ -1,5 +1,20 @@
 {# Image Remover #}
 <script type="text/javascript" title="Image Remover">
+
+	// Show image when selected in the form
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $('img[id*=image-remover-tracker]').attr('src', e.target.result);
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+
 	// hide remover button onload if no image
 	document.addEventListener('DOMContentLoaded', function (event) {
 	    if(document.getElementById("image-remover-tracker-on"))
@@ -16,12 +31,13 @@
 	// show button if image added
 	document.querySelector("input[id*='_imageFile']").addEventListener('change', function(event){
 		document.getElementById("image-remover").classList.remove("hide");
+		readURL(this);
 		$('#imageAuthorModal').modal('show');
 	});
 
 	function removeAction() {
 		document.querySelector("input[id*='_imageFile']").value = null;
-		document.querySelector("[id^='image-remover-tracker']").src = "{{ asset(file_image_default) }}";	
+		document.querySelector("[id^='image-remover-tracker']").src = "{{ asset(file_image_obs_default) }}";	
 		document.getElementById("image-remover").classList.add('hide');
 		$('input[id*="_image_authorization"]').prop( "checked", false );
 		$('input[removeField="image"]').prop("value", true);
