@@ -243,6 +243,16 @@
             document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
         }
     </script>
+
+    <script type="text/javascript">
+        var $document = $(document),
+            $element = $('.navbar-home'),
+            className = 'navbar-fixed-top';
+
+        $document.scroll(function() {
+            $element.toggleClass(className, $document.scrollTop() >= 50);
+        });
+    </script>
 {% endblock %}
 
 {% endblock %}
