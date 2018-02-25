@@ -49,7 +49,7 @@ class ObservationController extends Controller
 
             $observation = $this->get('observation.geoloc')->setLocationInfos($observation);
 
-            if ($observation->hasImage() and !is_null($observation->getImage()->getImageName()))
+            if ($observation->hasImage() === true)
             {
                 $image = $observation->getImage();
                 $observation->setImage($image);
@@ -65,7 +65,7 @@ class ObservationController extends Controller
             {
                 $observation->setPublish(true);
 
-                if ($user->hasRole('ROLE_NATURALISTE'))
+                if ($user->hasRole('ROLE_NATURALISTE') and $observation->hasTaxon())
                 {
                     $observation = $this->get('observation.obsValidation')->setGranted($observation);
                 }
@@ -126,6 +126,9 @@ class ObservationController extends Controller
 
         if ($formObs->isSubmitted() and $formObs->isValid())
         {
+            $author = $observation->getAuthor();
+            $observation->setAuthor($author);
+
             $observation = $this->get('observation.taxonFinder')->setTaxonToObservation($observation);
 
             $observation = $this->get('observation.geoloc')->setLocationInfos($observation);
@@ -156,7 +159,7 @@ class ObservationController extends Controller
                     $observation->setValidation(null);
                 }
 
-                if ($user->hasRole('ROLE_NATURALISTE'))
+                if ($user->hasRole('ROLE_NATURALISTE') and $observation->hasTaxon())
                 {
                     $observation = $this->get('observation.obsValidation')->setGranted($observation);
                 }
@@ -196,15 +199,25 @@ class ObservationController extends Controller
 
     /**
      * @Route("/observation/check/{id}", name="nao_obs_check")
-     * @Security("has_role('ROLE_USER')")
+     * @Security("has_role('ROLE_NATURALISTE')")
      */
     public function checkAction($id, Request $request)
     {
-        $observation = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('ObservationBundle:Observation')
-            ->findOneBy(['id' => $id]);
+        $entityManager = $this->getDoctrine()->getManager();
+        $session = $request->getSession();
+
+        if ($session->has('observation') and $session->get('observation')->getId() == $id)
+        {
+            $observation = $session->get('observation');
+            $session->remove('observation');
+        }
+        else
+        {
+            $observation = $entityManager
+                ->getRepository('ObservationBundle:Observation')
+                ->findOneBy(['id' => $id]); 
+        }
+
 
         if (is_null($observation))
         {
@@ -220,34 +233,49 @@ class ObservationController extends Controller
 
         if ($formValid->isSubmitted() and $formValid->isValid())
         {
+            $author = $observation->getAuthor();
+            $observation->setAuthor($author);
+
+            $image = $observation->getImage();
+            $observation->setImage($image);
+
+            $observation = $this->get('observation.taxonFinder')->setTaxonToObservation($observation);
+
+            // cancel button clicked =>
+            // return to check list
             if ($formValid->get('cancel')->isClicked())
             {
                 return $this->redirectToRoute('nao_obs_check_list');
             }
 
-            $validation = $observation->getValidation();
-            if (is_null($validation))
-            {
-                $validation = new Validation();
-            }
-            $validation->setAuthor($user);
-            $validation->setDate(new \DateTime());
-
+            // valid button clicked =>
+            // obs validated
             if ($formValid->get('valid')->isClicked())
             {
+                // no taxon related to the observation =>
+                // this means Observation IS NOT VALID !
+                if (!$observation->hasTaxon())
+                {
+                    $session->getFlashBag()->add('alert', [
+                        'type'      => 'danger',
+                        'content'   => "Attention !! Il manque l'identification de l'oiseau !"
+                    ]);
 
-                $validation->setGranted(true);
+                    $session->set('observation', $observation);
+                    
+                    return $this->redirectToRoute('nao_obs_check', ['id' => $id]);
+                }
+
+                $observation = $this->get('observation.obsValidation')->setGranted($observation);;
             }
 
-
+            // reject button clicked =>
+            // obs rejected
             if ($formValid->get('reject')->isClicked())
             {
-                $validation->setRejected(true);
+                $observation = $this->get('observation.obsValidation')->setRejected($observation);
             }
-
-            $observation->setValidation($validation);
-
-            $entityManager = $this->getDoctrine()->getManager();
+        
             $entityManager->persist($observation);
             $entityManager->flush();
 

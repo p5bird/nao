@@ -5,10 +5,21 @@
 {% block content %}
 	{% if observation is null %}
 		<div class="container">
-			<p>Oups, cette observation n'existe pas ou plus.</p>
+			<div class="well text-center">Oups, cette observation n'existe pas ou plus.</div>
 		</div>
+
+    {% elseif observation.author.id != app.user.id and not observation.isValidated %}	
+		<div class="container">
+			<div class="well text-center">Accès refusé : vous n'êtes pas autorisé à consulter cette observation.</div>
+		</div>
+
 	{% else %}
 		<div class="container">
+			{% if not observation.isValidated %}
+				<div class="alert alert-warning text-center">
+					<h3>Cette observation n'est pas encore validée : VOUS SEUL pouvez voir cette page.</h3>
+				</div>
+			{% endif %}
     		<div class="row">
 	        	<h1>{{ observation.birdName }}</h1>
 				{{ include('ObservationBundle:Item:obsdetails.html.twig') }}

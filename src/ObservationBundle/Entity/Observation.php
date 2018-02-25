@@ -415,6 +415,20 @@ class Observation
         return $this->removeImage;
     }
 
+    /**
+     * 
+     */
+    public function hasTaxon()
+    {
+        if (is_null($this->taxon) or is_null($this->taxon->getNameValid()))
+        {
+            $this->taxon = null;
+            return false;
+        }
+
+        return true;
+    }
+
 
     /**
      * ---------------------------------------

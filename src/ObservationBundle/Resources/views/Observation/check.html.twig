@@ -6,7 +6,7 @@
 	<div class="user-interface-page-header">
 
         {% for alert in app.session.flashbag.get('alert') %}
-            <p class="alert alert-{{ alert.type }}">{{ alert.content }}</p>
+            <div class="alert alert-{{ alert.type }} text-center"><h3>{{ alert.content }}</h3></div>
         {% endfor %}
 
         {% if observation is null %}
@@ -17,7 +17,7 @@
 
         {% elseif observation.author.id != user.id and not is_granted('ROLE_SPECIALISTE') %}	
             <div class="alert alert-warning">
-                Accès sécurisé : vous n'êtes pas autorisé à valider cette observation.
+                Accès refusé : vous n'êtes pas autorisé à valider cette observation.
             </div>
         </div>
 
