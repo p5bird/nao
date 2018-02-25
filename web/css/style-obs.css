@@ -30,6 +30,10 @@ img.img-area-obs-details {
     color: white;
 }
 
+.user-interface-content-container i.icon-alert {
+    color: #ea4335;
+}
+
 textarea.form-control {
 	height: 8em !important;
 }

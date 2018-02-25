@@ -42,7 +42,9 @@
 					<ul class="list-group">
 						<li class="list-group-item list-group-item-danger">
 							<span class="badge">{{ counts.rejected }}</span>
-							<a href="{{ path('nao_obs_user_list') }}">Observations rejetées</a>
+							<a href="{{ path('nao_obs_user_list') }}">
+								<h4>Observations rejetées</h4>
+							</a>
 						</li>
 					</ul>
 
@@ -63,7 +65,8 @@
 							<span class="badge">{{ counts.saved }}</span>
 							{% set page = counts.rejected // obsPerPage + 1 %}
 							<a href="{{ path('nao_obs_user_list') }}?page={{ page }}#list-obs-saved">
-							Observations sauvegardées</a>
+								<h4>Observations sauvegardées<h4>
+							</a>
 						</li>
 					</ul>
 
@@ -84,7 +87,8 @@
 							<span class="badge">{{ counts.needValidation }}</span>
 							{% set page = (counts.rejected + counts.saved) // obsPerPage + 1 %}
 							<a href="{{ path('nao_obs_user_list') }}?page={{ page }}#list-obs-saved">
-							Observations en attente de validation</a>
+								<h4>Observations en attente de validation</h4>
+							</a>
 						</li>
 					</ul>
 
@@ -105,7 +109,8 @@
 							<span class="badge">{{ counts.validated }}</span>
 							{% set page = (counts.rejected + counts.saved + counts.needValidation) // obsPerPage + 1 %}
 							<a href="{{ path('nao_obs_user_list') }}?page={{ page }}#list-obs-validated">
-							Observations validées</a>
+								<h4>Observations validées</h4>
+							</a>
 						</li>
 					</ul>
 
