@@ -73,7 +73,10 @@ class SearchType extends AbstractType
                 'label'     => 'Observation avec photo uniquement'
             ])
             ->add('search',      Type\SubmitType::class, [
-                'label'     => "Rechercher"
+                'label'     => "Rechercher",
+                'attr'      => [
+                    'class' => 'btn-nao'
+                ]
             ])
             ->add('reset',       Type\ResetType::class, [
                 'attr'      => ['class' => 'reset']
