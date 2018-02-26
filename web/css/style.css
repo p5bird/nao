@@ -2297,6 +2297,16 @@ button#form_envoyer {
     .edit-account-options, .edit-social-options {
         margin: 0px !important;
     }
+
+    .programme-buttons {
+        text-align: center;
+    }
+
+    .programme-buttons-content {
+        padding-right: 150px;
+        padding-left: 150px;
+        margin-bottom: 50px;
+    }
 }
 
 @media screen and (min-width: 991px) and (max-width: 1400px) {
