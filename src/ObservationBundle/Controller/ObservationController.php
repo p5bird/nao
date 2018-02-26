@@ -28,6 +28,7 @@ use ObservationBundle\Service\SearchFiltered;
 use ObservationBundle\Service\Geoloc;
 use ObservationBundle\Service\TaxonFinder;
 use ObservationBundle\Service\ObsValidation;
+use ObservationBundle\Service\MapData;
 
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
