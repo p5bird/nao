@@ -1601,17 +1601,17 @@ img.comment-user-avatar {
 ********Quiz*********
 ********************/
 
-.ui-widget-header {
+.quiz .ui-widget-header {
     background: none !important;
     background: #00bcd4 !important;
 }
 
-.ui-widget.ui-widget-content {
+.quiz .ui-widget.ui-widget-content {
     border: 1px solid #c5c5c5;
     height: 15px;
 }
 
-.ui-progressbar .ui-progressbar-value {
+.quiz .ui-progressbar .ui-progressbar-value {
     margin: 0 !important;
     height: 100%;
 }
