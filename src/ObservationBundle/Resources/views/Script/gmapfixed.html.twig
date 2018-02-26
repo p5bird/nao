@@ -1,29 +1,37 @@
-    {# Google MAP API #}
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ google_map_api }}&callback=initMap" async defer></script>
+{# Google MAP API #}
+<script src="https://maps.googleapis.com/maps/api/js?key={{ google_map_api }}&callback=initMap" async defer></script>
 
-    {# google Map #}
-    <script type="text/javascript" title="Google Map">
-      
-      function initMap() {
-        
-        var obsPosition = {
-          lat: parseFloat({{ observation.latitude }}), 
-          lng: parseFloat({{ observation.longitude }})
-        };
+{# google Map #}
+<script type="text/javascript" title="Google Map">
+ 
+  var birdIcon = {{ asset(img_dir) }} + "marker-ico-60.png";
+
+  function initMap() {
+    
+    var obsPosition = {
+      lat: parseFloat({{ observation.latitude }}), 
+      lng: parseFloat({{ observation.longitude }})
+    };
 
 
-        // initilize the map
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: obsPosition,
-          zoom: 10,
-          maxZoom: 7
-        })
+    // initilize the map
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: obsPosition,
+      zoom: 10,
+      maxZoom: 7,
+      disableDefaultUI: true,
+      draggable: false, 
+      zoomControl: false, 
+      scrollwheel: false, 
+      disableDoubleClickZoom: true
+    })
 
-        // init obs marker
-        var obsMarker = new google.maps.Marker({
-          position: obsPosition,
-          map: map,
-          draggable: false
-        });
-      }
-    </script>
+    // init obs marker
+    var obsMarker = new google.maps.Marker({
+      position: obsPosition,
+      map: map,
+      draggable: false,
+      icon: birdIcon
+    });
+  }
+</script>

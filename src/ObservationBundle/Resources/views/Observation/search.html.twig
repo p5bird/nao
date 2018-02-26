@@ -46,20 +46,18 @@
                       <label>Centrer la carte sur un lieu</label>
                       <div class="input-group">
                         <input type="text" class="form-control input-sm" id="search_place" />
-                        <a href="#mapContainer" id="centerMapSearch" class="btn btn-default btn-sm input-group-addon"><i class="fas fa-location-arrow fa-sm"></i></a>
-                        <a href="#mapContainer" id="centerMapFrance" class="btn btn-default btn-sm input-group-addon"><i class="fas fa-crosshairs fa-sm"></i> France</a>
+                        <a href="#" id="centerMapSearch" class="btn btn-default btn-sm input-group-addon"><i class="fas fa-location-arrow fa-sm"></i></a>
+                        <a href="#" id="centerMapFrance" class="btn btn-default btn-sm input-group-addon"><i class="fas fa-crosshairs fa-sm"></i> France</a>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="panel-body">
-                  <div id="map" class="map-search"></div>
-                  <div class="alert alert-warning">
-                    <i class="fas fa-info-circle"></i> 
-                    Les chiffres indiqués correspondent aux nombres d'observations. <br>
-                    Naviguez sur la carte pour voir les observations effectuées près de chez vous.
-                  </div>
+                <div class="alert alert-warning margin-off">
+                  <i class="fas fa-info-circle"></i> 
+                  Les chiffres indiqués dans les cercles correspondent aux nombres d'observations. <br>
+                  Les logo d'oiseau représentent les observations. Le chiffre incrusté est le nombre d'oiseaux observés.
                 </div>
+                <div id="map" class="map-search"></div>
               </div>
             </div> {# end map #}
 

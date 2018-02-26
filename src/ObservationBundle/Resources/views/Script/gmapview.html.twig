@@ -22,7 +22,9 @@
       center: obsPosition,
       zoom: 5,
       // map types : roadmap, satellite, hybrid, terrain
-      mapTypeId: 'roadmap'
+      mapTypeId: 'roadmap',
+      maxZoom: 9,
+      minZoom: 3 
     })
 
     // Trying to geolocalize user to center marker and map near user location
@@ -120,7 +122,8 @@
   // Add a marker clusterer to manage the markers.
   var markerCluster = new MarkerClusterer(map, markers, {
     styles: clusterStyles,
-    ignoreHidden: false
+    ignoreHidden: false,
+    maxZoom: 7
   });
 
   $('.gmarker').hover(function() 

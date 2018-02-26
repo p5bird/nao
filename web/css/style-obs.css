@@ -175,3 +175,16 @@ ul.list-unstyled li span {
 .obs-media-in-map {
 	max-width: 400pc;
 }
+
+.alert.margin-off {
+	margin: 0 !important;
+}
+
+#imageObsModal.modal {
+	padding-right: 0 !important;
+}
+
+#imageObsModal .modal-dialog {
+	width: auto;
+	max-width: 1200px;
+}

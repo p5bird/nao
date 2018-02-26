@@ -43,13 +43,13 @@ class SearchType extends AbstractType
                 'required'  => false,
                 'label'     => "Taille de l'oiseau",
                 'choices'   => [
-                    'xs'    => 'petit', 
-                    'xxs'   => 'très petit', 
-                    's'     => 'moyen inférieur', 
-                    'm'     => 'moyen',
-                    'l'     => 'moyen supérieur',
-                    'xl'    => 'grand',
-                    'xxl'   => 'très grand'
+                    'très petit'        => 'très petit', 
+                    'petit'             => 'petit', 
+                    'moyen inférieur'   => 'moyen inférieur', 
+                    'moyen'             => 'moyen',
+                    'moyen supérieur'   => 'moyen supérieur',
+                    'grand'             => 'grand',
+                    'très grand'        => 'très grand'
                 ]
             ])
             ->add('birdColor',  Type\TextType::class, [
