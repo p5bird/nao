@@ -18,8 +18,8 @@
         </div>
     </div>
     
-    <div class="container">
-	    <div class="col-xs-12 user-interface-content-container">
+    <div class="user-interface-container">
+	    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
 
 			{% if pagination.getTotalItemCount is same as(0) %}
 {# 			{% if observations is empty %} #}
@@ -30,29 +30,30 @@
 
 			{% else %}
 
-{# 				<div class="input-group">
-                    <input class="form-control" id="system-search" name="q" placeholder="Rechercher" required>
+				<div class="input-group">
+                    <input class="form-control" id="inputQuery" name="q" placeholder="Rechercher" onkeyup="searchTable()" required>
                     <span class="input-group-btn">
                         <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
                     </span>
-                </div> #}
+                </div>
+
                 <div class="panel panel-default">
 				<div class="table-responsive">
-					<table class="table table-sm table-hover table-striped list-users-table list-table">
+					<table class="table table-hover table-striped list-table">
 						<thead>
 	    					<tr>
-	    						<th class="col-sm-1"></th>
+	    						<th class="col-sm-1">Réf.</th>
 	    						<th class="col-sm-6">Oiseau</th>
-	    						<th class="col-sm-2">Date de soumission</th>
-	    						<th class="col-sm-3">Auteur</th>
+	    						<th class="col-sm-3">Date de soumission</th>
+	    						<th class="col-sm-2">Auteur</th>
 	    					</tr>
 						</thead>
-	    				<tbody>
+	    				<tbody id="tableSearch">
 							{% for observation in pagination %}
 {# 							{% for observation in observations %} #}
 		    					<tr>
 		    						<td>
-		    							<i class="fas fa-gavel"></i>		
+		    							<span class="badge">{{observation.id}}</span>	
 		    						</td>
 		    						<td>
 		    							{% if observation.noName %}
@@ -64,15 +65,15 @@
 		    							{{ observation.updatedAt|date('d/m/Y : H\\hm') }}
 		    						</td>
 		    						<td>
-		    							<a href="{{ path('nao_show_user',{'id': observation.author.id}) }}">{{ observation.author.username }}</a>
+		    							<a href="{{ path('nao_show_user',{'id': observation.author.id}) }}" class="btn btn-default pull-right">{{ observation.author.username }} <i class="fas fa-user"></i></a>
 		    						</td>
 		    					</tr>
 							{% endfor %}
 	    				</tbody>
 	    			</table>
-					<div class="panel-footer navigation">
+{# 					<div class="panel-footer navigation">
 				    	{{ knp_pagination_render(pagination) }}
-					</div>	
+					</div>	 #}
 				</div>
 				</div>			
 			{% endif %}
@@ -80,4 +81,10 @@
 	    </div>
 	</div>
 
+{% endblock %}
+
+
+{% block javascript %}
+	{{ parent() }}
+	{% include 'ObservationBundle:Script:searchintable.html.twig' %}
 {% endblock %}

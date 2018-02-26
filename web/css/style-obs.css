@@ -188,3 +188,24 @@ ul.list-unstyled li span {
 	width: auto;
 	max-width: 1200px;
 }
+
+.form-obs-subtitle {
+	margin-top: 1.5em;
+}
+
+
+.btn-group.stay-bloc-responsive {
+	display: inline-grid;
+}
+
+
+@media (min-width: 440px) {
+
+	.btn-group.stay-bloc-responsive {
+		display: inherit;
+	}
+}
+
+.obs-table > tbody {
+	padding: 0 !important;
+}
