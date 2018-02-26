@@ -43,6 +43,13 @@ class AppController extends Controller {
         return $this->render('AppBundle:App:landingPage.html.twig');
     }
 
+    /**
+     * @return Response
+     */
+    public function quizAction() {
+        return $this->render('AppBundle:App:quiz.html.twig');
+    }
+
     public function sendContactMessageAction() {
 
     }

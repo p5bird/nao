@@ -207,4 +207,71 @@
             </div>
         </div>
     </div>
+
+    <div class="container-fluid index-mobile">
+        <div class="row item-row">
+            <div class="col-xs-12">
+                <a href="{{ path('nao_obs_add') }}">
+                    <div class="index-mobile-item index-mobile-item-observation" id="item-1">
+                        <div class="index-mobile-item-observation-overlay"></div>
+                        <div class="index-mobile-item-observation-name">
+                            Observation
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="row item-row">
+            <div class="col-xs-6">
+                <a href="{{ path('nao_obs_search') }}">
+                    <div class="index-mobile-item" id="item-2">
+                        <div class="index-mobile-item-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="index-mobile-item-name">
+                            Consultation
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-xs-6">
+                <a href="{{ path('nao_blog_index') }}">
+                    <div class="index-mobile-item" id="item-3">
+                        <div class="index-mobile-item-icon">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                        <div class="index-mobile-item-name">
+                            Blog
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="row item-row">
+            <div class="col-xs-6">
+                <a href="#">
+                    <div class="index-mobile-item" id="item-4">
+                        <div class="index-mobile-item-icon">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <div class="index-mobile-item-name">
+                            Jeu
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-xs-6">
+                <a href="{{ path('nao_dashboard') }}">
+                    <div class="index-mobile-item" id="item-5">
+                        <div class="index-mobile-item-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="index-mobile-item-name">
+                            Mon espace
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
 {% endblock %}
