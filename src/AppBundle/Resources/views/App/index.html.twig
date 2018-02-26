@@ -186,40 +186,35 @@
                 </div>
             </div>
         </div>
-
-
         <div class="row">
             <div class="container four-grid">
                 <div class="row">
                     <div class="col-xs-12" id="mapContainer"> {# block map #}
-                      <div class="panel panel-default">
-                        <div class="panel-heading">
-                          <div class="form-inline">
-                            <div class="form-group">
-                              <label>Centrer la carte sur un lieu</label>
-                              <div class="input-group">
-                                <input type="text" class="form-control input-sm" id="search_place" />
-                                <a href="" id="centerMapSearch" class="btn btn-default btn-sm input-group-addon"><i class="fas fa-location-arrow fa-sm"></i></a>
-                                <a href="" id="centerMapFrance" class="btn btn-default btn-sm input-group-addon"><i class="fas fa-crosshairs fa-sm"></i> France</a>
-                                <a href="{{ path('nao_obs_search') }}" id="centerMapFrance" class="btn btn-default btn-sm input-group-addon"><i class="fas fa-search"></i> Accéder au filtres de recherche</a>
-                              </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="form-inline">
+                                    <div class="form-group">
+                                        <label>Centrer la carte sur un lieu</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control input-sm" id="search_place" />
+                                            <a href="" id="centerMapSearch" class="btn btn-default btn-sm input-group-addon"><i class="fas fa-location-arrow fa-sm"></i></a>
+                                            <a href="" id="centerMapFrance" class="btn btn-default btn-sm input-group-addon"><i class="fas fa-crosshairs fa-sm"></i> France</a>
+                                            <a href="{{ path('nao_obs_search') }}" id="centerMapFrance" class="btn btn-default btn-sm input-group-addon"><i class="fas fa-search"></i> Accéder au filtres de recherche</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
+                            <div id="map" class="map-search"></div>
+                            <div class="alert alert-warning margin-off">
+                                <i class="fas fa-info-circle"></i>
+                                Les chiffres indiqués dans les cercles correspondent aux nombres d'observations. <br>
+                                Les logo d'oiseau représentent les observations. Le chiffre incrusté est le nombre d'oiseaux observés.
+                            </div>
                         </div>
-                        <div id="map" class="map-search"></div>
-                        <div class="alert alert-warning margin-off">
-                          <i class="fas fa-info-circle"></i> 
-                          Les chiffres indiqués dans les cercles correspondent aux nombres d'observations. <br>
-                          Les logo d'oiseau représentent les observations. Le chiffre incrusté est le nombre d'oiseaux observés.
-                        </div>
-                      </div>
                     </div> {# end map #}
+                </div>
+            </div>
         </div>
-
-
-
-
-
     </div>
 
     <div class="container-fluid index-mobile">
