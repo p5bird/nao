@@ -31,7 +31,7 @@ class AppController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $lastThreeArticles = $em->getRepository('BlogBundle:Article')->getLastThreeArticles();
-        $lastThreeObservations = $em->getRepository('ObservationBundle:Observation')->getLastValidatedWithImage();
+        $lastThreeObservations = $em->getRepository('ObservationBundle:Observation')->getLastValidatedWithImage(5);
 
         return $this->render('AppBundle:App:index.html.twig', array(
             'lastThreeArticles' => $lastThreeArticles,
@@ -97,8 +97,6 @@ class AppController extends Controller {
 
             return $this->redirectToRoute('nao_home');
         }
-
-
 
         return $this->render('AppBundle:App:contact.html.twig', array(
             'form' => $form->createView()

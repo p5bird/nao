@@ -1081,6 +1081,8 @@ img.collapse-logo {
 
 #index-main-content-carousel img {
     min-height: 400px;
+    max-height: 400px;
+    width: 100%
 }
 
 #index-main-content-carousel .carousel-control {
