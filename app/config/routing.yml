@@ -210,7 +210,7 @@ nao_footer_contact:
 
 nao_join_association:
     path: /join/
-    defaults: { _controller: AppBundle:App:joinAction }
+    defaults: { _controller: AppBundle:App:join }
 
 nao_partners:
     path: /partners/

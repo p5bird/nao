@@ -82,7 +82,7 @@ class AppController extends Controller {
      * @return Response
      */
     public function joinAction() {
-        return $this->render('AppBundle:App:join.html.twig');
+        return $this->render('AppBundle:App:joinAssociation.html.twig');
     }
 
     /**
