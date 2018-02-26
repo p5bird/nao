@@ -191,3 +191,7 @@ nao_obs_search_result:
 nao_landing_page:
     path: /landing-page/
     defaults: { _controller: AppBundle:App:landingPage }
+
+nao_quiz:
+    path: /quiz/
+    defaults: { _controller: AppBundle:App:quiz }

@@ -1,0 +1,32 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+{% block content %}
+    <div class="container quiz">
+        <div class="row">
+            <div class="quiz-box">
+                <div>Quizz oiseaux</div>
+                <a href="#" id="start" class="btn btn-nao">Quiz</a>
+                <br/>
+                <div class="questions">
+                    <div id="question"></div>
+                    <br/><br/>
+                    <form id="form">
+
+                    </form>
+                    <br/>
+                    <a href="#" id="next" class="button">Suivant</a><br/>
+                    <div id="progressbar" class=""></div>
+                </div>
+                <div id="result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"></script>
+    <script type="text/javascript" src="{{ asset('js/quiz.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.simple-quiz').simpleQuiz();
+        });
+    </script>
+{% endblock %}
