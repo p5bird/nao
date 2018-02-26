@@ -145,46 +145,23 @@ class UserController extends Controller {
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
 
         // observations
-        $observations = $entityManager
-            ->getRepository('ObservationBundle:Observation')
-            ->getForUser($user, 3)
-        ;
-        $countObservations = $entityManager
-            ->getRepository('ObservationBundle:Observation')
-            ->countForUser($user)
-        ;
-        $countObservationsNotValidated = $entityManager
-            ->getRepository('ObservationBundle:Observation')
-            ->countNeedValidation()
-        ;
-        $lastObservations = $entityManager
-            ->getRepository('ObservationBundle:Observation')
-            ->getLastValidated(1)
-        ;
-        $countObsPublished = $entityManager
-            ->getRepository('ObservationBundle:Observation')
-            ->countValidated()
-        ;
+        $obsRepository = $entityManager->getRepository('ObservationBundle:Observation');
+        $observations = $obsRepository->getForUser($user, 3);
+        $countObservations = $obsRepository->countForUser($user);
+        $countObservationsNotValidated = $obsRepository->countNeedValidation();
+        $lastObservations = $obsRepository->getLastValidated(1);
+        $countObsPublished = $obsRepository->countValidated();
+        $countObsUserNeedVal = $obsRepository->countUserNeedValidation($user);
 
         // blog
-        $articles = $entityManager
-            ->getRepository('BlogBundle:Article')
-            ->getLastThreeArticles()
-        ;
-        $userArticles = $entityManager
-            ->getRepository('BlogBundle:Article')
-            ->getUserArticles($user)
-        ;
-        $countArticles = $entityManager
-            ->getRepository('BlogBundle:Article')
-            ->countArticles()
-        ;
+        $artRepository = $entityManager->getRepository('BlogBundle:Article');
+        $articles = $artRepository->getLastThreeArticles();
+        $userArticles = $artRepository->getUserArticles($user);
+        $countArticles = $artRepository->countArticles();
 
         // messages
         $provider = $this->get('fos_message.provider');
         $unreadMessages = $provider->getNbUnreadMessages();
-
-
 
         return $this->render('UserBundle:User:dashboard.html.twig', [
             'observations'      => $observations,
@@ -192,6 +169,7 @@ class UserController extends Controller {
             'countObservationsNotValidated' => $countObservationsNotValidated,
             'lastObservations'  => $lastObservations,
             'countObsPublished' => $countObsPublished,
+            "countObsUserNeedVal" => $countObsUserNeedVal,
             'articles'          => $articles,
             'userArticles'      => $userArticles,
             'countArticles'     => $countArticles,

@@ -35,9 +35,9 @@
 		            				<div class="text-center">
 		            					<h4>Merci pour votre contribution !</h4>
 		            					{% if countObservations > 1 %}
-		            						<p>Vos observations seront bientôt validées par nos experts qui sauront également vous conseiller si besoin.</p>
+		            						<p>Vos avez {{ countObservations }} observations enregistrées pas encore validées. Nos experts peuvent vous aider à identifier les oiseaux si nécessaire.</p>
 		            					{% else %}
-		            						<p>Votre observation sera bientôt validée par nos experts qui sauront également vous conseiller si besoin.</p>
+		            						<p>Vos avez {{ countObservations }} observation enregistrée pas encore validée. Nos experts peuvent vous aider à identifier les oiseaux si nécessaire.</p>
 		            					{% endif %}
 		            				</div>
 		            			{% else %}
@@ -90,25 +90,49 @@
 
   					<div class="row">
 
-			            <div class="col-xs-12 col-sm-6">
-			            	<div class="panel panel-{{ countObservationsNotValidated > 0 ? "danger" : "default" }}">
-			            		<div class="panel-heading">
-			            			<h4>Validation d'observations</h4>
-			            		</div>
-			            		<div class="panel-body">
-			            			<div class="text-center"><h5>
-				            			{% if countObservationsNotValidated > 0 %}
-				            				<a href="{{ path('nao_obs_check_list', {'id': app.user.id }) }}" class="btn btn-group-item btn-nao block-redalert">
-				            					{{ countObservationsNotValidated }} en attente
-				            				</a>
-				            			{% else %}
-				            				<i class="fas fa-check"></i> A jour
-				            			{% endif %}
-			            			</h5></div>
-			            			
-			            		</div>
-			            	</div>
-			            </div>
+  						{% if is_granted('ROLE_NATURALISTE') %}
+				            <div class="col-xs-12 col-sm-6">
+				            	<div class="panel panel-{{ countObservationsNotValidated > 0 ? "danger" : "default" }}">
+				            		<div class="panel-heading">
+				            			<h4>Validation d'observations</h4>
+				            		</div>
+				            		<div class="panel-body">
+				            			<div class="text-center"><h5>
+					            			{% if countObservationsNotValidated > 0 %}
+					            				<a href="{{ path('nao_obs_check_list', {'id': app.user.id }) }}" class="btn btn-group-item btn-nao block-redalert">
+					            					{{ countObservationsNotValidated }} en attente
+					            				</a>
+					            			{% else %}
+					            				<i class="fas fa-check"></i> A jour
+					            			{% endif %}
+				            			</h5></div>
+				            			
+				            		</div>
+				            	</div>
+				            </div>
+				        {% else %}
+				            <div class="col-xs-12 col-sm-6">
+				            	<div class="panel panel-{{ countObsUserNeedVal > 0 ? "default" : "success" }}">
+				            		<div class="panel-heading">
+				            			<h4>Demandes de validation</h4>
+				            		</div>
+				            		<div class="panel-body">
+				            			<div class="text-center"><h5>
+					            			{% if countObsUserNeedVal > 0 %}
+					            				<a href="{{ path('nao_obs_user_list', {'id': app.user.id }) }}" class="btn btn-group-item btn-warning">
+					            					{{ countObsUserNeedVal }}
+					            				</a>
+					            			{% else %}
+					            				<i class="fas fa-check"></i> Aucune
+					            			{% endif %}
+				            			</h5></div>
+				            			
+				            		</div>
+				            	</div>
+				            </div>
+  						{% endif %}
+  						
+
 
 			            <div class="col-xs-12 col-sm-6">
 			            	<div class="panel panel-{{ unreadMessages > 0 ? "warning" : "default" }}">
