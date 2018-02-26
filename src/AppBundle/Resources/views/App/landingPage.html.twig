@@ -45,10 +45,17 @@
                                 <p>Vous avez le pouvoir d'agir !</p>
                             </div>
                             <div class="header-button">
-                                <button class="btn btn-lg btn-nao">
-                                    Participez
-                                </button>
+                                <a href="{{ path('fos_user_registration_register') }}">
+                                    <button class="btn btn-lg btn-nao">
+                                        Participez
+                                    </button>
+                                </a>
                             </div>
+                        </div>
+                        <div class="header-scroll-down">
+                            <a href="#programme-title">
+                                <i class="far fa-circle"><i class="fas fa-angle-down"></i></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -59,7 +66,7 @@
                     <div class="row">
                         <div class="programme-content">
                         <div class="programme-infos">
-                            <div class="programme-title">
+                            <div class="programme-title" id="programme-title">
                                 Le programme
                             </div>
                             <div class="programme-subtitle">
@@ -141,7 +148,9 @@
                                     <p>Nec piget dicere avide magis hanc insulam populum Romanum invasisse quam iuste. Ptolomaeo enim rege foederato nobis.</p>
                                 </div>
                                 <div class="mobility-button">
-                                    <button class="btn btn-lg btn-nao">Inscrivez-vous</button>
+                                    <a href="{{ path('fos_user_registration_register') }}">
+                                        <button class="btn btn-lg btn-nao">Inscrivez-vous</button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -273,7 +282,9 @@
                         <div class="col-md-2"></div>
                     </div>
                     <div class="application-button">
-                        <button class="btn btn-lg btn-start-application">Commencez</button>
+                        <a href="{{ path('fos_user_registration_register') }}">
+                            <button class="btn btn-lg btn-start-application">Commencez</button>
+                        </a>
                     </div>
                 </div>
             </section>
@@ -292,7 +303,9 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="photos-observation">
-                                    <img src="{{ asset('img/landing-page/observation-1.jpg') }}" class="img-responsive"/>
+                                    <a href="{{ path('nao_obs_add') }}">
+                                        <img src="{{ asset('img/landing-page/observation-1.jpg') }}" class="img-responsive"/>
+                                    </a>
                                     <div class="observation-name">
                                         <div class="observation-bird-name">
                                             <p>Héron Cendré</p>
@@ -305,7 +318,9 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="photos-observation">
-                                    <img src="{{ asset('img/landing-page/observation-2.jpg') }}" class="img-responsive"/>
+                                    <a href="{{ path('nao_obs_add') }}">
+                                        <img src="{{ asset('img/landing-page/observation-2.jpg') }}" class="img-responsive"/>
+                                    </a>
                                     <div class="observation-name">
                                         <div class="observation-bird-name">
                                             <p>Musilette des près</p>
@@ -318,7 +333,9 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="photos-observation">
-                                    <img src="{{ asset('img/landing-page/observation-3.jpg') }}" class="img-responsive"/>
+                                    <a href="{{ path('nao_obs_add') }}">
+                                        <img src="{{ asset('img/landing-page/observation-3.jpg') }}" class="img-responsive"/>
+                                    </a>
                                     <div class="observation-name">
                                         <div class="observation-bird-name">
                                             <p>Moineau rouge</p>
@@ -333,7 +350,9 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="photos-observation">
-                                    <img src="{{ asset('img/landing-page/observation-4.jpg') }}" class="img-responsive"/>
+                                    <a href="{{ path('nao_obs_add') }}">
+                                        <img src="{{ asset('img/landing-page/observation-4.jpg') }}" class="img-responsive"/>
+                                    </a>
                                     <div class="observation-name">
                                         <div class="observation-bird-name">
                                             <p>Hibou d’Alsace</p>
@@ -346,7 +365,9 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="photos-observation">
-                                    <img src="{{ asset('img/landing-page/observation-5.jpg') }}" class="img-responsive"/>
+                                    <a href="{{ path('nao_obs_add') }}">
+                                        <img src="{{ asset('img/landing-page/observation-5.jpg') }}" class="img-responsive"/>
+                                    </a>
                                     <div class="observation-name">
                                         <div class="observation-bird-name">
                                             <p>Tourterelle</p>
@@ -359,7 +380,9 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="photos-observation">
-                                    <img src="{{ asset('img/landing-page/observation-6.jpg') }}" class="img-responsive"/>
+                                    <a href="{{ path('nao_obs_add') }}">
+                                        <img src="{{ asset('img/landing-page/observation-6.jpg') }}" class="img-responsive"/>
+                                    </a>
                                     <div class="observation-name">
                                         <div class="observation-bird-name">
                                             <p>Vautour</p>
@@ -372,9 +395,13 @@
                             </div>
                         </div>
                         <div class="photos-button">
-                            <button class="btn btn-lg btn-nao">
-                                En voir plus
-                            </button>
+                            <a href="{{ path('fos_user_registration_register') }}">
+                                <a href="{{ path('fos_user_registration_register') }}">
+                                    <button class="btn btn-lg btn-nao">
+                                        En voir plus
+                                    </button>
+                                </a>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -440,9 +467,11 @@
                                 <p>Nec piget dicere avide magis hanc insulam populum Romanum invasisse quam iuste. Ptolomaeo enim rege foederato nobis et socio ob aerarii.</p>
                             </div>
                             <div class="landing-footer-button">
-                                <button class="btn btn-lg btn-nao">
-                                    Participez
-                                </button>
+                                <a href="{{ path('fos_user_registration_register') }}">
+                                    <button class="btn btn-lg btn-nao">
+                                        Participez
+                                    </button>
+                                </a>
                             </div>
                         </div>
                     </div>

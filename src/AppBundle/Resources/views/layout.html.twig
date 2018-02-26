@@ -83,11 +83,11 @@
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">S'informer <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li class="sub-menu-index"><a href="{{ path('nao_blog_index') }}">Blog</a></li>
-                                        <li class="sub-menu-index"><a href="#">Jeu</a></li>
+                                        <li class="sub-menu-index"><a href="{{ path('nao_quiz') }}">Jeu</a></li>
                                         <li role="separator" class="divider"></li>
                                         <li class="sub-menu-index"><a href="#">A propos</a></li>
                                         <li class="sub-menu-index"><a href="#">FAQ</a></li>
-                                        <li class="sub-menu-index"><a href="#">Contact</a></li>
+                                        <li class="sub-menu-index"><a href="{{ path('nao_contact') }}">Contact</a></li>
                                     </ul>
                                 </li>
 
@@ -130,13 +130,19 @@
                     </a>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-6">
-                    Presse
+                    <a href="{{ path('nao_presse') }}">
+                        Presse
+                    </a>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-6">
-                    Nos partenaires
+                    <a href="{{ path('nao_partners') }}">
+                        Partenaires
+                    </a>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-6">
-                    Crédits
+                    <a href="{{ path('nao_credits') }}">
+                        Crédits
+                    </a>
                 </div>
             </div>
         </div>
@@ -198,8 +204,11 @@
                             <ul>
                                 <li class="sub-menu-index">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="quick-contact" placeholder="Email" />
-                                        <textarea class="form-control" id="quick-contact" rows="5" id="message" placeholder="Message"></textarea>
+                                        <form action="{{ path('nao_footer_contact') }}" method="POST">
+                                            <input name="formFooter[email]" type="text" class="form-control" id="quick-contact" placeholder="Email" />
+                                            <textarea name="formFooter[content]" class="form-control" id="quick-contact" rows="5" id="message" placeholder="Message"></textarea>
+                                            <button type="submit" class="btn btn-footer-form">Envoyer</button>
+                                        </form>
                                     </div>
                                 </li>
                             </ul>

@@ -1494,10 +1494,20 @@ img.logo-footer:hover {
 ****Blog Article*****
 ********************/
 
-.blog-article {
+.blog-article, .page-article {
     border: 1px solid #dddddd;
     margin: 40px 0 30px 0;
     border-radius: 2px;
+}
+
+.page-article {
+    padding: 20px 80px;
+}
+
+.page-content {
+    font-size: 12pt;
+    padding: 20px 0 0 0;
+    text-align: justify;
 }
 
 .blog-article-image-container {
@@ -1625,7 +1635,8 @@ img.comment-user-avatar {
 #result {
     font-weight: bold;
     font-size: 1.5em;
-    color: #036;
+    color: #f89a1d;
+    text-align: center;
 }
 
 input[name="option"] {
@@ -1655,6 +1666,27 @@ input[name="option"] {
     transition: width .6s ease;
 }
 
+div#question {
+    padding: 20px 0 0 0;
+    font-weight: 500;
+}
+
+.form-quiz label {
+    padding: 0 0 0 5px;
+    color: #484848;
+    font-weight: 500;
+}
+
+.quiz-title {
+    padding: 0 20px 10px 20px;
+    text-align: center;
+    font-size: 15pt;
+}
+
+.button-quiz {
+    text-align: center;
+}
+
 /******************************
 *******************************
 *********LANDING PAGE**********
@@ -1663,6 +1695,7 @@ input[name="option"] {
 
 body.landing-page {
     margin: 0;
+    overflow-x: hidden;
 }
 
 section.landing-header, section.landing-application, section.landing-photos, section.landing-footer {
@@ -1716,8 +1749,29 @@ section.landing-mobility {
     padding: 150px 0 100px 0;
 }
 
-section.landing-header {
-    padding: 300px 0;
+.landing-header {
+    padding: 300px 0 0 0;
+}
+
+.header-scroll-down i.fa-circle {
+    font-size: 40pt;
+    color: #FFFFFF;
+    position: relative;
+}
+
+.header-scroll-down i.fa-angle-down {
+    position: absolute;
+    bottom: 5px;
+    right: 14px;
+    color: #FFFFFF;
+    font-size: 30pt;
+}
+
+.header-scroll-down {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 250px 0 0 0;
 }
 
 section.landing-association {
@@ -1873,6 +1927,24 @@ img.img-application {
 img.img-footer {
     width: 900px;
     margin: 0 auto;
+}
+
+button.btn.btn-footer-form {
+    width: 100%;
+    padding: 5px 0;
+    margin: 5px 0 0 0;
+    border-radius: 2px;
+    background: #4c5056;
+    -webkit-transition: ease-in-out 0.4s;
+    -moz-transition: ease-in-out 0.4s;
+    -ms-transition: ease-in-out 0.4s;
+    -o-transition: ease-in-out 0.4s;
+    transition: ease-in-out 0.4s;
+}
+
+button.btn.btn-footer-form:hover {
+    color: #FFFFFF;
+    background: #00bcd4;
 }
 
 .mobility-content {

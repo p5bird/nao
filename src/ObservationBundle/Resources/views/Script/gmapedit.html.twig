@@ -1,3 +1,6 @@
+    {# Google MAP API #}
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ google_map_api }}&callback=initMap" async defer></script>
+
     {# google Map #}
     <script type="text/javascript" title="Google Map">
       
@@ -77,7 +80,7 @@
 
 
       function geocodeAddress(geocoder, resultsMap, obsMarker) {
-        var address = document.querySelector("input[id*='_place']").value;
+        var address = document.getElementById('observationbundle_observation_place').value;
         geocoder.geocode({
             'address': address,
             'region': 'fr'
@@ -94,5 +97,3 @@
       }
 
     </script>
-        {# Google MAP API #}
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ google_map_api }}&callback=initMap" async defer></script>

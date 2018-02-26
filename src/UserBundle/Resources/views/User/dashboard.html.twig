@@ -66,7 +66,7 @@
 			            				{% include 'ObservationBundle:Item:obsinsearch.html.twig' %}
 			            			{% endfor %}
 			            			<div class="text-center submit-area">
-			            				<a href="{{ path('nao_obs_search') }}" class="btn btn-group-item btn-nao"><i class="fas fa-search"></i> Rechercher des observations</a>
+			            				<a href="{{ path('nao_obs_search') }}" class="btn btn-group-item btn-nao"><i class="fas fa-search"></i> Rechercher des observations parmi les {{ countObsPublished }} disponibles</a>
 			            			</div>
 			            			<div class="text-center">
 			            				<h5>Utilisez nos nombreux filtres de recherche et notre carte intéractive</h5>
@@ -146,13 +146,17 @@
 			            		<div class="panel-body">
 			            			{% if unreadMessages > 0 %}
 			            				<div class="text-center">
-			            					<a href="{{ path('fos_message_inbox') }}" class="btn btn-group-item btn-nao-yellow">
+			            					<h5>
+			            						<a href="{{ path('fos_message_inbox') }}" class="btn btn-group-item btn-nao-yellow">
 			            						{{ unreadMessages }} {{ unreadMessages > 1 ? "nouveaux messages" : "nouveau message" }}
 			            						</a>
+			            					</h5>
 			            				</div>
 			            			{% else %}
 			            				<div class="text-center">
-			            					<a href="{{ path('fos_message_thread_new') }}" class="btn btn-group-item btn-default">Nouveau message</a>
+			            					<h5>
+			            						<a href="{{ path('fos_message_thread_new') }}" class="btn btn-group-item btn-default">Envoyer un message</a>
+			            					</h5>
 			            				</div>
 			            			{% endif %}
 			            			

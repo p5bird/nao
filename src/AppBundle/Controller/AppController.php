@@ -59,6 +59,17 @@ class AppController extends Controller {
     }
 
     /**
+     * Second landing page
+     *
+     * @return Response
+     */
+    public function secondLandingPageAction() {
+        return $this->render('AppBundle:App:secondLandingPage.html.twig');
+    }
+
+    /**
+     * Quiz
+     *
      * @return Response
      */
     public function quizAction() {
@@ -66,6 +77,44 @@ class AppController extends Controller {
     }
 
     /**
+     * Join association
+     *
+     * @return Response
+     */
+    public function joinAction() {
+        return $this->render('AppBundle:App:join.html.twig');
+    }
+
+    /**
+     * Partners
+     *
+     * @return Response
+     */
+    public function partnersAction() {
+        return $this->render('AppBundle:App:partners.html.twig');
+    }
+
+    /**
+     * Presse
+     *
+     * @return Response
+     */
+    public function presseAction() {
+        return $this->render('AppBundle:App:presse.html.twig');
+    }
+
+    /**
+     * Credits
+     *
+     * @return Response
+     */
+    public function creditsAction() {
+        return $this->render('AppBundle:App:credits.html.twig');
+    }
+
+    /**
+     * Create and send contact form
+     *
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
@@ -97,10 +146,11 @@ class AppController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $message = (new \Swift_Message($form->getData()['object']))
                 ->setFrom($form->getData()['email'])
                 ->setTo('gatienhrd@gmail.com')
-                ->setBody('Coucou')
+                ->setBody($form->getData()['content'])
             ;
 
             $this->get('mailer')->send($message);
@@ -111,6 +161,25 @@ class AppController extends Controller {
         return $this->render('AppBundle:App:contact.html.twig', array(
             'form' => $form->createView()
         ));
+    }
+
+    /**
+     * Submit footer form
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function submitFooterFormAction(Request $request){
+        $data = $request->request->get('formFooter');
+        $message = (new \Swift_Message('Contact depuis l\'application'))
+            ->setFrom($data['email'])
+            ->setTo('gatienhrd@gmail.com')
+            ->setBody($data['content'])
+        ;
+
+        $this->get('mailer')->send($message);
+
+        return $this->redirectToRoute('nao_home');
     }
 
     public function searchBarAction() {

@@ -192,6 +192,10 @@ nao_landing_page:
     path: /landing-page/
     defaults: { _controller: AppBundle:App:landingPage }
 
+nao_second_landing_page:
+    path: /landing-page-2/
+    defaults: { _controller: AppBundle:App:secondLandingPage }
+
 nao_quiz:
     path: /quiz/
     defaults: { _controller: AppBundle:App:quiz }
@@ -199,3 +203,23 @@ nao_quiz:
 nao_contact:
     path: /contact/
     defaults: { _controller: AppBundle:App:createContactForm }
+
+nao_footer_contact:
+    path: /footerContact/
+    defaults: { _controller: AppBundle:App:submitFooterForm }
+
+nao_join_association:
+    path: /join/
+    defaults: { _controller: AppBundle:App:joinAction }
+
+nao_partners:
+    path: /partners/
+    defaults: { _controller: AppBundle:App:partners }
+
+nao_presse:
+    path: /presse/
+    defaults: { _controller: AppBundle:App:presse }
+
+nao_credits:
+    path: /credits/
+    defaults: { _controller: AppBundle:App:credits }
