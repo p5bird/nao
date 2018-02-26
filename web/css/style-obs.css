@@ -92,6 +92,17 @@ ul.list-unstyled li span {
 	background-color: #f89a1d;
 }
 
+.btn-nao-yellow {
+	background-color: #f89a1d;
+	color: #333;
+	font-weight: bold;
+}
+
+.btn-nao-yellow:hover, .btn-nao-yellow:active {
+	color: #fff;
+	font-weight: bold;
+}
+
 /**
  * Pagination
  */
@@ -139,4 +150,24 @@ ul.list-unstyled li span {
 .block-redalert {
 	background: #ea4335;
     color: #FFFFFF;	
+}
+
+.user-interface-container {
+	padding: 20px;
+}
+
+.blog-article-image-media {
+	width: 10em;
+	height: 5em;
+	background-position: center !important;
+	background-repeat: no-repeat !important;
+	background-size: cover !important;
+}
+
+.obs-image-media {
+	width: 10em;
+	height: 5em;
+	background-position: center !important;
+	background-repeat: no-repeat !important;
+	background-size: cover !important;
 }

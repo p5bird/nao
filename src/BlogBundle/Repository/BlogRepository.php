@@ -46,4 +46,39 @@ class BlogRepository extends EntityRepository {
 
         return $qb->getQuery()->getResult();
     }
+
+    public function getUserArticlesQuery($user) {
+        $qb = $this->_em->createQueryBuilder();
+
+        $qb->select('a')
+            ->from('BlogBundle:Article', 'a')
+            ->leftJoin('a.author', 'user')
+            ->andWhere('user.id = :id')
+                ->setParameter('id', $user->getId())
+        ;
+        return $qb;
+    }
+
+    public function getUserArticles($user) {
+        $qb = $this->getUserArticlesQuery($user);
+
+        $qb->orderBy('a.id', 'DESC');
+        return $qb->getQuery()->getResult();
+    }
+
+    public function countUserArticles($user) {
+        $qb = $this->getUserArticlesQuery();
+
+        $qb->select('count(a)');
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function countArticles() {
+        $qb = $this->_em->createQueryBuilder();
+
+        $qb->select('count(a)')
+            ->from('BlogBundle:Article', 'a');
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
 }

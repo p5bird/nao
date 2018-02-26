@@ -8,7 +8,7 @@
 			<div class="well text-center">Oups, cette observation n'existe pas ou plus.</div>
 		</div>
 
-    {% elseif observation.author.id != app.user.id and not observation.isValidated %}	
+    {% elseif app.user and observation.author.id != app.user.id and not observation.isValidated %}	
 		<div class="container">
 			<div class="well text-center">Accès refusé : vous n'êtes pas autorisé à consulter cette observation.</div>
 		</div>

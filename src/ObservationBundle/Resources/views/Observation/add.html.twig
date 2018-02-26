@@ -22,10 +22,10 @@
 	</div>
 {% endblock %}
 
+
 {% block javascript %}
     {{ parent() }}
     {{ include("ObservationBundle:Script:autocomplete.html.twig") }}
-    {# {{ include("ObservationBundle:Script:imagecropper.html.twig") }} #}
     {{ include("ObservationBundle:Script:gmapedit.html.twig") }}
     {{ include("ObservationBundle:Script:imageremove.html.twig") }}
 {% endblock %}

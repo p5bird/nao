@@ -3,12 +3,13 @@
 namespace ObservationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Entity\File as EmbeddedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 use ObservationBundle\Validator\CopyrightFreeRequired;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Image
@@ -45,6 +46,7 @@ class Image
     private $imageName;
 
     /**
+     * @Assert\File(maxSize="2M")
      * @Vich\UploadableField(mapping="obs_image", fileNameProperty="imageName")
      * 
      * @var File
@@ -101,6 +103,28 @@ class Image
      * ---------------------------------------
      */
 
+    /**
+    * @Assert\Callback
+    * @param ExecutionContextInterface $context
+    */
+    public function validate(ExecutionContextInterface $context, $payload)
+    {
+       if (is_null($this->imageFile))
+       {
+         return;
+       }
+
+       if (! in_array($this->imageFile->getMimeType(), array(
+           'image/jpeg',
+           'image/gif',
+           'image/png'
+    ))) {
+        $context
+            ->buildViolation('Seuls les fichiers image sont autorisés (jpg,gif,png)')
+            ->atPath('imageFile')
+            ->addViolation();
+       }
+    }
 
     /**
      * ---------------------------------------

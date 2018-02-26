@@ -1,9 +1,8 @@
-{% for observation in pagination %}
-	<div class="col-xs-12 col-sm-6">
+
 		<div class="media">
 		  <div class="media-left media-top gmarker" gmarker="{{ observation.id }}">
 		    <a href="{{ path('nao_obs_show', {'id': observation.id}) }}">
-		      <img class="media-object media-object-searchresult" src="{{ observation.image ? asset(vich_uploader_asset(observation.image, 'imageFile')) : asset(file_image_obs_default) }}" alt="{{ observation.birdName }}">
+		    	<div class="obs-image-media" style="background: url({{ observation.image ? asset(vich_uploader_asset(observation.image, 'imageFile')) : asset(file_image_obs_default) }});"></div>
 		    </a>
 		  </div>
 		  <div class="media-body">
@@ -13,9 +12,4 @@
 		    <p>{{ observation.taxon.nameValid }}</p>
 		  </div>
 		</div>
-	</div>
-{% endfor %}
 
-<div class="navigation">
-    {{ knp_pagination_render(pagination) }}
-</div>

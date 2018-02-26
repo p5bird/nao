@@ -139,7 +139,64 @@ class UserController extends Controller {
      * @Security("has_role('ROLE_USER')")
      */
     public function dashboardAction() {
-        return $this->render('UserBundle:User:dashboard.html.twig');
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+
+        // observations
+        $observations = $entityManager
+            ->getRepository('ObservationBundle:Observation')
+            ->getForUser($user, 3)
+        ;
+        $countObservations = $entityManager
+            ->getRepository('ObservationBundle:Observation')
+            ->countForUser($user)
+        ;
+        $countObservationsNotValidated = $entityManager
+            ->getRepository('ObservationBundle:Observation')
+            ->countNeedValidation()
+        ;
+        $lastObservations = $entityManager
+            ->getRepository('ObservationBundle:Observation')
+            ->getLastValidated(1)
+        ;
+        $countObsPublished = $entityManager
+            ->getRepository('ObservationBundle:Observation')
+            ->countValidated()
+        ;
+
+        // blog
+        $articles = $entityManager
+            ->getRepository('BlogBundle:Article')
+            ->getLastThreeArticles()
+        ;
+        $userArticles = $entityManager
+            ->getRepository('BlogBundle:Article')
+            ->getUserArticles($user)
+        ;
+        $countArticles = $entityManager
+            ->getRepository('BlogBundle:Article')
+            ->countArticles()
+        ;
+
+        // messages
+        $provider = $this->get('fos_message.provider');
+        $unreadMessages = $provider->getNbUnreadMessages();
+
+
+
+        return $this->render('UserBundle:User:dashboard.html.twig', [
+            'observations'      => $observations,
+            'countObservations' => $countObservations,
+            'countObservationsNotValidated' => $countObservationsNotValidated,
+            'lastObservations'  => $lastObservations,
+            'countObsPublished' => $countObsPublished,
+            'articles'          => $articles,
+            'userArticles'      => $userArticles,
+            'countArticles'     => $countArticles,
+            'unreadMessages'    => $unreadMessages
+        ]);
     }
 
     /**
