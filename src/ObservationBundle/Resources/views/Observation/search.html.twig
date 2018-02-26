@@ -56,7 +56,16 @@
           <div class="col-xs-12">
             <div class="row">
                 {% if pagination is defined %}
-                  {{ include('ObservationBundle:Item:obsinsearch.html.twig') }}
+                    {% for observation in pagination %}
+                      <div class="col-xs-12 col-sm-6">
+
+                        {{ include('ObservationBundle:Item:obsinsearch.html.twig') }}
+
+                      </div>
+                    {% endfor %}
+                    <div class="navigation">
+                      {{ knp_pagination_render(pagination) }}
+                    </div>
                 {% endif %}
             </div> 
           </div>

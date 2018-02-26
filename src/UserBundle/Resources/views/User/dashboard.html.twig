@@ -3,6 +3,250 @@
 {% block title %}{{ parent() }} - Tableau de bord{% endblock %}
 
 {% block content %}
-    <h1>Tableau de bord</h1>
+    <div class="user-interface-page-header">
+        <div class="page-name">
+            <h1>Tableau de bord</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+
+        	<div class="col-xs-12 user-interface-container">
+
+        		<div class="row">
+
+		            <div class="col-xs-12 col-sm-6">
+		            	<div class="panel panel-default">
+		            		<div class="panel-heading">
+		            			<div class="btn-group pull-right">
+		            				<a href="{{ path('nao_obs_add') }}" class="btn btn-group-item btn-nao"><i class="fas fa-plus"></i></a>
+		            				<a href="{{ path('nao_obs_user_list', {'id': app.user.id }) }}" class="btn btn-group-item btn-default"><i class="fas fa-eye"></i></a>
+		            				<button class="btn btn-group-item btn-default">{{ countObservations }}</button>
+		            			</div>
+		            			<h4>Mes dernières observations publiées</h4>
+		            		</div>
+		            		<div class="panel-body">
+		            			{% if countObservations is sameas(0) %}
+		            				<div class="text-center">
+		            					<h4>Participez à notre étude pour sauver nos oiseaux.</h4>
+		            					<a href="{{ path('nao_obs_add') }}" class="btn btn-group-item btn-nao">Votre première observation</a>
+		            				</div>
+		            			{% elseif observations|length is sameas(0) %}
+		            				<div class="text-center">
+		            					<h4>Merci pour votre contribution !</h4>
+		            					{% if countObservations > 1 %}
+		            						<p>Vos observations seront bientôt validées par nos experts qui sauront également vous conseiller si besoin.</p>
+		            					{% else %}
+		            						<p>Votre observation sera bientôt validée par nos experts qui sauront également vous conseiller si besoin.</p>
+		            					{% endif %}
+		            				</div>
+		            			{% else %}
+			            			{% for observation in observations %}
+			            				{% include 'ObservationBundle:Item:obsinsearch.html.twig' %}
+			            			{% endfor %}
+		            			{% endif %}
+		            		</div>
+		            	</div>
+		            </div>
+
+
+		            <div class="col-xs-12 col-sm-6">
+		            	<div class="panel panel-default">
+		            		<div class="panel-heading">
+		            			<div class="btn-group pull-right">
+		            				<a href="{{ path('nao_obs_search') }}" class="btn btn-group-item btn-nao"><i class="fas fa-search"></i></a>
+		            				<a href="{{ path('nao_obs_search', {'id': app.user.id }) }}" class="btn btn-group-item btn-default"><i class="fas fa-map"></i></a>
+		            				<button class="btn btn-group-item btn-default">{{ countObsPublished }}</button>
+		            			</div>
+		            			<h4>Consulter des observations</h4>
+		            		</div>
+		            		<div class="panel-body">
+		            			{% if lastObservations > 0 %}
+			            			{% for observation in lastObservations %}
+			            				{% include 'ObservationBundle:Item:obsinsearch.html.twig' %}
+			            			{% endfor %}
+			            			<div class="text-center submit-area">
+			            				<a href="{{ path('nao_obs_search') }}" class="btn btn-group-item btn-nao"><i class="fas fa-search"></i> Rechercher des observations parmi les {{ countObsPublished }} disponibles</a>
+			            			</div>
+			            			<div class="text-center">
+			            				<h5>Utilisez nos nombreux filtres de recherche et notre carte intéractive</h5>
+			            			</div>
+		            			{% else %}
+		            				<div class="text-center">
+		            					<h4>Aucune observation publiée.</h4>
+		            					<h4>Soyez le premier :)</h4>
+		            					<a href="{{ path('nao_obs_add') }}" class="btn btn-group-item btn-nao">Ajouter une observation</a>
+		            				</div>
+		            			{% endif %}
+		            		</div>
+		            	</div>
+		            </div>
+
+
+      		</div>
+        	<div class="row">
+
+  				<div class="col-xs-12 col-sm-6">
+
+  					<div class="row">
+
+			            <div class="col-xs-12 col-sm-6">
+			            	<div class="panel panel-{{ countObservationsNotValidated > 0 ? "danger" : "default" }}">
+			            		<div class="panel-heading">
+			            			<h4>Validation d'observations</h4>
+			            		</div>
+			            		<div class="panel-body">
+			            			<div class="text-center"><h5>
+				            			{% if countObservationsNotValidated > 0 %}
+				            				<a href="{{ path('nao_obs_check_list', {'id': app.user.id }) }}" class="btn btn-group-item btn-nao block-redalert">
+				            					{{ countObservationsNotValidated }} en attente
+				            				</a>
+				            			{% else %}
+				            				<i class="fas fa-check"></i> A jour
+				            			{% endif %}
+			            			</h5></div>
+			            			
+			            		</div>
+			            	</div>
+			            </div>
+
+			            <div class="col-xs-12 col-sm-6">
+			            	<div class="panel panel-{{ unreadMessages > 0 ? "warning" : "default" }}">
+			            		<div class="panel-heading">
+			            			<div class="btn-group pull-right">
+			            				<a href="{{ path('fos_message_thread_new') }}" class="btn btn-group-item btn-default"><i class="fas fa-edit"></i></a>
+			            				<a href="{{ path('fos_message_inbox') }}" class="btn btn-group-item btn-default"><i class="fas fa-envelope"></i></a>
+			            			</div>
+			            			<h4>Messagerie</h4>
+			            		</div>
+			            		<div class="panel-body">
+			            			{% if unreadMessages > 0 %}
+			            				<div class="text-center">
+			            					<h5>
+			            						<a href="{{ path('fos_message_inbox') }}" class="btn btn-group-item btn-nao-yellow">
+			            						{{ unreadMessages }} {{ unreadMessages > 1 ? "nouveaux messages" : "nouveau message" }}
+			            						</a>
+			            					</h5>
+			            				</div>
+			            			{% else %}
+			            				<div class="text-center">
+			            					<h5>
+			            						<a href="{{ path('fos_message_thread_new') }}" class="btn btn-group-item btn-default">Envoyer un message</a>
+			            					</h5>
+			            				</div>
+			            			{% endif %}
+			            			
+			            		</div>
+			            	</div>
+			            </div>
+
+
+					</div>
+					<div class="row">
+
+			            <div class="col-xs-12 col-sm-6">
+			            	<div class="panel panel-default">
+			            		<div class="panel-heading">
+			            			<h4>Détente</h4>
+			            		</div>
+			            		<div class="panel-body">
+			            			<div class="text-center">
+			            				<a href="#" class="btn btn-group-item btn-default">Jeu OiQuizZ</a>
+			            			</div>
+			            			<div class="text-center submit-area">
+			            				<a href="#" class="btn btn-group-item btn-default">Voir des photo</a>
+			            			</div>
+			            		</div>
+			            	</div>
+			            </div>  
+
+			            <div class="col-xs-12 col-sm-6">
+			            	<div class="panel panel-default">
+			            		<div class="panel-heading">
+			            			<div class="btn-group pull-right">
+			            				<a href="{{ path('nao_show_user', {'id': app.user.id}) }}" class="btn btn-group-item btn-default"><i class="fas fa-eye"></i></a>
+			            				<a href="{{ path('nao_edit_user', {'id': app.user.id}) }}" class="btn btn-group-item btn-default"><i class="fas fa-cogs"></i></a>
+			            			</div>
+			            			<h4>Mon compte</h4>
+			            		</div>
+			            		<div class="panel-body">
+		                            <div class="show-avatar">
+		                                <div class="user-avatar-show">
+		                                    {% if app.user.avatar.id is not defined %}
+		                                        <img src="{{ asset('/img/no-user.png') }}" class="user-avatar-image-show"/>
+		                                    {% else %}
+		                                        <img src="{{ asset('/uploads/avatar/') }}user-{{ app.user.id }}.{{ app.user.avatar.extension }}" class="user-avatar-image-show"/>
+		                                    {% endif %}
+		                                </div>
+		                                <div class="user-account-info-show">
+		                                    <div class="user-username-show">
+		                                        {{ app.user.username }}
+		                                    </div>
+		                                    <div class="user-group-show">
+		                                        {{ app.user.groupNames[0] }}
+		                                    </div>
+		                                </div>
+		                            </div>
+			            		</div>
+			            	</div>
+			            </div>
+
+					</div>
+
+				</div>
+
+
+	            <div class="col-xs-12 col-sm-6">
+	            	<div class="panel panel-default">
+	            		<div class="panel-heading">
+	            			<div class="btn-group pull-right">
+	            				{% if is_granted('ROLE_REDACTEUR') %}
+	            					<a href="{{ path('nao_blog_add_article') }}" class="btn btn-group-item btn-nao"><i class="fas fa-edit"></i></a>
+	            				{% endif %}
+	            				<a href="{{ path('nao_blog_index') }}" class="btn btn-group-item btn-default"><i class="far fa-newspaper"></i></a>
+        						<button class="btn btn-group-item btn-default">{{ countArticles }}</button>
+	            			</div>
+	            			<h4>Derniers articles publiés</h4>
+	            		</div>
+	            		<div class="panel-body">
+	            			{% if articles|length > 0 %}
+		            			{% for article in articles %}
+									<div class="media">
+									  <div class="media-left media-top">
+									    <a href="{{ path('nao_blog_show_article', {'slug' : article.slug }) }}">
+									      <div class="blog-article-image-media" style="background: url({{ asset('/uploads/blog/') }}article-{{ article.uniqueId }}.{{ article.image.extension }});"></div>
+									    </a>
+									  </div>
+									  <div class="media-body">
+		                                <a href="{{ path('nao_blog_show_article', {'slug' : article.slug }) }}">
+		                                <h4 class="media-heading">{{ article.title }}</h4>
+		                                </a>
+		                                <p>
+			                                {% autoescape false %}
+			                                    {{ article.content|slice(0, 100) }}...
+			                                {% endautoescape %}
+		                                </p>
+									  </div>
+									</div>
+		            			{% endfor %}
+	            			{% else %}
+	            				{% if is_granted('ROLE_REDACTEUR') %}
+	            					<div class="text-center">
+	            						<h4>Il n'y a aucune publication.</h4>
+	            						<a href="{{ path('nao_blog_add_article') }}" class="btn btn-group-item btn-nao">Rédiger un article</a>
+	            					</div>
+	            				{% else %}
+	            					<p>Une publication est en préparation, revenez régulièrement ;)</p>
+	            				{% endif %}
+	            			{% endif %}
+	            		</div>
+	            	</div>
+	            </div>
+
+        	</div>
+
+        </div>
+
+    </div>
 {% endblock %}
 
