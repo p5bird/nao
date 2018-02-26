@@ -125,7 +125,9 @@
         <div class="row">
             <div class="container">
                 <div class="col-md-3 col-sm-6 col-xs-6">
-                    Contact
+                    <a href="{{ path('nao_contact') }}">
+                        Contact
+                    </a>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-6">
                     Presse
@@ -155,12 +157,36 @@
                         </div>
                         <div class="footer-section-content">
                             <ul>
-                                <li class="sub-menu-index">Participer</li>
-                                <li class="sub-menu-index">Consulter</li>
-                                <li class="sub-menu-index">Blog</li>
-                                <li class="sub-menu-index">Jeu</li>
-                                <li class="sub-menu-index">A propos</li>
-                                <li class="sub-menu-index">FAQ</li>
+                                <li class="sub-menu-index">
+                                    <a href="{{ path('nao_obs_add') }}">
+                                        Participer
+                                    </a>
+                                </li>
+                                <li class="sub-menu-index">
+                                    <a href="{{ path('nao_obs_search') }}">
+                                        Consulter
+                                    </a>
+                                </li>
+                                <li class="sub-menu-index">
+                                    <a href="{{ path('nao_blog_index') }}">
+                                        Blog
+                                    </a>
+                                </li>
+                                <li class="sub-menu-index">
+                                    <a href="{{ path('nao_quiz') }}">
+                                        Jeu
+                                    </a>
+                                </li>
+                                <li class="sub-menu-index">
+                                    <a href="#">
+                                        A propos
+                                    </a>
+                                </li>
+                                <li class="sub-menu-index">
+                                    <a href="#">
+                                        FAQ
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </div>

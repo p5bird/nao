@@ -1081,6 +1081,8 @@ img.collapse-logo {
 
 #index-main-content-carousel img {
     min-height: 400px;
+    max-height: 400px;
+    width: 100%
 }
 
 #index-main-content-carousel .carousel-control {
@@ -1234,6 +1236,24 @@ footer.footer {
     font-weight: 500;
     font-size: 14pt;
     margin-top: 1.5em;
+}
+
+.pre-footer a {
+    color: inherit;
+}
+
+.pre-footer a:hover {
+    color: inherit;
+    text-decoration: none;
+}
+
+.footer-section a {
+    color: inherit;
+}
+
+.footer-section a:hover {
+    color: inherit;
+    text-decoration: none;
 }
 
 .footer-newsletter {
@@ -1581,17 +1601,17 @@ img.comment-user-avatar {
 ********Quiz*********
 ********************/
 
-.ui-widget-header {
+.quiz .ui-widget-header {
     background: none !important;
     background: #00bcd4 !important;
 }
 
-.ui-widget.ui-widget-content {
+.quiz .ui-widget.ui-widget-content {
     border: 1px solid #c5c5c5;
     height: 15px;
 }
 
-.ui-progressbar .ui-progressbar-value {
+.quiz .ui-progressbar .ui-progressbar-value {
     margin: 0 !important;
     height: 100%;
 }
