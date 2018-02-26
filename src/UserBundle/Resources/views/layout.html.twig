@@ -265,7 +265,7 @@
                                     <a href="{{ path('nao_blog_index') }}">
                                         <i class="far fa-newspaper"></i>
                                     </a>
-                                    <a href="#">
+                                    <a href="{{ path('nao_quiz') }}">
                                         <i class="fas fa-gamepad"></i>
                                     </a>
                                     <a href="{{ path('nao_profile') }}">
@@ -310,7 +310,7 @@
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Observations<span class="caret"></span></a>
                                         <ul class="dropdown-menu dropdown-menu-mobile">
-                                            <li><a href="#">Mes observations</a></li>
+                                            <li><a href="{{ path('nao_obs_user_list') }}">Mes observations</a></li>
                                             <li><a href="{{ path('nao_obs_add') }}">Ajouter une observation</a></li>
                                             {% if is_granted('ROLE_NATURALISTE') %}
                                             <li><a href="{{ path('nao_obs_check_list') }}">Valider observations</a></li>

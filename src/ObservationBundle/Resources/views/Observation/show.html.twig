@@ -21,7 +21,9 @@
 				</div>
 			{% endif %}
     		<div class="row">
-	        	<h1>{{ observation.birdName }}</h1>
+	        	<div class="obs-search-title">
+					<h1>{{ observation.birdName }}</h1>
+				</div>
 				{{ include('ObservationBundle:Item:obsdetails.html.twig') }}
 			</div>
 		</div>

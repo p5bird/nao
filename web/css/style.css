@@ -305,7 +305,7 @@ a.user-options-menu-dropdown-item {
 .validate-edit, .go-edit {
     float: right;
     display: inline-block;
-    padding: 25px 40px 20px 20px;
+    padding: 30px 40px 20px 20px;
 }
 
 .new-message {
@@ -1246,6 +1246,10 @@ footer.footer {
     font-weight: 500;
 }
 
+a.newsletter:hover {
+    text-decoration: none;
+}
+
 .quick-actions {
     padding: 80px 0 80px 0;
     text-align: center;
@@ -1571,6 +1575,64 @@ img.comment-user-avatar {
 
 .edit-comment-content {
     margin: 0 0 20px 0;
+}
+
+/********************
+********Quiz*********
+********************/
+
+.ui-widget-header {
+    background: none !important;
+    background: #00bcd4 !important;
+}
+
+.ui-widget.ui-widget-content {
+    border: 1px solid #c5c5c5;
+    height: 15px;
+}
+
+.ui-progressbar .ui-progressbar-value {
+    margin: 0 !important;
+    height: 100%;
+}
+
+#next {
+    text-align: center;
+    display: inline-block;
+    border-radius: 10%;
+}
+
+#result {
+    font-weight: bold;
+    font-size: 1.5em;
+    color: #036;
+}
+
+input[name="option"] {
+    float:left;
+
+}
+
+#progressbar {
+    float: none;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.progress-bar {
+    float: left;
+    width: 0;
+    height: 100%;
+    font-size: 12px;
+    line-height: 20px;
+    color: #fff;
+    text-align: center;
+    background: #337ab7 !important;
+    -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
+    -webkit-transition: width .6s ease;
+    -o-transition: width .6s ease;
+    transition: width .6s ease;
 }
 
 /******************************
@@ -1976,6 +2038,10 @@ ul.dropdown-menu.dropdown-menu-mobile a {
     display: none;
 }
 
+.obs-search-title {
+    padding: 10px 15px;
+}
+
 /******************************
 *******************************
 *********MEDIA QUERIES*********
@@ -2127,6 +2193,14 @@ ul.dropdown-menu.dropdown-menu-mobile a {
         padding: 0 0 0 2px;
         color: #3f5562;
     }
+
+    .stats-user {
+        margin-top: 10px;
+    }
+
+    .edit-account-options, .edit-social-options {
+        margin: 0px !important;
+    }
 }
 
 @media screen and (min-width: 991px) and (max-width: 1400px) {
@@ -2268,61 +2342,80 @@ ul.dropdown-menu.dropdown-menu-mobile a {
         font-size: 15pt;
         font-weight: 500;
     }
+
+    .programme-subtitle, .mobility-subtitle {
+        font-size: 40px;
+        padding: 0 0 30px 0;
+    }
+
+    .programme-buttons {
+        text-align: center;
+    }
+
+    .programme-buttons-content {
+        padding: 0px 20px 30px 20px;
+    }
+
+    .img-mobility {
+        padding: 40px 0;
+    }
+
+    .mobility-steps {
+        text-align: center;
+    }
+
+    .mobility-step-content {
+        padding: 0px 20px 40px 20px;
+    }
+
+    .application-content {
+        padding: 0;
+    }
+
+    .application-phone-infos {
+        text-align: center;
+    }
+
+    .application-phone-infos-content {
+        padding: 0 10px 0 10px !important;
+    }
+
+    .photos-subtitle {
+        color: #FFFFFF;
+        font-size: 40px;
+    }
+
+    .slide-inner-text {
+        padding: 0 30px;
+    }
+
+    .landing-footer-description {
+        padding: 0 40px;
+    }
+
+    .programme-infos {
+        padding: 0 20px;
+    }
 }
 
-
-/** Quiz **/
-
-.ui-widget-header {
-    background: none !important;
-    background: #00bcd4 !important;
+@media screen and (min-width: 414px) and (max-width: 455px) {
+    .collapse-quick-menu {
+        padding: 14px 20px 0 0;
+    }
 }
 
-.ui-widget.ui-widget-content {
-    border: 1px solid #c5c5c5;
-    height: 15px;
-}
+/** IPAD **/
+@media screen and (min-width: 414px) and (max-width: 1024px) {
+    .application-phone-infos {
+        text-align: center;
+    }
 
-.ui-progressbar .ui-progressbar-value {
-    margin: 0 !important;
-    height: 100%;
-}
+    .application-phone-infos {
+        text-align: center;
+        padding: 40px 0;
+    }
 
-#next {
-    text-align: center;
-    display: inline-block;
-    border-radius: 10%;
-}
-
-#result {
-    font-weight: bold;
-    font-size: 1.5em;
-    color: #036;
-}
-
-input[name="option"] {
-    float:left;
-
-}
-
-#progressbar {
-    float: none;
-    margin: auto;
-    margin-top: 20px;
-}
-
-.progress-bar {
-    float: left;
-    width: 0;
-    height: 100%;
-    font-size: 12px;
-    line-height: 20px;
-    color: #fff;
-    text-align: center;
-    background: #337ab7 !important;
-    -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
-    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
-    -webkit-transition: width .6s ease;
-    -o-transition: width .6s ease;
-    transition: width .6s ease;
+    .application-phone-infos-content {
+        padding: 10px 0 !important;
+    }
 }
