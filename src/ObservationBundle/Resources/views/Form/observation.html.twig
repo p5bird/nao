@@ -51,13 +51,13 @@
 </div>
 
 <div class="col-xs-12 col-sm-6">
-	{{ form_label(formObs.place) }}
-	{{ form_widget(formObs.place) }}
 	<div id="map"></div>
 	<div class="alert alert-warning">
 		<i class="fas fa-info-circle"></i> 
 		Bouger le curseur sur la carte pour géolocaliser le lieu de l'observation
 	</div>
+	{{ form_label(formObs.place) }}
+	{{ form_widget(formObs.place) }}
 	{{ form_label(formObs.latitude) }} <span class="required">*</span>
 	{{ form_errors(formObs.latitude) }} 
 	{{ form_widget(formObs.latitude) }}

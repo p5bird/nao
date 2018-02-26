@@ -171,3 +171,7 @@ ul.list-unstyled li span {
 	background-repeat: no-repeat !important;
 	background-size: cover !important;
 }
+
+.obs-media-in-map {
+	max-width: 400pc;
+}

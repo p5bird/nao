@@ -48,6 +48,7 @@ twig:
         file_image_default: '%file_image_default%'
         file_image_obs_default: '%file_image_obs_default%'
         file_image_user_default: '/img/no-user.png'
+        img_dir: '/img/'
 
 # Doctrine Configuration
 doctrine:

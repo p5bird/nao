@@ -7,10 +7,10 @@
     	<div class="row">
         <h1>Rechercher des observations</h1>
 
-        <div class="col-xs-12">
+        <div class="col-xs-12 col-sm-3">
           <div class="row">
         
-        		<div class="col-xs-12 col-sm-6">
+        		<div class="col-xs-12"> {# block filter #}
               <div class="panel panel-default">
                 <div class="panel-heading">
                   {{ totalObs }} observations disponibles
@@ -30,30 +30,41 @@
                   {% endif %}
                 </div>
               </div>
-        		</div>
-        		<div class="col-xs-12 col-sm-6">
-              <div class="form-inline">
-                <div class="form-group">
-                  <label>Centrer la carte sur un lieu</label>
-                  <div class="input-group">
-                    <input type="text" class="form-control input-sm" id="search_place" />
-                    <a href="#" id="centerMapSearch" class="btn btn-default btn-sm input-group-addon"><i class="fas fa-location-arrow fa-sm"></i></a>
-                    <a href="#" id="centerMapFrance" class="btn btn-default btn-sm input-group-addon"><i class="fas fa-crosshairs fa-sm"></i> France</a>
-                  </div>
-                </div>
-              </div>
-        			<div id="map" class="map-search"></div>
-              <div class="alert alert-warning">
-                <i class="fas fa-info-circle"></i> 
-                Les chiffres indiqués correspondent aux nombres d'observations. <br>
-                Naviguez sur la carte pour voir les observations effectuées près de chez vous.
-              </div>
-        		</div>
+        		</div> {# end filter #}
+
 
           </div>
         </div>
 
-          <div class="col-xs-12">
+        <div class="col-xs-12 col-sm-9">
+
+            <div class="col-xs-12" id="mapContainer"> {# block map #}
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <div class="form-inline">
+                    <div class="form-group">
+                      <label>Centrer la carte sur un lieu</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control input-sm" id="search_place" />
+                        <a href="#mapContainer" id="centerMapSearch" class="btn btn-default btn-sm input-group-addon"><i class="fas fa-location-arrow fa-sm"></i></a>
+                        <a href="#mapContainer" id="centerMapFrance" class="btn btn-default btn-sm input-group-addon"><i class="fas fa-crosshairs fa-sm"></i> France</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <div id="map" class="map-search"></div>
+                  <div class="alert alert-warning">
+                    <i class="fas fa-info-circle"></i> 
+                    Les chiffres indiqués correspondent aux nombres d'observations. <br>
+                    Naviguez sur la carte pour voir les observations effectuées près de chez vous.
+                  </div>
+                </div>
+              </div>
+            </div> {# end map #}
+
+
+          <div class="col-xs-12"> {# block results #}
             <div class="row">
                 {% if pagination is defined %}
                     {% for observation in pagination %}
@@ -68,7 +79,10 @@
                     </div>
                 {% endif %}
             </div> 
-          </div>
+          </div> {# end results #}
+
+        </div>
+
       </div>    
     </div>
     

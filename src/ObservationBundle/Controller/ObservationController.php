@@ -29,6 +29,8 @@ use ObservationBundle\Service\Geoloc;
 use ObservationBundle\Service\TaxonFinder;
 use ObservationBundle\Service\ObsValidation;
 
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
+
 class ObservationController extends Controller
 {
     /**
@@ -473,48 +475,49 @@ class ObservationController extends Controller
         $obsJson = [];
         $observations = [];
 
+        $helper = $this->get('vich_uploader.templating.helper.uploader_helper');
+
         $observations = $obsRepository->SearchFiltered($search);
         foreach ($observations as $obs) {
+
             array_push($obsJson, [
                 'id'        => $obs->getId(),
                 'birdName'  => $obs->getBirdName(),
                 'latitude'  => $obs->getLatitude(),
                 'longitude' => $obs->getLongitude(),
-                'url'       => $this->generateUrl('nao_obs_show', ['id' => $obs->getId()], UrlGeneratorInterface::ABSOLUTE_URL),
+                'obsUrl'       => $this->generateUrl('nao_obs_show', ['id' => $obs->getId()], UrlGeneratorInterface::ABSOLUTE_URL),
                 'nameValid'  => $obs->getTaxon()->getNameValid(),
-                'date'       => $obs->getDay()->format('d/m/Y h:m')
+                'date'       => $obs->getDay()->format('d/m/Y H:m'),
+                'imageUrl'      => is_null($obs->getImage()) ? "default" : $helper->asset($obs->getImage(), 'imageFile'),
+                'authorName' => $obs->getAuthor()->getUsername(),
+                'authorUrl'   => $this->generateUrl('nao_show_user', ['id' => $obs->getId()], UrlGeneratorInterface::ABSOLUTE_URL),
+                'nbBirds'    => is_null($obs->getDescription()) ? 1 : is_null($obs->getDescription()->getNumber()) ? 1 : $obs->getDescription()->getNumber()  
             ]);
         }
+
+        // pagination preparation
+        $query = $obsRepository->SearchFilteredQuery($search);
+        $paginator = $this->get('knp_paginator');
+        $page = $request->query->getInt('page', 1);
 
         if ($formSearch->isSubmitted() and $formSearch->isValid())
         {
             $session->set('search', $search);
-
-            // pagination
-            $query = $obsRepository->SearchFilteredQuery($search);
-            $paginator = $this->get('knp_paginator');
-            $pagination = $paginator->paginate(
-                $query,
-                $request->query->getInt('page', 1),
-                10
-            );
-
-            return $this->render('ObservationBundle:Observation:search.html.twig', [
-                'observations'  => $observations,
-                'obsJson'       => json_encode($obsJson),
-                'formSearch'    => $formSearch->createView(),
-                'totalObs'      => $obsRepository->countValidated(),
-                'pagination'    => $pagination,
-                'search'        => $search
-            ]);
-
+            $page = 1; // Bundle issue fixing : need to be restarted if new search query
         }
+
+        $pagination = $paginator->paginate(
+            $query,
+            $page,
+            10
+        );
 
         return $this->render('ObservationBundle:Observation:search.html.twig', [
             'observations'  => $observations,
             'obsJson'       => json_encode($obsJson),
             'formSearch'    => $formSearch->createView(),
             'totalObs'      => $obsRepository->countValidated(),
+            'pagination'    => $pagination,
             'search'        => $search
         ]);
     }
