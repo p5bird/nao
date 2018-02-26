@@ -2042,6 +2042,10 @@ ul.dropdown-menu.dropdown-menu-mobile a {
     padding: 10px 15px;
 }
 
+button#form_envoyer {
+    width: 100%;
+}
+
 /******************************
 *******************************
 *********MEDIA QUERIES*********

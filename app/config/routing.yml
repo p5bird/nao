@@ -195,3 +195,7 @@ nao_landing_page:
 nao_quiz:
     path: /quiz/
     defaults: { _controller: AppBundle:App:quiz }
+
+nao_contact:
+    path: /contact/
+    defaults: { _controller: AppBundle:App:createContactForm }
