@@ -452,7 +452,7 @@ class LoadFixtures extends AbstractFixture {
         $locationNames = $this->getLocationsNames();
  
         $j=0;
-        for ($i=0; $i < 13; $i++) {
+        for ($i=0; $i < 127; $i++) {
             $user = $users[mt_rand(0, count($users)-1)];
 
             $observation = new Observation();
