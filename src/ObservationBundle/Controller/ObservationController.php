@@ -472,28 +472,8 @@ class ObservationController extends Controller
         $formSearch = $this->createForm(SearchType::class, $search);
         $formSearch->handleRequest($request);
 
-        $obsJson = [];
-        $observations = [];
-
-        $helper = $this->get('vich_uploader.templating.helper.uploader_helper');
-
         $observations = $obsRepository->SearchFiltered($search);
-        foreach ($observations as $obs) {
-
-            array_push($obsJson, [
-                'id'        => $obs->getId(),
-                'birdName'  => $obs->getBirdName(),
-                'latitude'  => $obs->getLatitude(),
-                'longitude' => $obs->getLongitude(),
-                'obsUrl'       => $this->generateUrl('nao_obs_show', ['id' => $obs->getId()], UrlGeneratorInterface::ABSOLUTE_URL),
-                'nameValid'  => $obs->getTaxon()->getNameValid(),
-                'date'       => $obs->getDay()->format('d/m/Y H:m'),
-                'imageUrl'      => is_null($obs->getImage()) ? "default" : $helper->asset($obs->getImage(), 'imageFile'),
-                'authorName' => $obs->getAuthor()->getUsername(),
-                'authorUrl'   => $this->generateUrl('nao_show_user', ['id' => $obs->getId()], UrlGeneratorInterface::ABSOLUTE_URL),
-                'nbBirds'    => is_null($obs->getDescription()) ? 1 : is_null($obs->getDescription()->getNumber()) ? 1 : $obs->getDescription()->getNumber()  
-            ]);
-        }
+        $obsJson = $this->get('observation.mapdata')->setMapMarkers($observations);
 
         // pagination preparation
         $query = $obsRepository->SearchFilteredQuery($search);
@@ -514,7 +494,7 @@ class ObservationController extends Controller
 
         return $this->render('ObservationBundle:Observation:search.html.twig', [
             'observations'  => $observations,
-            'obsJson'       => json_encode($obsJson),
+            'obsJson'       => $obsJson,
             'formSearch'    => $formSearch->createView(),
             'totalObs'      => $obsRepository->countValidated(),
             'pagination'    => $pagination,

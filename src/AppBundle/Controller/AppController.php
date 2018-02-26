@@ -33,9 +33,18 @@ class AppController extends Controller {
         $lastThreeArticles = $em->getRepository('BlogBundle:Article')->getLastThreeArticles();
         $lastThreeObservations = $em->getRepository('ObservationBundle:Observation')->getLastValidatedWithImage();
 
+       $observations = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('ObservationBundle:Observation')
+            ->findAllValidated();
+
+        $obsJson = $this->get('observation.mapdata')->setMapMarkers($observations);
+
         return $this->render('AppBundle:App:index.html.twig', array(
             'lastThreeArticles' => $lastThreeArticles,
-            'lastThreeObservations' => $lastThreeObservations
+            'lastThreeObservations' => $lastThreeObservations,
+            'obsJson'       => $obsJson
         ));
     }
 

@@ -18,10 +18,8 @@ use ObservationBundle\Entity\Description;
 use ObservationBundle\Entity\Image;
 use UserBundle\Entity\Group;
 use UserBundle\Entity\User;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\File;
 use ObservationBundle\Service\Geoloc;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class LoadFixtures extends AbstractFixture {
 

@@ -45,3 +45,11 @@ services:
           - "@security.token_storage"
           - "@doctrine.orm.entity_manager"
         public: true
+
+    observation.mapdata:
+        class: ObservationBundle\Service\MapData
+        arguments:
+          - "@doctrine.orm.entity_manager"
+          - "@vich_uploader.templating.helper.uploader_helper"
+          - "@router"
+        public: true
