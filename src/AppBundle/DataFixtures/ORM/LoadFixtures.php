@@ -14,10 +14,18 @@ use Doctrine\Common\Persistence\ObjectManager;
 use ObservationBundle\Entity\Observation;
 use ObservationBundle\Entity\Taxon;
 use ObservationBundle\Entity\Validation;
+use ObservationBundle\Entity\Description;
+use ObservationBundle\Entity\Image;
 use UserBundle\Entity\Group;
 use UserBundle\Entity\User;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\File;
+use ObservationBundle\Service\Geoloc;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class LoadFixtures extends AbstractFixture {
+
+ 
 
     private $position = [
         ['lat' => 48.42096593, 'lng' => -2.16200723],
@@ -231,17 +239,102 @@ class LoadFixtures extends AbstractFixture {
 
     private function loadUsers(ObjectManager $manager) {
         $user = new User();
-        $group = $manager->getRepository('UserBundle:Group')->findOneBy(['name' => 'Poussin']);
+        $group = $manager->getRepository('UserBundle:Group')->findOneBy(['name' => 'Condor']);
 
         $user->setUsername('admin');
         $user->setPlainPassword('admin');
         $user->setEmail('gatienhrd@gmail.com');
         $user->setEnabled(1);
-        $user->setRoles(['ROLE_ADMIN']);
-        $user->addGroup($manager->getRepository('UserBundle:Group')->findOneBy(['name' => 'Poussin']));
+        $user->setRoles(['ROLE_ADMIN', 'ROLE_REDACTEUR', 'ROLE_NATURALISTE', 'ROLE_USER', 'ROLE_SPECIALISTE']);
+        $user->addGroup($manager->getRepository('UserBundle:Group')->findOneBy(['name' => 'Condor']));
 
         $manager->persist($user);
         $manager->flush();
+
+
+        $naturaliste = new User();
+        $group = $manager->getRepository('UserBundle:Group')->findOneBy(['name' => 'Faucon']);
+
+        $naturaliste->setUsername('natura');
+        $naturaliste->setPlainPassword('natura');
+        $naturaliste->setEmail('joffreynicoloff@hotmail.fr');
+        $naturaliste->setEnabled(1);
+        $naturaliste->setRoles(['ROLE_NATURALISTE', 'ROLE_SPECIALISTE', 'ROLE_USER']);
+        $naturaliste->addGroup($manager->getRepository('UserBundle:Group')->findOneBy(['name' => 'Faucon']));
+
+        $manager->persist($naturaliste);
+        $manager->flush();
+
+
+        $writer = new User();
+        $group = $manager->getRepository('UserBundle:Group')->findOneBy(['name' => 'Colibri']);
+
+        $writer->setUsername('blogger');
+        $writer->setPlainPassword('blogger');
+        $writer->setEmail('ocp5bird@gmail.com');
+        $writer->setEnabled(1);
+        $writer->setRoles(['ROLE_REDACTEUR', 'ROLE_USER']);
+        $writer->addGroup($manager->getRepository('UserBundle:Group')->findOneBy(['name' => 'Colibri']));
+
+        $manager->persist($writer);
+        $manager->flush();
+
+
+        $visitor = new User();
+        $group = $manager->getRepository('UserBundle:Group')->findOneBy(['name' => 'Poussin']);
+
+        $visitor->setUsername('superman');
+        $visitor->setPlainPassword('superman');
+        $visitor->setEmail('joffreynicoloff@gmail.com');
+        $visitor->setEnabled(1);
+        $visitor->setRoles(['ROLE_USER']);
+        $visitor->addGroup($manager->getRepository('UserBundle:Group')->findOneBy(['name' => 'Poussin']));
+
+        $manager->persist($visitor);
+        $manager->flush();
+
+
+        $visitor = new User();
+        $group = $manager->getRepository('UserBundle:Group')->findOneBy(['name' => 'Pivert']);
+
+        $visitor->setUsername('batman');
+        $visitor->setPlainPassword('batman');
+        $visitor->setEmail('jnistudent@gmail.com');
+        $visitor->setEnabled(1);
+        $visitor->setRoles(['ROLE_USER']);
+        $visitor->addGroup($manager->getRepository('UserBundle:Group')->findOneBy(['name' => 'Pivert']));
+
+        $manager->persist($visitor);
+        $manager->flush();
+
+
+        $visitor = new User();
+        $group = $manager->getRepository('UserBundle:Group')->findOneBy(['name' => 'Pivert']);
+
+        $visitor->setUsername('flash');
+        $visitor->setPlainPassword('flash');
+        $visitor->setEmail('adresse1@email.com');
+        $visitor->setEnabled(1);
+        $visitor->setRoles(['ROLE_USER']);
+        $visitor->addGroup($manager->getRepository('UserBundle:Group')->findOneBy(['name' => 'Pivert']));
+
+        $manager->persist($visitor);
+        $manager->flush();
+
+
+        $visitor = new User();
+        $group = $manager->getRepository('UserBundle:Group')->findOneBy(['name' => 'Poussin']);
+
+        $visitor->setUsername('spiderman');
+        $visitor->setPlainPassword('spiderman');
+        $visitor->setEmail('adresse2@email.com');
+        $visitor->setEnabled(1);
+        $visitor->setRoles(['ROLE_USER']);
+        $visitor->addGroup($manager->getRepository('UserBundle:Group')->findOneBy(['name' => 'Poussin']));
+
+        $manager->persist($visitor);
+        $manager->flush();
+
     }
 
     private function loadTaxons(ObjectManager $manager) {
@@ -278,10 +371,23 @@ class LoadFixtures extends AbstractFixture {
         $manager->flush();
     }
 
+
     private function loadObservations(ObjectManager $manager){
-        $user = $manager
+        $users = $manager
             ->getRepository('UserBundle:User')
-            ->findOneBy(['username' => 'admin']);
+            ->findAll();
+
+        $qbUser = $manager
+            ->getRepository('UserBundle:User')
+            ->createQueryBuilder('user'); 
+
+        $validators = $qbUser
+            ->where('user.username LIKE :admin OR user.username LIKE :natura')
+            ->setParameter('admin', "admin")
+            ->setParameter('natura', "natura")
+            ->getQuery()
+            ->getResult();
+
 
         $qbTaxon = $manager
             ->getRepository('ObservationBundle:Taxon')
@@ -291,8 +397,64 @@ class LoadFixtures extends AbstractFixture {
             ->andWhere("tax.nameVern != ''")
             ->getQuery()
             ->getResult();
+
+
+        $birdSizes = [
+            'très petit',
+            'petit',
+            'moyen inférieur',
+            'moyen',
+            'moyen supérieur',
+            'grand',
+            'très grand'
+        ];
+
+        $birdColors = [
+            'jaune',
+            'bleu',
+            'rose',
+            'noir',
+            'gris',
+            'blanc',
+            'orange',
+            'vert',
+            'violet',
+            'rouge',
+            'turquoise',
+            'marron'
+        ];
+
+        $imageNames = [
+            '01.jpg',
+            '02.jpeg',
+            '03.jpeg',
+            '04.jpeg',
+            '05.jpeg',
+            '06.jpg',
+            '07.jpg',
+            '08.jpeg',
+            '09.jpeg',
+            '10.jpeg',
+            '11.jpeg',
+            '12.jpeg',
+            '13.jpeg',
+            '14.jpeg',
+            '15.jpeg',
+            '16.jpeg',
+            '17.jpeg',
+            '18.jpeg',
+            '19.jpeg',
+            '20.jpg',
+            null,
+            null
+        ];
+
+        $locationNames = $this->getLocationsNames();
  
-        for ($i=0; $i < 200; $i++) {
+        $j=0;
+        for ($i=0; $i < 13; $i++) {
+            $user = $users[mt_rand(0, count($users)-1)];
+
             $observation = new Observation();
             $observation->setComment('observation importée par Fixtures');
             $observation->setAuthor($user);
@@ -306,17 +468,86 @@ class LoadFixtures extends AbstractFixture {
             $ramdomDate = date("Y-m-d", $timestamp);
             $observation->setDay(new \DateTime($ramdomDate));
  
-            $validation = new Validation();
-            $validation->setAuthor($user);
-            $validation->setDate(new \DateTime());
-            $validation->setGranted(true);
- 
-            $observation->setValidation($validation);
-            $observation->setPublish(true);
+            $validator = $validators[mt_rand(0, count($validators)-1)];
+
+            if ($j < 9)
+            {
+                $j++;
+                $validation = new Validation();
+                $validation->setAuthor($validator);
+                $validation->setDate(new \DateTime());
+                $validation->setGranted(true); 
+                $validation->setComment("Magnifique observation ! Bravo !"); 
+                $observation->setPublish(true);             
+                $observation->setValidation($validation);              
+            }
+            elseif ($j == 9) 
+            {
+                $j++;
+                $observation->setPublish(true);
+                $observation->setValidation(null);
+            }
+            elseif ($j == 10) 
+            {
+                $j++;
+                $observation->setPublish(false);              
+                $observation->setValidation(null);
+            }   
+            else
+            {
+                $j = 0;
+                $observation->setTaxon(null);
+                $observation->setBirdName('nawaaaakk');
+                $validation = new Validation();
+                $validation->setAuthor($validator);
+                $validation->setDate(new \DateTime());
+                $validation->setRejected(true);
+                $validation->setComment("Impossible d'identifier l'oiseau, merci de fournir plus de détails"); 
+                $observation->setPublish(false);             
+                $observation->setValidation($validation);   
+            }
+
+
+            $description = new Description();
+            $description->setComment("Observation fictive importée par fixtures");
+            $description->setNumber(mt_rand(1, 23));
+            $description->setSize($birdSizes[mt_rand(0, count($birdSizes)-1)]);
+            $description->setPlumageColor($birdColors[mt_rand(0, count($birdColors)-1)]);
+            $description->setBareColor($birdColors[mt_rand(0, count($birdColors)-1)]);
+            $description->setPawsColor($birdColors[mt_rand(0, count($birdColors)-1)]);
+            $description->setBeakColor($birdColors[mt_rand(0, count($birdColors)-1)]);
+            $observation->setDescription($description);
+
+            $image = new Image();
+            $imagePath = "web/uploads/images/obs/";
+            $imageName = $imageNames[mt_rand(0, count($imageNames)-1)];
+
+            if (is_null($imageName))
+            {
+                $observation->setImage(null);
+            }
+            else
+            {
+                $fileName = $imagePath . $imageName;
+                $file = new File($fileName);
+                $image->setImageFile($file);
+                $image->setImageName($imageName);
+                $observation->setImage($image);
+            }
  
             $observation->setLatitude($this->position[$i]['lat']);
             $observation->setLongitude($this->position[$i]['lng']);
  
+            // DOES NOT WORK DUE TO GOOGLE LIMITATION !!!
+            //$observation = $this->setLocationInfos($observation);
+
+            $locationName = $locationNames[mt_rand(0, count($locationNames)-1)];
+            $observation->setLocPostalCode($locationName[0]);
+            $observation->setLocCounty($locationName[1]);
+            $observation->setLocRegion($locationName[2]);
+            $observation->setLocCountry("France");
+
+
             $manager->persist($observation);
         }
 
@@ -341,4 +572,117 @@ class LoadFixtures extends AbstractFixture {
 
         $manager->flush();
     }
+
+
+    private function getLocationsNames()
+    {
+        return [
+
+            ["  1   ", "    Ain ", "    Auvergne-Rhône-Alpes    "],
+            ["  2   ", "    Aisne   ", "    Nord-Pas-de-Calais-Picardie "],
+            ["  3   ", "    Allier  ", "    Auvergne-Rhône-Alpes    "],
+            ["  4   ", "    Alpes-de-Haute-Provence ", "    Provence-Alpes-Côte d'Azur  "],
+            ["  5   ", "    Hautes-Alpes    ", "    Provence-Alpes-Côte d'Azur  "],
+            ["  6   ", "    Alpes-Maritimes ", "    Provence-Alpes-Côte d'Azur  "],
+            ["  7   ", "    Ardèche ", "    Auvergne-Rhône-Alpes    "],
+            ["  8   ", "    Ardennes    ", "    Alsace-Champagne-Ardenne-Lorraine   "],
+            ["  9   ", "    Ariège  ", "    Languedoc-Roussillon-Midi-Pyrénées  "],
+            ["  10  ", "    Aube    ", "    Alsace-Champagne-Ardenne-Lorraine   "],
+            ["  11  ", "    Aude    ", "    Languedoc-Roussillon-Midi-Pyrénées  "],
+            ["  12  ", "    Aveyron ", "    Languedoc-Roussillon-Midi-Pyrénées  "],
+            ["  13  ", "    Bouches-du-Rhône    ", "    Provence-Alpes-Côte d'Azur  "],
+            ["  14  ", "    Calvados    ", "    Normandie   "],
+            ["  15  ", "    Cantal  ", "    Auvergne-Rhône-Alpes    "],
+            ["  16  ", "    Charente    ", "    Aquitaine-Limousin-Poitou-Charentes "],
+            ["  17  ", "    Charente-Maritime   ", "    Aquitaine-Limousin-Poitou-Charentes "],
+            ["  18  ", "    Cher    ", "    Centre-Val de Loire "],
+            ["  19  ", "    Corrèze ", "    Aquitaine-Limousin-Poitou-Charentes "],
+            ["  21  ", "    Côte-d'or   ", "    Bourgogne-Franche-Comté "],
+            ["  22  ", "    Côtes-d'armor   ", "    Bretagne    "],
+            ["  23  ", "    Creuse  ", "    Aquitaine-Limousin-Poitou-Charentes "],
+            ["  24  ", "    Dordogne    ", "    Aquitaine-Limousin-Poitou-Charentes "],
+            ["  25  ", "    Doubs   ", "    Bourgogne-Franche-Comté "],
+            ["  26  ", "    Drôme   ", "    Auvergne-Rhône-Alpes    "],
+            ["  27  ", "    Eure    ", "    Normandie   "],
+            ["  28  ", "    Eure-et-Loir    ", "    Centre-Val de Loire "],
+            ["  29  ", "    Finistère   ", "    Bretagne    "],
+            ["  2a  ", "    Corse-du-Sud    ", "    Corse   "],
+            ["  2b  ", "    Haute-Corse ", "    Corse   "],
+            ["  30  ", "    Gard    ", "    Languedoc-Roussillon-Midi-Pyrénées  "],
+            ["  31  ", "    Haute-Garonne   ", "    Languedoc-Roussillon-Midi-Pyrénées  "],
+            ["  32  ", "    Gers    ", "    Languedoc-Roussillon-Midi-Pyrénées  "],
+            ["  33  ", "    Gironde ", "    Aquitaine-Limousin-Poitou-Charentes "],
+            ["  34  ", "    Hérault ", "    Languedoc-Roussillon-Midi-Pyrénées  "],
+            ["  35  ", "    Ille-et-Vilaine ", "    Bretagne    "],
+            ["  36  ", "    Indre   ", "    Centre-Val de Loire "],
+            ["  37  ", "    Indre-et-Loire  ", "    Centre-Val de Loire "],
+            ["  38  ", "    Isère   ", "    Auvergne-Rhône-Alpes    "],
+            ["  39  ", "    Jura    ", "    Bourgogne-Franche-Comté "],
+            ["  40  ", "    Landes  ", "    Aquitaine-Limousin-Poitou-Charentes "],
+            ["  41  ", "    Loir-et-Cher    ", "    Centre-Val de Loire "],
+            ["  42  ", "    Loire   ", "    Auvergne-Rhône-Alpes    "],
+            ["  43  ", "    Haute-Loire ", "    Auvergne-Rhône-Alpes    "],
+            ["  44  ", "    Loire-Atlantique    ", "    Pays de la Loire    "],
+            ["  45  ", "    Loiret  ", "    Centre-Val de Loire "],
+            ["  46  ", "    Lot ", "    Languedoc-Roussillon-Midi-Pyrénées  "],
+            ["  47  ", "    Lot-et-Garonne  ", "    Aquitaine-Limousin-Poitou-Charentes "],
+            ["  48  ", "    Lozère  ", "    Languedoc-Roussillon-Midi-Pyrénées  "],
+            ["  49  ", "    Maine-et-Loire  ", "    Pays de la Loire    "],
+            ["  50  ", "    Manche  ", "    Normandie   "],
+            ["  51  ", "    Marne   ", "    Alsace-Champagne-Ardenne-Lorraine   "],
+            ["  52  ", "    Haute-Marne ", "    Alsace-Champagne-Ardenne-Lorraine   "],
+            ["  53  ", "    Mayenne ", "    Pays de la Loire    "],
+            ["  54  ", "    Meurthe-et-Moselle  ", "    Alsace-Champagne-Ardenne-Lorraine   "],
+            ["  55  ", "    Meuse   ", "    Alsace-Champagne-Ardenne-Lorraine   "],
+            ["  56  ", "    Morbihan    ", "    Bretagne    "],
+            ["  57  ", "    Moselle ", "    Alsace-Champagne-Ardenne-Lorraine   "],
+            ["  58  ", "    Nièvre  ", "    Bourgogne-Franche-Comté "],
+            ["  59  ", "    Nord    ", "    Nord-Pas-de-Calais-Picardie "],
+            ["  60  ", "    Oise    ", "    Nord-Pas-de-Calais-Picardie "],
+            ["  61  ", "    Orne    ", "    Normandie   "],
+            ["  62  ", "    Pas-de-Calais   ", "    Nord-Pas-de-Calais-Picardie "],
+            ["  63  ", "    Puy-de-Dôme ", "    Auvergne-Rhône-Alpes    "],
+            ["  64  ", "    Pyrénées-Atlantiques    ", "    Aquitaine-Limousin-Poitou-Charentes "],
+            ["  65  ", "    Hautes-Pyrénées ", "    Languedoc-Roussillon-Midi-Pyrénées  "],
+            ["  66  ", "    Pyrénées-Orientales ", "    Languedoc-Roussillon-Midi-Pyrénées  "],
+            ["  67  ", "    Bas-Rhin    ", "    Alsace-Champagne-Ardenne-Lorraine   "],
+            ["  68  ", "    Haut-Rhin   ", "    Alsace-Champagne-Ardenne-Lorraine   "],
+            ["  69  ", "    Rhône   ", "    Auvergne-Rhône-Alpes    "],
+            ["  70  ", "    Haute-Saône ", "    Bourgogne-Franche-Comté "],
+            ["  71  ", "    Saône-et-Loire  ", "    Bourgogne-Franche-Comté "],
+            ["  72  ", "    Sarthe  ", "    Pays de la Loire    "],
+            ["  73  ", "    Savoie  ", "    Auvergne-Rhône-Alpes    "],
+            ["  74  ", "    Haute-Savoie    ", "    Auvergne-Rhône-Alpes    "],
+            ["  75  ", "    Paris   ", "    Ile-de-France   "],
+            ["  76  ", "    Seine-Maritime  ", "    Normandie   "],
+            ["  77  ", "    Seine-et-Marne  ", "    Ile-de-France   "],
+            ["  78  ", "    Yvelines    ", "    Ile-de-France   "],
+            ["  79  ", "    Deux-Sèvres ", "    Aquitaine-Limousin-Poitou-Charentes "],
+            ["  80  ", "    Somme   ", "    Nord-Pas-de-Calais-Picardie "],
+            ["  81  ", "    Tarn    ", "    Languedoc-Roussillon-Midi-Pyrénées  "],
+            ["  82  ", "    Tarn-et-Garonne ", "    Languedoc-Roussillon-Midi-Pyrénées  "],
+            ["  83  ", "    Var ", "    Provence-Alpes-Côte d'Azur  "],
+            ["  84  ", "    Vaucluse    ", "    Provence-Alpes-Côte d'Azur  "],
+            ["  85  ", "    Vendée  ", "    Pays de la Loire    "],
+            ["  86  ", "    Vienne  ", "    Aquitaine-Limousin-Poitou-Charentes "],
+            ["  87  ", "    Haute-Vienne    ", "    Aquitaine-Limousin-Poitou-Charentes "],
+            ["  88  ", "    Vosges  ", "    Alsace-Champagne-Ardenne-Lorraine   "],
+            ["  89  ", "    Yonne   ", "    Bourgogne-Franche-Comté "],
+            ["  90  ", "    Territoire de Belfort   ", "    Bourgogne-Franche-Comté "],
+            ["  91  ", "    Essonne ", "    Ile-de-France   "],
+            ["  92  ", "    Hauts-de-Seine  ", "    Ile-de-France   "],
+            ["  93  ", "    Seine-Saint-Denis   ", "    Ile-de-France   "],
+            ["  94  ", "    Val-de-Marne    ", "    Ile-de-France   "],
+            ["  95  ", "    Val-d'oise  ", "    Ile-de-France   "]
+
+        ];
+    }
+
+
 }
+
+
+
+
+
+
