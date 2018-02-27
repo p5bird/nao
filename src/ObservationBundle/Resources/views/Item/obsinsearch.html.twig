@@ -1,5 +1,5 @@
 
-		<div class="media gmarker" gmarker="{{ observation.id }}">
+		<div class="media gmarker media-single" gmarker="{{ observation.id }}">
 		  <div class="media-left media-top gmarker" gmarker="{{ observation.id }}">
 		    <a href="{{ path('nao_obs_show', {'id': observation.id}) }}"  class="gmarker" gmarker="{{ observation.id }}">
 		    	<div class="obs-image-media" style="background: url({{ observation.image ? asset(vich_uploader_asset(observation.image, 'imageFile')) : asset(file_image_obs_default) }});"></div>

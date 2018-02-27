@@ -2138,6 +2138,22 @@ button#form_envoyer {
     width: 100%;
 }
 
+.container.dashboard {
+    padding: 20px 0 0 0;
+}
+
+.panel-message, .panel-validation {
+    padding: 32.5px !important;
+}
+
+.dashboard .media-single {
+    margin: 20px 0 12px 0;
+}
+
+.panel-body.panel-observation {
+    padding: 28px 15px;
+}
+
 /******************************
 *******************************
 *********MEDIA QUERIES*********
