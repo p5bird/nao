@@ -2174,6 +2174,10 @@ button#form_envoyer {
     ul.dropdown-menu.dropdown-menu-mobile {
         background-color: #232a35;
     }
+
+    .index-buttons button {
+        margin: 30px 0;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -2517,6 +2521,16 @@ button#form_envoyer {
 
     .programme-infos {
         padding: 0 20px;
+    }
+}
+
+@media screen and (max-width: 510px) {
+    .index-buttons button {
+        font-size: 12pt !important;
+        padding: 10px !important;
+        width: 100px !important;
+        max-height: 60px !important;
+        margin: 30px 0 !important;
     }
 }
 
