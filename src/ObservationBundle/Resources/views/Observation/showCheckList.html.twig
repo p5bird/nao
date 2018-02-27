@@ -10,8 +10,8 @@
         {% endfor %}
 
         <div class="page-name">
-            Observations à valider <span class="label label-nao-yellow">{{ pagination.getTotalItemCount }}</span>
-{#             Observations à valider <span class="label label-nao-yellow">{{ observations|length }}</span> #}
+{#             Observations à valider <span class="label label-nao-yellow">{{ pagination.getTotalItemCount }}</span> #}
+            Observations à valider <span class="label label-nao-yellow">{{ observations|length }}</span>
         </div>
         <div class="validate-edit">
             <a href="{{ path('nao_obs_user_list') }}" class="btn btn-nao"/>Mes observations</a>
@@ -21,8 +21,8 @@
     <div class="user-interface-container">
 	    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
 
-			{% if pagination.getTotalItemCount is same as(0) %}
-{# 			{% if observations is empty %} #}
+{# 			{% if pagination.getTotalItemCount is same as(0) %} #}
+			{% if observations is empty %}
 
 				<div class="alert alert-default">
 	                <i class="fas fa-check"></i> Application à jour : aucune observation à valider.
@@ -49,8 +49,8 @@
 	    					</tr>
 						</thead>
 	    				<tbody id="tableSearch">
-							{% for observation in pagination %}
-{# 							{% for observation in observations %} #}
+{# 							{% for observation in pagination %} #}
+							{% for observation in observations %}
 		    					<tr>
 		    						<td>
 		    							<span class="badge">{{observation.id}}</span>	

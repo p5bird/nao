@@ -438,20 +438,20 @@ class ObservationController extends Controller
             ->getManager()
             ->getRepository('ObservationBundle:Observation');
 
-        // $observations = $obsRepository->getNeedValidation();
+        $observations = $obsRepository->getNeedValidation();
 
         //pagination
-        $query = $obsRepository->getNeedValidationQuery();
-        $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', 1),
-            10
-        );
+        // $query = $obsRepository->getNeedValidationQuery();
+        // $paginator = $this->get('knp_paginator');
+        // $pagination = $paginator->paginate(
+        //     $query,
+        //     $request->query->getInt('page', 1),
+        //     10
+        // );
 
         return $this->render('ObservationBundle:Observation:showCheckList.html.twig', [
-            'pagination'   => $pagination
-            // 'observations'    => $observations
+            //'pagination'   => $pagination
+            'observations'    => $observations
         ]);
     }
 
