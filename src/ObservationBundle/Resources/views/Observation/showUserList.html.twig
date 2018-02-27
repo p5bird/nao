@@ -21,8 +21,8 @@
         </div>
     </div>
     
-    <div class="container">
-	    <div class="col-xs-12 user-interface-content-container">
+    <div class="user-interface-container">
+	    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
 
 			{% if totalObs == 0 %}
 				<div class="alert alert-default">
@@ -51,7 +51,7 @@
 						</li>
 					</ul>
 
-					<table class="table table-sm table-hover table-striped list-table">
+					<table class="table table-sm table-hover table-striped list-table obs-table">
 						<tbody>
 							{% for observation in pagination %}
 								{% if observation.isrejected %}
@@ -73,7 +73,7 @@
 						</li>
 					</ul>
 
-					<table class="table table-sm table-hover table-striped list-table">
+					<table class="table table-sm table-hover table-striped list-table obs-table">
 						<tbody>
 							{% for observation in pagination %}
 								{% if observation.issaved %}
@@ -95,7 +95,7 @@
 						</li>
 					</ul>
 
-					<table class="table table-sm table-hover table-striped list-table">
+					<table class="table table-sm table-hover table-striped list-table obs-table">
 						<tbody>
 							{% for observation in pagination %}
 								{% if observation.needValidation %}
@@ -117,7 +117,7 @@
 						</li>
 					</ul>
 
-					<table class="table table-sm table-hover table-striped list-table">
+					<table class="table table-sm table-hover table-striped list-table obs-table">
 						<tbody>
 							{% for observation in pagination %}
 								{% if observation.isvalidated %}
@@ -142,4 +142,3 @@
 {% endblock %}
 
 
-{# modif #}
