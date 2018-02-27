@@ -10,8 +10,8 @@
         {% endfor %}
 
         <div class="page-name">
-            Observations à valider <span class="label label-nao-yellow">{{ pagination.getTotalItemCount }}</span>
-{#             Observations à valider <span class="label label-nao-yellow">{{ observations|length }}</span> #}
+{#             Observations à valider <span class="label label-nao-yellow">{{ pagination.getTotalItemCount }}</span> #}
+            Observations à valider <span class="label label-nao-yellow">{{ observations|length }}</span>
         </div>
         <div class="validate-edit">
             <a href="{{ path('nao_obs_user_list') }}" class="btn btn-nao"/>Mes observations</a>
@@ -21,8 +21,8 @@
     <div class="container">
 	    <div class="col-xs-12 user-interface-content-container">
 
-			{% if pagination.getTotalItemCount is same as(0) %}
-{# 			{% if observations is empty %} #}
+{# 			{% if pagination.getTotalItemCount is same as(0) %} #}
+			{% if observations is empty %}
 
 				<div class="alert alert-default">
 	                <i class="fas fa-check"></i> Application à jour : aucune observation à valider.
@@ -30,12 +30,12 @@
 
 			{% else %}
 
-{# 				<div class="input-group">
-                    <input class="form-control" id="system-search" name="q" placeholder="Rechercher" required>
+				<div class="input-group">
+                    <input class="form-control" id="inputQuery" name="q" placeholder="Rechercher" required>
                     <span class="input-group-btn">
                         <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
                     </span>
-                </div> #}
+                </div>
                 <div class="panel panel-default">
 				<div class="table-responsive">
 					<table class="table table-sm table-hover table-striped list-users-table list-table">
@@ -47,9 +47,9 @@
 	    						<th class="col-sm-3">Auteur</th>
 	    					</tr>
 						</thead>
-	    				<tbody>
-							{% for observation in pagination %}
-{# 							{% for observation in observations %} #}
+	    				<tbody id="tableSearch">
+{# 							{% for observation in pagination %} #}
+							{% for observation in observations %}
 		    					<tr>
 		    						<td>
 		    							<i class="fas fa-gavel"></i>		
@@ -70,9 +70,9 @@
 							{% endfor %}
 	    				</tbody>
 	    			</table>
-					<div class="panel-footer navigation">
+{# 					<div class="panel-footer navigation">
 				    	{{ knp_pagination_render(pagination) }}
-					</div>	
+					</div> #}	
 				</div>
 				</div>			
 			{% endif %}
@@ -80,4 +80,9 @@
 	    </div>
 	</div>
 
+{% endblock %}
+
+{% block javascript %}
+	{{ parent() }}
+	{% include 'ObservationBundle:Script:searchintable.html.twig' %}
 {% endblock %}
