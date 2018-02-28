@@ -49,6 +49,7 @@ twig:
         file_image_obs_default: '%file_image_obs_default%'
         file_image_user_default: '/img/no-user.png'
         img_dir: '/img/'
+        gmap_max_zoom: 8
 
 # Doctrine Configuration
 doctrine:

@@ -3,7 +3,7 @@
 
   var infowindow;
   var iconDir = {{ asset(img_dir) }};
-  var birdIcon = iconDir + "marker-ico-40.png";
+  var birdIcon = iconDir + "marker-ico-50.png";
 
   function initMap() {
     
@@ -18,7 +18,7 @@
       zoom: 5,
       // map types : roadmap, satellite, hybrid, terrain
       mapTypeId: 'roadmap',
-      maxZoom: 9,
+      maxZoom: {{ gmap_max_zoom }},
       minZoom: 3 
     })
 
@@ -118,7 +118,7 @@
   var markerCluster = new MarkerClusterer(map, markers, {
     styles: clusterStyles,
     ignoreHidden: false,
-    maxZoom: 7
+    maxZoom: {{ gmap_max_zoom + 1 }}
   });
 
   $('.gmarker').hover(function() 
