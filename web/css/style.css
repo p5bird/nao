@@ -2522,6 +2522,18 @@ button#form_envoyer {
     .programme-infos {
         padding: 0 20px;
     }
+
+    .footer {
+        display: none;
+    }
+
+    #btnTop {
+        display: none !important;
+    }
+
+    .footer-newsletter {
+        display: none;
+    }
 }
 
 @media screen and (max-width: 510px) {
