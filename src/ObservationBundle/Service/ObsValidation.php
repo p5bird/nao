@@ -3,16 +3,19 @@
 namespace ObservationBundle\Service;
 
 use ObservationBundle\Entity\Validation;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ObsValidation
 {
 	private $tokenStorage;
 	private $entityManager;
+	private $container;
 
-	public function __construct($tokenStorage, $entityManager)
+	public function __construct($tokenStorage, $entityManager, ContainerInterface $container)
 	{
 		$this->tokenStorage = $tokenStorage;
 		$this->entityManager = $entityManager;
+		$this->container = $container;
 	}
 
 	private function setValidation($observation = null)
@@ -41,6 +44,8 @@ class ObsValidation
         $validation->setRejected(false);
 
         $observation->setValidation($validation);
+
+        $this->container->get('obs.auto_update_group')->autoUpdateGroup($observation);
 
         return $observation;
 	}

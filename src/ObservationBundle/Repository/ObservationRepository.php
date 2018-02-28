@@ -79,13 +79,13 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 		$queryBuilder = $this->createQueryBuilder('obs');
 		$queryBuilder
 			->leftJoin('obs.author', 'user')
-			->andWhere('user.id = :userId')
-				->setParameter('userId', $user->getId())
-			->andWhere('obs.publish = :publish')
-				->setParameter('publish', true)
-			->leftJoin('obs.validation', 'val')
-			->andWhere('val.granted = :granted')
-				->setParameter('granted', true)
+            ->leftJoin('obs.validation', 'val')
+            ->andWhere('user.id = :userId')
+            ->andWhere('obs.publish = :publish')
+            ->andWhere('val.granted = :granted')
+            ->setParameter('userId', $user->getId())
+            ->setParameter('publish', true)
+            ->setParameter('granted', true)
 			->orderBy('obs.day', 'DESC');
 		return $queryBuilder;
 	}

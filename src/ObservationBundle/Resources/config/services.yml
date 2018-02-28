@@ -44,6 +44,7 @@ services:
         arguments:
           - "@security.token_storage"
           - "@doctrine.orm.entity_manager"
+          - "@service_container"
         public: true
 
     observation.mapdata:
@@ -53,3 +54,8 @@ services:
           - "@vich_uploader.templating.helper.uploader_helper"
           - "@router"
         public: true
+
+    obs.auto_update_group:
+        class: ObservationBundle\Service\AutoUpdateGroup
+        autowire: true
+        arguments: ['@doctrine.orm.entity_manager', '@security.authorization_checker']
