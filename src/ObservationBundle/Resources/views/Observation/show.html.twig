@@ -25,11 +25,14 @@
 					
 					<h1>{{ observation.birdName }} 
 						<div class="pull-right">
+							{% if is_granted('ROLE_USER') %}
+							
 						{% if userCanVote is sameas(true) %}
 							<button id="btn-obs-vote" type="submit" class="btn btn-default text-redalert"><i class="far fa-heart fa-lg"></i></button>
 						{% else %}
 							<button id="btn-obs-vote" type="submit" class="btn btn-default text-redalert"><i class="fas fa-heart fa-lg"></i></button>
 						{% endif %}
+							{% endif %}
 						</div>
 					</h1>
 

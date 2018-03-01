@@ -378,12 +378,17 @@ class ObservationController extends Controller
 
         // check if user has voted for this obs
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
+
         $userCanVote = true;
-        foreach ($observation->getVotes() as $votedUser)
-        {
-            if ($user->getId() == $votedUser->getId())
+        $securityContext = $this->container->get('security.authorization_checker');
+        if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        // authenticated REMEMBERED, FULLY will imply REMEMBERED (NON anonymous)
+            foreach ($observation->getVotes() as $votedUser)
             {
-                $userCanVote = false;
+                if ($user->getId() == $votedUser->getId())
+                {
+                    $userCanVote = false;
+                }
             }
         }
 

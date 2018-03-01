@@ -101,7 +101,8 @@ class AjaxController extends Controller
         }
 
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
-        if ($user->hasRole('ROLE_USER'))
+        $securityContext = $this->container->get('security.authorization_checker');
+        if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED'))
         {
             foreach ($observation->getVotes() as $voteUser) {
                 if ($voteUser->getId() == $user->getId())
