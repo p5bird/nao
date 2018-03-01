@@ -374,15 +374,22 @@ class ObservationController extends Controller
             ]);            
         }
         
-        // // Service Google Geoloc
-        // $locationInfos = $this->get('observation.geoloc')->getLocationInfos($observation);
 
-        // echo '<pre>';
-        // var_dump($locationInfos); 
-        // echo '</pre>'; 
+
+        // check if user has voted for this obs
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $userCanVote = true;
+        foreach ($observation->getVotes() as $votedUser)
+        {
+            if ($user->getId() == $votedUser->getId())
+            {
+                $userCanVote = false;
+            }
+        }
 
         return $this->render('ObservationBundle:Observation:show.html.twig', [
-        	'observation'	=> $observation
+        	'observation'	=> $observation,
+            'userCanVote'   => $userCanVote
         ]);
     }
 
@@ -429,7 +436,7 @@ class ObservationController extends Controller
 
     /**
      * @Route("/observation/showCheckList", name="nao_obs_check_list")
-     * @Security("is_granted('ROLE_SPECIALISTE')")
+     * @Security("is_granted('ROLE_NATURALISTE')")
      */
     public function showCheckListAction(Request $request)
     {

@@ -144,7 +144,7 @@ ul.list-unstyled li span {
 }
 
 .text-redalert {
-	color: #ea4335;
+	color: #ea4335 !important;
 }
 
 .block-redalert {
@@ -208,4 +208,8 @@ ul.list-unstyled li span {
 
 .obs-table > tbody {
 	padding: 0 !important;
+}
+
+#btn-obs-vote:focus {
+  outline: none;
 }

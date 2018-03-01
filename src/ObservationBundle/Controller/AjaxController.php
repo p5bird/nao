@@ -87,4 +87,42 @@ class AjaxController extends Controller
 
         return new JsonResponse($urlsTaxon);        
     }
+
+
+    public function voteObservationAction($id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $repository = $entityManager->getRepository('ObservationBundle:Observation');
+        $observation = $repository->find($id);
+
+        if (is_null($observation))
+        {
+            return new JsonResponse(false);
+        }
+
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        if ($user->hasRole('ROLE_USER'))
+        {
+            foreach ($observation->getVotes() as $voteUser) {
+                if ($voteUser->getId() == $user->getId())
+                {
+                    $observation->removeVote($user);
+
+                    $entityManager->persist($observation);
+                    $entityManager->flush();
+
+                    return new JsonResponse(false);
+                }
+            }
+
+            $observation->addVote($user);
+            
+            $entityManager->persist($observation);
+            $entityManager->flush();
+
+            return new JsonResponse(true);
+        }
+
+        return new JsonResponse(false);
+    }
 }

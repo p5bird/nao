@@ -188,6 +188,13 @@ nao_obs_search_result:
         view:   \w*
         filter: \w*
 
+nao_ajax_vote_obs:
+    path: /observation/ajax/vote/{id}
+    defaults:
+        _controller: ObservationBundle:Ajax:voteObservation
+    requirements:
+        id: \d+
+
 nao_landing_page:
     path: /landing-page/
     defaults: { _controller: AppBundle:App:landingPage }
