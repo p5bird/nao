@@ -6,16 +6,19 @@
             <div class="container">
                 <div id="index-carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner index-carousel-inner">
-                        <div class="item active">
+                        <div class="item active index-slide">
                             <img src="{{ asset('img/1.jpg') }}" alt="Oiseau">
+                            <div class="slide-title">Découvrez comment vous pouvez aider les oiseaux</div>
                         </div>
 
-                        <div class="item">
+                        <div class="item index-slide">
                             <img src="{{ asset('img/2.jpg') }}" alt="Oiseau">
+                            <div class="slide-title">Une source d'actualité en continu avec le blog</div>
                         </div>
 
-                        <div class="item">
+                        <div class="item index-slide">
                             <img src="{{ asset('img/3.jpg') }}" alt="Oiseau">
+                            <div class="slide-title">Apprenez en vous amusant !</div>
                         </div>
                     </div>
 
@@ -101,7 +104,9 @@
 
                                         {% if loop.first %}
                                             <div class="item active index-obs">
-                                                <img src="{{ imgSrc }}" alt="{{ imgAlt }}" class="user-avatar-image-show"/>
+                                                <a href="{{ path('nao_obs_show', {'id' : observation.id }) }}">
+                                                    <img src="{{ imgSrc }}" alt="{{ imgAlt }}" class="user-avatar-image-show"/>
+                                                </a>
                                                 <div class="index-obs-infos">
                                                     <div class="index-obs-name">
                                                         {{ observation.birdName }}
@@ -113,7 +118,9 @@
                                             </div>
                                         {% else %}
                                             <div class="item index-obs">
-                                                <img src="{{ imgSrc }}" alt="{{ imgAlt }}" class="user-avatar-image-show"/>
+                                                <a href="{{ path('nao_obs_show', {'id' : observation.id }) }}">
+                                                    <img src="{{ imgSrc }}" alt="{{ imgAlt }}" class="user-avatar-image-show"/>
+                                                </a>
                                                 <div class="index-obs-infos">
                                                     <div class="index-obs-name">
                                                         {{ observation.birdName }}

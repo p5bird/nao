@@ -2154,6 +2154,19 @@ button#form_envoyer {
     padding: 28px 15px;
 }
 
+.slide-title {
+    position: absolute;
+    left: 40px;
+    bottom: 10px;
+    font-size: 23pt;
+    color: white;
+    font-weight: 500;
+}
+
+.item.index-slide {
+    position: relative;
+}
+
 /******************************
 *******************************
 *********MEDIA QUERIES*********
