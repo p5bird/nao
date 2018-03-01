@@ -15,7 +15,7 @@ img.obs-img-form {
 }
 
 img.img-area-obs-details {
-	height: 25em;
+	max-height: 25em;
 }
 
 .user-interface-content-container {
@@ -165,8 +165,8 @@ ul.list-unstyled li span {
 }
 
 .obs-image-media {
-	width: 10em;
-	height: 5em;
+	width: 6em;
+	height: 3em;
 	background-position: center !important;
 	background-repeat: no-repeat !important;
 	background-size: cover !important;
