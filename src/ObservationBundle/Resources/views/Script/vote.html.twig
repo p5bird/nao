@@ -1,0 +1,24 @@
+    {# Vote for ine observation #}
+    <script type="text/javascript" title="Vote for observation">
+
+        $("#btn-obs-vote").on('click', function() {
+            voteOrUnvote();
+        });
+
+        function voteOrUnvote() {
+            $.ajax({
+                url: "{{ path('nao_ajax_vote_obs', {'id': observation.id}) }}",
+                dataType: 'json',
+                success: function(hasVoted) {
+                    if (hasVoted === true)
+                    {
+                        $("#btn-obs-vote").html('<i class="fas fa-heart fa-lg"></i>');
+                    }
+                    else
+                    {
+                        $("#btn-obs-vote").html('<i class="far fa-heart fa-lg">');                   
+                    }
+                }
+            });
+        }
+    </script>

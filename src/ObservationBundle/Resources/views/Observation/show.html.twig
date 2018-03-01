@@ -22,7 +22,17 @@
 			{% endif %}
     		<div class="row">
 	        	<div class="obs-search-title">
-					<h1>{{ observation.birdName }}</h1>
+					
+					<h1>{{ observation.birdName }} 
+						<div class="pull-right">
+						{% if userCanVote is sameas(true) %}
+							<button id="btn-obs-vote" type="submit" class="btn btn-default text-redalert"><i class="far fa-heart fa-lg"></i></button>
+						{% else %}
+							<button id="btn-obs-vote" type="submit" class="btn btn-default text-redalert"><i class="fas fa-heart fa-lg"></i></button>
+						{% endif %}
+						</div>
+					</h1>
+
 				</div>
 				{{ include('ObservationBundle:Item:obsdetails.html.twig') }}
 			</div>
@@ -36,4 +46,5 @@
 	{{ parent() }}
 	{% include 'ObservationBundle:Script:gmapfixed.html.twig' %}
 	{% include 'ObservationBundle:Script:imagemodal.html.twig' %}
+	{% include 'ObservationBundle:Script:vote.html.twig' %}
 {% endblock %}

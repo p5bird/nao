@@ -112,11 +112,13 @@ class Observation
     private $publish;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="likes", type="integer")
+     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\User")
+     * @ORM\JoinTable(name="nao_obs_votes",
+     *     joinColumns={@ORM\JoinColumn(name="observation_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
+     *     )
      */
-    private $likes;
+    private $votes;
 
     /**
      * @var int
@@ -213,10 +215,10 @@ class Observation
     {
         $this->sendingDate = new \DateTime();
         $this->publish = false;
-        $this->likes = 0;
         $this->reports = 0;
         $this->day = new \DateTime('now');
         $this->noName = false;
+        $this->votes = new ArrayCollection();
     }
 
 
@@ -429,6 +431,14 @@ class Observation
         return true;
     }
 
+    /**
+     * 
+     */
+    public function countVotes()
+    {
+        return count($this->votes);
+    }
+
 
     /**
      * ---------------------------------------
@@ -594,30 +604,6 @@ class Observation
     public function getPublish()
     {
         return $this->publish;
-    }
-
-    /**
-     * Set likes
-     *
-     * @param integer $likes
-     *
-     * @return Observation
-     */
-    public function setLikes($likes)
-    {
-        $this->likes = $likes;
-
-        return $this;
-    }
-
-    /**
-     * Get likes
-     *
-     * @return int
-     */
-    public function getLikes()
-    {
-        return $this->likes;
     }
 
     /**
@@ -1034,5 +1020,39 @@ class Observation
     public function getRemoveImage()
     {
         return $this->removeImage;
+    }
+
+    /**
+     * Add vote
+     *
+     * @param \UserBundle\Entity\User $vote
+     *
+     * @return Observation
+     */
+    public function addVote(\UserBundle\Entity\User $vote)
+    {
+        $this->votes[] = $vote;
+
+        return $this;
+    }
+
+    /**
+     * Remove vote
+     *
+     * @param \UserBundle\Entity\User $vote
+     */
+    public function removeVote(\UserBundle\Entity\User $vote)
+    {
+        $this->votes->removeElement($vote);
+    }
+
+    /**
+     * Get votes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVotes()
+    {
+        return $this->votes;
     }
 }
