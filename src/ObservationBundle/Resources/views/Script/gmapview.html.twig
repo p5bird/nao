@@ -118,7 +118,7 @@
   var markerCluster = new MarkerClusterer(map, markers, {
     styles: clusterStyles,
     ignoreHidden: false,
-    maxZoom: {{ gmap_max_zoom + 1 }}
+    maxZoom: {{ gmap_max_zoom - 1 }}
   });
 
   $('.gmarker').hover(function() 
@@ -202,5 +202,5 @@ function setObsWinInfos(obs) {
 </script>
 {# Google MAP API #}
 <script src="https://maps.googleapis.com/maps/api/js?key={{ google_map_api }}&callback=initMap" async defer></script>
-<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+<script src="{{ asset('js/markerclusterer.js') }}">
 </script>
